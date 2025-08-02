@@ -1,0 +1,23 @@
+{
+  "name": "cisco-ai-soc-telco-demo",
+  "version": "2.5.0",
+  "description": "Cisco AI-Powered Security Operations Center Demo for Telecommunications",
+  "main": "Cisco-AI-SoC-Telco-v2.5.html",
+  "scripts": {
+    "start": "npx http-server -p 8080",
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": [
+    "cisco",
+    "ai",
+    "soc",
+    "security",
+    "telecommunications",
+    "5g",
+    "agentic-ai"
+  ],
+  "author": "Cisco",
+  "license": "UNLICENSED",
+  "dependencies": {},
+  "devDependencies": {}
+}

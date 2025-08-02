@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+  
+  pre_build:
+    commands:
+      - echo "Pre-build phase..."
+      - echo "No pre-build steps required for static HTML"
+  
+  build:
+    commands:
+      - echo "Build phase..."
+      - echo "Static HTML - no build required"
+      - ls -la
+  
+  post_build:
+    commands:
+      - echo "Post-build phase completed on `date`"
+
+artifacts:
+  files:
+    - '**/*'
+  name: cisco-ai-soc-telco-demo
