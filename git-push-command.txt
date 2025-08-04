@@ -1,0 +1,18 @@
+# Replace YOUR_GITHUB_USERNAME and YOUR_GITHUB_TOKEN with your actual credentials
+# For Personal Access Token, go to: GitHub Settings → Developer settings → Personal access tokens → Generate new token (with 'repo' scope)
+
+# Option 1: Direct push with credentials (one-time)
+git push https://YOUR_GITHUB_USERNAME:YOUR_GITHUB_TOKEN@github.com/ashmanpan/AIsocdemov1.git main
+
+# Option 2: Set remote with credentials (permanent until changed)
+git remote set-url origin https://YOUR_GITHUB_USERNAME:YOUR_GITHUB_TOKEN@github.com/ashmanpan/AIsocdemov1.git
+git push -u origin main
+
+# Option 3: If you have SSH key set up
+git remote set-url origin git@github.com:ashmanpan/AIsocdemov1.git
+git push -u origin main
+
+# After pushing, your repository will be available at:
+# https://github.com/ashmanpan/AIsocdemov1
+
+# AWS Amplify will then be able to access it for deployment
