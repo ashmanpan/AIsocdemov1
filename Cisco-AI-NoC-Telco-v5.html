@@ -384,6 +384,31 @@
         }
         
         /* Rich content styles for NOC agent responses */
+        .rich-content {
+            background-color: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        
+        /* Additional styles from original file */
+        .root-container {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: transparent;
+            color: #eee;
+        }
+        
+        .root-container h3, .root-container h4 {
+            color: #00ff88;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
         .agent-workflow {
             margin: 20px 0;
         }
@@ -391,40 +416,69 @@
         .agent-step {
             margin-bottom: 15px;
             border: 1px solid #333;
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            background-color: #0a0a0a;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            background-color: #1a1a1a;
         }
         
-        .agent-step.completed {
-            border-color: #00ff88;
+        .highlight-step {
+            border: 2px solid #ff5252;
+            box-shadow: 0 2px 5px rgba(255, 82, 82, 0.3);
         }
         
         .agent-header {
             display: flex;
             align-items: center;
-            padding: 12px 16px;
-            background-color: #1a1a1a;
+            padding: 10px 15px;
+            background-color: #252525;
             border-bottom: 1px solid #333;
         }
         
         .agent-icon {
             font-size: 1.2em;
-            margin-right: 10px;
+            margin-right: 8px;
         }
         
         .agent-name {
-            font-weight: 600;
-            color: #00ff88;
+            font-weight: bold;
             flex-grow: 1;
+            color: #00ff88;
+        }
+        
+        .agent-content {
+            padding: 15px;
+            color: #ccc;
+        }
+        
+        .agent-transfer {
+            margin-top: 10px;
+            color: #888;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        
+        .multi-transfer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .arrow {
+            display: inline-block;
+            font-weight: bold;
+            margin-right: 5px;
+            color: #00ff88;
         }
         
         .status-tag {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 3px 8px;
             border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
         }
         
         .status-success {
@@ -437,106 +491,51 @@
             color: #ffc107;
         }
         
-        .status-critical {
+        .status-error, .status-critical {
             background-color: rgba(255, 82, 82, 0.2);
             color: #ff5252;
         }
         
-        .agent-content {
-            padding: 16px;
-            color: #ccc;
-            font-size: 14px;
-            line-height: 1.6;
+        .status-info {
+            background-color: rgba(0, 170, 255, 0.2);
+            color: #00aaff;
         }
         
-        .agent-transfer {
-            margin-top: 12px;
-            color: #888;
-            font-style: italic;
-            font-size: 13px;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-            background-color: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .data-table th {
-            background-color: #1a1a1a;
-            color: #00ff88;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 13px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .data-table td {
-            padding: 12px;
-            color: #ccc;
-            font-size: 13px;
-            border-bottom: 1px solid #222;
-        }
-        
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .data-table tr:hover {
-            background-color: #111;
-        }
-        
-        .metric-value {
-            font-weight: 600;
-            color: #00ff88;
-        }
-        
-        .metric-critical {
-            color: #ff5252;
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 120px;
-            margin: 20px 0;
-            position: relative;
-            background-color: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 10px;
-        }
-        
-        .progress-container {
-            width: 100%;
+        .compact-list {
             margin: 10px 0;
+            padding-left: 20px;
+            color: #ccc;
         }
         
-        .progress-bar {
-            height: 6px;
-            background-color: #333;
-            border-radius: 3px;
-            overflow: hidden;
+        .compact-list li {
+            margin-bottom: 5px;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff88, #00aaff);
-            width: 0%;
-            transition: width 0.3s ease;
+        .metric-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .normal-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .problem-value {
+            color: #ff5252;
+            font-weight: bold;
+        }
+        
+        .finding-summary {
+            margin-top: 10px;
         }
         
         .finding-tag {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
         }
         
         .finding-good {
@@ -554,13 +553,258 @@
             color: #ff5252;
         }
         
-        code {
+        .change-details {
+            background-color: rgba(255, 82, 82, 0.1);
+            border-left: 3px solid #ff5252;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .completed {
+            position: relative;
+        }
+        
+        .completed::after {
+            content: "✓";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #00ff88;
+            color: #0a0a0a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
             background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .data-table th {
+            background-color: #252525;
+            font-weight: 600;
             color: #00ff88;
+        }
+        
+        .data-table tr:hover {
+            background-color: #252525;
+        }
+        
+        .section-header {
+            margin-top: 25px;
+            color: #00ff88;
+            border-left: 4px solid #00ff88;
+            padding-left: 10px;
+        }
+        
+        .rca-container {
+            background-color: rgba(0, 255, 136, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #00ff88;
+        }
+        
+        .rca-container h4 {
+            border: none;
+            margin-top: 0;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .confidence-tag {
+            background-color: #00ff88;
+            color: #0a0a0a;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+        }
+        
+        .timeline {
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15px;
+            height: 100%;
+            width: 2px;
+            background-color: #00ff88;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 9px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #00ff88;
+            border: 2px solid #0a0a0a;
+        }
+        
+        .timeline-content {
+            padding: 3px 0;
+        }
+        
+        .timeline-time {
+            font-weight: bold;
+            color: #00ff88;
+        }
+        
+        .timeline-content p {
+            margin: 2px 0 0 0;
+            color: #ccc;
+        }
+        
+        .remediation-container {
+            margin-bottom: 20px;
+        }
+        
+        .remediation-phase {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid #00ff88;
+            background-color: rgba(0, 255, 136, 0.05);
+        }
+        
+        .phase-tag {
+            background-color: #00ff88;
+            color: #0a0a0a;
             padding: 2px 6px;
             border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 13px;
+            font-size: 0.8em;
+            font-weight: normal;
+        }
+        
+        .action-list {
+            margin-top: 8px;
+            padding-left: 25px;
+            color: #ccc;
+        }
+        
+        .action-list li {
+            margin-bottom: 6px;
+        }
+        
+        code {
+            background-color: #252525;
+            color: #00ff88;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .finding-list {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        .finding-list li {
+            margin-bottom: 6px;
+        }
+        
+        /* Additional styles for other content */
+        .progress-container {
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: progressFill 2s ease-out forwards;
+        }
+        
+        @keyframes progressFill {
+            to {
+                width: 100%;
+            }
+        }
+        
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            color: #00aaff;
+            font-weight: bold;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 120px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .chart-bar {
+            position: absolute;
+            bottom: 20px;
+            width: 30px;
+            background-color: #00ff88;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s ease;
+        }
+        
+        .chart-label {
+            position: absolute;
+            bottom: 0;
+            font-size: 10px;
+            color: #888;
+            width: 30px;
+            text-align: center;
         }
     </style>
 </head>
@@ -584,51 +828,23 @@
             <ul class="scenario-list">
                 <li class="scenario-item" onclick="selectScenario('packet-loss')">
                     <span class="scenario-icon">📡</span>
-                    <span class="scenario-text">AI-Driven Packet Loss Investigation</span>
+                    <span class="scenario-text">Packet Loss Investigation</span>
                 </li>
                 <li class="scenario-item" onclick="selectScenario('firewall-config')">
                     <span class="scenario-icon">🛡️</span>
-                    <span class="scenario-text">Intelligent Firewall Configuration Analysis</span>
+                    <span class="scenario-text">Firewall Configuration</span>
                 </li>
                 <li class="scenario-item" onclick="selectScenario('network-latency')">
                     <span class="scenario-icon">⚡</span>
-                    <span class="scenario-text">Network Latency Root Cause Analysis</span>
+                    <span class="scenario-text">Network Latency Analysis</span>
                 </li>
                 <li class="scenario-item" onclick="selectScenario('router-troubleshoot')">
                     <span class="scenario-icon">🔧</span>
-                    <span class="scenario-text">Autonomous Router Troubleshooting</span>
+                    <span class="scenario-text">Router Troubleshooting</span>
                 </li>
                 <li class="scenario-item" onclick="selectScenario('app-performance')">
                     <span class="scenario-icon">📊</span>
                     <span class="scenario-text">Application Performance RCA</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('bgp-analysis')">
-                    <span class="scenario-icon">🌐</span>
-                    <span class="scenario-text">BGP Session Stability Analysis</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('qos-optimization')">
-                    <span class="scenario-icon">⚙️</span>
-                    <span class="scenario-text">QoS Policy Optimization</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('bandwidth-forecast')">
-                    <span class="scenario-icon">📈</span>
-                    <span class="scenario-text">Bandwidth Utilization Forecasting</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('circuit-health')">
-                    <span class="scenario-icon">🔌</span>
-                    <span class="scenario-text">Circuit Health Monitoring</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('topology-mapping')">
-                    <span class="scenario-icon">🗺️</span>
-                    <span class="scenario-text">Dynamic Topology Discovery</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('service-impact')">
-                    <span class="scenario-icon">⚠️</span>
-                    <span class="scenario-text">Service Impact Analysis</span>
-                </li>
-                <li class="scenario-item" onclick="selectScenario('capacity-planning')">
-                    <span class="scenario-icon">📐</span>
-                    <span class="scenario-text">AI-Driven Capacity Planning</span>
                 </li>
             </ul>
         </div>
@@ -682,710 +898,935 @@
     </div>
 
     <script>
+        // Rich text response for Packet Loss Investigation
+        const toxicFactorHTML = `<div class="root-container">
+  <h3>Agentic AI - Packet Loss Investigation</h3>
+  <p><strong>Investigating Intermittent Packet Loss on XYZ Corp Core Network (Ticket #67891)</strong></p>
+  
+  <div class="agent-workflow">
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Ticket #67891 received from XYZ Corp NOC. Reports of 5-8% packet loss occurring every 30-45 minutes across multiple sites connecting to primary data center since 09:15 AM today.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Analyzing packet loss pattern. Intermittent issues with regular intervals often indicate resource constraints or scheduled processes. Need comprehensive topology and loss pattern data.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting network topology from <strong>TOPOLOGY_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Topology mapping complete. XYZ Corp network architecture:</p>
+        <ul class="compact-list">
+          <li>5 Remote sites connected via MPLS cloud</li>
+          <li>Primary data center with redundant WAN routers (DC-RTR-01, DC-RTR-02)</li>
+          <li>Core switches (CORE-SW-01, CORE-SW-02) in HSRP configuration</li>
+          <li>All affected traffic passes through CORE-SW-01 (active)</li>
+        </ul>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Initiating comprehensive diagnostic approach to locate source of packet loss:</p>
+        <div class="multi-transfer">
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting interface diagnostics from <strong>INTERFACE_CHECK_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting traffic analysis from <strong>TRAFFIC_ANALYSIS_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting resource utilization data from <strong>RESOURCE_MONITOR_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting error counter analysis from <strong>ERROR_DETECTION_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting recent changes from <strong>LCM_AGENT</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">INTERFACE_CHECK_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Interface health analysis complete. Examined all interfaces in path:</p>
+        <ul class="compact-list">
+          <li>No physical errors or CRC errors detected</li>
+          <li>No interface flaps recorded</li>
+          <li>Link utilization within normal parameters</li>
+          <li>No duplex mismatches found</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-good">Physical Layer Healthy</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Traffic pattern analysis complete:</p>
+        <ul class="compact-list">
+          <li>Packet loss observed across all protocols and applications</li>
+          <li>Loss occurs simultaneously at all remote sites</li>
+          <li>Clear 35-40 minute cycle in packet loss pattern</li>
+          <li>Loss events last approximately 3-5 minutes each time</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-issue">Periodic Loss Pattern Detected</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">📈</span>
+        <span class="agent-name">RESOURCE_MONITOR_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Resource utilization analysis complete. <strong>Critical finding</strong>:</p>
+        <ul class="metric-list">
+          <li>CORE-SW-01 CPU utilization spikes to <span class="problem-value">98%</span> every 40 minutes</li>
+          <li>Spike duration: 3-4 minutes</li>
+          <li>Process name: <code>SNMP_BULKWALK</code> consuming CPU during spikes</li>
+          <li>Packet drops perfectly correlate with CPU utilization spikes</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Identified</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚨</span>
+        <span class="agent-name">ERROR_DETECTION_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Error counter analysis complete:</p>
+        <ul class="compact-list">
+          <li>No input/output errors on interfaces</li>
+          <li>Buffer allocation failures detected on CORE-SW-01</li>
+          <li>Log entries show "Process not running" errors during high CPU events</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-issue">Resource Exhaustion Evidence</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📝</span>
+        <span class="agent-name">LCM_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Change management analysis complete:</p>
+        <ul class="compact-list">
+          <li>New monitoring system (SolarWinds) deployed yesterday at 15:30</li>
+          <li>SNMP polling interval configured for every 40 minutes</li>
+          <li>No other relevant changes in the past 72 hours</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-issue">Relevant Change Identified</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Correlating all diagnostic findings to determine root cause:</p>
+        <ul class="finding-list">
+          <li>Packet loss occurs at regular 40-minute intervals</li>
+          <li>CPU utilization on CORE-SW-01 spikes to 98% during loss events</li>
+          <li>SNMP_BULKWALK process consuming resources during spikes</li>
+          <li>New monitoring system deployed with 40-minute polling interval</li>
+        </ul>
+        <p>Root cause identified: Aggressive SNMP polling from new monitoring system causing CPU exhaustion on CORE-SW-01, leading to packet drops.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting remediation plan from <strong>RECOMMENDATIONS_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Detailed remediation plan generated:</p>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">IMMEDIATE</span> (Within 15 minutes)</h5>
+          <ol class="action-list">
+            <li>Reduce SNMP polling frequency to every 120 minutes</li>
+            <li>Implement rate limiting on SNMP requests</li>
+            <li>Temporarily disable non-critical OIDs from collection</li>
+          </ol>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">SHORT-TERM</span> (Within 24 hours)</h5>
+          <ol class="action-list">
+            <li>Distribute SNMP load across multiple polling cycles</li>
+            <li>Configure polling only for essential MIBs</li>
+            <li>Implement SNMP process rate limiting on CORE switches</li>
+          </ol>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">LONG-TERM</span> (Within 1 week)</h5>
+          <ol class="action-list">
+            <li>Redesign monitoring architecture to use distributed collectors</li>
+            <li>Implement SNMPv3 with optimization for resource constraints</li>
+            <li>Test and validate monitoring impact before full deployment</li>
+          </ol>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Root cause analysis and remediation plan complete. Transferring to IO_AGENT for customer communication.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h4 class="section-header">Final Analysis Report</h4>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Investigation Component</th>
+          <th>Status</th>
+          <th>Findings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Physical Interfaces</td>
+          <td><span class="status-tag status-success">Healthy</span></td>
+          <td>No physical errors or interface flaps detected</td>
+        </tr>
+        <tr>
+          <td>Traffic Patterns</td>
+          <td><span class="status-tag status-warning">Issue Detected</span></td>
+          <td>Periodic packet loss occurring every 40 minutes</td>
+        </tr>
+        <tr>
+          <td>Resource Utilization</td>
+          <td><span class="status-tag status-error">Critical Issue</span></td>
+          <td>CPU spikes to 98% on CORE-SW-01 during loss events</td>
+        </tr>
+        <tr>
+          <td>Error Counters</td>
+          <td><span class="status-tag status-warning">Issue Detected</span></td>
+          <td>Buffer allocation failures during high CPU events</td>
+        </tr>
+        <tr>
+          <td>Recent Changes</td>
+          <td><span class="status-tag status-warning">Relevant Change</span></td>
+          <td>New monitoring system deployed with 40-minute polling</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="rca-container">
+    <h4>Root Cause Analysis <span class="confidence-tag">98% Confidence</span></h4>
+    <p>The intermittent packet loss occurring on the XYZ Corp network is caused by <strong>aggressive SNMP polling</strong> from the newly deployed SolarWinds monitoring system. Every 40 minutes, the system initiates bulk SNMP walks that cause CPU utilization on CORE-SW-01 to spike to 98% for 3-4 minutes. During these resource exhaustion periods, the switch cannot properly process all packets, resulting in 5-8% packet loss across all connected sites.</p>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-time">09:15 AM</span>
+          <p>First packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-time">09:55 AM</span>
+          <p>Second packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-time">10:35 AM</span>
+          <p>Third packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-time">11:15 AM</span>
+          <p>Fourth packet loss event occurs</p>
+        </div>
+      </div>
+    </div>
+    
+    <p>The timing of these events precisely matches the 40-minute SNMP polling interval configured in the monitoring system deployed yesterday. All diagnostic evidence confirms this correlation.</p>
+  </div>
+  
+  <div class="remediation-container">
+    <h4>Recommended Actions</h4>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">IMMEDIATE</span> (Within 15 minutes)</h5>
+      <ol class="action-list">
+        <li>Reduce SNMP polling frequency to every 120 minutes</li>
+        <li>Implement rate limiting on SNMP requests using command:<br>
+        <code>snmp-server rate-limit 1</code></li>
+        <li>Temporarily disable non-critical OIDs from collection</li>
+        <li>Verify resolution by monitoring CPU utilization and packet loss</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">SHORT-TERM</span> (Within 24 hours)</h5>
+      <ol class="action-list">
+        <li>Distribute SNMP load across multiple polling cycles</li>
+        <li>Configure polling only for essential MIBs</li>
+        <li>Implement SNMP process rate limiting on CORE switches using:<br>
+        <code>process cpu threshold type total rising 80 interval 5 falling 20 interval 5</code></li>
+        <li>Create CPU monitoring alert for proactive detection</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">LONG-TERM</span> (Within 1 week)</h5>
+      <ol class="action-list">
+        <li>Redesign monitoring architecture to use distributed collectors</li>
+        <li>Implement SNMPv3 with optimization for resource constraints</li>
+        <li>Test and validate monitoring impact in lab environment before deployment</li>
+        <li>Create monitoring design document with best practices for future implementation</li>
+      </ol>
+    </div>
+  </div>
+  
+  <div class="action-request" style="background-color: #1a1a1a; border-color: #00ff88;">
+    <p style="color: #ccc;"><strong>Action Required:</strong> Please review the remediation plan and approve implementation of immediate actions to resolve the packet loss issue.</p>
+    <div class="action-buttons">
+      <button class="action-button approve" style="background-color: #00ff88; color: #0a0a0a;">Approve & Execute</button>
+      <button class="action-button schedule" style="background-color: #00aaff; color: #fff;">Schedule for Later</button>
+      <button class="action-button more-info" style="background-color: #666; color: #fff;">Request More Info</button>
+    </div>
+  </div>
+</div>`;
+
+        // Rich text response for Firewall Configuration
+        const firewallConfigHTML = `<h3>Firewall Configuration Analysis</h3>
+<p><strong>Analyzing your current firewall configuration...</strong></p>
+
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 100%;"></div>
+    </div>
+</div>
+
+<p>Analysis complete. <span class="status-tag status-warning">5 Issues Found</span></p>
+
+<p>Found <span class="highlight">23 active rules</span> with <span class="warning">5 potential conflicts</span> in zone policies:</p>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Rule #</th>
+                <th>Conflict Type</th>
+                <th>Severity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#17 & #22</td>
+                <td>Overlapping address spaces</td>
+                <td><span class="status-tag status-critical">Critical</span></td>
+            </tr>
+            <tr>
+                <td>#08 & #15</td>
+                <td>Contradicting actions</td>
+                <td><span class="status-tag status-warning">Medium</span></td>
+            </tr>
+            <tr>
+                <td>#31</td>
+                <td>Overly permissive</td>
+                <td><span class="status-tag status-warning">Medium</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Security posture assessment:</p>
+<ul>
+    <li><span class="warning">Detected 3 overly permissive rules</span> that could be tightened for improved security</li>
+    <li>Rule #31 allows <span class="highlight">ALL traffic from DMZ to Internal</span> without inspection</li>
+    <li>Rules #12-14 could be consolidated into a single rule for better management</li>
+</ul>
+
+<p><strong class="success">Recommendation:</strong> Consider implementing a zero-trust approach with more granular access controls and implement the following changes:</p>
+<ul>
+    <li>Modify rule #17 to exclude the subnet covered by rule #22</li>
+    <li>Enable application-layer inspection for DMZ traffic</li>
+    <li>Implement time-based access controls for administrative protocols</li>
+</ul>`;
+
+        // Rich text response for Network Latency Analysis
+        const networkLatencyHTML = `<h3>Network Latency Analysis Report</h3>
+<p><strong>Running network latency analysis across all monitored segments...</strong></p>
+
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 100%;"></div>
+    </div>
+</div>
+
+<p>Analysis complete. <span class="status-tag status-critical">Critical Issue Detected</span></p>
+
+<p>Detected <span class="warning">abnormal latency spikes</span> between HQ and East Branch office occurring daily at <span class="highlight">14:00-15:30</span>:</p>
+
+<div class="chart-container">
+    <div class="chart-bar" style="height: 30px; left: 10px;"></div>
+    <div class="chart-label" style="left: 10px;">9:00</div>
+    <div class="chart-bar" style="height: 25px; left: 44px;"></div>
+    <div class="chart-label" style="left: 44px;">10:00</div>
+    <div class="chart-bar" style="height: 40px; left: 78px;"></div>
+    <div class="chart-label" style="left: 78px;">11:00</div>
+    <div class="chart-bar" style="height: 45px; left: 112px;"></div>
+    <div class="chart-label" style="left: 112px;">12:00</div>
+    <div class="chart-bar" style="height: 50px; left: 146px;"></div>
+    <div class="chart-label" style="left: 146px;">13:00</div>
+    <div class="chart-bar" style="height: 110px; left: 180px; background-color: #ff5252;"></div>
+    <div class="chart-label" style="left: 180px;">14:00</div>
+    <div class="chart-bar" style="height: 100px; left: 214px; background-color: #ff5252;"></div>
+    <div class="chart-label" style="left: 214px;">15:00</div>
+    <div class="chart-bar" style="height: 40px; left: 248px;"></div>
+    <div class="chart-label" style="left: 248px;">16:00</div>
+    <div class="chart-bar" style="height: 30px; left: 282px;"></div>
+    <div class="chart-label" style="left: 282px;">17:00</div>
+</div>
+
+<p>Performance metrics during issue periods:</p>
+<ul>
+    <li>Average latency increased from <span class="success">45ms</span> to <span class="warning">320ms</span></li>
+    <li>Packet loss rate: <span class="highlight">2.7%</span></li>
+    <li>Jitter: <span class="highlight">18ms</span></li>
+</ul>
+
+<p>Root cause analysis:</p>
+<ul>
+    <li>Scheduled backup processes consuming <span class="warning">87% of available bandwidth</span></li>
+    <li>Backup server (IP: <span class="highlight">10.45.67.89</span>) transferring approximately 120GB daily</li>
+    <li>No QoS policies in place to prioritize real-time traffic</li>
+</ul>
+
+<p><strong class="success">Recommendation:</strong> Implement the following changes:</p>
+<ul>
+    <li>Reschedule backup windows to off-peak hours (19:00-07:00)</li>
+    <li>Implement QoS policies to prioritize critical traffic</li>
+    <li>Increase bandwidth allocation for the East Branch link</li>
+</ul>`;
+
+        // Rich text response for Router Troubleshooting
+        const routerTroubleshootingHTML = `<h3>Router Troubleshooting Analysis</h3>
+<p><strong>Diagnosing router issues based on logs and telemetry data...</strong></p>
+
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 100%;"></div>
+    </div>
+</div>
+
+<p>Analysis complete. <span class="status-tag status-critical">Critical Issues Found</span></p>
+
+<p>Identified issues on core router <span class="warning">CR-01</span> coinciding with reported connectivity problems:</p>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Issue</th>
+                <th>Severity</th>
+                <th>Impact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>CPU Spikes</td>
+                <td><span class="status-tag status-critical">Critical</span></td>
+                <td>Performance degradation</td>
+            </tr>
+            <tr>
+                <td>BGP Sessions Flapping</td>
+                <td><span class="status-tag status-critical">Critical</span></td>
+                <td>Routing instability</td>
+            </tr>
+            <tr>
+                <td>Memory Utilization</td>
+                <td><span class="status-tag status-warning">Warning</span></td>
+                <td>Potential system failure</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Detailed findings:</p>
+<ul>
+    <li>CPU utilization spikes to <span class="warning">94%</span> every 45 minutes</li>
+    <li>BGP sessions flapping with peers <span class="highlight">192.168.100.1</span> and <span class="highlight">192.168.100.2</span></li>
+    <li>Memory utilization consistently above <span class="warning">85%</span> which may indicate a memory leak</li>
+    <li>Process <span class="highlight">IP Input</span> consuming excessive CPU during spikes</li>
+    <li>Log analysis shows <span class="warning">3,456 syslog messages</span> related to memory allocation failures in the last 24 hours</li>
+</ul>
+
+<p><strong class="success">Recommendation:</strong> Apply firmware update <span class="highlight">15.4(3)M2</span> which addresses known memory management issues. Additionally:</p>
+<ul>
+    <li>Increase BGP timers to improve stability during recovery</li>
+    <li>Implement graceful restart for critical routing protocols</li>
+    <li>Schedule maintenance window for router reboot and firmware update</li>
+    <li>Monitor memory usage post-update to confirm resolution</li>
+</ul>`;
+
+        // Rich text response for Default (Application Performance RCA)
+        const defaultResponseHTML = `<div class="root-container">
+  <h3>Agentic AI - Root Cause Analysis Workflow</h3>
+  <p><strong>Investigating Application Performance Issue at ABC Bank Mumbai Branch (Ticket #45782)</strong></p>
+  
+  <div class="agent-workflow">
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Ticket #45782 received from ABC Bank Mumbai branch. Multiple users reporting application response times of 3-5 seconds since 10:45 AM local time.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Initiating systematic investigation approach. Need to map environment and coordinate parallel checks on all components.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting topology from <strong>TOPOLOGY_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Topology mapping complete. Full path from Mumbai to DC-West identified:</p>
+        <ul class="compact-list">
+          <li>Edge: R1-MUM (10.11.1.1)</li>
+          <li>Provider Edge: R2-GW (172.16.0.2)</li>
+          <li>Core: R3-CORE (172.16.0.6)</li>
+          <li>DC Gateway: DC-GW (10.224.0.1)</li>
+          <li>Active tunnel: Tunnel-17 (VPN-456789)</li>
+        </ul>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Initiating parallel investigations to minimize MTTR:</p>
+        <div class="multi-transfer">
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting interface checks from <strong>INTERFACE_CHECK_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting performance analysis from <strong>HISTORICAL_PERF_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting QoS verification from <strong>QOS_POLICY_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting path verification from <strong>TRAFFIC_PATH_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting change records from <strong>LCM_AGENT</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">INTERFACE_CHECK_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Physical layer analysis complete. All interfaces in path are clean - no errors, no discards, no flaps detected.</p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-good">Physical Layer Healthy</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">HISTORICAL_PERF_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Performance analysis complete. Detected significant deviation from baseline during incident window:</p>
+        <ul class="metric-list">
+          <li>Latency: <span class="normal-value">12ms</span> → <span class="problem-value">45ms</span></li>
+          <li>Jitter: <span class="normal-value">3ms</span> → <span class="problem-value">18ms</span></li>
+          <li>Packet Loss: <span class="normal-value">0.01%</span> → <span class="problem-value">0.8%</span></li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-issue">Performance Degradation</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔄</span>
+        <span class="agent-name">QOS_POLICY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>QoS policy analysis complete. Detected drop conditions in high-priority queues:</p>
+        <ul class="compact-list">
+          <li>VOICE class: 12% packet drops</li>
+          <li>CRITICAL-DATA class: 8% packet drops</li>
+          <li>ABC Bank application traffic is classified in CRITICAL-DATA</li>
+          <li>Bandwidth allocation changed from <span class="normal-value">35%</span> to <span class="problem-value">25%</span></li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">QoS Configuration Issue</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🛣️</span>
+        <span class="agent-name">TRAFFIC_PATH_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Routing verification complete. Traffic is following expected path through network.</p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-good">Routing Path Correct</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">📝</span>
+        <span class="agent-name">LCM_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Change analysis complete. <strong>Critical finding</strong>: QoS policy change (CR-45211) implemented on R2-GW at 10:40 AM - exactly 5 minutes before reported issues began.</p>
+        <div class="change-details">
+          <p>Change reduced bandwidth allocation for CRITICAL-DATA class from 35% to 25% as part of network-wide standardization.</p>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Identified</span>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>All diagnostic data collected. Analyzing correlation between findings:</p>
+        <ul class="compact-list">
+          <li>Physical infrastructure is healthy</li>
+          <li>Performance metrics show degradation during specific window</li>
+          <li>QoS queue drops detected in critical traffic class</li>
+          <li>Routing path is correct</li>
+          <li>QoS policy change aligns perfectly with issue onset</li>
+        </ul>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting remediation plan from <strong>RECOMMENDATIONS_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Generated detailed remediation plan with timeline-based approach:</p>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">IMMEDIATE</span> (5 minutes)</h5>
+          <p>Restore CRITICAL-DATA bandwidth allocation from 25% to previous 35% on R2-GW</p>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">SHORT-TERM</span> (24-48 hours)</h5>
+          <p>Analyze Mumbai branch traffic patterns and right-size QoS allocations</p>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">LONG-TERM</span> (1-2 weeks)</h5>
+          <p>Review QoS standardization project and update change management</p>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+    
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Root cause analysis and remediation plan complete. Transferring to IO_AGENT for customer communication.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h4 class="section-header">Final Analysis Report</h4>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Investigation Component</th>
+          <th>Status</th>
+          <th>Findings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Physical Infrastructure</td>
+          <td><span class="status-tag status-success">Healthy</span></td>
+          <td>No errors, discards or interface flaps detected</td>
+        </tr>
+        <tr>
+          <td>Network Performance</td>
+          <td><span class="status-tag status-warning">Degraded</span></td>
+          <td>Latency increased from 12ms to 45ms during incident window</td>
+        </tr>
+        <tr>
+          <td>QoS Configuration</td>
+          <td><span class="status-tag status-error">Issue Detected</span></td>
+          <td>Critical-Data class drops of 8% observed</td>
+        </tr>
+        <tr>
+          <td>Routing Path</td>
+          <td><span class="status-tag status-success">Correct</span></td>
+          <td>Traffic following expected network path</td>
+        </tr>
+        <tr>
+          <td>Recent Changes</td>
+          <td><span class="status-tag status-error">Relevant Change Found</span></td>
+          <td>QoS policy modification at 10:40 AM (CR-45211)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="rca-container">
+    <h4>Root Cause Analysis <span class="confidence-tag">95% Confidence</span></h4>
+    <p>The application slowness at ABC Bank Mumbai branch was caused by a QoS policy change implemented at 10:40 AM today on router R2-GW. The change reduced bandwidth allocation for critical application traffic from 35% to 25%, causing queue congestion, packet drops, and increased latency during the 10:45-11:10 AM window.</p>
+    <p>All diagnostic agents confirm this finding with physical layer, routing, and other potential causes ruled out. The issue timing precisely aligns with the policy change implementation.</p>
+  </div>
+  
+  <div class="remediation-container">
+    <h4>Recommended Actions</h4>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">IMMEDIATE</span> (Resolution within 5 minutes)</h5>
+      <ol class="action-list">
+        <li>Implement emergency change to restore CRITICAL-DATA bandwidth allocation from 25% to previous 35% on R2-GW</li>
+        <li>Command: <code>config t; policy-map WAN-EDGE; class CRITICAL-DATA; bandwidth percent 35; end; write mem</code></li>
+        <li>Verify queue drops cease after implementation</li>
+        <li>Monitor application performance for 15 minutes to confirm resolution</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">SHORT-TERM</span> (24-48 hours)</h5>
+      <ol class="action-list">
+        <li>Analyze Mumbai branch traffic patterns over 7-day period</li>
+        <li>Right-size QoS allocations based on actual usage patterns</li>
+        <li>Create Mumbai-specific policy template</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">LONG-TERM</span> (1-2 weeks)</h5>
+      <ol class="action-list">
+        <li>Review network-wide QoS standardization project</li>
+        <li>Create branch-specific exceptions process</li>
+        <li>Update change management procedure to include application testing</li>
+      </ol>
+    </div>
+  </div>
+  
+  <div class="action-request" style="background-color: #1a1a1a; border-color: #00ff88;">
+    <p style="color: #ccc;"><strong>Action Required:</strong> Please review the root cause analysis and approve immediate remediation to restore application performance for ABC Bank Mumbai branch.</p>
+    <div class="action-buttons">
+      <button class="action-button approve" style="background-color: #00ff88; color: #0a0a0a;">Approve & Execute</button>
+      <button class="action-button schedule" style="background-color: #00aaff; color: #fff;">Schedule for Later</button>
+      <button class="action-button more-info" style="background-color: #666; color: #fff;">Request More Info</button>
+    </div>
+  </div>
+</div>`;
+
         const scenarios = {
             'packet-loss': {
-                title: 'AI-Driven Packet Loss Investigation',
-                description: 'Multi-agent collaboration to identify root cause of intermittent packet loss',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Initializing packet loss investigation workflow. Deploying specialized agents...'
-                    },
-                    {
-                        role: 'IO_AGENT',
-                        text: 'Ticket #67891 received from XYZ Corp NOC. Reports of 5-8% packet loss occurring every 30-45 minutes across multiple sites connecting to primary data center since 09:15 AM today.'
-                    },
-                    {
-                        role: 'MASTER_REASONING_AGENT',
-                        text: 'Analyzing packet loss pattern. Intermittent issues with regular intervals often indicate resource constraints or scheduled processes. Initiating comprehensive diagnostic approach.'
-                    },
-                    {
-                        role: 'TOPOLOGY_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🗺️</span>
-                                    <span class="agent-name">TOPOLOGY_AGENT</span>
-                                    <span class="status-tag status-success">Mapping Complete</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p>Network topology discovered:</p>
-                                    <ul style="margin: 10px 0; padding-left: 20px; color: #ccc;">
-                                        <li>5 Remote sites connected via MPLS cloud</li>
-                                        <li>Primary data center with redundant WAN routers (DC-RTR-01, DC-RTR-02)</li>
-                                        <li>Core switches (CORE-SW-01, CORE-SW-02) in HSRP configuration</li>
-                                        <li>All affected traffic passes through CORE-SW-01 (active)</li>
-                                    </ul>
-                                    <div class="agent-transfer">→ Transferring topology data to MASTER_REASONING_AGENT</div>
-                                </div>
-                            </div>
-                        </div>`
-                    },
-                    {
-                        role: 'RESOURCE_MONITOR_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">📊</span>
-                                    <span class="agent-name">RESOURCE_MONITOR_AGENT</span>
-                                    <span class="status-tag status-critical">Critical Finding</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Resource utilization analysis complete:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Device</th>
-                                                <th>CPU Usage</th>
-                                                <th>Memory</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>CORE-SW-01</td>
-                                                <td class="metric-critical">98% (spike)</td>
-                                                <td class="metric-value">75%</td>
-                                                <td><span class="status-tag status-critical">Critical</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>DC-RTR-01</td>
-                                                <td class="metric-value">45%</td>
-                                                <td class="metric-value">62%</td>
-                                                <td><span class="status-tag status-success">Normal</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px;">🔴 <strong>Root Cause Identified:</strong> SNMP_BULKWALK process consuming excessive CPU every 40 minutes</p>
-                                    <div class="agent-transfer">→ Critical finding reported to MASTER_REASONING_AGENT</div>
-                                </div>
-                            </div>
-                        </div>`
-                    },
-                    {
-                        role: 'RECOMMENDATIONS_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">💡</span>
-                                    <span class="agent-name">RECOMMENDATIONS_AGENT</span>
-                                    <span class="status-tag status-success">Solution Ready</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Remediation Plan Generated:</strong></p>
-                                    <div style="margin: 15px 0;">
-                                        <h4 style="color: #00ff88; margin-bottom: 8px;">IMMEDIATE (15 minutes)</h4>
-                                        <ol style="margin-left: 20px; color: #ccc;">
-                                            <li>Reduce SNMP polling frequency to every 120 minutes</li>
-                                            <li>Implement rate limiting: <code>snmp-server rate-limit 1</code></li>
-                                            <li>Disable non-critical OIDs temporarily</li>
-                                        </ol>
-                                    </div>
-                                    <div style="margin: 15px 0;">
-                                        <h4 style="color: #ffc107; margin-bottom: 8px;">SHORT-TERM (24 hours)</h4>
-                                        <ol style="margin-left: 20px; color: #ccc;">
-                                            <li>Distribute SNMP load across multiple polling cycles</li>
-                                            <li>Configure essential MIBs only</li>
-                                            <li>Implement CPU threshold monitoring</li>
-                                        </ol>
-                                    </div>
-                                    <div class="agent-transfer">→ Ready for implementation approval</div>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
+                title: 'Packet Loss Investigation',
+                description: 'Agentic AI - Investigating Intermittent Packet Loss on XYZ Corp Core Network',
+                htmlResponse: toxicFactorHTML
             },
             'firewall-config': {
-                title: 'Intelligent Firewall Configuration Analysis',
-                description: 'AI agents analyze firewall rules and identify conflicts and security gaps',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Initiating firewall configuration analysis workflow...'
-                    },
-                    {
-                        role: 'CONFIG_PARSER_AGENT',
-                        text: 'Analyzing firewall configuration file. Detected 23 active rules across 4 security zones.'
-                    },
-                    {
-                        role: 'SECURITY_ANALYZER_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🔍</span>
-                                    <span class="agent-name">SECURITY_ANALYZER_AGENT</span>
-                                    <span class="status-tag status-warning">Issues Found</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Security Analysis Complete:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Rule Conflict</th>
-                                                <th>Type</th>
-                                                <th>Risk Level</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Rule #17 & #22</td>
-                                                <td>Overlapping address spaces</td>
-                                                <td><span class="finding-tag finding-critical">Critical</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rule #08 & #15</td>
-                                                <td>Contradicting actions</td>
-                                                <td><span class="finding-tag finding-issue">Medium</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rule #31</td>
-                                                <td>Overly permissive (ANY/ANY)</td>
-                                                <td><span class="finding-tag finding-issue">Medium</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px; color: #ff5252;">⚠️ Rule #31 allows ALL traffic from DMZ to Internal without inspection</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
+                title: 'Firewall Configuration',
+                description: 'Analyzing your current firewall configuration',
+                htmlResponse: firewallConfigHTML
             },
             'network-latency': {
-                title: 'Network Latency Root Cause Analysis',
-                description: 'Multi-agent investigation of latency spikes affecting branch connectivity',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Starting network latency analysis across all monitored segments...'
-                    },
-                    {
-                        role: 'PERFORMANCE_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">📈</span>
-                                    <span class="agent-name">PERFORMANCE_AGENT</span>
-                                    <span class="status-tag status-critical">Anomaly Detected</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Performance Analysis Results:</strong></p>
-                                    <div class="chart-container">
-                                        <p style="color: #888; font-size: 12px;">Latency Pattern (HQ to East Branch)</p>
-                                        <div style="display: flex; align-items: flex-end; height: 80px; gap: 5px;">
-                                            <div style="background: #00ff88; width: 20px; height: 30%;"></div>
-                                            <div style="background: #00ff88; width: 20px; height: 25%;"></div>
-                                            <div style="background: #00ff88; width: 20px; height: 40%;"></div>
-                                            <div style="background: #00ff88; width: 20px; height: 45%;"></div>
-                                            <div style="background: #00ff88; width: 20px; height: 50%;"></div>
-                                            <div style="background: #ff5252; width: 20px; height: 100%;"></div>
-                                            <div style="background: #ff5252; width: 20px; height: 95%;"></div>
-                                            <div style="background: #00ff88; width: 20px; height: 40%;"></div>
-                                        </div>
-                                        <p style="color: #666; font-size: 11px; margin-top: 5px;">9AM - 5PM (Hourly)</p>
-                                    </div>
-                                    <ul style="margin: 10px 0; padding-left: 20px;">
-                                        <li>Normal latency: <span class="metric-value">45ms</span></li>
-                                        <li>Peak latency: <span class="metric-critical">320ms</span> (14:00-15:30)</li>
-                                        <li>Packet loss: <span class="metric-critical">2.7%</span></li>
-                                    </ul>
-                                    <p><strong>Root Cause:</strong> Scheduled backup consuming 87% bandwidth during business hours</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
+                title: 'Network Latency Analysis',
+                description: 'Running network latency analysis across all monitored segments',
+                htmlResponse: networkLatencyHTML
             },
             'router-troubleshoot': {
-                title: 'Autonomous Router Troubleshooting',
-                description: 'AI agents diagnose and resolve router performance issues',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Deploying router diagnostic agents...'
-                    },
-                    {
-                        role: 'DEVICE_HEALTH_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🔧</span>
-                                    <span class="agent-name">DEVICE_HEALTH_AGENT</span>
-                                    <span class="status-tag status-critical">Critical Issues</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Router CR-01 Diagnostics:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Issue</th>
-                                                <th>Severity</th>
-                                                <th>Impact</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>CPU Spikes (94%)</td>
-                                                <td><span class="status-tag status-critical">Critical</span></td>
-                                                <td>Performance degradation</td>
-                                            </tr>
-                                            <tr>
-                                                <td>BGP Session Flapping</td>
-                                                <td><span class="status-tag status-critical">Critical</span></td>
-                                                <td>Routing instability</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Memory at 85%</td>
-                                                <td><span class="status-tag status-warning">Warning</span></td>
-                                                <td>Potential failures</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong> Apply firmware <code>15.4(3)M2</code> to fix memory leak</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
+                title: 'Router Troubleshooting',
+                description: 'Diagnosing router issues based on logs and telemetry data',
+                htmlResponse: routerTroubleshootingHTML
             },
             'app-performance': {
-                title: 'Application Performance Root Cause Analysis',
-                description: 'End-to-end investigation of application slowness across the network',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Initializing application performance investigation workflow...'
-                    },
-                    {
-                        role: 'IO_AGENT',
-                        text: 'Ticket #45782 received from ABC Bank Mumbai branch. Multiple users reporting application response times of 3-5 seconds since 10:45 AM local time.'
-                    },
-                    {
-                        role: 'MASTER_REASONING_AGENT',
-                        text: 'Initiating systematic investigation. Deploying specialized agents for parallel analysis across all network layers.'
-                    },
-                    {
-                        role: 'Multiple Agents',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🔄</span>
-                                    <span class="agent-name">QOS_POLICY_AGENT</span>
-                                    <span class="status-tag status-critical">Root Cause Found</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>QoS Analysis Results:</strong></p>
-                                    <ul style="margin: 10px 0; padding-left: 20px;">
-                                        <li>CRITICAL-DATA class: <span class="metric-critical">8% packet drops</span></li>
-                                        <li>Bandwidth reduced from <span class="metric-value">35%</span> to <span class="metric-critical">25%</span></li>
-                                        <li>Change implemented at 10:40 AM (CR-45211)</li>
-                                    </ul>
-                                    <p style="margin-top: 10px; color: #00ff88;"><strong>Solution:</strong> Restore bandwidth to 35% immediately</p>
-                                    <code style="display: block; margin-top: 10px;">
-                                        policy-map WAN-EDGE<br>
-                                        &nbsp;&nbsp;class CRITICAL-DATA<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;bandwidth percent 35
-                                    </code>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'bgp-analysis': {
-                title: 'BGP Session Stability Analysis',
-                description: 'AI-driven analysis of BGP peering issues and route stability',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Initiating BGP session analysis workflow...'
-                    },
-                    {
-                        role: 'BGP_ANALYZER_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🌐</span>
-                                    <span class="agent-name">BGP_ANALYZER_AGENT</span>
-                                    <span class="status-tag status-warning">Instability Detected</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>BGP Session Analysis:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Peer IP</th>
-                                                <th>AS Number</th>
-                                                <th>State</th>
-                                                <th>Flaps (24h)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>192.168.100.1</td>
-                                                <td>AS 65001</td>
-                                                <td><span class="status-tag status-critical">Flapping</span></td>
-                                                <td class="metric-critical">47</td>
-                                            </tr>
-                                            <tr>
-                                                <td>192.168.100.2</td>
-                                                <td>AS 65002</td>
-                                                <td><span class="status-tag status-success">Established</span></td>
-                                                <td class="metric-value">0</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px;"><strong>Root Cause:</strong> MTU mismatch causing TCP MSS issues</p>
-                                    <p><strong>Fix:</strong> <code>ip tcp adjust-mss 1436</code></p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'qos-optimization': {
-                title: 'QoS Policy Optimization',
-                description: 'Intelligent QoS analysis and optimization recommendations',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Starting QoS policy analysis and optimization...'
-                    },
-                    {
-                        role: 'QOS_OPTIMIZER_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">⚙️</span>
-                                    <span class="agent-name">QOS_OPTIMIZER_AGENT</span>
-                                    <span class="status-tag status-success">Optimization Ready</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Current vs Optimized QoS Allocation:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Traffic Class</th>
-                                                <th>Current %</th>
-                                                <th>Recommended %</th>
-                                                <th>Reason</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>VOICE</td>
-                                                <td>30%</td>
-                                                <td class="metric-value">20%</td>
-                                                <td>Underutilized by 10%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>CRITICAL-DATA</td>
-                                                <td>25%</td>
-                                                <td class="metric-value">35%</td>
-                                                <td>Frequent drops detected</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DEFAULT</td>
-                                                <td>35%</td>
-                                                <td class="metric-value">35%</td>
-                                                <td>Optimal</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px; color: #00ff88;">💡 Implementing these changes will reduce drops by 89%</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'bandwidth-forecast': {
-                title: 'Bandwidth Utilization Forecasting',
-                description: 'AI-powered bandwidth trend analysis and capacity forecasting',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Analyzing historical bandwidth data and generating forecasts...'
-                    },
-                    {
-                        role: 'FORECAST_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">📈</span>
-                                    <span class="agent-name">FORECAST_AGENT</span>
-                                    <span class="status-tag status-warning">Action Required</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Bandwidth Utilization Forecast:</strong></p>
-                                    <div class="progress-container">
-                                        <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Current Utilization: 78%</p>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 78%;"></div>
-                                        </div>
-                                    </div>
-                                    <table class="data-table" style="margin-top: 15px;">
-                                        <thead>
-                                            <tr>
-                                                <th>Time Period</th>
-                                                <th>Predicted Usage</th>
-                                                <th>Risk Level</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>30 Days</td>
-                                                <td class="metric-value">85%</td>
-                                                <td><span class="finding-tag finding-issue">Medium</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>60 Days</td>
-                                                <td class="metric-critical">94%</td>
-                                                <td><span class="finding-tag finding-critical">High</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>90 Days</td>
-                                                <td class="metric-critical">102%</td>
-                                                <td><span class="finding-tag finding-critical">Critical</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong> Upgrade circuit capacity by 40% within 60 days</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'circuit-health': {
-                title: 'Circuit Health Monitoring',
-                description: 'Real-time circuit health analysis and predictive failure detection',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Performing comprehensive circuit health analysis...'
-                    },
-                    {
-                        role: 'CIRCUIT_HEALTH_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🔌</span>
-                                    <span class="agent-name">CIRCUIT_HEALTH_AGENT</span>
-                                    <span class="status-tag status-warning">Degradation Detected</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Circuit Health Summary:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Circuit ID</th>
-                                                <th>Type</th>
-                                                <th>Health Score</th>
-                                                <th>Issues</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>MPLS-NYC-001</td>
-                                                <td>100G MPLS</td>
-                                                <td class="metric-value">98%</td>
-                                                <td><span class="finding-tag finding-good">Healthy</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ETH-CHI-002</td>
-                                                <td>10G Ethernet</td>
-                                                <td class="metric-critical">72%</td>
-                                                <td><span class="finding-tag finding-critical">CRC Errors</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>INET-LAX-003</td>
-                                                <td>1G Internet</td>
-                                                <td class="metric-value">91%</td>
-                                                <td><span class="finding-tag finding-issue">Minor Jitter</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px; color: #ff5252;">⚠️ ETH-CHI-002: Predict failure in 7-10 days based on error rate trend</p>
-                                    <p><strong>Action:</strong> Schedule emergency maintenance window</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'topology-mapping': {
-                title: 'Dynamic Topology Discovery',
-                description: 'AI-powered network topology discovery and mapping',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Initiating dynamic topology discovery across all network segments...'
-                    },
-                    {
-                        role: 'TOPOLOGY_DISCOVERY_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">🗺️</span>
-                                    <span class="agent-name">TOPOLOGY_DISCOVERY_AGENT</span>
-                                    <span class="status-tag status-success">Discovery Complete</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Network Topology Discovery Results:</strong></p>
-                                    <div style="background: #0a0a0a; border: 1px solid #333; padding: 15px; border-radius: 8px; margin: 10px 0;">
-                                        <p style="color: #00ff88; margin-bottom: 10px;">🌐 Discovered Network Elements:</p>
-                                        <ul style="margin-left: 20px; color: #ccc;">
-                                            <li>Core Routers: 4 devices (2 Cisco ASR, 2 Juniper MX)</li>
-                                            <li>Distribution Switches: 12 devices (Cisco Nexus 9K)</li>
-                                            <li>Access Switches: 48 devices (Mixed vendors)</li>
-                                            <li>Firewalls: 6 devices (Palo Alto, Fortinet)</li>
-                                            <li>Load Balancers: 4 devices (F5 Big-IP)</li>
-                                        </ul>
-                                    </div>
-                                    <p><strong>New Discoveries:</strong></p>
-                                    <ul style="margin: 10px 0; padding-left: 20px;">
-                                        <li>🆕 3 Unmanaged switches in Building C (security risk)</li>
-                                        <li>🆕 2 Rogue access points detected</li>
-                                        <li>🆕 5 Devices with outdated firmware</li>
-                                    </ul>
-                                    <p style="color: #ff5252;">⚠️ Action Required: Remove rogue devices and update firmware</p>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'service-impact': {
-                title: 'Service Impact Analysis',
-                description: 'Predictive service impact analysis for planned maintenance',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Analyzing service dependencies and calculating impact...'
-                    },
-                    {
-                        role: 'IMPACT_ANALYSIS_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">⚠️</span>
-                                    <span class="agent-name">IMPACT_ANALYSIS_AGENT</span>
-                                    <span class="status-tag status-warning">High Impact</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Service Impact Analysis for Core Switch Maintenance:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Service</th>
-                                                <th>Users Affected</th>
-                                                <th>Impact Duration</th>
-                                                <th>Criticality</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Banking Application</td>
-                                                <td class="metric-critical">2,450</td>
-                                                <td>45 minutes</td>
-                                                <td><span class="status-tag status-critical">Critical</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email Services</td>
-                                                <td class="metric-value">5,200</td>
-                                                <td>45 minutes</td>
-                                                <td><span class="status-tag status-warning">High</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>File Shares</td>
-                                                <td class="metric-value">3,100</td>
-                                                <td>45 minutes</td>
-                                                <td><span class="status-tag status-warning">Medium</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong></p>
-                                    <ul style="margin-left: 20px;">
-                                        <li>Schedule during weekend (Saturday 2 AM - 6 AM)</li>
-                                        <li>Enable failover to secondary data center</li>
-                                        <li>Notify affected business units 72 hours in advance</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
-            },
-            'capacity-planning': {
-                title: 'AI-Driven Capacity Planning',
-                description: 'Intelligent capacity planning based on growth trends and business requirements',
-                messages: [
-                    {
-                        role: 'System',
-                        text: 'Analyzing growth patterns and generating capacity recommendations...'
-                    },
-                    {
-                        role: 'CAPACITY_PLANNER_AGENT',
-                        text: `<div class="agent-workflow">
-                            <div class="agent-step completed">
-                                <div class="agent-header">
-                                    <span class="agent-icon">📐</span>
-                                    <span class="agent-name">CAPACITY_PLANNER_AGENT</span>
-                                    <span class="status-tag status-success">Plan Generated</span>
-                                </div>
-                                <div class="agent-content">
-                                    <p><strong>Capacity Planning Recommendations:</strong></p>
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Resource</th>
-                                                <th>Current</th>
-                                                <th>6-Month Need</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>WAN Bandwidth</td>
-                                                <td>10 Gbps</td>
-                                                <td class="metric-value">15 Gbps</td>
-                                                <td><span class="finding-tag finding-issue">Upgrade Q2</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Data Center Switching</td>
-                                                <td>40 Gbps</td>
-                                                <td class="metric-value">100 Gbps</td>
-                                                <td><span class="finding-tag finding-critical">Urgent</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Internet Edge</td>
-                                                <td>5 Gbps</td>
-                                                <td class="metric-value">8 Gbps</td>
-                                                <td><span class="finding-tag finding-good">Monitor</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 8px;">
-                                        <p style="color: #00ff88;"><strong>💰 Budget Impact:</strong></p>
-                                        <ul style="margin: 5px 0 0 20px; color: #ccc;">
-                                            <li>Total Investment Required: $450,000</li>
-                                            <li>ROI: Avoid 15 hours of downtime annually</li>
-                                            <li>Business Value: $2.3M in prevented losses</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`
-                    }
-                ]
+                title: 'Application Performance RCA',
+                description: 'Agentic AI - Root Cause Analysis Workflow',
+                htmlResponse: defaultResponseHTML
             }
         };
 
         let currentScenario = null;
-        let messageIndex = 0;
-        let isTyping = false;
 
         function selectScenario(scenarioId) {
             // Update UI
@@ -1400,45 +1841,104 @@
             
             // Load scenario
             currentScenario = scenarios[scenarioId];
-            messageIndex = 0;
             
             // Update header
             document.getElementById('scenario-title').textContent = currentScenario.title;
             document.getElementById('scenario-description').textContent = currentScenario.description;
             
             // Clear messages
-            document.getElementById('chat-messages').innerHTML = '';
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
             
-            // Start conversation
+            // Display the HTML response with streaming effect
             setTimeout(() => {
-                displayNextMessage();
+                displayHTMLResponse(currentScenario.htmlResponse);
             }, 500);
         }
 
-        function displayNextMessage() {
-            if (!currentScenario || messageIndex >= currentScenario.messages.length || isTyping) {
-                return;
-            }
+        function displayHTMLResponse(htmlContent) {
+            const chatMessages = document.getElementById('chat-messages');
             
-            isTyping = true;
-            const message = currentScenario.messages[messageIndex];
+            // Create message container
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = 'AI';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            const roleDiv = document.createElement('div');
+            roleDiv.className = 'message-role';
+            roleDiv.textContent = 'AI Assistant';
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text rich-content';
+            
+            contentDiv.appendChild(roleDiv);
+            contentDiv.appendChild(textDiv);
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
             
             // Show typing indicator
             showTypingIndicator();
             
             setTimeout(() => {
                 hideTypingIndicator();
-                addMessage(message.role, message.text);
-                messageIndex++;
-                isTyping = false;
+                chatMessages.appendChild(messageDiv);
                 
-                // Auto-continue conversation
-                if (messageIndex < currentScenario.messages.length) {
-                    setTimeout(() => {
-                        displayNextMessage();
-                    }, 1500);
+                // Stream the HTML content
+                streamHTML(textDiv, htmlContent);
+            }, 1500);
+        }
+
+        function streamHTML(container, html) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            
+            // Create a document fragment to build content
+            const fragment = document.createDocumentFragment();
+            
+            // Function to clone and append nodes progressively
+            function processNode(node, targetParent) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const text = node.textContent;
+                    const span = document.createElement('span');
+                    targetParent.appendChild(span);
+                    
+                    let charIndex = 0;
+                    const typeChar = () => {
+                        if (charIndex < text.length) {
+                            span.textContent += text[charIndex];
+                            charIndex++;
+                            setTimeout(typeChar, 5);
+                        }
+                    };
+                    typeChar();
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const clone = node.cloneNode(false);
+                    targetParent.appendChild(clone);
+                    
+                    // Process children
+                    Array.from(node.childNodes).forEach((child, index) => {
+                        setTimeout(() => {
+                            processNode(child, clone);
+                        }, index * 50);
+                    });
                 }
-            }, 1000 + Math.random() * 1000);
+            }
+            
+            // Start processing from the temp div
+            Array.from(tempDiv.childNodes).forEach((child, index) => {
+                setTimeout(() => {
+                    processNode(child, container);
+                    // Auto-scroll
+                    const chatMessages = document.getElementById('chat-messages');
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, index * 100);
+            });
         }
 
         function showTypingIndicator() {
@@ -1461,30 +1961,6 @@
             }
         }
 
-        function addMessage(role, text) {
-            const messagesContainer = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-            
-            const isUser = role === 'User';
-            if (isUser) {
-                messageDiv.classList.add('user-message');
-            }
-            
-            const avatarText = isUser ? 'U' : role.substring(0, 2);
-            
-            messageDiv.innerHTML = `
-                <div class="message-avatar">${avatarText}</div>
-                <div class="message-content">
-                    <div class="message-role">${role}</div>
-                    <div class="message-text">${text}</div>
-                </div>
-            `;
-            
-            messagesContainer.appendChild(messageDiv);
-            scrollToBottom();
-        }
-
         function sendMessage() {
             const input = document.getElementById('user-input');
             const message = input.value.trim();
@@ -1492,17 +1968,71 @@
             if (message === '') return;
             
             // Add user message
-            addMessage('User', message);
+            const chatMessages = document.getElementById('chat-messages');
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user-message';
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = 'U';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            const roleDiv = document.createElement('div');
+            roleDiv.className = 'message-role';
+            roleDiv.textContent = 'User';
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = message;
+            
+            contentDiv.appendChild(roleDiv);
+            contentDiv.appendChild(textDiv);
+            userMessageDiv.appendChild(avatarDiv);
+            userMessageDiv.appendChild(contentDiv);
+            
+            chatMessages.appendChild(userMessageDiv);
             input.value = '';
+            scrollToBottom();
             
             // Simulate response
             setTimeout(() => {
                 showTypingIndicator();
                 setTimeout(() => {
                     hideTypingIndicator();
-                    addMessage('AI_ASSISTANT', `I understand you're asking about "${message}". Let me analyze this with our specialized agents and provide you with detailed insights.`);
+                    addAIResponse(`I understand you're asking about "${message}". Based on the current analysis, I can provide you with additional insights about the network issue we're investigating.`);
                 }, 1500);
             }, 500);
+        }
+
+        function addAIResponse(text) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = 'AI';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            const roleDiv = document.createElement('div');
+            roleDiv.className = 'message-role';
+            roleDiv.textContent = 'AI Assistant';
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+            
+            contentDiv.appendChild(roleDiv);
+            contentDiv.appendChild(textDiv);
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
+            
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
         }
 
         function scrollToBottom() {
