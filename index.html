@@ -3,15 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cisco AI SOC Telco Demo</title>
-    <meta http-equiv="refresh" content="0; url=Cisco-AI-SoC-Telco-v2.5.html">
-    <script>
-        // Immediate redirect as backup
-        window.location.href = "Cisco-AI-SoC-Telco-v2.5.html";
-    </script>
+    <title>Cisco AI Operations Center - Choose Your Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            left: -300px;
+        }
+        
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -400px;
+            right: -400px;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+            75% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            padding: 40px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .logo-section {
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #888;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .demo-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+        
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .demo-card:hover::before {
+            transform: scale(1);
+        }
+        
+        .demo-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .demo-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .demo-description {
+            font-size: 16px;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .demo-features {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .feature-icon {
+            color: #00ff88;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .demo-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .noc-card .demo-icon {
+            color: #00aaff;
+        }
+        
+        .noc-card:hover {
+            border-color: #00aaff;
+            box-shadow: 0 20px 40px rgba(0, 170, 255, 0.3);
+        }
+        
+        .noc-card::before {
+            background: radial-gradient(circle, rgba(0, 170, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        .footer {
+            margin-top: 60px;
+            font-size: 14px;
+            color: #666;
+            animation: fadeIn 1s ease 0.6s both;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .demo-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .demo-title {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to Cisco AI SOC Telco Demo...</p>
-    <p>If you are not redirected, <a href="Cisco-AI-SoC-Telco-v2.5.html">click here</a>.</p>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <div class="logo-section">
+            <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
+            <h1>AI Operations Center</h1>
+            <p class="subtitle">Choose Your Agentic AI Experience</p>
+        </div>
+        
+        <div class="demo-selection">
+            <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
+                <span class="demo-icon">🛡️</span>
+                <h2 class="demo-title">AI SOC Demo</h2>
+                <p class="demo-description">
+                    Experience AI-driven Security Operations with multi-agent collaboration 
+                    for threat detection, investigation, and response.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>18 Telco-specific security scenarios</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Real-time threat analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>5G/4G infrastructure protection</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Integrated security tools</span>
+                    </div>
+                </div>
+                <a href="Cisco-AI-SoC-Telco-v2.5.html" class="demo-button">Launch SOC Demo</a>
+            </div>
+            
+            <div class="demo-card noc-card" onclick="window.location.href='Cisco-AI-NoC-Telco-v5.html'">
+                <span class="demo-icon">🌐</span>
+                <h2 class="demo-title">AI NOC Demo</h2>
+                <p class="demo-description">
+                    Explore AI-powered Network Operations with intelligent agents for 
+                    performance monitoring, troubleshooting, and optimization.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>12 Network operation scenarios</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Root cause analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Performance optimization</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Predictive maintenance</span>
+                    </div>
+                </div>
+                <a href="Cisco-AI-NoC-Telco-v5.html" class="demo-button">Launch NOC Demo</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Powered by Cisco Agentic AI • Multi-Agent Collaboration Platform</p>
+        </div>
+    </div>
 </body>
 </html>

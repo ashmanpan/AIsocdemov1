@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-NOC-Telco-Demo-V5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding: 15px 20px;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        
+        .scenario-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00ff88;
+            margin-bottom: 5px;
+        }
+        
+        .scenario-description {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-right: 10px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            display: flex;
+            gap: 15px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .message-content {
+            flex-grow: 1;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            padding: 15px 20px;
+            border: 1px solid #333;
+        }
+        
+        .message-role {
+            font-size: 12px;
+            color: #00ff88;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .message-text {
+            color: #eee;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .user-message .message-avatar {
+            background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        }
+        
+        .user-message .message-role {
+            color: #ff6b6b;
+        }
+        
+        .user-message .message-content {
+            background-color: #1a0d0d;
+            border-color: #4a2020;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .input-field {
+            flex-grow: 1;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+        }
+        
+        .send-button {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            margin-left: 55px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Rich content styles for NOC agent responses */
+        .agent-workflow {
+            margin: 20px 0;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #0a0a0a;
+        }
+        
+        .agent-step.completed {
+            border-color: #00ff88;
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+        }
+        
+        .agent-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00ff88;
+            flex-grow: 1;
+        }
+        
+        .status-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .status-warning {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .status-critical {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        .agent-content {
+            padding: 16px;
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .agent-transfer {
+            margin-top: 12px;
+            color: #888;
+            font-style: italic;
+            font-size: 13px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table th {
+            background-color: #1a1a1a;
+            color: #00ff88;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            color: #ccc;
+            font-size: 13px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover {
+            background-color: #111;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+            color: #00ff88;
+        }
+        
+        .metric-critical {
+            color: #ff5252;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 120px;
+            margin: 20px 0;
+            position: relative;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .finding-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .finding-good {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .finding-issue {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .finding-critical {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        code {
+            background-color: #1a1a1a;
+            color: #00ff88;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">AI NOC Command Center - Telco Edition v5</span>
+        </div>
+        <div class="actions">
+            <span style="color: #888; font-size: 14px;">Powered by Agentic AI</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">NOC Scenarios</h2>
+                <p class="sidebar-subtitle">Network Operations AI Agent Workflows</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" onclick="selectScenario('packet-loss')">
+                    <span class="scenario-icon">📡</span>
+                    <span class="scenario-text">AI-Driven Packet Loss Investigation</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('firewall-config')">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Intelligent Firewall Configuration Analysis</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('network-latency')">
+                    <span class="scenario-icon">⚡</span>
+                    <span class="scenario-text">Network Latency Root Cause Analysis</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('router-troubleshoot')">
+                    <span class="scenario-icon">🔧</span>
+                    <span class="scenario-text">Autonomous Router Troubleshooting</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('app-performance')">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Application Performance RCA</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('bgp-analysis')">
+                    <span class="scenario-icon">🌐</span>
+                    <span class="scenario-text">BGP Session Stability Analysis</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('qos-optimization')">
+                    <span class="scenario-icon">⚙️</span>
+                    <span class="scenario-text">QoS Policy Optimization</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('bandwidth-forecast')">
+                    <span class="scenario-icon">📈</span>
+                    <span class="scenario-text">Bandwidth Utilization Forecasting</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('circuit-health')">
+                    <span class="scenario-icon">🔌</span>
+                    <span class="scenario-text">Circuit Health Monitoring</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('topology-mapping')">
+                    <span class="scenario-icon">🗺️</span>
+                    <span class="scenario-text">Dynamic Topology Discovery</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('service-impact')">
+                    <span class="scenario-icon">⚠️</span>
+                    <span class="scenario-text">Service Impact Analysis</span>
+                </li>
+                <li class="scenario-item" onclick="selectScenario('capacity-planning')">
+                    <span class="scenario-icon">📐</span>
+                    <span class="scenario-text">AI-Driven Capacity Planning</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcome-screen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00aaff;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="url(#gradient)" stroke-width="1.5" opacity="0.7"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="url(#gradient)" stroke-width="1" opacity="0.5"/>
+                        <text x="50" y="55" text-anchor="middle" fill="url(#gradient)" font-size="24" font-weight="bold">NOC</text>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">AI Network Operations Center</h1>
+                <p class="welcome-subtext">
+                    Experience the power of AI-driven network operations with multi-agent collaboration. 
+                    Select a scenario to see how our intelligent agents work together to diagnose, analyze, 
+                    and resolve complex network issues in real-time.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chat-container">
+                <div class="chat-header">
+                    <h3 class="scenario-title" id="scenario-title"></h3>
+                    <p class="scenario-description" id="scenario-description"></p>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="user-input" placeholder="Ask about the network issue or type a command...">
+                    <button class="send-button" onclick="sendMessage()">
+                        <span>Send</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M15 1L7.5 8.5M15 1L10 15L7.5 8.5M15 1L1 6L7.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = {
+            'packet-loss': {
+                title: 'AI-Driven Packet Loss Investigation',
+                description: 'Multi-agent collaboration to identify root cause of intermittent packet loss',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Initializing packet loss investigation workflow. Deploying specialized agents...'
+                    },
+                    {
+                        role: 'IO_AGENT',
+                        text: 'Ticket #67891 received from XYZ Corp NOC. Reports of 5-8% packet loss occurring every 30-45 minutes across multiple sites connecting to primary data center since 09:15 AM today.'
+                    },
+                    {
+                        role: 'MASTER_REASONING_AGENT',
+                        text: 'Analyzing packet loss pattern. Intermittent issues with regular intervals often indicate resource constraints or scheduled processes. Initiating comprehensive diagnostic approach.'
+                    },
+                    {
+                        role: 'TOPOLOGY_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🗺️</span>
+                                    <span class="agent-name">TOPOLOGY_AGENT</span>
+                                    <span class="status-tag status-success">Mapping Complete</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p>Network topology discovered:</p>
+                                    <ul style="margin: 10px 0; padding-left: 20px; color: #ccc;">
+                                        <li>5 Remote sites connected via MPLS cloud</li>
+                                        <li>Primary data center with redundant WAN routers (DC-RTR-01, DC-RTR-02)</li>
+                                        <li>Core switches (CORE-SW-01, CORE-SW-02) in HSRP configuration</li>
+                                        <li>All affected traffic passes through CORE-SW-01 (active)</li>
+                                    </ul>
+                                    <div class="agent-transfer">→ Transferring topology data to MASTER_REASONING_AGENT</div>
+                                </div>
+                            </div>
+                        </div>`
+                    },
+                    {
+                        role: 'RESOURCE_MONITOR_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">📊</span>
+                                    <span class="agent-name">RESOURCE_MONITOR_AGENT</span>
+                                    <span class="status-tag status-critical">Critical Finding</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Resource utilization analysis complete:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Device</th>
+                                                <th>CPU Usage</th>
+                                                <th>Memory</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>CORE-SW-01</td>
+                                                <td class="metric-critical">98% (spike)</td>
+                                                <td class="metric-value">75%</td>
+                                                <td><span class="status-tag status-critical">Critical</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>DC-RTR-01</td>
+                                                <td class="metric-value">45%</td>
+                                                <td class="metric-value">62%</td>
+                                                <td><span class="status-tag status-success">Normal</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px;">🔴 <strong>Root Cause Identified:</strong> SNMP_BULKWALK process consuming excessive CPU every 40 minutes</p>
+                                    <div class="agent-transfer">→ Critical finding reported to MASTER_REASONING_AGENT</div>
+                                </div>
+                            </div>
+                        </div>`
+                    },
+                    {
+                        role: 'RECOMMENDATIONS_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">💡</span>
+                                    <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+                                    <span class="status-tag status-success">Solution Ready</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Remediation Plan Generated:</strong></p>
+                                    <div style="margin: 15px 0;">
+                                        <h4 style="color: #00ff88; margin-bottom: 8px;">IMMEDIATE (15 minutes)</h4>
+                                        <ol style="margin-left: 20px; color: #ccc;">
+                                            <li>Reduce SNMP polling frequency to every 120 minutes</li>
+                                            <li>Implement rate limiting: <code>snmp-server rate-limit 1</code></li>
+                                            <li>Disable non-critical OIDs temporarily</li>
+                                        </ol>
+                                    </div>
+                                    <div style="margin: 15px 0;">
+                                        <h4 style="color: #ffc107; margin-bottom: 8px;">SHORT-TERM (24 hours)</h4>
+                                        <ol style="margin-left: 20px; color: #ccc;">
+                                            <li>Distribute SNMP load across multiple polling cycles</li>
+                                            <li>Configure essential MIBs only</li>
+                                            <li>Implement CPU threshold monitoring</li>
+                                        </ol>
+                                    </div>
+                                    <div class="agent-transfer">→ Ready for implementation approval</div>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'firewall-config': {
+                title: 'Intelligent Firewall Configuration Analysis',
+                description: 'AI agents analyze firewall rules and identify conflicts and security gaps',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Initiating firewall configuration analysis workflow...'
+                    },
+                    {
+                        role: 'CONFIG_PARSER_AGENT',
+                        text: 'Analyzing firewall configuration file. Detected 23 active rules across 4 security zones.'
+                    },
+                    {
+                        role: 'SECURITY_ANALYZER_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🔍</span>
+                                    <span class="agent-name">SECURITY_ANALYZER_AGENT</span>
+                                    <span class="status-tag status-warning">Issues Found</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Security Analysis Complete:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Rule Conflict</th>
+                                                <th>Type</th>
+                                                <th>Risk Level</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Rule #17 & #22</td>
+                                                <td>Overlapping address spaces</td>
+                                                <td><span class="finding-tag finding-critical">Critical</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rule #08 & #15</td>
+                                                <td>Contradicting actions</td>
+                                                <td><span class="finding-tag finding-issue">Medium</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rule #31</td>
+                                                <td>Overly permissive (ANY/ANY)</td>
+                                                <td><span class="finding-tag finding-issue">Medium</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px; color: #ff5252;">⚠️ Rule #31 allows ALL traffic from DMZ to Internal without inspection</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'network-latency': {
+                title: 'Network Latency Root Cause Analysis',
+                description: 'Multi-agent investigation of latency spikes affecting branch connectivity',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Starting network latency analysis across all monitored segments...'
+                    },
+                    {
+                        role: 'PERFORMANCE_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">📈</span>
+                                    <span class="agent-name">PERFORMANCE_AGENT</span>
+                                    <span class="status-tag status-critical">Anomaly Detected</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Performance Analysis Results:</strong></p>
+                                    <div class="chart-container">
+                                        <p style="color: #888; font-size: 12px;">Latency Pattern (HQ to East Branch)</p>
+                                        <div style="display: flex; align-items: flex-end; height: 80px; gap: 5px;">
+                                            <div style="background: #00ff88; width: 20px; height: 30%;"></div>
+                                            <div style="background: #00ff88; width: 20px; height: 25%;"></div>
+                                            <div style="background: #00ff88; width: 20px; height: 40%;"></div>
+                                            <div style="background: #00ff88; width: 20px; height: 45%;"></div>
+                                            <div style="background: #00ff88; width: 20px; height: 50%;"></div>
+                                            <div style="background: #ff5252; width: 20px; height: 100%;"></div>
+                                            <div style="background: #ff5252; width: 20px; height: 95%;"></div>
+                                            <div style="background: #00ff88; width: 20px; height: 40%;"></div>
+                                        </div>
+                                        <p style="color: #666; font-size: 11px; margin-top: 5px;">9AM - 5PM (Hourly)</p>
+                                    </div>
+                                    <ul style="margin: 10px 0; padding-left: 20px;">
+                                        <li>Normal latency: <span class="metric-value">45ms</span></li>
+                                        <li>Peak latency: <span class="metric-critical">320ms</span> (14:00-15:30)</li>
+                                        <li>Packet loss: <span class="metric-critical">2.7%</span></li>
+                                    </ul>
+                                    <p><strong>Root Cause:</strong> Scheduled backup consuming 87% bandwidth during business hours</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'router-troubleshoot': {
+                title: 'Autonomous Router Troubleshooting',
+                description: 'AI agents diagnose and resolve router performance issues',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Deploying router diagnostic agents...'
+                    },
+                    {
+                        role: 'DEVICE_HEALTH_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🔧</span>
+                                    <span class="agent-name">DEVICE_HEALTH_AGENT</span>
+                                    <span class="status-tag status-critical">Critical Issues</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Router CR-01 Diagnostics:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Issue</th>
+                                                <th>Severity</th>
+                                                <th>Impact</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>CPU Spikes (94%)</td>
+                                                <td><span class="status-tag status-critical">Critical</span></td>
+                                                <td>Performance degradation</td>
+                                            </tr>
+                                            <tr>
+                                                <td>BGP Session Flapping</td>
+                                                <td><span class="status-tag status-critical">Critical</span></td>
+                                                <td>Routing instability</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Memory at 85%</td>
+                                                <td><span class="status-tag status-warning">Warning</span></td>
+                                                <td>Potential failures</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong> Apply firmware <code>15.4(3)M2</code> to fix memory leak</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'app-performance': {
+                title: 'Application Performance Root Cause Analysis',
+                description: 'End-to-end investigation of application slowness across the network',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Initializing application performance investigation workflow...'
+                    },
+                    {
+                        role: 'IO_AGENT',
+                        text: 'Ticket #45782 received from ABC Bank Mumbai branch. Multiple users reporting application response times of 3-5 seconds since 10:45 AM local time.'
+                    },
+                    {
+                        role: 'MASTER_REASONING_AGENT',
+                        text: 'Initiating systematic investigation. Deploying specialized agents for parallel analysis across all network layers.'
+                    },
+                    {
+                        role: 'Multiple Agents',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🔄</span>
+                                    <span class="agent-name">QOS_POLICY_AGENT</span>
+                                    <span class="status-tag status-critical">Root Cause Found</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>QoS Analysis Results:</strong></p>
+                                    <ul style="margin: 10px 0; padding-left: 20px;">
+                                        <li>CRITICAL-DATA class: <span class="metric-critical">8% packet drops</span></li>
+                                        <li>Bandwidth reduced from <span class="metric-value">35%</span> to <span class="metric-critical">25%</span></li>
+                                        <li>Change implemented at 10:40 AM (CR-45211)</li>
+                                    </ul>
+                                    <p style="margin-top: 10px; color: #00ff88;"><strong>Solution:</strong> Restore bandwidth to 35% immediately</p>
+                                    <code style="display: block; margin-top: 10px;">
+                                        policy-map WAN-EDGE<br>
+                                        &nbsp;&nbsp;class CRITICAL-DATA<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;bandwidth percent 35
+                                    </code>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'bgp-analysis': {
+                title: 'BGP Session Stability Analysis',
+                description: 'AI-driven analysis of BGP peering issues and route stability',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Initiating BGP session analysis workflow...'
+                    },
+                    {
+                        role: 'BGP_ANALYZER_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🌐</span>
+                                    <span class="agent-name">BGP_ANALYZER_AGENT</span>
+                                    <span class="status-tag status-warning">Instability Detected</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>BGP Session Analysis:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Peer IP</th>
+                                                <th>AS Number</th>
+                                                <th>State</th>
+                                                <th>Flaps (24h)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>192.168.100.1</td>
+                                                <td>AS 65001</td>
+                                                <td><span class="status-tag status-critical">Flapping</span></td>
+                                                <td class="metric-critical">47</td>
+                                            </tr>
+                                            <tr>
+                                                <td>192.168.100.2</td>
+                                                <td>AS 65002</td>
+                                                <td><span class="status-tag status-success">Established</span></td>
+                                                <td class="metric-value">0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px;"><strong>Root Cause:</strong> MTU mismatch causing TCP MSS issues</p>
+                                    <p><strong>Fix:</strong> <code>ip tcp adjust-mss 1436</code></p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'qos-optimization': {
+                title: 'QoS Policy Optimization',
+                description: 'Intelligent QoS analysis and optimization recommendations',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Starting QoS policy analysis and optimization...'
+                    },
+                    {
+                        role: 'QOS_OPTIMIZER_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">⚙️</span>
+                                    <span class="agent-name">QOS_OPTIMIZER_AGENT</span>
+                                    <span class="status-tag status-success">Optimization Ready</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Current vs Optimized QoS Allocation:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Traffic Class</th>
+                                                <th>Current %</th>
+                                                <th>Recommended %</th>
+                                                <th>Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>VOICE</td>
+                                                <td>30%</td>
+                                                <td class="metric-value">20%</td>
+                                                <td>Underutilized by 10%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRITICAL-DATA</td>
+                                                <td>25%</td>
+                                                <td class="metric-value">35%</td>
+                                                <td>Frequent drops detected</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DEFAULT</td>
+                                                <td>35%</td>
+                                                <td class="metric-value">35%</td>
+                                                <td>Optimal</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px; color: #00ff88;">💡 Implementing these changes will reduce drops by 89%</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'bandwidth-forecast': {
+                title: 'Bandwidth Utilization Forecasting',
+                description: 'AI-powered bandwidth trend analysis and capacity forecasting',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Analyzing historical bandwidth data and generating forecasts...'
+                    },
+                    {
+                        role: 'FORECAST_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">📈</span>
+                                    <span class="agent-name">FORECAST_AGENT</span>
+                                    <span class="status-tag status-warning">Action Required</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Bandwidth Utilization Forecast:</strong></p>
+                                    <div class="progress-container">
+                                        <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Current Utilization: 78%</p>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 78%;"></div>
+                                        </div>
+                                    </div>
+                                    <table class="data-table" style="margin-top: 15px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Time Period</th>
+                                                <th>Predicted Usage</th>
+                                                <th>Risk Level</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>30 Days</td>
+                                                <td class="metric-value">85%</td>
+                                                <td><span class="finding-tag finding-issue">Medium</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>60 Days</td>
+                                                <td class="metric-critical">94%</td>
+                                                <td><span class="finding-tag finding-critical">High</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>90 Days</td>
+                                                <td class="metric-critical">102%</td>
+                                                <td><span class="finding-tag finding-critical">Critical</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong> Upgrade circuit capacity by 40% within 60 days</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'circuit-health': {
+                title: 'Circuit Health Monitoring',
+                description: 'Real-time circuit health analysis and predictive failure detection',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Performing comprehensive circuit health analysis...'
+                    },
+                    {
+                        role: 'CIRCUIT_HEALTH_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🔌</span>
+                                    <span class="agent-name">CIRCUIT_HEALTH_AGENT</span>
+                                    <span class="status-tag status-warning">Degradation Detected</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Circuit Health Summary:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Circuit ID</th>
+                                                <th>Type</th>
+                                                <th>Health Score</th>
+                                                <th>Issues</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>MPLS-NYC-001</td>
+                                                <td>100G MPLS</td>
+                                                <td class="metric-value">98%</td>
+                                                <td><span class="finding-tag finding-good">Healthy</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ETH-CHI-002</td>
+                                                <td>10G Ethernet</td>
+                                                <td class="metric-critical">72%</td>
+                                                <td><span class="finding-tag finding-critical">CRC Errors</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>INET-LAX-003</td>
+                                                <td>1G Internet</td>
+                                                <td class="metric-value">91%</td>
+                                                <td><span class="finding-tag finding-issue">Minor Jitter</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px; color: #ff5252;">⚠️ ETH-CHI-002: Predict failure in 7-10 days based on error rate trend</p>
+                                    <p><strong>Action:</strong> Schedule emergency maintenance window</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'topology-mapping': {
+                title: 'Dynamic Topology Discovery',
+                description: 'AI-powered network topology discovery and mapping',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Initiating dynamic topology discovery across all network segments...'
+                    },
+                    {
+                        role: 'TOPOLOGY_DISCOVERY_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">🗺️</span>
+                                    <span class="agent-name">TOPOLOGY_DISCOVERY_AGENT</span>
+                                    <span class="status-tag status-success">Discovery Complete</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Network Topology Discovery Results:</strong></p>
+                                    <div style="background: #0a0a0a; border: 1px solid #333; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                        <p style="color: #00ff88; margin-bottom: 10px;">🌐 Discovered Network Elements:</p>
+                                        <ul style="margin-left: 20px; color: #ccc;">
+                                            <li>Core Routers: 4 devices (2 Cisco ASR, 2 Juniper MX)</li>
+                                            <li>Distribution Switches: 12 devices (Cisco Nexus 9K)</li>
+                                            <li>Access Switches: 48 devices (Mixed vendors)</li>
+                                            <li>Firewalls: 6 devices (Palo Alto, Fortinet)</li>
+                                            <li>Load Balancers: 4 devices (F5 Big-IP)</li>
+                                        </ul>
+                                    </div>
+                                    <p><strong>New Discoveries:</strong></p>
+                                    <ul style="margin: 10px 0; padding-left: 20px;">
+                                        <li>🆕 3 Unmanaged switches in Building C (security risk)</li>
+                                        <li>🆕 2 Rogue access points detected</li>
+                                        <li>🆕 5 Devices with outdated firmware</li>
+                                    </ul>
+                                    <p style="color: #ff5252;">⚠️ Action Required: Remove rogue devices and update firmware</p>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'service-impact': {
+                title: 'Service Impact Analysis',
+                description: 'Predictive service impact analysis for planned maintenance',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Analyzing service dependencies and calculating impact...'
+                    },
+                    {
+                        role: 'IMPACT_ANALYSIS_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">⚠️</span>
+                                    <span class="agent-name">IMPACT_ANALYSIS_AGENT</span>
+                                    <span class="status-tag status-warning">High Impact</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Service Impact Analysis for Core Switch Maintenance:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Service</th>
+                                                <th>Users Affected</th>
+                                                <th>Impact Duration</th>
+                                                <th>Criticality</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Banking Application</td>
+                                                <td class="metric-critical">2,450</td>
+                                                <td>45 minutes</td>
+                                                <td><span class="status-tag status-critical">Critical</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email Services</td>
+                                                <td class="metric-value">5,200</td>
+                                                <td>45 minutes</td>
+                                                <td><span class="status-tag status-warning">High</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>File Shares</td>
+                                                <td class="metric-value">3,100</td>
+                                                <td>45 minutes</td>
+                                                <td><span class="status-tag status-warning">Medium</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin-top: 10px;"><strong>Recommendation:</strong></p>
+                                    <ul style="margin-left: 20px;">
+                                        <li>Schedule during weekend (Saturday 2 AM - 6 AM)</li>
+                                        <li>Enable failover to secondary data center</li>
+                                        <li>Notify affected business units 72 hours in advance</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            'capacity-planning': {
+                title: 'AI-Driven Capacity Planning',
+                description: 'Intelligent capacity planning based on growth trends and business requirements',
+                messages: [
+                    {
+                        role: 'System',
+                        text: 'Analyzing growth patterns and generating capacity recommendations...'
+                    },
+                    {
+                        role: 'CAPACITY_PLANNER_AGENT',
+                        text: `<div class="agent-workflow">
+                            <div class="agent-step completed">
+                                <div class="agent-header">
+                                    <span class="agent-icon">📐</span>
+                                    <span class="agent-name">CAPACITY_PLANNER_AGENT</span>
+                                    <span class="status-tag status-success">Plan Generated</span>
+                                </div>
+                                <div class="agent-content">
+                                    <p><strong>Capacity Planning Recommendations:</strong></p>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Resource</th>
+                                                <th>Current</th>
+                                                <th>6-Month Need</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>WAN Bandwidth</td>
+                                                <td>10 Gbps</td>
+                                                <td class="metric-value">15 Gbps</td>
+                                                <td><span class="finding-tag finding-issue">Upgrade Q2</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data Center Switching</td>
+                                                <td>40 Gbps</td>
+                                                <td class="metric-value">100 Gbps</td>
+                                                <td><span class="finding-tag finding-critical">Urgent</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Internet Edge</td>
+                                                <td>5 Gbps</td>
+                                                <td class="metric-value">8 Gbps</td>
+                                                <td><span class="finding-tag finding-good">Monitor</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 8px;">
+                                        <p style="color: #00ff88;"><strong>💰 Budget Impact:</strong></p>
+                                        <ul style="margin: 5px 0 0 20px; color: #ccc;">
+                                            <li>Total Investment Required: $450,000</li>
+                                            <li>ROI: Avoid 15 hours of downtime annually</li>
+                                            <li>Business Value: $2.3M in prevented losses</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageIndex = 0;
+        let isTyping = false;
+
+        function selectScenario(scenarioId) {
+            // Update UI
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('chat-container').style.display = 'flex';
+            
+            // Update active scenario in sidebar
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.scenario-item').classList.add('active');
+            
+            // Load scenario
+            currentScenario = scenarios[scenarioId];
+            messageIndex = 0;
+            
+            // Update header
+            document.getElementById('scenario-title').textContent = currentScenario.title;
+            document.getElementById('scenario-description').textContent = currentScenario.description;
+            
+            // Clear messages
+            document.getElementById('chat-messages').innerHTML = '';
+            
+            // Start conversation
+            setTimeout(() => {
+                displayNextMessage();
+            }, 500);
+        }
+
+        function displayNextMessage() {
+            if (!currentScenario || messageIndex >= currentScenario.messages.length || isTyping) {
+                return;
+            }
+            
+            isTyping = true;
+            const message = currentScenario.messages[messageIndex];
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(message.role, message.text);
+                messageIndex++;
+                isTyping = false;
+                
+                // Auto-continue conversation
+                if (messageIndex < currentScenario.messages.length) {
+                    setTimeout(() => {
+                        displayNextMessage();
+                    }, 1500);
+                }
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+            `;
+            document.getElementById('chat-messages').appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function addMessage(role, text) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const isUser = role === 'User';
+            if (isUser) {
+                messageDiv.classList.add('user-message');
+            }
+            
+            const avatarText = isUser ? 'U' : role.substring(0, 2);
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatarText}</div>
+                <div class="message-content">
+                    <div class="message-role">${role}</div>
+                    <div class="message-text">${text}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            addMessage('User', message);
+            input.value = '';
+            
+            // Simulate response
+            setTimeout(() => {
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage('AI_ASSISTANT', `I understand you're asking about "${message}". Let me analyze this with our specialized agents and provide you with detailed insights.`);
+                }, 1500);
+            }, 500);
+        }
+
+        function scrollToBottom() {
+            const messages = document.getElementById('chat-messages');
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Enter key to send
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
