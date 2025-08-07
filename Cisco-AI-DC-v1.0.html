@@ -2150,16 +2150,103 @@ firewall-portal/
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
             
-            if (isHTML) {
-                messageDiv.innerHTML = content;
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
             } else {
-                messageDiv.textContent = content;
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
             
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
             messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            // Split HTML into chunks for streaming
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            // Helper function for random delays
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Function to process the next chunk with variable timing
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Decide on the delay for the next chunk
+                    let nextDelay;
+                    
+                    // Every 10 chunks, pause for a bit longer to simulate thinking
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } 
+                    // Every 5 chunks, pause briefly
+                    else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    }
+                    // Regular typing speed
+                    else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            // Start the processing
+            processNextChunk();
+        }
+        
+        // Function to split HTML into chunks while preserving tags
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                
+                // Always add the current character to the chunk
+                currentChunk += char;
+                
+                // If we're inside a tag, don't count it toward chunk size
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                // If we've reached chunk size and we're not inside a tag, add chunk to result
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            // Add the remaining chunk if there is any
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
         }
 
         function showTypingIndicator() {
