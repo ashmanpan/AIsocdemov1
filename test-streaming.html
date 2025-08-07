@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Streaming</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .message {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background-color: #00ff88;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #00cc70;
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #00ff88;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Test Streaming Effect</h1>
+        <button onclick="testSimpleStreaming()">Test Simple Streaming</button>
+        <button onclick="testHTMLStreaming()">Test HTML Streaming</button>
+        
+        <div id="messages" style="margin-top: 20px;">
+            <!-- Messages will appear here -->
+        </div>
+    </div>
+
+    <script>
+        // Simple text streaming
+        function testSimpleStreaming() {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messagesDiv.appendChild(messageDiv);
+            
+            const text = "Hello! I'm streaming this text character by character. This should appear gradually as if someone is typing it in real-time. Watch how each character appears one by one!";
+            
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < text.length) {
+                    messageDiv.textContent += text[index];
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 50); // 50ms per character
+        }
+        
+        // HTML content streaming
+        function testHTMLStreaming() {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messagesDiv.appendChild(messageDiv);
+            
+            // Show typing indicator first
+            messageDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+            
+            setTimeout(() => {
+                // Clear typing indicator and start streaming
+                messageDiv.innerHTML = '';
+                
+                const htmlContent = `<h3 style="color: #00ff88;">Network Analysis Report</h3>
+<p>Analyzing your network configuration...</p>
+<ul>
+    <li>Checking router status: <span style="color: #00ff88;">✓ OK</span></li>
+    <li>Verifying firewall rules: <span style="color: #ffc107;">⚠ Issues found</span></li>
+    <li>Testing connectivity: <span style="color: #00ff88;">✓ OK</span></li>
+</ul>
+<p>Analysis complete. Found <strong>2 issues</strong> that need attention.</p>`;
+                
+                // Stream HTML content character by character
+                let currentHTML = '';
+                let index = 0;
+                
+                function streamNextChar() {
+                    if (index < htmlContent.length) {
+                        // Handle HTML tags properly
+                        if (htmlContent[index] === '<') {
+                            // Find the closing >
+                            let tagEnd = htmlContent.indexOf('>', index);
+                            if (tagEnd !== -1) {
+                                currentHTML += htmlContent.substring(index, tagEnd + 1);
+                                index = tagEnd + 1;
+                            } else {
+                                currentHTML += htmlContent[index];
+                                index++;
+                            }
+                        } else {
+                            currentHTML += htmlContent[index];
+                            index++;
+                        }
+                        
+                        messageDiv.innerHTML = currentHTML;
+                        
+                        // Variable delay for more natural typing
+                        let delay = 30;
+                        if (htmlContent[index - 1] === '.' || htmlContent[index - 1] === '!' || htmlContent[index - 1] === '?') {
+                            delay = 300; // Pause after sentences
+                        } else if (htmlContent[index - 1] === ',') {
+                            delay = 150; // Small pause after commas
+                        }
+                        
+                        setTimeout(streamNextChar, delay);
+                    }
+                }
+                
+                streamNextChar();
+            }, 2000); // Wait 2 seconds before starting
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOC Scenario 1 - Packet Loss Investigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-avatar {
+            background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        }
+        
+        .ai-avatar {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+        }
+        
+        .message-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-message .message-name {
+            color: #ff6b6b;
+        }
+        
+        .ai-message .message-name {
+            color: #00ff88;
+        }
+        
+        .message-content {
+            margin-left: 42px;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 42px;
+            padding: 10px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Agent workflow styles */
+        .agent-workflow {
+            background-color: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step.highlight-step {
+            border-color: #ff5252;
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.3);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #252525;
+            border-bottom: 1px solid #333;
+        }
+        
+        .agent-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00ff88;
+            flex-grow: 1;
+        }
+        
+        .status-tag {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .agent-content {
+            padding: 16px;
+            color: #ccc;
+        }
+        
+        .agent-content p {
+            margin-bottom: 8px;
+        }
+        
+        .compact-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0;
+        }
+        
+        .compact-list li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .compact-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+        }
+        
+        .metric-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0;
+        }
+        
+        .metric-list li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .problem-value {
+            color: #ff5252;
+            font-weight: bold;
+        }
+        
+        .normal-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .agent-transfer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .arrow {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .finding-summary {
+            margin-top: 12px;
+            padding: 8px;
+            background-color: rgba(0, 255, 136, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        
+        .finding-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .finding-issue {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .finding-critical {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        .finding-good {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        code {
+            background-color: #252525;
+            color: #00ff88;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        
+        /* Input area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+        }
+        
+        .send-button {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        h3, h4 {
+            color: #00ff88;
+            margin-bottom: 16px;
+        }
+        
+        .section-header {
+            color: #00ff88;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            padding-left: 12px;
+            border-left: 3px solid #00ff88;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .data-table th {
+            background-color: #252525;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .data-table tr:hover {
+            background-color: #252525;
+        }
+        
+        .rca-container {
+            background-color: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .timeline {
+            margin: 20px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #00ff88;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -24px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #00ff88;
+            border: 2px solid #0a0a0a;
+        }
+        
+        .timeline-time {
+            font-weight: 600;
+            color: #00ff88;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-content p {
+            color: #ccc;
+            margin: 0;
+        }
+        
+        .remediation-container {
+            margin: 20px 0;
+        }
+        
+        .remediation-phase {
+            background-color: rgba(0, 255, 136, 0.05);
+            border-left: 3px solid #00ff88;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .phase-tag {
+            display: inline-block;
+            background-color: #00ff88;
+            color: #0a0a0a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .action-list {
+            list-style: decimal;
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        .action-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .confidence-tag {
+            background-color: #00ff88;
+            color: #0a0a0a;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        
+        <div class="input-area">
+            <input type="text" class="input-field" id="user-input" placeholder="Ask about the network issue..." />
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Full HTML content for packet loss investigation
+        const packetLossHTML = `<div class="agent-workflow">
+  <h3>Agentic AI - Packet Loss Investigation</h3>
+  <p><strong>Investigating Intermittent Packet Loss on XYZ Corp Core Network (Ticket #67891)</strong></p>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">⚙️</span>
+      <span class="agent-name">IO_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Ticket #67891 received from XYZ Corp NOC. Reports of 5-8% packet loss occurring every 30-45 minutes across multiple sites connecting to primary data center since 09:15 AM today.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Analyzing packet loss pattern. Intermittent issues with regular intervals often indicate resource constraints or scheduled processes. Need comprehensive topology and loss pattern data.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Requesting network topology from <strong>TOPOLOGY_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🗺️</span>
+      <span class="agent-name">TOPOLOGY_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Topology mapping complete. XYZ Corp network architecture:</p>
+      <ul class="compact-list">
+        <li>5 Remote sites connected via MPLS cloud</li>
+        <li>Primary data center with redundant WAN routers (DC-RTR-01, DC-RTR-02)</li>
+        <li>Core switches (CORE-SW-01, CORE-SW-02) in HSRP configuration</li>
+        <li>All affected traffic passes through CORE-SW-01 (active)</li>
+      </ul>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">📊</span>
+      <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Traffic pattern analysis complete:</p>
+      <ul class="compact-list">
+        <li>Packet loss observed across all protocols and applications</li>
+        <li>Loss occurs simultaneously at all remote sites</li>
+        <li>Clear 35-40 minute cycle in packet loss pattern</li>
+        <li>Loss events last approximately 3-5 minutes each time</li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-issue">Periodic Loss Pattern Detected</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step highlight-step">
+    <div class="agent-header">
+      <span class="agent-icon">📈</span>
+      <span class="agent-name">RESOURCE_MONITOR_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Resource utilization analysis complete. <strong>Critical finding</strong>:</p>
+      <ul class="metric-list">
+        <li>CORE-SW-01 CPU utilization spikes to <span class="problem-value">98%</span> every 40 minutes</li>
+        <li>Spike duration: 3-4 minutes</li>
+        <li>Process name: <code>SNMP_BULKWALK</code> consuming CPU during spikes</li>
+        <li>Packet drops perfectly correlate with CPU utilization spikes</li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-critical">Root Cause Identified</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🚨</span>
+      <span class="agent-name">ERROR_DETECTION_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Error counter analysis complete:</p>
+      <ul class="compact-list">
+        <li>No input/output errors on interfaces</li>
+        <li>Buffer allocation failures detected on CORE-SW-01</li>
+        <li>Log entries show "Process not running" errors during high CPU events</li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-issue">Resource Exhaustion Evidence</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">📝</span>
+      <span class="agent-name">LCM_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Change management analysis complete:</p>
+      <ul class="compact-list">
+        <li>New monitoring system (SolarWinds) deployed yesterday at 15:30</li>
+        <li>SNMP polling interval configured for every 40 minutes</li>
+        <li>No other relevant changes in the past 72 hours</li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-issue">Relevant Change Identified</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Correlating all diagnostic findings to determine root cause:</p>
+      <ul class="finding-list">
+        <li>Packet loss occurs at regular 40-minute intervals</li>
+        <li>CPU utilization on CORE-SW-01 spikes to 98% during loss events</li>
+        <li>SNMP_BULKWALK process consuming resources during spikes</li>
+        <li>New monitoring system deployed with 40-minute polling interval</li>
+      </ul>
+      <p>Root cause identified: Aggressive SNMP polling from new monitoring system causing CPU exhaustion on CORE-SW-01, leading to packet drops.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Requesting remediation plan from <strong>RECOMMENDATIONS_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">📋</span>
+      <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Detailed remediation plan generated:</p>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">IMMEDIATE</span> (Within 15 minutes)</h5>
+        <ol class="action-list">
+          <li>Reduce SNMP polling frequency to every 120 minutes</li>
+          <li>Implement rate limiting on SNMP requests</li>
+          <li>Temporarily disable non-critical OIDs from collection</li>
+        </ol>
+      </div>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">SHORT-TERM</span> (Within 24 hours)</h5>
+        <ol class="action-list">
+          <li>Distribute SNMP load across multiple polling cycles</li>
+          <li>Configure polling only for essential MIBs</li>
+          <li>Implement SNMP process rate limiting on CORE switches</li>
+        </ol>
+      </div>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">LONG-TERM</span> (Within 1 week)</h5>
+        <ol class="action-list">
+          <li>Redesign monitoring architecture to use distributed collectors</li>
+          <li>Implement SNMPv3 with optimization for resource constraints</li>
+          <li>Test and validate monitoring impact before full deployment</li>
+        </ol>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Root cause analysis and remediation plan complete. Transferring to IO_AGENT for customer communication.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <h4 class="section-header">Final Analysis Report</h4>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Investigation Component</th>
+          <th>Status</th>
+          <th>Findings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Physical Interfaces</td>
+          <td><span class="status-tag">Healthy</span></td>
+          <td>No physical errors or interface flaps detected</td>
+        </tr>
+        <tr>
+          <td>Traffic Patterns</td>
+          <td><span class="status-tag" style="background-color: rgba(255, 193, 7, 0.2); color: #ffc107;">Issue Detected</span></td>
+          <td>Periodic packet loss occurring every 40 minutes</td>
+        </tr>
+        <tr>
+          <td>Resource Utilization</td>
+          <td><span class="status-tag" style="background-color: rgba(255, 82, 82, 0.2); color: #ff5252;">Critical Issue</span></td>
+          <td>CPU spikes to 98% on CORE-SW-01 during loss events</td>
+        </tr>
+        <tr>
+          <td>Error Counters</td>
+          <td><span class="status-tag" style="background-color: rgba(255, 193, 7, 0.2); color: #ffc107;">Issue Detected</span></td>
+          <td>Buffer allocation failures during high CPU events</td>
+        </tr>
+        <tr>
+          <td>Recent Changes</td>
+          <td><span class="status-tag" style="background-color: rgba(255, 193, 7, 0.2); color: #ffc107;">Relevant Change</span></td>
+          <td>New monitoring system deployed with 40-minute polling</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="rca-container">
+    <h4>Root Cause Analysis <span class="confidence-tag">98% Confidence</span></h4>
+    <p>The intermittent packet loss occurring on the XYZ Corp network is caused by <strong>aggressive SNMP polling</strong> from the newly deployed SolarWinds monitoring system. Every 40 minutes, the system initiates bulk SNMP walks that cause CPU utilization on CORE-SW-01 to spike to 98% for 3-4 minutes. During these resource exhaustion periods, the switch cannot properly process all packets, resulting in 5-8% packet loss across all connected sites.</p>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-time">09:15 AM</div>
+          <p>First packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-time">09:55 AM</div>
+          <p>Second packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-time">10:35 AM</div>
+          <p>Third packet loss event occurs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-time">11:15 AM</div>
+          <p>Fourth packet loss event occurs</p>
+        </div>
+      </div>
+    </div>
+    
+    <p>The timing of these events precisely matches the 40-minute SNMP polling interval configured in the monitoring system deployed yesterday. All diagnostic evidence confirms this correlation.</p>
+  </div>
+  
+  <div class="remediation-container">
+    <h4>Recommended Actions</h4>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">IMMEDIATE</span> (Within 15 minutes)</h5>
+      <ol class="action-list">
+        <li>Reduce SNMP polling frequency to every 120 minutes</li>
+        <li>Implement rate limiting on SNMP requests using command:<br>
+        <code>snmp-server rate-limit 1</code></li>
+        <li>Temporarily disable non-critical OIDs from collection</li>
+        <li>Verify resolution by monitoring CPU utilization and packet loss</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">SHORT-TERM</span> (Within 24 hours)</h5>
+      <ol class="action-list">
+        <li>Distribute SNMP load across multiple polling cycles</li>
+        <li>Configure polling only for essential MIBs</li>
+        <li>Implement SNMP process rate limiting on CORE switches using:<br>
+        <code>process cpu threshold type total rising 80 interval 5 falling 20 interval 5</code></li>
+        <li>Create CPU monitoring alert for proactive detection</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">LONG-TERM</span> (Within 1 week)</h5>
+      <ol class="action-list">
+        <li>Redesign monitoring architecture to use distributed collectors</li>
+        <li>Implement SNMPv3 with optimization for resource constraints</li>
+        <li>Test and validate monitoring impact in lab environment before deployment</li>
+        <li>Create monitoring design document with best practices for future implementation</li>
+      </ol>
+    </div>
+  </div>
+</div>`;
+
+        // Initialize chat
+        let messageId = 0;
+
+        function addMessage(role, content, isHtml = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+            message.className = `message ${role}-message`;
+            message.id = `message-${messageId++}`;
+            
+            const messageContent = `
+                <div class="message-header">
+                    <div class="message-avatar ${role}-avatar">${role === 'user' ? 'U' : 'AI'}</div>
+                    <div class="message-name">${role === 'user' ? 'You' : 'NOC AI Assistant'}</div>
+                </div>
+                <div class="message-content" id="content-${message.id}">
+                    ${isHtml ? '' : content}
+                </div>
+            `;
+            
+            message.innerHTML = messageContent;
+            messagesContainer.appendChild(message);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // If HTML content, stream it
+            if (isHtml) {
+                const contentElement = document.getElementById(`content-${message.id}`);
+                streamHTMLContent(contentElement, content);
+            }
+            
+            return message;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function streamHTMLContent(element, html) {
+            const chunks = splitHTMLToChunks(html, 10);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function processNextChunk() {
+                if (chunkIndex < chunks.length) {
+                    currentHTML += chunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll
+                    const messagesContainer = document.getElementById('chat-messages');
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    
+                    // Variable delays for natural feel
+                    let nextDelay;
+                    if (chunkIndex % 15 === 0) {
+                        nextDelay = getRandomDelay(200, 400);
+                    } else if (chunkIndex % 7 === 0) {
+                        nextDelay = getRandomDelay(100, 200);
+                    } else {
+                        nextDelay = getRandomDelay(30, 60);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            processNextChunk();
+        }
+
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+                
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                if (message.toLowerCase().includes('packet loss') || 
+                    message.toLowerCase().includes('investigate') ||
+                    message.toLowerCase().includes('network')) {
+                    addMessage('ai', "I'm analyzing the packet loss issue on your network. Let me investigate this systematically...");
+                    
+                    setTimeout(() => {
+                        showTypingIndicator();
+                        setTimeout(() => {
+                            hideTypingIndicator();
+                            addMessage('ai', packetLossHTML, true);
+                        }, 1500);
+                    }, 1000);
+                } else {
+                    addMessage('ai', "I can help you investigate network issues. Try asking about 'packet loss investigation' to see a detailed analysis.");
+                }
+            }, 1500);
+        }
+
+        // Handle enter key
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initial message
+        setTimeout(() => {
+            addMessage('ai', "Hello! I'm your NOC AI Assistant. I can help you investigate network issues. Try asking about 'packet loss' to see how I analyze network problems.");
+        }, 500);
+    </script>
+</body>
+</html>

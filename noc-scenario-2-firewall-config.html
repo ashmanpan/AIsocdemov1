@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOC Scenario 2 - Firewall Configuration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-avatar {
+            background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        }
+        
+        .ai-avatar {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+        }
+        
+        .message-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-message .message-name {
+            color: #ff6b6b;
+        }
+        
+        .ai-message .message-name {
+            color: #00ff88;
+        }
+        
+        .message-content {
+            margin-left: 42px;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 42px;
+            padding: 10px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Firewall specific styles */
+        .firewall-analysis {
+            background-color: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        
+        h3 {
+            color: #00ff88;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+        
+        .progress-container {
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            width: 0%;
+            animation: progressFill 2s ease-out forwards;
+        }
+        
+        @keyframes progressFill {
+            to {
+                width: 100%;
+            }
+        }
+        
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .status-warning {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .status-critical {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            color: #00aaff;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .data-table th {
+            background-color: #252525;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .data-table tr:hover {
+            background-color: #252525;
+        }
+        
+        ul {
+            margin: 16px 0;
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        /* Input area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+        }
+        
+        .send-button {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        
+        <div class="input-area">
+            <input type="text" class="input-field" id="user-input" placeholder="Ask about firewall configuration..." />
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Full HTML content for firewall configuration
+        const firewallConfigHTML = `<div class="firewall-analysis">
+<h3>Firewall Configuration Analysis</h3>
+<p><strong>Analyzing your current firewall configuration...</strong></p>
+
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 100%;"></div>
+    </div>
+</div>
+
+<p>Analysis complete. <span class="status-tag status-warning">5 Issues Found</span></p>
+
+<p>Found <span class="highlight">23 active rules</span> with <span class="warning">5 potential conflicts</span> in zone policies:</p>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Rule #</th>
+                <th>Conflict Type</th>
+                <th>Severity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#17 & #22</td>
+                <td>Overlapping address spaces</td>
+                <td><span class="status-tag status-critical">Critical</span></td>
+            </tr>
+            <tr>
+                <td>#08 & #15</td>
+                <td>Contradicting actions</td>
+                <td><span class="status-tag status-warning">Medium</span></td>
+            </tr>
+            <tr>
+                <td>#31</td>
+                <td>Overly permissive</td>
+                <td><span class="status-tag status-warning">Medium</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Security posture assessment:</p>
+<ul>
+    <li><span class="warning">Detected 3 overly permissive rules</span> that could be tightened for improved security</li>
+    <li>Rule #31 allows <span class="highlight">ALL traffic from DMZ to Internal</span> without inspection</li>
+    <li>Rules #12-14 could be consolidated into a single rule for better management</li>
+</ul>
+
+<p><strong class="success">Recommendation:</strong> Consider implementing a zero-trust approach with more granular access controls and implement the following changes:</p>
+<ul>
+    <li>Modify rule #17 to exclude the subnet covered by rule #22</li>
+    <li>Enable application-layer inspection for DMZ traffic</li>
+    <li>Implement time-based access controls for administrative protocols</li>
+</ul>
+</div>`;
+
+        // Initialize chat
+        let messageId = 0;
+
+        function addMessage(role, content, isHtml = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+            message.className = `message ${role}-message`;
+            message.id = `message-${messageId++}`;
+            
+            const messageContent = `
+                <div class="message-header">
+                    <div class="message-avatar ${role}-avatar">${role === 'user' ? 'U' : 'AI'}</div>
+                    <div class="message-name">${role === 'user' ? 'You' : 'NOC AI Assistant'}</div>
+                </div>
+                <div class="message-content" id="content-${message.id}">
+                    ${isHtml ? '' : content}
+                </div>
+            `;
+            
+            message.innerHTML = messageContent;
+            messagesContainer.appendChild(message);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // If HTML content, stream it
+            if (isHtml) {
+                const contentElement = document.getElementById(`content-${message.id}`);
+                streamHTMLContent(contentElement, content);
+            }
+            
+            return message;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function streamHTMLContent(element, html) {
+            const chunks = splitHTMLToChunks(html, 10);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function processNextChunk() {
+                if (chunkIndex < chunks.length) {
+                    currentHTML += chunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll
+                    const messagesContainer = document.getElementById('chat-messages');
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    
+                    // Variable delays for natural feel
+                    let nextDelay;
+                    if (chunkIndex % 15 === 0) {
+                        nextDelay = getRandomDelay(200, 400);
+                    } else if (chunkIndex % 7 === 0) {
+                        nextDelay = getRandomDelay(100, 200);
+                    } else {
+                        nextDelay = getRandomDelay(30, 60);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            processNextChunk();
+        }
+
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+                
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                if (message.toLowerCase().includes('firewall') || 
+                    message.toLowerCase().includes('config') ||
+                    message.toLowerCase().includes('rules')) {
+                    addMessage('ai', "I'll analyze your firewall configuration for potential issues and optimization opportunities...");
+                    
+                    setTimeout(() => {
+                        showTypingIndicator();
+                        setTimeout(() => {
+                            hideTypingIndicator();
+                            addMessage('ai', firewallConfigHTML, true);
+                        }, 1500);
+                    }, 1000);
+                } else {
+                    addMessage('ai', "I can help you analyze firewall configurations. Try asking about 'firewall rules' or 'configuration analysis' to see a detailed report.");
+                }
+            }, 1500);
+        }
+
+        // Handle enter key
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initial message
+        setTimeout(() => {
+            addMessage('ai', "Hello! I'm your NOC AI Assistant. I can analyze firewall configurations and identify potential security issues. Ask me about your 'firewall configuration' to get started.");
+        }, 500);
+    </script>
+</body>
+</html>

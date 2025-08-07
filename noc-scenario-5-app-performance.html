@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOC Scenario 5 - Application Performance RCA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-avatar {
+            background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        }
+        
+        .ai-avatar {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+        }
+        
+        .message-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-message .message-name {
+            color: #ff6b6b;
+        }
+        
+        .ai-message .message-name {
+            color: #00ff88;
+        }
+        
+        .message-content {
+            margin-left: 42px;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 42px;
+            padding: 10px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Agent workflow styles */
+        .agent-workflow {
+            background-color: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step.highlight-step {
+            border-color: #ff5252;
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.3);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #252525;
+            border-bottom: 1px solid #333;
+        }
+        
+        .agent-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00ff88;
+            flex-grow: 1;
+        }
+        
+        .status-tag {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .agent-content {
+            padding: 16px;
+            color: #ccc;
+        }
+        
+        .agent-content p {
+            margin-bottom: 8px;
+        }
+        
+        .compact-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0;
+        }
+        
+        .compact-list li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .compact-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+        }
+        
+        .metric-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0;
+        }
+        
+        .metric-list li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .problem-value {
+            color: #ff5252;
+            font-weight: bold;
+        }
+        
+        .normal-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .agent-transfer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .multi-transfer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .arrow {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .finding-summary {
+            margin-top: 12px;
+            padding: 8px;
+            background-color: rgba(0, 255, 136, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        
+        .finding-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .finding-issue {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .finding-critical {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        .finding-good {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .change-details {
+            background-color: rgba(255, 82, 82, 0.1);
+            border-left: 3px solid #ff5252;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        code {
+            background-color: #252525;
+            color: #00ff88;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        
+        /* Input area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            background-color: #111111;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+        }
+        
+        .send-button {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        h3, h4 {
+            color: #00ff88;
+            margin-bottom: 16px;
+        }
+        
+        .section-header {
+            color: #00ff88;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            padding-left: 12px;
+            border-left: 3px solid #00ff88;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .data-table th {
+            background-color: #252525;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .data-table tr:hover {
+            background-color: #252525;
+        }
+        
+        .rca-container {
+            background-color: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .remediation-container {
+            margin: 20px 0;
+        }
+        
+        .remediation-phase {
+            background-color: rgba(0, 255, 136, 0.05);
+            border-left: 3px solid #00ff88;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .phase-tag {
+            display: inline-block;
+            background-color: #00ff88;
+            color: #0a0a0a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .action-list {
+            list-style: decimal;
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        .action-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .confidence-tag {
+            background-color: #00ff88;
+            color: #0a0a0a;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-error {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: #ff5252;
+        }
+        
+        .status-warning {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .status-success {
+            background-color: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        
+        <div class="input-area">
+            <input type="text" class="input-field" id="user-input" placeholder="Ask about application performance..." />
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Full HTML content for application performance RCA
+        const appPerformanceHTML = `<div class="agent-workflow">
+  <h3>Agentic AI - Root Cause Analysis Workflow</h3>
+  <p><strong>Investigating Application Performance Issue at ABC Bank Mumbai Branch (Ticket #45782)</strong></p>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">⚙️</span>
+      <span class="agent-name">IO_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Ticket #45782 received from ABC Bank Mumbai branch. Multiple users reporting application response times of 3-5 seconds since 10:45 AM local time.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Initiating systematic investigation approach. Need to map environment and coordinate parallel checks on all components.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Requesting topology from <strong>TOPOLOGY_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🗺️</span>
+      <span class="agent-name">TOPOLOGY_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Topology mapping complete. Full path from Mumbai to DC-West identified:</p>
+      <ul class="compact-list">
+        <li>Edge: R1-MUM (10.11.1.1)</li>
+        <li>Provider Edge: R2-GW (172.16.0.2)</li>
+        <li>Core: R3-CORE (172.16.0.6)</li>
+        <li>DC Gateway: DC-GW (10.224.0.1)</li>
+        <li>Active tunnel: Tunnel-17 (VPN-456789)</li>
+      </ul>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Initiating parallel investigations to minimize MTTR:</p>
+      <div class="multi-transfer">
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting interface checks from <strong>INTERFACE_CHECK_AGENT</strong>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting performance analysis from <strong>HISTORICAL_PERF_AGENT</strong>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting QoS verification from <strong>QOS_POLICY_AGENT</strong>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting path verification from <strong>TRAFFIC_PATH_AGENT</strong>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Requesting change records from <strong>LCM_AGENT</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🔌</span>
+      <span class="agent-name">INTERFACE_CHECK_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Physical layer analysis complete. All interfaces in path are clean - no errors, no discards, no flaps detected.</p>
+      <div class="finding-summary">
+        <span class="finding-tag finding-good">Physical Layer Healthy</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">📊</span>
+      <span class="agent-name">HISTORICAL_PERF_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Performance analysis complete. Detected significant deviation from baseline during incident window:</p>
+      <ul class="metric-list">
+        <li>Latency: <span class="normal-value">12ms</span> → <span class="problem-value">45ms</span></li>
+        <li>Jitter: <span class="normal-value">3ms</span> → <span class="problem-value">18ms</span></li>
+        <li>Packet Loss: <span class="normal-value">0.01%</span> → <span class="problem-value">0.8%</span></li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-issue">Performance Degradation</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🔄</span>
+      <span class="agent-name">QOS_POLICY_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>QoS policy analysis complete. Detected drop conditions in high-priority queues:</p>
+      <ul class="compact-list">
+        <li>VOICE class: 12% packet drops</li>
+        <li>CRITICAL-DATA class: 8% packet drops</li>
+        <li>ABC Bank application traffic is classified in CRITICAL-DATA</li>
+        <li>Bandwidth allocation changed from <span class="normal-value">35%</span> to <span class="problem-value">25%</span></li>
+      </ul>
+      <div class="finding-summary">
+        <span class="finding-tag finding-critical">QoS Configuration Issue</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🛣️</span>
+      <span class="agent-name">TRAFFIC_PATH_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Routing verification complete. Traffic is following expected path through network.</p>
+      <div class="finding-summary">
+        <span class="finding-tag finding-good">Routing Path Correct</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step highlight-step">
+    <div class="agent-header">
+      <span class="agent-icon">📝</span>
+      <span class="agent-name">LCM_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Change analysis complete. <strong>Critical finding</strong>: QoS policy change (CR-45211) implemented on R2-GW at 10:40 AM - exactly 5 minutes before reported issues began.</p>
+      <div class="change-details">
+        <p>Change reduced bandwidth allocation for CRITICAL-DATA class from 35% to 25% as part of network-wide standardization.</p>
+      </div>
+      <div class="finding-summary">
+        <span class="finding-tag finding-critical">Root Cause Identified</span>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>All diagnostic data collected. Analyzing correlation between findings:</p>
+      <ul class="compact-list">
+        <li>Physical infrastructure is healthy</li>
+        <li>Performance metrics show degradation during specific window</li>
+        <li>QoS queue drops detected in critical traffic class</li>
+        <li>Routing path is correct</li>
+        <li>QoS policy change aligns perfectly with issue onset</li>
+      </ul>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Requesting remediation plan from <strong>RECOMMENDATIONS_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">📋</span>
+      <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Generated detailed remediation plan with timeline-based approach:</p>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">IMMEDIATE</span> (5 minutes)</h5>
+        <p>Restore CRITICAL-DATA bandwidth allocation from 25% to previous 35% on R2-GW</p>
+      </div>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">SHORT-TERM</span> (24-48 hours)</h5>
+        <p>Analyze Mumbai branch traffic patterns and right-size QoS allocations</p>
+      </div>
+      <div class="remediation-phase">
+        <h5><span class="phase-tag">LONG-TERM</span> (1-2 weeks)</h5>
+        <p>Review QoS standardization project and update change management</p>
+      </div>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Reporting back to <strong>MASTER_REASONING_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="agent-step">
+    <div class="agent-header">
+      <span class="agent-icon">🧠</span>
+      <span class="agent-name">MASTER_REASONING_AGENT</span>
+      <span class="status-tag">Complete</span>
+    </div>
+    <div class="agent-content">
+      <p>Root cause analysis and remediation plan complete. Transferring to IO_AGENT for customer communication.</p>
+      <div class="agent-transfer">
+        <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong>
+      </div>
+    </div>
+  </div>
+  
+  <h4 class="section-header">Final Analysis Report</h4>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Investigation Component</th>
+          <th>Status</th>
+          <th>Findings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Physical Infrastructure</td>
+          <td><span class="status-tag status-success">Healthy</span></td>
+          <td>No errors, discards or interface flaps detected</td>
+        </tr>
+        <tr>
+          <td>Network Performance</td>
+          <td><span class="status-tag status-warning">Degraded</span></td>
+          <td>Latency increased from 12ms to 45ms during incident window</td>
+        </tr>
+        <tr>
+          <td>QoS Configuration</td>
+          <td><span class="status-tag status-error">Issue Detected</span></td>
+          <td>Critical-Data class drops of 8% observed</td>
+        </tr>
+        <tr>
+          <td>Routing Path</td>
+          <td><span class="status-tag status-success">Correct</span></td>
+          <td>Traffic following expected network path</td>
+        </tr>
+        <tr>
+          <td>Recent Changes</td>
+          <td><span class="status-tag status-error">Relevant Change Found</span></td>
+          <td>QoS policy modification at 10:40 AM (CR-45211)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="rca-container">
+    <h4>Root Cause Analysis <span class="confidence-tag">95% Confidence</span></h4>
+    <p>The application slowness at ABC Bank Mumbai branch was caused by a QoS policy change implemented at 10:40 AM today on router R2-GW. The change reduced bandwidth allocation for critical application traffic from 35% to 25%, causing queue congestion, packet drops, and increased latency during the 10:45-11:10 AM window.</p>
+    <p>All diagnostic agents confirm this finding with physical layer, routing, and other potential causes ruled out. The issue timing precisely aligns with the policy change implementation.</p>
+  </div>
+  
+  <div class="remediation-container">
+    <h4>Recommended Actions</h4>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">IMMEDIATE</span> (Resolution within 5 minutes)</h5>
+      <ol class="action-list">
+        <li>Implement emergency change to restore CRITICAL-DATA bandwidth allocation from 25% to previous 35% on R2-GW</li>
+        <li>Command: <code>config t; policy-map WAN-EDGE; class CRITICAL-DATA; bandwidth percent 35; end; write mem</code></li>
+        <li>Verify queue drops cease after implementation</li>
+        <li>Monitor application performance for 15 minutes to confirm resolution</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">SHORT-TERM</span> (24-48 hours)</h5>
+      <ol class="action-list">
+        <li>Analyze Mumbai branch traffic patterns over 7-day period</li>
+        <li>Right-size QoS allocations based on actual usage patterns</li>
+        <li>Create Mumbai-specific policy template</li>
+      </ol>
+    </div>
+    
+    <div class="remediation-phase">
+      <h5><span class="phase-tag">LONG-TERM</span> (1-2 weeks)</h5>
+      <ol class="action-list">
+        <li>Review network-wide QoS standardization project</li>
+        <li>Create branch-specific exceptions process</li>
+        <li>Update change management procedure to include application testing</li>
+      </ol>
+    </div>
+  </div>
+</div>`;
+
+        // Initialize chat
+        let messageId = 0;
+
+        function addMessage(role, content, isHtml = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+            message.className = `message ${role}-message`;
+            message.id = `message-${messageId++}`;
+            
+            const messageContent = `
+                <div class="message-header">
+                    <div class="message-avatar ${role}-avatar">${role === 'user' ? 'U' : 'AI'}</div>
+                    <div class="message-name">${role === 'user' ? 'You' : 'NOC AI Assistant'}</div>
+                </div>
+                <div class="message-content" id="content-${message.id}">
+                    ${isHtml ? '' : content}
+                </div>
+            `;
+            
+            message.innerHTML = messageContent;
+            messagesContainer.appendChild(message);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // If HTML content, stream it
+            if (isHtml) {
+                const contentElement = document.getElementById(`content-${message.id}`);
+                streamHTMLContent(contentElement, content);
+            }
+            
+            return message;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function streamHTMLContent(element, html) {
+            const chunks = splitHTMLToChunks(html, 10);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function processNextChunk() {
+                if (chunkIndex < chunks.length) {
+                    currentHTML += chunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll
+                    const messagesContainer = document.getElementById('chat-messages');
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    
+                    // Variable delays for natural feel
+                    let nextDelay;
+                    if (chunkIndex % 15 === 0) {
+                        nextDelay = getRandomDelay(200, 400);
+                    } else if (chunkIndex % 7 === 0) {
+                        nextDelay = getRandomDelay(100, 200);
+                    } else {
+                        nextDelay = getRandomDelay(30, 60);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            processNextChunk();
+        }
+
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+                
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                if (message.toLowerCase().includes('application') || 
+                    message.toLowerCase().includes('performance') ||
+                    message.toLowerCase().includes('slowness') ||
+                    message.toLowerCase().includes('rca')) {
+                    addMessage('ai', "I'm analyzing the application performance issue systematically. Let me show you the multi-agent investigation workflow...");
+                    
+                    setTimeout(() => {
+                        showTypingIndicator();
+                        setTimeout(() => {
+                            hideTypingIndicator();
+                            addMessage('ai', appPerformanceHTML, true);
+                        }, 1500);
+                    }, 1000);
+                } else {
+                    addMessage('ai', "I can help analyze application performance issues using multiple AI agents. Try asking about 'application slowness' or 'performance RCA' to see a comprehensive root cause analysis.");
+                }
+            }, 1500);
+        }
+
+        // Handle enter key
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initial message
+        setTimeout(() => {
+            addMessage('ai', "Hello! I'm your NOC AI Assistant. I can perform root cause analysis for application performance issues using multiple specialized agents. Ask me about 'application performance' or 'slowness investigation' to see how our AI agents collaborate to solve complex problems.");
+        }, 500);
+    </script>
+</body>
+</html>
