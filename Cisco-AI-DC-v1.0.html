@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Datacenter-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .alert-box {
+            background-color: #1a0a0a;
+            border: 1px solid #ff0044;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            color: #ff0044;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-size: 16px;
+            color: #ff0044;
+            margin-bottom: 5px;
+        }
+        
+        .alert-description {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+        
+        .action-secondary {
+            background-color: transparent;
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+        
+        .action-danger {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .timeline-container {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #333;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            border: 2px solid #0a0a0a;
+        }
+        
+        .timeline-content {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        
+        .timeline-time {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        /* Ticket tracking styles */
+        .ticket-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ticket-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .ticket-priority {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Capacity utilization styles */
+        .capacity-container {
+            background-color: #0a1014;
+            border: 1px solid #00aaff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .capacity-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00aaff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .capacity-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .capacity-item {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        
+        .capacity-label {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .capacity-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .capacity-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .capacity-normal {
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+        }
+        
+        .capacity-warning {
+            background: linear-gradient(90deg, #ffaa00, #ff6600);
+        }
+        
+        .capacity-critical {
+            background: linear-gradient(90deg, #ff0044, #ff6600);
+        }
+        
+        .capacity-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Service health dashboard */
+        .service-health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .service-health-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .service-health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+        }
+        
+        .service-icon-large {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .service-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .status-healthy {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-degraded {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .status-down {
+            background-color: #ff0044;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Datacenter-Demo-V1.0</span>
+        </div>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Datacenter AI Operations</h2>
+                <p class="sidebar-subtitle">Infrastructure • Capacity • Services • Automation</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="incident-management">
+                    <span class="scenario-icon">🚨</span>
+                    <span class="scenario-text">AI-Driven Incident Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="capacity-management">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Predictive Capacity Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="resiliency-check">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Datacenter Resiliency Check</span>
+                </li>
+                <li class="scenario-item" data-scenario="infra-verification">
+                    <span class="scenario-icon">✅</span>
+                    <span class="scenario-text">Infrastructure Verification</span>
+                </li>
+                <li class="scenario-item" data-scenario="service-verification">
+                    <span class="scenario-icon">🔍</span>
+                    <span class="scenario-text">Service Verification Testing</span>
+                </li>
+                <li class="scenario-item" data-scenario="service-creation">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">AI Service Creation Agent</span>
+                </li>
+                <li class="scenario-item" data-scenario="vm-management">
+                    <span class="scenario-icon">💻</span>
+                    <span class="scenario-text">VM Lifecycle Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="container-orchestration">
+                    <span class="scenario-icon">🐳</span>
+                    <span class="scenario-text">Container Orchestration</span>
+                </li>
+                <li class="scenario-item" data-scenario="database-optimization">
+                    <span class="scenario-icon">🗄️</span>
+                    <span class="scenario-text">Database Performance Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="network-automation">
+                    <span class="scenario-icon">🌐</span>
+                    <span class="scenario-text">Network Automation & SDN</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M30 50 L45 35 L45 45 L70 45 L70 55 L45 55 L45 65 Z" fill="#00ff88"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Datacenter AI Operations Center</h1>
+                <p class="welcome-subtext">
+                    Experience the power of Agentic AI in datacenter management. Our intelligent agents work collaboratively to manage incidents, optimize capacity, ensure resiliency, and automate service provisioning across your entire infrastructure.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'incident-management': {
+                title: 'AI-Driven Incident Management',
+                icon: '🚨',
+                description: 'Automated detection, triage, root cause analysis, and resolution of datacenter incidents',
+                initialQuery: 'Critical alert: Database cluster experiencing high latency',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🚨</span>
+                            <h3 class="workflow-title">CRITICAL: Database Cluster Performance Degradation</h3>
+                        </div>
+                        
+                        <div class="ticket-info">
+                            <div>
+                                <div class="ticket-id">TICKET #DC-2024-00847</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Generated: ${new Date().toISOString()}</div>
+                            </div>
+                            <div class="ticket-priority severity-critical">P1 - CRITICAL</div>
+                        </div>
+                        
+                        <div class="alert-box">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <div class="alert-title">Database Cluster Performance Crisis</div>
+                                <div class="alert-description">Multiple database nodes showing 850ms+ latency, affecting 2,500+ active connections</div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 DETECTION_AGENT</span>
+                                <span class="agent-status status-completed">Completed</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Anomaly Detection Results:</strong><br>
+                                • Query latency: 850ms (baseline: 45ms) - 1,788% increase<br>
+                                • Connection pool: 2,547/3,000 (85% utilized)<br>
+                                • CPU usage: 94% across all nodes<br>
+                                • Disk I/O: 450 MB/s (saturation detected)<br>
+                                • Network throughput: Normal (2.3 Gbps)<br>
+                                <br>
+                                <strong>Pattern Recognition:</strong> Matches signature of "query plan regression after statistics update"
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📋 TRIAGE_AGENT</span>
+                                <span class="agent-status status-completed">Completed</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Impact Assessment:</strong><br>
+                                • Affected Services: 23 microservices<br>
+                                • User Impact: ~15,000 active users experiencing delays<br>
+                                • Business Impact: $45,000/hour in potential revenue loss<br>
+                                • SLA Status: Breaching 99.9% availability threshold<br>
+                                <br>
+                                <strong>Priority:</strong> P1 - Immediate action required<br>
+                                <strong>Escalation:</strong> Auto-escalated to Database Team and SRE Lead
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔬 RCA_AGENT</span>
+                                <span class="agent-status status-completed">Completed</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Root Cause Analysis:</strong><br>
+                                <br>
+                                <strong>Timeline Correlation:</strong><br>
+                                • 14:23 - Automatic statistics update triggered<br>
+                                • 14:25 - Query optimizer plan cache cleared<br>
+                                • 14:26 - New execution plans generated<br>
+                                • 14:27 - Latency spike detected<br>
+                                <br>
+                                <strong>Root Cause:</strong> PostgreSQL auto-vacuum updated table statistics, causing the query optimizer to choose inefficient execution plans for 3 critical queries:<br>
+                                • <code>get_user_transactions</code> - Using sequential scan instead of index<br>
+                                • <code>aggregate_daily_metrics</code> - Missing join optimization<br>
+                                • <code>fetch_product_inventory</code> - Incorrect cardinality estimation
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔧 RESOLUTION_AGENT</span>
+                                <span class="agent-status status-active">Executing</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Automated Resolution in Progress:</strong><br>
+                                <br>
+                                ✅ Step 1: Forcing index hints on affected queries<br>
+                                ✅ Step 2: Increasing work_mem from 4MB to 32MB<br>
+                                ⏳ Step 3: Rebuilding query statistics with higher sampling<br>
+                                ⏳ Step 4: Implementing query plan pinning for critical queries<br>
+                                ⏳ Step 5: Scaling read replicas from 3 to 5 instances<br>
+                                <br>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                                <strong>Progress:</strong> 60% complete (ETA: 3 minutes)
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Current Latency</div>
+                                <div class="metric-value">425ms</div>
+                                <div class="metric-details">↓ Improving (was 850ms)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Error Rate</div>
+                                <div class="metric-value">0.3%</div>
+                                <div class="metric-details">Within acceptable range</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Recovery Time</div>
+                                <div class="metric-value">7 min</div>
+                                <div class="metric-details">Below 10 min RTO</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Auto-Resolved</div>
+                                <div class="metric-value">92%</div>
+                                <div class="metric-details">Human intervention: 8%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="action-button action-primary">View Detailed Metrics</button>
+                            <button class="action-button action-secondary">Export RCA Report</button>
+                            <button class="action-button action-danger">Escalate to Human</button>
+                        </div>
+                    </div>`
+                ]
+            },
+            'capacity-management': {
+                title: 'Predictive Capacity Management',
+                icon: '📊',
+                description: 'AI-powered capacity planning and optimization using predictive analytics',
+                initialQuery: 'Analyze current capacity and predict future requirements',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📊</span>
+                            <h3 class="workflow-title">Datacenter Capacity Analysis & Predictions</h3>
+                        </div>
+                        
+                        <div class="capacity-container">
+                            <div class="capacity-header">
+                                <span>💾</span>
+                                <span>Current Resource Utilization</span>
+                            </div>
+                            <div class="capacity-metrics">
+                                <div class="capacity-item">
+                                    <div class="capacity-label">CPU Cores (12,450 / 16,000)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-warning" style="width: 78%;"></div>
+                                        <span class="capacity-text">77.8%</span>
+                                    </div>
+                                </div>
+                                <div class="capacity-item">
+                                    <div class="capacity-label">Memory (45.2 TB / 64 TB)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-normal" style="width: 71%;"></div>
+                                        <span class="capacity-text">70.6%</span>
+                                    </div>
+                                </div>
+                                <div class="capacity-item">
+                                    <div class="capacity-label">Storage (2.8 PB / 5.0 PB)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-normal" style="width: 56%;"></div>
+                                        <span class="capacity-text">56.0%</span>
+                                    </div>
+                                </div>
+                                <div class="capacity-item">
+                                    <div class="capacity-label">Network Bandwidth (850 Gb / 1000 Gb)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-critical" style="width: 85%;"></div>
+                                        <span class="capacity-text">85.0%</span>
+                                    </div>
+                                </div>
+                                <div class="capacity-item">
+                                    <div class="capacity-label">Power Consumption (4.2 MW / 5.0 MW)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-warning" style="width: 84%;"></div>
+                                        <span class="capacity-text">84.0%</span>
+                                    </div>
+                                </div>
+                                <div class="capacity-item">
+                                    <div class="capacity-label">Cooling Capacity (82% / 100%)</div>
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill capacity-warning" style="width: 82%;"></div>
+                                        <span class="capacity-text">82.0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 PREDICTIVE_ANALYTICS_AGENT</span>
+                                <span class="agent-status status-completed">Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Growth Pattern Analysis:</strong><br>
+                                • Historical growth rate: 18% quarterly<br>
+                                • Seasonal peaks: Q4 (Black Friday/Holiday) +45%<br>
+                                • New product launches: +25% spike for 2 weeks<br>
+                                • Current trajectory: Exponential growth detected<br>
+                                <br>
+                                <strong>ML Model Predictions (95% confidence):</strong><br>
+                                • 7 days: CPU 82%, Memory 73%, Network 87%<br>
+                                • 30 days: CPU 89%, Memory 78%, Network 92%<br>
+                                • 90 days: CPU 95%, Memory 85%, Network 98%<br>
+                                <br>
+                                <strong>Critical Threshold Dates:</strong><br>
+                                🔴 Network capacity: Will exceed 95% in 45 days<br>
+                                🟡 CPU capacity: Will exceed 95% in 88 days<br>
+                                🟢 Storage capacity: Safe for 180+ days
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🎯 OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-active">Optimizing</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Optimization Recommendations:</strong><br>
+                                <br>
+                                <strong>Immediate Actions (This Week):</strong><br>
+                                ✅ Migrate 15 low-priority VMs to secondary DC (free 800 cores)<br>
+                                ✅ Implement CPU pinning for critical workloads<br>
+                                ✅ Enable memory ballooning on 200 VMs<br>
+                                ✅ Compress cold storage data (save 400TB)<br>
+                                <br>
+                                <strong>Short-term (30 days):</strong><br>
+                                • Order 2x 100Gb network switches ($45,000)<br>
+                                • Add 4 compute nodes (1,024 cores, 8TB RAM)<br>
+                                • Upgrade cooling system in Zone-B<br>
+                                <br>
+                                <strong>Cost Optimization Potential:</strong><br>
+                                • Right-sizing can save $125,000/month<br>
+                                • Off-peak scheduling can reduce power by 15%<br>
+                                • Workload consolidation can free 20% resources
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📋 CAPACITY_PLANNING_AGENT</span>
+                                <span class="agent-status status-completed">Plan Generated</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Capacity Expansion Plan:</strong><br>
+                                <br>
+                                <strong>Phase 1 (Q1 2024) - $850,000:</strong><br>
+                                • Add 8 compute nodes (2,048 cores, 16TB RAM)<br>
+                                • Upgrade core network to 400Gb<br>
+                                • Add 1PB flash storage array<br>
+                                <br>
+                                <strong>Phase 2 (Q2 2024) - $1,200,000:</strong><br>
+                                • Build new pod with 16 racks<br>
+                                • Install 2MW additional power capacity<br>
+                                • Deploy edge computing nodes (5 locations)<br>
+                                <br>
+                                <strong>What-if Scenarios Analyzed:</strong><br>
+                                • 2x traffic surge: System can handle for 72 hours<br>
+                                • Hardware failure (N+2): Sufficient redundancy<br>
+                                • Disaster recovery: 15-minute failover ready
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Utilization Efficiency</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-details">Industry avg: 65%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost per Core</div>
+                                <div class="metric-value">$42</div>
+                                <div class="metric-details">↓ 15% from last quarter</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Power Efficiency</div>
+                                <div class="metric-value">1.58 PUE</div>
+                                <div class="metric-details">Target: 1.50</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Predicted Savings</div>
+                                <div class="metric-value">$1.5M</div>
+                                <div class="metric-details">Annual optimization</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'resiliency-check': {
+                title: 'Datacenter Resiliency Check',
+                icon: '🛡️',
+                description: 'Automated resilience validation through chaos engineering and failover testing',
+                initialQuery: 'Run comprehensive resiliency assessment',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🛡️</span>
+                            <h3 class="workflow-title">Datacenter Resiliency Assessment Report</h3>
+                        </div>
+                        
+                        <div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                            <span class="alert-icon" style="color: #00ff88;">✅</span>
+                            <div class="alert-content">
+                                <div class="alert-title" style="color: #00ff88;">Overall Resiliency Score: 94/100</div>
+                                <div class="alert-description">Datacenter meets enterprise resilience standards with minor improvements needed</div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 RESILIENCE_ASSESSMENT_AGENT</span>
+                                <span class="agent-status status-completed">Assessment Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Redundancy Analysis:</strong><br>
+                                ✅ Compute: N+2 redundancy (can lose 2 nodes)<br>
+                                ✅ Storage: 3-way replication + erasure coding<br>
+                                ✅ Network: Dual-path with automatic failover<br>
+                                ⚠️ Power: N+1 redundancy (recommend N+2)<br>
+                                ✅ Cooling: N+2 with isolated zones<br>
+                                <br>
+                                <strong>Recovery Metrics:</strong><br>
+                                • RTO (Recovery Time Objective): 15 minutes ✅<br>
+                                • RPO (Recovery Point Objective): 1 minute ✅<br>
+                                • MTTR (Mean Time To Recovery): 8.3 minutes ✅<br>
+                                • Availability: 99.995% (26 minutes downtime/year)
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💥 CHAOS_ENGINEERING_AGENT</span>
+                                <span class="agent-status status-active">Testing Active</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Chaos Experiments Executed:</strong><br>
+                                <br>
+                                ✅ <strong>Random Pod Termination:</strong> Killed 50 pods<br>
+                                   • Recovery time: 12 seconds<br>
+                                   • Service impact: None (handled by replicas)<br>
+                                <br>
+                                ✅ <strong>Network Partition:</strong> Isolated Zone-A for 5 min<br>
+                                   • Failover time: 8 seconds<br>
+                                   • Data consistency: Maintained<br>
+                                <br>
+                                ⚠️ <strong>Storage Failure:</strong> Simulated SAN failure<br>
+                                   • Recovery time: 45 seconds (target: 30s)<br>
+                                   • Some timeout errors observed<br>
+                                <br>
+                                ✅ <strong>Database Failover:</strong> Primary DB shutdown<br>
+                                   • Failover to replica: 15 seconds<br>
+                                   • Zero data loss confirmed<br>
+                                <br>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
+                                </div>
+                                <strong>Test Progress:</strong> 15/20 scenarios completed
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔄 FAILOVER_TESTING_AGENT</span>
+                                <span class="agent-status status-completed">Tests Completed</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Failover Test Results:</strong><br>
+                                <br>
+                                <table style="width: 100%; color: #ddd;">
+                                    <tr>
+                                        <td>VMware vMotion</td>
+                                        <td>✅ 0 downtime</td>
+                                        <td>250 VMs migrated</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Load Balancer Failover</td>
+                                        <td>✅ 2 sec switchover</td>
+                                        <td>No sessions lost</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Site-to-Site Failover</td>
+                                        <td>✅ 12 min complete</td>
+                                        <td>RPO: 45 seconds</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Power Transfer Test</td>
+                                        <td>⚠️ 3 sec gap</td>
+                                        <td>UPS handled load</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kubernetes Cluster</td>
+                                        <td>✅ Zero downtime</td>
+                                        <td>Master failover OK</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">✅ RECOVERY_VALIDATION_AGENT</span>
+                                <span class="agent-status status-completed">Validation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Post-Recovery Validation:</strong><br>
+                                ✅ Data Integrity: All checksums match<br>
+                                ✅ Service Health: 100% services responding<br>
+                                ✅ Performance: Within 2% of baseline<br>
+                                ✅ Configuration Drift: None detected<br>
+                                ✅ Security Posture: All controls active<br>
+                                <br>
+                                <strong>Improvement Recommendations:</strong><br>
+                                1. Upgrade power system to N+2 redundancy<br>
+                                2. Reduce storage failover time to <30 seconds<br>
+                                3. Implement automated DR testing weekly<br>
+                                4. Add third network path for critical services
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Resilience Score</div>
+                                <div class="metric-value">94/100</div>
+                                <div class="metric-details">↑ 6 points from Q3</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Tests Passed</div>
+                                <div class="metric-value">47/50</div>
+                                <div class="metric-details">94% success rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Avg Recovery</div>
+                                <div class="metric-value">8.3 min</div>
+                                <div class="metric-details">Target: <10 min</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Next DR Drill</div>
+                                <div class="metric-value">5 days</div>
+                                <div class="metric-details">Site failover test</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'infra-verification': {
+                title: 'Infrastructure Verification',
+                icon: '✅',
+                description: 'Automated verification of datacenter infrastructure, configurations, and compliance',
+                initialQuery: 'Verify infrastructure configuration and compliance',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">✅</span>
+                            <h3 class="workflow-title">Infrastructure Verification & Compliance Report</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚙️ CONFIG_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Scan Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Configuration Analysis Results:</strong><br>
+                                <br>
+                                <strong>Servers (850 nodes):</strong><br>
+                                ✅ 847 compliant with baseline<br>
+                                ⚠️ 3 configuration drifts detected:<br>
+                                • server-db-01: MySQL max_connections (100 → 150)<br>
+                                • server-app-23: Kernel parameters modified<br>
+                                • server-web-15: NTP server mismatch<br>
+                                <br>
+                                <strong>Network Devices (145 devices):</strong><br>
+                                ✅ 142 compliant<br>
+                                ⚠️ Issues found:<br>
+                                • switch-core-02: VLAN 200 missing<br>
+                                • firewall-dmz-01: Rule #45 modified without approval<br>
+                                • router-edge-03: BGP peer not configured<br>
+                                <br>
+                                <strong>Storage Systems (48 arrays):</strong><br>
+                                ✅ All 48 systems compliant<br>
+                                ✅ RAID configurations verified<br>
+                                ✅ Multipath settings correct
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔐 COMPLIANCE_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-warning">3 Issues Found</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Compliance Framework Results:</strong><br>
+                                <br>
+                                ✅ <strong>PCI-DSS:</strong> Fully Compliant<br>
+                                • Last audit: 10 days ago<br>
+                                • All 234 controls passed<br>
+                                <br>
+                                ✅ <strong>SOC 2 Type II:</strong> Compliant<br>
+                                • 98/98 controls verified<br>
+                                • Next audit in 45 days<br>
+                                <br>
+                                ⚠️ <strong>CIS Benchmarks:</strong> 3 Medium Findings<br>
+                                • SSH root login enabled on 3 servers<br>
+                                • Password complexity not enforced on 5 accounts<br>
+                                • Audit logs retention <90 days on 2 systems<br>
+                                <br>
+                                ✅ <strong>ISO 27001:</strong> Compliant<br>
+                                • Information security controls verified<br>
+                                • Risk assessment up to date<br>
+                                <br>
+                                ✅ <strong>HIPAA:</strong> Compliant<br>
+                                • PHI encryption verified<br>
+                                • Access controls validated
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔧 HARDWARE_HEALTH_AGENT</span>
+                                <span class="agent-status status-warning">Predictive Alerts</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Hardware Health Analysis:</strong><br>
+                                <br>
+                                <strong>Predictive Failure Warnings:</strong><br>
+                                ⚠️ server-app-23: Disk sda showing pre-failure<br>
+                                   • SMART errors increasing<br>
+                                   • Estimated failure: 7-10 days<br>
+                                   • Action: Schedule replacement<br>
+                                <br>
+                                ⚠️ server-web-15: Memory DIMM_A2 degrading<br>
+                                   • ECC errors: 15/hour (threshold: 10)<br>
+                                   • Estimated failure: 15-20 days<br>
+                                <br>
+                                ⚠️ switch-tor-08: PSU_2 efficiency dropped<br>
+                                   • Operating at 78% efficiency<br>
+                                   • Temperature 85°C (warning: 80°C)<br>
+                                <br>
+                                <strong>Overall Hardware Status:</strong><br>
+                                • CPUs: All healthy, avg temp 62°C<br>
+                                • Memory: 2,047/2,048 modules healthy<br>
+                                • Disks: 8,456/8,459 healthy<br>
+                                • Network cards: All operational<br>
+                                • Power supplies: 298/300 optimal
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌐 NETWORK_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Network Validated</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Network Validation Results:</strong><br>
+                                <br>
+                                ✅ <strong>Connectivity Matrix:</strong> 100% paths verified<br>
+                                • 4,250 endpoint pairs tested<br>
+                                • Zero unreachable destinations<br>
+                                <br>
+                                ✅ <strong>Bandwidth Tests:</strong><br>
+                                • Core: 397/400 Gbps available<br>
+                                • Edge: 95/100 Gbps available<br>
+                                • Inter-DC: 198/200 Gbps available<br>
+                                <br>
+                                ✅ <strong>Latency Measurements:</strong><br>
+                                • Intra-rack: <0.5ms ✅<br>
+                                • Inter-rack: <2ms ✅<br>
+                                • Inter-DC: <10ms ✅<br>
+                                <br>
+                                ✅ <strong>Configuration Validation:</strong><br>
+                                • VLANs: All 85 configured correctly<br>
+                                • Routing: BGP/OSPF converged<br>
+                                • MTU: Jumbo frames verified (9000)
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Compliance Score</div>
+                                <div class="metric-value">96.5%</div>
+                                <div class="metric-details">3 medium findings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Config Drift</div>
+                                <div class="metric-value">6 items</div>
+                                <div class="metric-details">Auto-remediation ready</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Hardware Alerts</div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-details">Predictive warnings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Next Audit</div>
+                                <div class="metric-value">45 days</div>
+                                <div class="metric-details">SOC 2 Type II</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'service-verification': {
+                title: 'Service Verification Testing',
+                icon: '🔍',
+                description: 'Black box and white box testing for VMs, containers, databases, and message queues',
+                initialQuery: 'Run comprehensive service verification tests',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔍</span>
+                            <h3 class="workflow-title">Service Verification Test Suite Results</h3>
+                        </div>
+                        
+                        <div class="service-health-grid">
+                            <div class="service-health-card">
+                                <div class="service-icon-large">💻</div>
+                                <div class="service-name">VM Service</div>
+                                <div class="service-status status-healthy">Healthy</div>
+                            </div>
+                            <div class="service-health-card">
+                                <div class="service-icon-large">🐳</div>
+                                <div class="service-name">Kubernetes</div>
+                                <div class="service-status status-healthy">Healthy</div>
+                            </div>
+                            <div class="service-health-card">
+                                <div class="service-icon-large">🗄️</div>
+                                <div class="service-name">Database</div>
+                                <div class="service-status status-degraded">Degraded</div>
+                            </div>
+                            <div class="service-health-card">
+                                <div class="service-icon-large">📬</div>
+                                <div class="service-name">Message Queue</div>
+                                <div class="service-status status-healthy">Healthy</div>
+                            </div>
+                            <div class="service-health-card">
+                                <div class="service-icon-large">🚀</div>
+                                <div class="service-name">MicroVM</div>
+                                <div class="service-status status-healthy">Healthy</div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⬛ BLACK_BOX_TESTING_AGENT</span>
+                                <span class="agent-status status-completed">Tests Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>VM Service (VMware vSphere):</strong><br>
+                                ✅ Provisioning: 48/50 passed (avg: 3.2 min)<br>
+                                ✅ Performance: CPU 98%, Memory 96% efficiency<br>
+                                ✅ Networking: Latency <0.8ms<br>
+                                ⚠️ API Tests: 2 timeout issues (>5s response)<br>
+                                <br>
+                                <strong>Container Service (Kubernetes):</strong><br>
+                                ✅ Deployment: 100 pods in <30s<br>
+                                ✅ Scaling: HPA working (scale in 15s)<br>
+                                ✅ Load Balancing: Even distribution confirmed<br>
+                                ⚠️ PVC Binding: Slow (>1 min for large volumes)<br>
+                                <br>
+                                <strong>Database Service (PostgreSQL/MySQL):</strong><br>
+                                ✅ Connection Pool: 1000 concurrent handled<br>
+                                ⚠️ Query Performance: 3 slow queries detected<br>
+                                ✅ Replication: <500ms lag<br>
+                                ✅ Backup/Restore: Verified (15 min for 1TB)<br>
+                                <br>
+                                <strong>Message Queue (Kafka/RabbitMQ):</strong><br>
+                                ✅ Throughput: 100K msgs/sec achieved<br>
+                                ✅ Consumer Lag: <100ms<br>
+                                ✅ Failover: 2 broker failure handled<br>
+                                ✅ Data Integrity: Zero message loss
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⬜ WHITE_BOX_TESTING_AGENT</span>
+                                <span class="agent-status status-completed">Internal Tests Done</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>VM Service Internals:</strong><br>
+                                ✅ Hypervisor: CPU pinning verified<br>
+                                ✅ NUMA: Proper node allocation<br>
+                                ✅ Storage: Thin provisioning working<br>
+                                ✅ Network: OVS flows configured correctly<br>
+                                <br>
+                                <strong>Kubernetes Internals:</strong><br>
+                                ✅ etcd: Cluster healthy, latency <10ms<br>
+                                ✅ API Server: Response time <100ms<br>
+                                ⚠️ Scheduler: 1 node affinity issue<br>
+                                ✅ Kubelet: All nodes reporting<br>
+                                <br>
+                                <strong>Database Internals:</strong><br>
+                                ✅ Query Optimizer: Plans cached properly<br>
+                                ⚠️ Index Usage: 3 missing indexes identified<br>
+                                ✅ Connection Pooling: Efficient reuse<br>
+                                ✅ WAL Archiving: Working correctly<br>
+                                <br>
+                                <strong>MicroVM Service (Firecracker):</strong><br>
+                                ✅ Boot Time: 118ms average ✅<br>
+                                ✅ Memory Overhead: 4.2MB per VM ✅<br>
+                                ✅ Security: Seccomp filters active<br>
+                                ✅ Isolation: Namespace separation verified
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 PERFORMANCE_TESTING_AGENT</span>
+                                <span class="agent-status status-completed">Benchmarks Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Performance Benchmark Results:</strong><br>
+                                <br>
+                                <table style="width: 100%; color: #ddd; font-size: 13px;">
+                                    <tr style="border-bottom: 1px solid #333;">
+                                        <th>Service</th>
+                                        <th>Metric</th>
+                                        <th>Result</th>
+                                        <th>Target</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr>
+                                        <td>VM</td>
+                                        <td>Boot Time</td>
+                                        <td>3.2 min</td>
+                                        <td><5 min</td>
+                                        <td>✅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>K8s</td>
+                                        <td>Pod Start</td>
+                                        <td>8 sec</td>
+                                        <td><30 sec</td>
+                                        <td>✅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Database</td>
+                                        <td>QPS</td>
+                                        <td>45,000</td>
+                                        <td>>40,000</td>
+                                        <td>✅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kafka</td>
+                                        <td>Throughput</td>
+                                        <td>850 MB/s</td>
+                                        <td>>500 MB/s</td>
+                                        <td>✅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MicroVM</td>
+                                        <td>Density</td>
+                                        <td>150/host</td>
+                                        <td>>100/host</td>
+                                        <td>✅</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Tests Passed</div>
+                                <div class="metric-value">287/300</div>
+                                <div class="metric-details">95.7% success rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Code Coverage</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-details">Target: 80%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Avg Response</div>
+                                <div class="metric-value">45ms</div>
+                                <div class="metric-details">P99: 120ms</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Service SLA</div>
+                                <div class="metric-value">99.95%</div>
+                                <div class="metric-details">Meeting target</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'service-creation': {
+                title: 'AI Service Creation Agent',
+                icon: '🤖',
+                description: 'Automatically generate self-service portals from API documentation',
+                initialQuery: 'Create a self-service portal for Firewall as a Service',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🤖</span>
+                            <h3 class="workflow-title">AI Service Creation: Firewall as a Service Portal</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📄 API_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">API Analyzed</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>API Documentation Analysis Complete:</strong><br>
+                                <br>
+                                <strong>Service:</strong> Palo Alto Networks Firewall v10.1<br>
+                                <strong>Base URL:</strong> https://firewall.example.com/api<br>
+                                <strong>Authentication:</strong> API Key (Header: X-API-Key)<br>
+                                <br>
+                                <strong>Endpoints Discovered:</strong><br>
+                                • POST /firewalls - Create firewall instance<br>
+                                • GET /firewalls - List all firewalls<br>
+                                • DELETE /firewalls/{id} - Delete firewall<br>
+                                • POST /firewalls/{id}/rules - Add rule<br>
+                                • DELETE /firewalls/{id}/rules/{rule_id} - Delete rule<br>
+                                • GET /firewalls/{id}/metrics - Get metrics<br>
+                                <br>
+                                <strong>Data Models Extracted:</strong><br>
+                                • Firewall: {name, zone, size, status, created_at}<br>
+                                • Rule: {name, source, destination, port, protocol, action}<br>
+                                • Metrics: {throughput, connections, blocked_threats}
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🎨 UI_GENERATION_AGENT</span>
+                                <span class="agent-status status-active">Generating UI</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>UI Components Generated:</strong><br>
+                                <br>
+                                ✅ <strong>Dashboard Component:</strong><br>
+                                • Firewall list with status indicators<br>
+                                • Quick stats (total rules, threats blocked)<br>
+                                • Performance graphs<br>
+                                <br>
+                                ✅ <strong>Create Firewall Form:</strong><br>
+                                <code style="display: block; margin: 10px 0; padding: 10px; background: #0a0a0a;">
+&lt;FormControl&gt;<br>
+  &lt;TextField label="Firewall Name" required /&gt;<br>
+  &lt;Select label="Zone" options={zones} /&gt;<br>
+  &lt;RadioGroup label="Size"&gt;<br>
+    &lt;Radio value="small"&gt;Small (1000 rules)&lt;/Radio&gt;<br>
+    &lt;Radio value="medium"&gt;Medium (5000 rules)&lt;/Radio&gt;<br>
+    &lt;Radio value="large"&gt;Large (unlimited)&lt;/Radio&gt;<br>
+  &lt;/RadioGroup&gt;<br>
+  &lt;Button type="submit"&gt;Create Firewall&lt;/Button&gt;<br>
+&lt;/FormControl&gt;
+                                </code>
+                                <br>
+                                ✅ <strong>Rule Management Table:</strong><br>
+                                • DataGrid with sorting/filtering<br>
+                                • Inline editing capabilities<br>
+                                • Bulk operations support<br>
+                                <br>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%;"></div>
+                                </div>
+                                UI Generation: 70% complete
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔌 BACKEND_INTEGRATION_AGENT</span>
+                                <span class="agent-status status-completed">Client Generated</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>API Client Generated (Python):</strong><br>
+                                <code style="display: block; margin: 10px 0; padding: 10px; background: #0a0a0a; font-size: 12px;">
+class FirewallServiceClient:<br>
+    def __init__(self, base_url, api_key):<br>
+        self.base_url = base_url<br>
+        self.session = requests.Session()<br>
+        self.session.headers['X-API-Key'] = api_key<br>
+    <br>
+    def create_firewall(self, name, zone, size='small'):<br>
+        """Create a new firewall instance"""<br>
+        payload = {'name': name, 'zone': zone, 'size': size}<br>
+        response = self.session.post(<br>
+            f"{self.base_url}/firewalls",<br>
+            json=payload<br>
+        )<br>
+        return response.json()<br>
+    <br>
+    def add_rule(self, firewall_id, rule):<br>
+        """Add a security rule to firewall"""<br>
+        response = self.session.post(<br>
+            f"{self.base_url}/firewalls/{firewall_id}/rules",<br>
+            json=rule<br>
+        )<br>
+        return response.json()
+                                </code>
+                                <br>
+                                <strong>Features Implemented:</strong><br>
+                                ✅ Automatic retry logic (3 attempts)<br>
+                                ✅ Rate limiting (100 req/min)<br>
+                                ✅ Error handling & logging<br>
+                                ✅ Response caching (5 min TTL)
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚙️ CODE_GENERATION_AGENT</span>
+                                <span class="agent-status status-completed">Portal Ready</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Complete Portal Generated:</strong><br>
+                                <br>
+                                <strong>📁 Project Structure:</strong><br>
+                                <pre style="color: #00ff88; font-size: 12px;">
+firewall-portal/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── FirewallForm.tsx
+│   │   │   ├── RuleManager.tsx
+│   │   │   └── MetricsView.tsx
+│   │   ├── services/
+│   │   │   └── api.ts
+│   │   └── App.tsx
+│   └── package.json
+├── backend/
+│   ├── api/
+│   │   ├── firewall_client.py
+│   │   └── routes.py
+│   └── requirements.txt
+├── deployment/
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── k8s-manifests.yaml
+└── docs/
+    ├── user-guide.md
+    └── api-reference.md
+                                </pre>
+                                <br>
+                                <strong>Deployment Ready:</strong><br>
+                                ✅ Docker containers built<br>
+                                ✅ Kubernetes manifests generated<br>
+                                ✅ CI/CD pipeline configured<br>
+                                ✅ Documentation auto-generated<br>
+                                <br>
+                                <strong>Portal Features:</strong><br>
+                                • Self-service firewall provisioning<br>
+                                • Rule management with templates<br>
+                                • Real-time metrics dashboard<br>
+                                • Cost tracking & billing integration<br>
+                                • RBAC with AD/LDAP support<br>
+                                • Audit logging & compliance reports
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="action-button action-primary">Deploy Portal</button>
+                            <button class="action-button action-secondary">View Demo</button>
+                            <button class="action-button action-secondary">Download Code</button>
+                        </div>
+                    </div>`
+                ]
+            },
+            'vm-management': {
+                title: 'VM Lifecycle Management',
+                icon: '💻',
+                description: 'Intelligent VM provisioning, optimization, and lifecycle automation',
+                initialQuery: 'Optimize VM resource allocation across clusters',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">💻</span>
+                            <h3 class="workflow-title">VM Lifecycle Management & Optimization</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 VM_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Current VM Landscape:</strong><br>
+                                • Total VMs: 3,247 across 85 hosts<br>
+                                • Resource Utilization: CPU 68%, Memory 74%<br>
+                                • Idle VMs: 234 (>7 days no activity)<br>
+                                • Oversized VMs: 456 (using <30% allocated)<br>
+                                • Undersized VMs: 89 (consistent >90% usage)<br>
+                                <br>
+                                <strong>Cost Analysis:</strong><br>
+                                • Current monthly cost: $285,000<br>
+                                • Wasted resources: $42,000/month<br>
+                                • Optimization potential: $67,000/month savings
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🎯 OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-active">Optimizing</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Optimization Actions in Progress:</strong><br>
+                                <br>
+                                ✅ Right-sizing 456 oversized VMs<br>
+                                ⏳ Migrating 78 VMs for better distribution<br>
+                                ⏳ Consolidating 45 low-usage VMs<br>
+                                ⏳ Upgrading 89 undersized VMs<br>
+                                <br>
+                                <strong>Live Migration Status:</strong><br>
+                                • 34/78 VMs migrated (zero downtime)<br>
+                                • Resource balance improving: 68% → 62%<br>
+                                • Estimated completion: 15 minutes
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'container-orchestration': {
+                title: 'Container Orchestration',
+                icon: '🐳',
+                description: 'Kubernetes cluster management, scaling, and optimization',
+                initialQuery: 'Analyze and optimize Kubernetes cluster performance',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🐳</span>
+                            <h3 class="workflow-title">Kubernetes Cluster Optimization</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">☸️ K8S_ORCHESTRATION_AGENT</span>
+                                <span class="agent-status status-completed">Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Cluster Status:</strong><br>
+                                • Nodes: 45 (15 master, 30 worker)<br>
+                                • Pods: 2,847 running<br>
+                                • Namespaces: 67 active<br>
+                                • Services: 234 exposed<br>
+                                <br>
+                                <strong>Optimization Results:</strong><br>
+                                ✅ HPA tuned for 34 deployments<br>
+                                ✅ Resource requests/limits adjusted<br>
+                                ✅ Pod distribution rebalanced<br>
+                                ✅ Unused PVCs cleaned (freed 2.3TB)<br>
+                                <br>
+                                <strong>Cost Savings:</strong> $18,000/month
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'database-optimization': {
+                title: 'Database Performance Optimization',
+                icon: '🗄️',
+                description: 'AI-driven database tuning, query optimization, and capacity planning',
+                initialQuery: 'Optimize database performance and identify bottlenecks',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🗄️</span>
+                            <h3 class="workflow-title">Database Performance Optimization</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 DB_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Optimization Applied</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Performance Analysis:</strong><br>
+                                • Slow queries identified: 23<br>
+                                • Missing indexes: 15 critical<br>
+                                • Query cache hit rate: 45% (improved to 78%)<br>
+                                • Connection pool optimized: 500 → 750<br>
+                                <br>
+                                <strong>Applied Optimizations:</strong><br>
+                                ✅ Created 15 missing indexes<br>
+                                ✅ Rewrote 8 inefficient queries<br>
+                                ✅ Adjusted buffer pool size<br>
+                                ✅ Enabled query result caching<br>
+                                <br>
+                                <strong>Results:</strong><br>
+                                • Query latency: -65% reduction<br>
+                                • Throughput: +120% increase<br>
+                                • CPU usage: 85% → 52%
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+            'network-automation': {
+                title: 'Network Automation & SDN',
+                icon: '🌐',
+                description: 'Software-defined networking, automated configuration, and optimization',
+                initialQuery: 'Automate network configuration and optimize traffic flow',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🌐</span>
+                            <h3 class="workflow-title">Network Automation & SDN Orchestration</h3>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔧 NETWORK_AUTOMATION_AGENT</span>
+                                <span class="agent-status status-completed">Configuration Applied</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Network Changes Automated:</strong><br>
+                                • VLANs provisioned: 12 new segments<br>
+                                • BGP peers configured: 8 new routes<br>
+                                • QoS policies applied: 23 services<br>
+                                • Load balancing optimized: 15 pools<br>
+                                <br>
+                                <strong>SDN Controller Actions:</strong><br>
+                                ✅ Flow rules updated: 1,247<br>
+                                ✅ Traffic engineering applied<br>
+                                ✅ Micro-segmentation enabled<br>
+                                ✅ DDoS mitigation rules added<br>
+                                <br>
+                                <strong>Performance Impact:</strong><br>
+                                • Latency reduced: 15% average<br>
+                                • Bandwidth utilization: optimized<br>
+                                • Packet loss: 0.01% → 0.001%
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                        <span class="alert-icon" style="color: #00ff88;">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title" style="color: #00ff88;">System Status: All Services Operational</div>
+                            <div class="alert-description">All datacenter services are running within normal parameters. No incidents detected in the last 24 hours.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Incident management and resolution
+                    <br>• Capacity planning and optimization
+                    <br>• Infrastructure verification
+                    <br>• Service testing and validation
+                    <br>• Creating self-service portals
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously monitoring and optimizing the datacenter infrastructure. Would you like me to run a specific analysis or test?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (isHTML) {
+                messageDiv.innerHTML = content;
+            } else {
+                messageDiv.textContent = content;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            messageHistory.push({ content, sender });
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>

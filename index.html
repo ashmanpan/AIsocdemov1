@@ -118,7 +118,7 @@
         
         .demo-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -226,6 +226,19 @@
         
         .noc-card::before {
             background: radial-gradient(circle, rgba(0, 170, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        .dc-card .demo-icon {
+            color: #ff6600;
+        }
+        
+        .dc-card:hover {
+            border-color: #ff6600;
+            box-shadow: 0 20px 40px rgba(255, 102, 0, 0.3);
+        }
+        
+        .dc-card::before {
+            background: radial-gradient(circle, rgba(255, 102, 0, 0.1) 0%, transparent 70%);
         }
         
         .footer {
@@ -346,6 +359,34 @@
                     </div>
                 </div>
                 <a href="Cisco-AI-NoC-Telco-v5.html" class="demo-button">Launch NOC Demo</a>
+            </div>
+            
+            <div class="demo-card dc-card" onclick="window.location.href='Cisco-AI-DC-v1.0.html'">
+                <span class="demo-icon">🏢</span>
+                <h2 class="demo-title">AI Datacenter Demo</h2>
+                <p class="demo-description">
+                    Discover AI-powered Datacenter Operations with intelligent agents for 
+                    infrastructure management, capacity planning, and service automation.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>10 Datacenter operation scenarios</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Incident management & resolution</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Capacity & resiliency testing</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Service creation automation</span>
+                    </div>
+                </div>
+                <a href="Cisco-AI-DC-v1.0.html" class="demo-button">Launch DC Demo</a>
             </div>
         </div>
         
