@@ -74,7 +74,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             padding: 40px;
             text-align: center;
             z-index: 1;
@@ -118,7 +118,7 @@
         
         .demo-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -127,7 +127,7 @@
             background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
             border: 2px solid #333;
             border-radius: 20px;
-            padding: 40px 30px;
+            padding: 35px 25px;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -279,7 +279,13 @@
             }
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
+            .demo-selection {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
             .demo-selection {
                 grid-template-columns: 1fr;
             }
