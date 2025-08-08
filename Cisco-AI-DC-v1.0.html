@@ -899,1149 +899,999 @@
     <script>
         // Scenario data and responses
         const scenarios = {
-            'incident-management': {
-                title: 'AI-Driven Incident Management',
-                icon: '🚨',
-                description: 'Automated detection, triage, root cause analysis, and resolution of datacenter incidents',
-                initialQuery: 'Critical alert: Database cluster experiencing high latency',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🚨</span>
-                            <h3 class="workflow-title">CRITICAL: Database Cluster Performance Degradation</h3>
+    'incident-management': {
+        title: 'AI-Driven Incident Management',
+        icon: '🚨',
+        description: 'Automated detection, triage, root cause analysis, and resolution of datacenter incidents',
+        initialQuery: 'Critical alert: Database cluster experiencing high latency',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🚨</span>
+                    <h3 class="workflow-title">Multi-Agent Incident Response Orchestration</h3>
+                </div>
+                
+                <div class="ticket-info">
+                    <div>
+                        <div class="ticket-id">TICKET #DC-2024-00847</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Generated: ${new Date().toISOString()}</div>
+                    </div>
+                    <div class="ticket-priority severity-critical">P1 - CRITICAL</div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Task Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> ServiceNow Ticketing System<br>
+                        <strong>Alert Type:</strong> Database Performance Degradation<br>
+                        <strong>Severity:</strong> P1 - Critical<br>
+                        <strong>Affected System:</strong> Production Database Cluster<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>INCIDENT_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
                         </div>
-                        
-                        <div class="ticket-info">
-                            <div>
-                                <div class="ticket-id">TICKET #DC-2024-00847</div>
-                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Generated: ${new Date().toISOString()}</div>
-                            </div>
-                            <div class="ticket-priority severity-critical">P1 - CRITICAL</div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 INCIDENT_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Response</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Agent Deployment Strategy:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ Deploying DETECTION_AGENT<br>
+                            ✓ Deploying TRIAGE_AGENT<br>
+                            ✓ Deploying RCA_AGENT<br>
+                            ✓ Deploying DB_SPECIALIST_AGENT<br>
+                            ✓ Deploying INFRA_AGENT<br>
                         </div>
-                        
-                        <div class="alert-box">
-                            <span class="alert-icon">⚠️</span>
-                            <div class="alert-content">
-                                <div class="alert-title">Database Cluster Performance Crisis</div>
-                                <div class="alert-description">Multiple database nodes showing 850ms+ latency, affecting 2,500+ active connections</div>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔍 DETECTION_AGENT</span>
-                                <span class="agent-status status-completed">Completed</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Anomaly Detection Results:</strong><br>
-                                • Query latency: 850ms (baseline: 45ms) - 1,788% increase<br>
-                                • Connection pool: 2,547/3,000 (85% utilized)<br>
-                                • CPU usage: 94% across all nodes<br>
-                                • Disk I/O: 450 MB/s (saturation detected)<br>
-                                • Network throughput: Normal (2.3 Gbps)<br>
-                                <br>
-                                <strong>Pattern Recognition:</strong> Matches signature of "query plan regression after statistics update"
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📋 TRIAGE_AGENT</span>
-                                <span class="agent-status status-completed">Completed</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Impact Assessment:</strong><br>
-                                • Affected Services: 23 microservices<br>
-                                • User Impact: ~15,000 active users experiencing delays<br>
-                                • Business Impact: $45,000/hour in potential revenue loss<br>
-                                • SLA Status: Breaching 99.9% availability threshold<br>
-                                <br>
-                                <strong>Priority:</strong> P1 - Immediate action required<br>
-                                <strong>Escalation:</strong> Auto-escalated to Database Team and SRE Lead
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔬 RCA_AGENT</span>
-                                <span class="agent-status status-completed">Completed</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Root Cause Analysis:</strong><br>
-                                <br>
-                                <strong>Timeline Correlation:</strong><br>
-                                • 14:23 - Automatic statistics update triggered<br>
-                                • 14:25 - Query optimizer plan cache cleared<br>
-                                • 14:26 - New execution plans generated<br>
-                                • 14:27 - Latency spike detected<br>
-                                <br>
-                                <strong>Root Cause:</strong> PostgreSQL auto-vacuum updated table statistics, causing the query optimizer to choose inefficient execution plans for 3 critical queries:<br>
-                                • <code>get_user_transactions</code> - Using sequential scan instead of index<br>
-                                • <code>aggregate_daily_metrics</code> - Missing join optimization<br>
-                                • <code>fetch_product_inventory</code> - Incorrect cardinality estimation
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔧 RESOLUTION_AGENT</span>
-                                <span class="agent-status status-active">Executing</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Automated Resolution in Progress:</strong><br>
-                                <br>
-                                ✅ Step 1: Forcing index hints on affected queries<br>
-                                ✅ Step 2: Increasing work_mem from 4MB to 32MB<br>
-                                ⏳ Step 3: Rebuilding query statistics with higher sampling<br>
-                                ⏳ Step 4: Implementing query plan pinning for critical queries<br>
-                                ⏳ Step 5: Scaling read replicas from 3 to 5 instances<br>
-                                <br>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%;"></div>
-                                </div>
-                                <strong>Progress:</strong> 60% complete (ETA: 3 minutes)
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-title">Current Latency</div>
-                                <div class="metric-value">425ms</div>
-                                <div class="metric-details">↓ Improving (was 850ms)</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Error Rate</div>
-                                <div class="metric-value">0.3%</div>
-                                <div class="metric-details">Within acceptable range</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Recovery Time</div>
-                                <div class="metric-value">7 min</div>
-                                <div class="metric-details">Below 10 min RTO</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Auto-Resolved</div>
-                                <div class="metric-value">92%</div>
-                                <div class="metric-details">Human intervention: 8%</div>
-                            </div>
-                        </div>
-                        
-                        <div class="action-buttons">
-                            <button class="action-button action-primary">View Detailed Metrics</button>
-                            <button class="action-button action-secondary">Export RCA Report</button>
-                            <button class="action-button action-danger">Escalate to Human</button>
-                        </div>
-                    </div>`
-                ]
-            },
-            'capacity-management': {
-                title: 'Predictive Capacity Management',
-                icon: '📊',
-                description: 'AI-powered capacity planning and optimization using predictive analytics',
-                initialQuery: 'Analyze current capacity and predict future requirements',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">📊</span>
-                            <h3 class="workflow-title">Datacenter Capacity Analysis & Predictions</h3>
-                        </div>
-                        
-                        <div class="capacity-container">
-                            <div class="capacity-header">
-                                <span>💾</span>
-                                <span>Current Resource Utilization</span>
-                            </div>
-                            <div class="capacity-metrics">
-                                <div class="capacity-item">
-                                    <div class="capacity-label">CPU Cores (12,450 / 16,000)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-warning" style="width: 78%;"></div>
-                                        <span class="capacity-text">77.8%</span>
-                                    </div>
-                                </div>
-                                <div class="capacity-item">
-                                    <div class="capacity-label">Memory (45.2 TB / 64 TB)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-normal" style="width: 71%;"></div>
-                                        <span class="capacity-text">70.6%</span>
-                                    </div>
-                                </div>
-                                <div class="capacity-item">
-                                    <div class="capacity-label">Storage (2.8 PB / 5.0 PB)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-normal" style="width: 56%;"></div>
-                                        <span class="capacity-text">56.0%</span>
-                                    </div>
-                                </div>
-                                <div class="capacity-item">
-                                    <div class="capacity-label">Network Bandwidth (850 Gb / 1000 Gb)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-critical" style="width: 85%;"></div>
-                                        <span class="capacity-text">85.0%</span>
-                                    </div>
-                                </div>
-                                <div class="capacity-item">
-                                    <div class="capacity-label">Power Consumption (4.2 MW / 5.0 MW)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-warning" style="width: 84%;"></div>
-                                        <span class="capacity-text">84.0%</span>
-                                    </div>
-                                </div>
-                                <div class="capacity-item">
-                                    <div class="capacity-label">Cooling Capacity (82% / 100%)</div>
-                                    <div class="capacity-bar">
-                                        <div class="capacity-fill capacity-warning" style="width: 82%;"></div>
-                                        <span class="capacity-text">82.0%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📈 PREDICTIVE_ANALYTICS_AGENT</span>
-                                <span class="agent-status status-completed">Analysis Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Growth Pattern Analysis:</strong><br>
-                                • Historical growth rate: 18% quarterly<br>
-                                • Seasonal peaks: Q4 (Black Friday/Holiday) +45%<br>
-                                • New product launches: +25% spike for 2 weeks<br>
-                                • Current trajectory: Exponential growth detected<br>
-                                <br>
-                                <strong>ML Model Predictions (95% confidence):</strong><br>
-                                • 7 days: CPU 82%, Memory 73%, Network 87%<br>
-                                • 30 days: CPU 89%, Memory 78%, Network 92%<br>
-                                • 90 days: CPU 95%, Memory 85%, Network 98%<br>
-                                <br>
-                                <strong>Critical Threshold Dates:</strong><br>
-                                🔴 Network capacity: Will exceed 95% in 45 days<br>
-                                🟡 CPU capacity: Will exceed 95% in 88 days<br>
-                                🟢 Storage capacity: Safe for 180+ days
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🎯 OPTIMIZATION_AGENT</span>
-                                <span class="agent-status status-active">Optimizing</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Optimization Recommendations:</strong><br>
-                                <br>
-                                <strong>Immediate Actions (This Week):</strong><br>
-                                ✅ Migrate 15 low-priority VMs to secondary DC (free 800 cores)<br>
-                                ✅ Implement CPU pinning for critical workloads<br>
-                                ✅ Enable memory ballooning on 200 VMs<br>
-                                ✅ Compress cold storage data (save 400TB)<br>
-                                <br>
-                                <strong>Short-term (30 days):</strong><br>
-                                • Order 2x 100Gb network switches ($45,000)<br>
-                                • Add 4 compute nodes (1,024 cores, 8TB RAM)<br>
-                                • Upgrade cooling system in Zone-B<br>
-                                <br>
-                                <strong>Cost Optimization Potential:</strong><br>
-                                • Right-sizing can save $125,000/month<br>
-                                • Off-peak scheduling can reduce power by 15%<br>
-                                • Workload consolidation can free 20% resources
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📋 CAPACITY_PLANNING_AGENT</span>
-                                <span class="agent-status status-completed">Plan Generated</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Capacity Expansion Plan:</strong><br>
-                                <br>
-                                <strong>Phase 1 (Q1 2024) - $850,000:</strong><br>
-                                • Add 8 compute nodes (2,048 cores, 16TB RAM)<br>
-                                • Upgrade core network to 400Gb<br>
-                                • Add 1PB flash storage array<br>
-                                <br>
-                                <strong>Phase 2 (Q2 2024) - $1,200,000:</strong><br>
-                                • Build new pod with 16 racks<br>
-                                • Install 2MW additional power capacity<br>
-                                • Deploy edge computing nodes (5 locations)<br>
-                                <br>
-                                <strong>What-if Scenarios Analyzed:</strong><br>
-                                • 2x traffic surge: System can handle for 72 hours<br>
-                                • Hardware failure (N+2): Sufficient redundancy<br>
-                                • Disaster recovery: 15-minute failover ready
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-title">Utilization Efficiency</div>
-                                <div class="metric-value">87%</div>
-                                <div class="metric-details">Industry avg: 65%</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Cost per Core</div>
-                                <div class="metric-value">$42</div>
-                                <div class="metric-details">↓ 15% from last quarter</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Power Efficiency</div>
-                                <div class="metric-value">1.58 PUE</div>
-                                <div class="metric-details">Target: 1.50</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Predicted Savings</div>
-                                <div class="metric-value">$1.5M</div>
-                                <div class="metric-details">Annual optimization</div>
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'resiliency-check': {
-                title: 'Datacenter Resiliency Check',
-                icon: '🛡️',
-                description: 'Automated resilience validation through chaos engineering and failover testing',
-                initialQuery: 'Run comprehensive resiliency assessment',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🛡️</span>
-                            <h3 class="workflow-title">Datacenter Resiliency Assessment Report</h3>
-                        </div>
-                        
-                        <div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
-                            <span class="alert-icon" style="color: #00ff88;">✅</span>
-                            <div class="alert-content">
-                                <div class="alert-title" style="color: #00ff88;">Overall Resiliency Score: 94/100</div>
-                                <div class="alert-description">Datacenter meets enterprise resilience standards with minor improvements needed</div>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔍 RESILIENCE_ASSESSMENT_AGENT</span>
-                                <span class="agent-status status-completed">Assessment Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Redundancy Analysis:</strong><br>
-                                ✅ Compute: N+2 redundancy (can lose 2 nodes)<br>
-                                ✅ Storage: 3-way replication + erasure coding<br>
-                                ✅ Network: Dual-path with automatic failover<br>
-                                ⚠️ Power: N+1 redundancy (recommend N+2)<br>
-                                ✅ Cooling: N+2 with isolated zones<br>
-                                <br>
-                                <strong>Recovery Metrics:</strong><br>
-                                • RTO (Recovery Time Objective): 15 minutes ✅<br>
-                                • RPO (Recovery Point Objective): 1 minute ✅<br>
-                                • MTTR (Mean Time To Recovery): 8.3 minutes ✅<br>
-                                • Availability: 99.995% (26 minutes downtime/year)
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">💥 CHAOS_ENGINEERING_AGENT</span>
-                                <span class="agent-status status-active">Testing Active</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Chaos Experiments Executed:</strong><br>
-                                <br>
-                                ✅ <strong>Random Pod Termination:</strong> Killed 50 pods<br>
-                                   • Recovery time: 12 seconds<br>
-                                   • Service impact: None (handled by replicas)<br>
-                                <br>
-                                ✅ <strong>Network Partition:</strong> Isolated Zone-A for 5 min<br>
-                                   • Failover time: 8 seconds<br>
-                                   • Data consistency: Maintained<br>
-                                <br>
-                                ⚠️ <strong>Storage Failure:</strong> Simulated SAN failure<br>
-                                   • Recovery time: 45 seconds (target: 30s)<br>
-                                   • Some timeout errors observed<br>
-                                <br>
-                                ✅ <strong>Database Failover:</strong> Primary DB shutdown<br>
-                                   • Failover to replica: 15 seconds<br>
-                                   • Zero data loss confirmed<br>
-                                <br>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 75%;"></div>
-                                </div>
-                                <strong>Test Progress:</strong> 15/20 scenarios completed
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔄 FAILOVER_TESTING_AGENT</span>
-                                <span class="agent-status status-completed">Tests Completed</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Failover Test Results:</strong><br>
-                                <br>
-                                <table style="width: 100%; color: #ddd;">
-                                    <tr>
-                                        <td>VMware vMotion</td>
-                                        <td>✅ 0 downtime</td>
-                                        <td>250 VMs migrated</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Load Balancer Failover</td>
-                                        <td>✅ 2 sec switchover</td>
-                                        <td>No sessions lost</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Site-to-Site Failover</td>
-                                        <td>✅ 12 min complete</td>
-                                        <td>RPO: 45 seconds</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Power Transfer Test</td>
-                                        <td>⚠️ 3 sec gap</td>
-                                        <td>UPS handled load</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kubernetes Cluster</td>
-                                        <td>✅ Zero downtime</td>
-                                        <td>Master failover OK</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">✅ RECOVERY_VALIDATION_AGENT</span>
-                                <span class="agent-status status-completed">Validation Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Post-Recovery Validation:</strong><br>
-                                ✅ Data Integrity: All checksums match<br>
-                                ✅ Service Health: 100% services responding<br>
-                                ✅ Performance: Within 2% of baseline<br>
-                                ✅ Configuration Drift: None detected<br>
-                                ✅ Security Posture: All controls active<br>
-                                <br>
-                                <strong>Improvement Recommendations:</strong><br>
-                                1. Upgrade power system to N+2 redundancy<br>
-                                2. Reduce storage failover time to <30 seconds<br>
-                                3. Implement automated DR testing weekly<br>
-                                4. Add third network path for critical services
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-title">Resilience Score</div>
-                                <div class="metric-value">94/100</div>
-                                <div class="metric-details">↑ 6 points from Q3</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Tests Passed</div>
-                                <div class="metric-value">47/50</div>
-                                <div class="metric-details">94% success rate</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Avg Recovery</div>
-                                <div class="metric-value">8.3 min</div>
-                                <div class="metric-details">Target: <10 min</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Next DR Drill</div>
-                                <div class="metric-value">5 days</div>
-                                <div class="metric-details">Site failover test</div>
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'infra-verification': {
-                title: 'Infrastructure Verification',
-                icon: '✅',
-                description: 'Automated verification of datacenter infrastructure, configurations, and compliance',
-                initialQuery: 'Verify infrastructure configuration and compliance',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">✅</span>
-                            <h3 class="workflow-title">Infrastructure Verification & Compliance Report</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">⚙️ CONFIG_VERIFICATION_AGENT</span>
-                                <span class="agent-status status-completed">Scan Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Configuration Analysis Results:</strong><br>
-                                <br>
-                                <strong>Servers (850 nodes):</strong><br>
-                                ✅ 847 compliant with baseline<br>
-                                ⚠️ 3 configuration drifts detected:<br>
-                                • server-db-01: MySQL max_connections (100 → 150)<br>
-                                • server-app-23: Kernel parameters modified<br>
-                                • server-web-15: NTP server mismatch<br>
-                                <br>
-                                <strong>Network Devices (145 devices):</strong><br>
-                                ✅ 142 compliant<br>
-                                ⚠️ Issues found:<br>
-                                • switch-core-02: VLAN 200 missing<br>
-                                • firewall-dmz-01: Rule #45 modified without approval<br>
-                                • router-edge-03: BGP peer not configured<br>
-                                <br>
-                                <strong>Storage Systems (48 arrays):</strong><br>
-                                ✅ All 48 systems compliant<br>
-                                ✅ RAID configurations verified<br>
-                                ✅ Multipath settings correct
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔐 COMPLIANCE_VERIFICATION_AGENT</span>
-                                <span class="agent-status status-warning">3 Issues Found</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Compliance Framework Results:</strong><br>
-                                <br>
-                                ✅ <strong>PCI-DSS:</strong> Fully Compliant<br>
-                                • Last audit: 10 days ago<br>
-                                • All 234 controls passed<br>
-                                <br>
-                                ✅ <strong>SOC 2 Type II:</strong> Compliant<br>
-                                • 98/98 controls verified<br>
-                                • Next audit in 45 days<br>
-                                <br>
-                                ⚠️ <strong>CIS Benchmarks:</strong> 3 Medium Findings<br>
-                                • SSH root login enabled on 3 servers<br>
-                                • Password complexity not enforced on 5 accounts<br>
-                                • Audit logs retention <90 days on 2 systems<br>
-                                <br>
-                                ✅ <strong>ISO 27001:</strong> Compliant<br>
-                                • Information security controls verified<br>
-                                • Risk assessment up to date<br>
-                                <br>
-                                ✅ <strong>HIPAA:</strong> Compliant<br>
-                                • PHI encryption verified<br>
-                                • Access controls validated
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔧 HARDWARE_HEALTH_AGENT</span>
-                                <span class="agent-status status-warning">Predictive Alerts</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Hardware Health Analysis:</strong><br>
-                                <br>
-                                <strong>Predictive Failure Warnings:</strong><br>
-                                ⚠️ server-app-23: Disk sda showing pre-failure<br>
-                                   • SMART errors increasing<br>
-                                   • Estimated failure: 7-10 days<br>
-                                   • Action: Schedule replacement<br>
-                                <br>
-                                ⚠️ server-web-15: Memory DIMM_A2 degrading<br>
-                                   • ECC errors: 15/hour (threshold: 10)<br>
-                                   • Estimated failure: 15-20 days<br>
-                                <br>
-                                ⚠️ switch-tor-08: PSU_2 efficiency dropped<br>
-                                   • Operating at 78% efficiency<br>
-                                   • Temperature 85°C (warning: 80°C)<br>
-                                <br>
-                                <strong>Overall Hardware Status:</strong><br>
-                                • CPUs: All healthy, avg temp 62°C<br>
-                                • Memory: 2,047/2,048 modules healthy<br>
-                                • Disks: 8,456/8,459 healthy<br>
-                                • Network cards: All operational<br>
-                                • Power supplies: 298/300 optimal
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🌐 NETWORK_VERIFICATION_AGENT</span>
-                                <span class="agent-status status-completed">Network Validated</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Network Validation Results:</strong><br>
-                                <br>
-                                ✅ <strong>Connectivity Matrix:</strong> 100% paths verified<br>
-                                • 4,250 endpoint pairs tested<br>
-                                • Zero unreachable destinations<br>
-                                <br>
-                                ✅ <strong>Bandwidth Tests:</strong><br>
-                                • Core: 397/400 Gbps available<br>
-                                • Edge: 95/100 Gbps available<br>
-                                • Inter-DC: 198/200 Gbps available<br>
-                                <br>
-                                ✅ <strong>Latency Measurements:</strong><br>
-                                • Intra-rack: <0.5ms ✅<br>
-                                • Inter-rack: <2ms ✅<br>
-                                • Inter-DC: <10ms ✅<br>
-                                <br>
-                                ✅ <strong>Configuration Validation:</strong><br>
-                                • VLANs: All 85 configured correctly<br>
-                                • Routing: BGP/OSPF converged<br>
-                                • MTU: Jumbo frames verified (9000)
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-title">Compliance Score</div>
-                                <div class="metric-value">96.5%</div>
-                                <div class="metric-details">3 medium findings</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Config Drift</div>
-                                <div class="metric-value">6 items</div>
-                                <div class="metric-details">Auto-remediation ready</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Hardware Alerts</div>
-                                <div class="metric-value">3</div>
-                                <div class="metric-details">Predictive warnings</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Next Audit</div>
-                                <div class="metric-value">45 days</div>
-                                <div class="metric-details">SOC 2 Type II</div>
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'service-verification': {
-                title: 'Service Verification Testing',
-                icon: '🔍',
-                description: 'Black box and white box testing for VMs, containers, databases, and message queues',
-                initialQuery: 'Run comprehensive service verification tests',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🔍</span>
-                            <h3 class="workflow-title">Service Verification Test Suite Results</h3>
-                        </div>
-                        
-                        <div class="service-health-grid">
-                            <div class="service-health-card">
-                                <div class="service-icon-large">💻</div>
-                                <div class="service-name">VM Service</div>
-                                <div class="service-status status-healthy">Healthy</div>
-                            </div>
-                            <div class="service-health-card">
-                                <div class="service-icon-large">🐳</div>
-                                <div class="service-name">Kubernetes</div>
-                                <div class="service-status status-healthy">Healthy</div>
-                            </div>
-                            <div class="service-health-card">
-                                <div class="service-icon-large">🗄️</div>
-                                <div class="service-name">Database</div>
-                                <div class="service-status status-degraded">Degraded</div>
-                            </div>
-                            <div class="service-health-card">
-                                <div class="service-icon-large">📬</div>
-                                <div class="service-name">Message Queue</div>
-                                <div class="service-status status-healthy">Healthy</div>
-                            </div>
-                            <div class="service-health-card">
-                                <div class="service-icon-large">🚀</div>
-                                <div class="service-name">MicroVM</div>
-                                <div class="service-status status-healthy">Healthy</div>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">⬛ BLACK_BOX_TESTING_AGENT</span>
-                                <span class="agent-status status-completed">Tests Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>VM Service (VMware vSphere):</strong><br>
-                                ✅ Provisioning: 48/50 passed (avg: 3.2 min)<br>
-                                ✅ Performance: CPU 98%, Memory 96% efficiency<br>
-                                ✅ Networking: Latency <0.8ms<br>
-                                ⚠️ API Tests: 2 timeout issues (>5s response)<br>
-                                <br>
-                                <strong>Container Service (Kubernetes):</strong><br>
-                                ✅ Deployment: 100 pods in <30s<br>
-                                ✅ Scaling: HPA working (scale in 15s)<br>
-                                ✅ Load Balancing: Even distribution confirmed<br>
-                                ⚠️ PVC Binding: Slow (>1 min for large volumes)<br>
-                                <br>
-                                <strong>Database Service (PostgreSQL/MySQL):</strong><br>
-                                ✅ Connection Pool: 1000 concurrent handled<br>
-                                ⚠️ Query Performance: 3 slow queries detected<br>
-                                ✅ Replication: <500ms lag<br>
-                                ✅ Backup/Restore: Verified (15 min for 1TB)<br>
-                                <br>
-                                <strong>Message Queue (Kafka/RabbitMQ):</strong><br>
-                                ✅ Throughput: 100K msgs/sec achieved<br>
-                                ✅ Consumer Lag: <100ms<br>
-                                ✅ Failover: 2 broker failure handled<br>
-                                ✅ Data Integrity: Zero message loss
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">⬜ WHITE_BOX_TESTING_AGENT</span>
-                                <span class="agent-status status-completed">Internal Tests Done</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>VM Service Internals:</strong><br>
-                                ✅ Hypervisor: CPU pinning verified<br>
-                                ✅ NUMA: Proper node allocation<br>
-                                ✅ Storage: Thin provisioning working<br>
-                                ✅ Network: OVS flows configured correctly<br>
-                                <br>
-                                <strong>Kubernetes Internals:</strong><br>
-                                ✅ etcd: Cluster healthy, latency <10ms<br>
-                                ✅ API Server: Response time <100ms<br>
-                                ⚠️ Scheduler: 1 node affinity issue<br>
-                                ✅ Kubelet: All nodes reporting<br>
-                                <br>
-                                <strong>Database Internals:</strong><br>
-                                ✅ Query Optimizer: Plans cached properly<br>
-                                ⚠️ Index Usage: 3 missing indexes identified<br>
-                                ✅ Connection Pooling: Efficient reuse<br>
-                                ✅ WAL Archiving: Working correctly<br>
-                                <br>
-                                <strong>MicroVM Service (Firecracker):</strong><br>
-                                ✅ Boot Time: 118ms average ✅<br>
-                                ✅ Memory Overhead: 4.2MB per VM ✅<br>
-                                ✅ Security: Seccomp filters active<br>
-                                ✅ Isolation: Namespace separation verified
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📊 PERFORMANCE_TESTING_AGENT</span>
-                                <span class="agent-status status-completed">Benchmarks Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Performance Benchmark Results:</strong><br>
-                                <br>
-                                <table style="width: 100%; color: #ddd; font-size: 13px;">
-                                    <tr style="border-bottom: 1px solid #333;">
-                                        <th>Service</th>
-                                        <th>Metric</th>
-                                        <th>Result</th>
-                                        <th>Target</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    <tr>
-                                        <td>VM</td>
-                                        <td>Boot Time</td>
-                                        <td>3.2 min</td>
-                                        <td><5 min</td>
-                                        <td>✅</td>
-                                    </tr>
-                                    <tr>
-                                        <td>K8s</td>
-                                        <td>Pod Start</td>
-                                        <td>8 sec</td>
-                                        <td><30 sec</td>
-                                        <td>✅</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Database</td>
-                                        <td>QPS</td>
-                                        <td>45,000</td>
-                                        <td>>40,000</td>
-                                        <td>✅</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kafka</td>
-                                        <td>Throughput</td>
-                                        <td>850 MB/s</td>
-                                        <td>>500 MB/s</td>
-                                        <td>✅</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MicroVM</td>
-                                        <td>Density</td>
-                                        <td>150/host</td>
-                                        <td>>100/host</td>
-                                        <td>✅</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-title">Tests Passed</div>
-                                <div class="metric-value">287/300</div>
-                                <div class="metric-details">95.7% success rate</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Code Coverage</div>
-                                <div class="metric-value">87%</div>
-                                <div class="metric-details">Target: 80%</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Avg Response</div>
-                                <div class="metric-value">45ms</div>
-                                <div class="metric-details">P99: 120ms</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-title">Service SLA</div>
-                                <div class="metric-value">99.95%</div>
-                                <div class="metric-details">Meeting target</div>
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'service-creation': {
-                title: 'AI Service Creation Agent',
-                icon: '🤖',
-                description: 'Automatically generate self-service portals from API documentation',
-                initialQuery: 'Create a self-service portal for Firewall as a Service',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🤖</span>
-                            <h3 class="workflow-title">AI Service Creation: Firewall as a Service Portal</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📄 API_ANALYSIS_AGENT</span>
-                                <span class="agent-status status-completed">API Analyzed</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>API Documentation Analysis Complete:</strong><br>
-                                <br>
-                                <strong>Service:</strong> Palo Alto Networks Firewall v10.1<br>
-                                <strong>Base URL:</strong> https://firewall.example.com/api<br>
-                                <strong>Authentication:</strong> API Key (Header: X-API-Key)<br>
-                                <br>
-                                <strong>Endpoints Discovered:</strong><br>
-                                • POST /firewalls - Create firewall instance<br>
-                                • GET /firewalls - List all firewalls<br>
-                                • DELETE /firewalls/{id} - Delete firewall<br>
-                                • POST /firewalls/{id}/rules - Add rule<br>
-                                • DELETE /firewalls/{id}/rules/{rule_id} - Delete rule<br>
-                                • GET /firewalls/{id}/metrics - Get metrics<br>
-                                <br>
-                                <strong>Data Models Extracted:</strong><br>
-                                • Firewall: {name, zone, size, status, created_at}<br>
-                                • Rule: {name, source, destination, port, protocol, action}<br>
-                                • Metrics: {throughput, connections, blocked_threats}
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🎨 UI_GENERATION_AGENT</span>
-                                <span class="agent-status status-active">Generating UI</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>UI Components Generated:</strong><br>
-                                <br>
-                                ✅ <strong>Dashboard Component:</strong><br>
-                                • Firewall list with status indicators<br>
-                                • Quick stats (total rules, threats blocked)<br>
-                                • Performance graphs<br>
-                                <br>
-                                ✅ <strong>Create Firewall Form:</strong><br>
-                                <code style="display: block; margin: 10px 0; padding: 10px; background: #0a0a0a;">
-&lt;FormControl&gt;<br>
-  &lt;TextField label="Firewall Name" required /&gt;<br>
-  &lt;Select label="Zone" options={zones} /&gt;<br>
-  &lt;RadioGroup label="Size"&gt;<br>
-    &lt;Radio value="small"&gt;Small (1000 rules)&lt;/Radio&gt;<br>
-    &lt;Radio value="medium"&gt;Medium (5000 rules)&lt;/Radio&gt;<br>
-    &lt;Radio value="large"&gt;Large (unlimited)&lt;/Radio&gt;<br>
-  &lt;/RadioGroup&gt;<br>
-  &lt;Button type="submit"&gt;Create Firewall&lt;/Button&gt;<br>
-&lt;/FormControl&gt;
-                                </code>
-                                <br>
-                                ✅ <strong>Rule Management Table:</strong><br>
-                                • DataGrid with sorting/filtering<br>
-                                • Inline editing capabilities<br>
-                                • Bulk operations support<br>
-                                <br>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 70%;"></div>
-                                </div>
-                                UI Generation: 70% complete
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔌 BACKEND_INTEGRATION_AGENT</span>
-                                <span class="agent-status status-completed">Client Generated</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>API Client Generated (Python):</strong><br>
-                                <code style="display: block; margin: 10px 0; padding: 10px; background: #0a0a0a; font-size: 12px;">
-class FirewallServiceClient:<br>
-    def __init__(self, base_url, api_key):<br>
-        self.base_url = base_url<br>
-        self.session = requests.Session()<br>
-        self.session.headers['X-API-Key'] = api_key<br>
-    <br>
-    def create_firewall(self, name, zone, size='small'):<br>
-        """Create a new firewall instance"""<br>
-        payload = {'name': name, 'zone': zone, 'size': size}<br>
-        response = self.session.post(<br>
-            f"{self.base_url}/firewalls",<br>
-            json=payload<br>
-        )<br>
-        return response.json()<br>
-    <br>
-    def add_rule(self, firewall_id, rule):<br>
-        """Add a security rule to firewall"""<br>
-        response = self.session.post(<br>
-            f"{self.base_url}/firewalls/{firewall_id}/rules",<br>
-            json=rule<br>
-        )<br>
-        return response.json()
-                                </code>
-                                <br>
-                                <strong>Features Implemented:</strong><br>
-                                ✅ Automatic retry logic (3 attempts)<br>
-                                ✅ Rate limiting (100 req/min)<br>
-                                ✅ Error handling & logging<br>
-                                ✅ Response caching (5 min TTL)
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">⚙️ CODE_GENERATION_AGENT</span>
-                                <span class="agent-status status-completed">Portal Ready</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Complete Portal Generated:</strong><br>
-                                <br>
-                                <strong>📁 Project Structure:</strong><br>
-                                <pre style="color: #00ff88; font-size: 12px;">
-firewall-portal/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── FirewallForm.tsx
-│   │   │   ├── RuleManager.tsx
-│   │   │   └── MetricsView.tsx
-│   │   ├── services/
-│   │   │   └── api.ts
-│   │   └── App.tsx
-│   └── package.json
-├── backend/
-│   ├── api/
-│   │   ├── firewall_client.py
-│   │   └── routes.py
-│   └── requirements.txt
-├── deployment/
-│   ├── Dockerfile
-│   ├── docker-compose.yml
-│   └── k8s-manifests.yaml
-└── docs/
-    ├── user-guide.md
-    └── api-reference.md
-                                </pre>
-                                <br>
-                                <strong>Deployment Ready:</strong><br>
-                                ✅ Docker containers built<br>
-                                ✅ Kubernetes manifests generated<br>
-                                ✅ CI/CD pipeline configured<br>
-                                ✅ Documentation auto-generated<br>
-                                <br>
-                                <strong>Portal Features:</strong><br>
-                                • Self-service firewall provisioning<br>
-                                • Rule management with templates<br>
-                                • Real-time metrics dashboard<br>
-                                • Cost tracking & billing integration<br>
-                                • RBAC with AD/LDAP support<br>
-                                • Audit logging & compliance reports
-                            </div>
-                        </div>
-                        
-                        <div class="action-buttons">
-                            <button class="action-button action-primary">Deploy Portal</button>
-                            <button class="action-button action-secondary">View Demo</button>
-                            <button class="action-button action-secondary">Download Code</button>
-                        </div>
-                    </div>`
-                ]
-            },
-            'vm-management': {
-                title: 'VM Lifecycle Management',
-                icon: '💻',
-                description: 'Intelligent VM provisioning, optimization, and lifecycle automation',
-                initialQuery: 'Optimize VM resource allocation across clusters',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">💻</span>
-                            <h3 class="workflow-title">VM Lifecycle Management & Optimization</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">📊 VM_ANALYSIS_AGENT</span>
-                                <span class="agent-status status-completed">Analysis Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Current VM Landscape:</strong><br>
-                                • Total VMs: 3,247 across 85 hosts<br>
-                                • Resource Utilization: CPU 68%, Memory 74%<br>
-                                • Idle VMs: 234 (>7 days no activity)<br>
-                                • Oversized VMs: 456 (using <30% allocated)<br>
-                                • Undersized VMs: 89 (consistent >90% usage)<br>
-                                <br>
-                                <strong>Cost Analysis:</strong><br>
-                                • Current monthly cost: $285,000<br>
-                                • Wasted resources: $42,000/month<br>
-                                • Optimization potential: $67,000/month savings
-                            </div>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🎯 OPTIMIZATION_AGENT</span>
-                                <span class="agent-status status-active">Optimizing</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Optimization Actions in Progress:</strong><br>
-                                <br>
-                                ✅ Right-sizing 456 oversized VMs<br>
-                                ⏳ Migrating 78 VMs for better distribution<br>
-                                ⏳ Consolidating 45 low-usage VMs<br>
-                                ⏳ Upgrading 89 undersized VMs<br>
-                                <br>
-                                <strong>Live Migration Status:</strong><br>
-                                • 34/78 VMs migrated (zero downtime)<br>
-                                • Resource balance improving: 68% → 62%<br>
-                                • Estimated completion: 15 minutes
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'container-orchestration': {
-                title: 'Container Orchestration',
-                icon: '🐳',
-                description: 'Kubernetes cluster management, scaling, and optimization',
-                initialQuery: 'Analyze and optimize Kubernetes cluster performance',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🐳</span>
-                            <h3 class="workflow-title">Kubernetes Cluster Optimization</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">☸️ K8S_ORCHESTRATION_AGENT</span>
-                                <span class="agent-status status-completed">Optimization Complete</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Cluster Status:</strong><br>
-                                • Nodes: 45 (15 master, 30 worker)<br>
-                                • Pods: 2,847 running<br>
-                                • Namespaces: 67 active<br>
-                                • Services: 234 exposed<br>
-                                <br>
-                                <strong>Optimization Results:</strong><br>
-                                ✅ HPA tuned for 34 deployments<br>
-                                ✅ Resource requests/limits adjusted<br>
-                                ✅ Pod distribution rebalanced<br>
-                                ✅ Unused PVCs cleaned (freed 2.3TB)<br>
-                                <br>
-                                <strong>Cost Savings:</strong> $18,000/month
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'database-optimization': {
-                title: 'Database Performance Optimization',
-                icon: '🗄️',
-                description: 'AI-driven database tuning, query optimization, and capacity planning',
-                initialQuery: 'Optimize database performance and identify bottlenecks',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🗄️</span>
-                            <h3 class="workflow-title">Database Performance Optimization</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔍 DB_OPTIMIZATION_AGENT</span>
-                                <span class="agent-status status-completed">Optimization Applied</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Performance Analysis:</strong><br>
-                                • Slow queries identified: 23<br>
-                                • Missing indexes: 15 critical<br>
-                                • Query cache hit rate: 45% (improved to 78%)<br>
-                                • Connection pool optimized: 500 → 750<br>
-                                <br>
-                                <strong>Applied Optimizations:</strong><br>
-                                ✅ Created 15 missing indexes<br>
-                                ✅ Rewrote 8 inefficient queries<br>
-                                ✅ Adjusted buffer pool size<br>
-                                ✅ Enabled query result caching<br>
-                                <br>
-                                <strong>Results:</strong><br>
-                                • Query latency: -65% reduction<br>
-                                • Throughput: +120% increase<br>
-                                • CPU usage: 85% → 52%
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            },
-            'network-automation': {
-                title: 'Network Automation & SDN',
-                icon: '🌐',
-                description: 'Software-defined networking, automated configuration, and optimization',
-                initialQuery: 'Automate network configuration and optimize traffic flow',
-                responses: [
-                    `<div class="agent-workflow">
-                        <div class="workflow-header">
-                            <span class="workflow-icon">🌐</span>
-                            <h3 class="workflow-title">Network Automation & SDN Orchestration</h3>
-                        </div>
-                        
-                        <div class="agent-step">
-                            <div class="agent-header">
-                                <span class="agent-name">🔧 NETWORK_AUTOMATION_AGENT</span>
-                                <span class="agent-status status-completed">Configuration Applied</span>
-                            </div>
-                            <div class="agent-content">
-                                <strong>Network Changes Automated:</strong><br>
-                                • VLANs provisioned: 12 new segments<br>
-                                • BGP peers configured: 8 new routes<br>
-                                • QoS policies applied: 23 services<br>
-                                • Load balancing optimized: 15 pools<br>
-                                <br>
-                                <strong>SDN Controller Actions:</strong><br>
-                                ✅ Flow rules updated: 1,247<br>
-                                ✅ Traffic engineering applied<br>
-                                ✅ Micro-segmentation enabled<br>
-                                ✅ DDoS mitigation rules added<br>
-                                <br>
-                                <strong>Performance Impact:</strong><br>
-                                • Latency reduced: 15% average<br>
-                                • Bandwidth utilization: optimized<br>
-                                • Packet loss: 0.01% → 0.001%
-                            </div>
-                        </div>
-                    </div>`
-                ]
-            }
-        };
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔍 DETECTION_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Anomaly Detected:</strong> Query latency 850ms (baseline: 45ms)<br>
+                        <strong>Pattern Match:</strong> Query plan regression<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 INCIDENT_MRA</span>
+                        <span class="agent-status status-completed">Correlation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Correlated Findings:</strong> Database query plan regression confirmed<br>
+                        <strong>Resolution Plan:</strong> Apply index hints, optimize queries<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Response Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        ✅ <strong>Incident Resolved</strong><br>
+                        • Root Cause: Query plan regression<br>
+                        • Resolution Time: 8 minutes 34 seconds<br>
+                        • Agents Involved: 8<br>
+                        • Ticket Status: Auto-closed
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
 
+    'capacity-management': {
+        title: 'Predictive Capacity Management',
+        icon: '📊',
+        description: 'AI-powered capacity planning and optimization using predictive analytics',
+        initialQuery: 'Analyze current capacity and predict future requirements',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">📊</span>
+                    <h3 class="workflow-title">Multi-Agent Capacity Planning Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Scheduled Capacity Review<br>
+                        <strong>Scope:</strong> All datacenter resources<br>
+                        <strong>Time Horizon:</strong> 7, 30, 90, 365 days<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>CAPACITY_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CAPACITY_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ MONITORING_AGENT - Current metrics<br>
+                            ✓ ANALYTICS_AGENT - Historical trends<br>
+                            ✓ ML_PREDICTION_AGENT - Forecasting<br>
+                            ✓ OPTIMIZATION_AGENT - Resource optimization<br>
+                            ✓ COST_ANALYST_AGENT - Financial analysis<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📊 MONITORING_AGENT</span>
+                        <span class="agent-status status-completed">Metrics Collected</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Current Utilization:</strong><br>
+                        • CPU: 77.8% (12,450/16,000 cores)<br>
+                        • Memory: 70.6% (45.2/64 TB)<br>
+                        • Network: 85% ⚠️ (850/1000 Gb)<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🤖 ML_PREDICTION_AGENT</span>
+                        <span class="agent-status status-completed">Predictions Generated</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Capacity Predictions:</strong><br>
+                        • Network: 98% in 90 days 🔴<br>
+                        • CPU: 95% in 90 days ⚠️<br>
+                        • Critical Date: Network exhaustion ~45 days<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CAPACITY_MRA</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Consolidated Plan:</strong><br>
+                        🔴 Network capacity critical - 45 days<br>
+                        💰 $67k/month savings via optimization<br>
+                        <strong>Action Plan:</strong> Immediate optimization + network upgrade<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        📊 <strong>Executive Summary:</strong><br>
+                        • Network exhaustion: 45 days<br>
+                        • Investment needed: $165k<br>
+                        • Savings identified: $804k/year<br>
+                        • JIRA Tickets Created: 3<br>
+                        • Approvals Requested: CFO, CTO
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'resiliency-check': {
+        title: 'Datacenter Resiliency Check',
+        icon: '🛡️',
+        description: 'Automated resilience validation through chaos engineering and failover testing',
+        initialQuery: 'Run comprehensive resiliency assessment',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🛡️</span>
+                    <h3 class="workflow-title">Multi-Agent Resiliency Testing Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Quarterly Resiliency Review<br>
+                        <strong>Test Scope:</strong> Full datacenter infrastructure<br>
+                        <strong>Test Type:</strong> Chaos engineering + Failover tests<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>RESILIENCY_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Tests</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ ASSESSMENT_AGENT - Baseline assessment<br>
+                            ✓ CHAOS_AGENT - Failure injection<br>
+                            ✓ FAILOVER_AGENT - Failover testing<br>
+                            ✓ RECOVERY_AGENT - Recovery validation<br>
+                            ✓ COMPLIANCE_AGENT - Standards check<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💥 CHAOS_AGENT</span>
+                        <span class="agent-status status-active">Injecting Failures</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Chaos Experiments:</strong><br>
+                        ✅ Random pod termination - Recovered in 12s<br>
+                        ✅ Network partition - Failover in 8s<br>
+                        ⚠️ Storage failure - Recovery 45s (target: 30s)<br>
+                        ✅ Database failover - 15s, zero data loss<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
+                        <span class="agent-status status-completed">Assessment Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Resiliency Score: 94/100</strong><br>
+                        ✅ N+2 redundancy verified<br>
+                        ⚠️ Storage failover needs improvement<br>
+                        <strong>Recommendations:</strong> Optimize storage failover<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🛡️ <strong>Resiliency Status:</strong><br>
+                        • Overall Score: 94/100<br>
+                        • Tests Passed: 47/50<br>
+                        • Avg Recovery: 8.3 min<br>
+                        • Next DR Drill: 5 days<br>
+                        • Report Filed: Compliance Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'infra-verification': {
+        title: 'Infrastructure Verification',
+        icon: '✅',
+        description: 'Automated verification of datacenter infrastructure, configurations, and compliance',
+        initialQuery: 'Verify infrastructure configuration and compliance',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">✅</span>
+                    <h3 class="workflow-title">Multi-Agent Infrastructure Verification</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Compliance Audit Request<br>
+                        <strong>Verification Scope:</strong> All infrastructure components<br>
+                        <strong>Standards:</strong> PCI-DSS, SOC2, CIS Benchmarks<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>VERIFICATION_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Verification</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Verification Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ CONFIG_AGENT - Configuration checks<br>
+                            ✓ COMPLIANCE_AGENT - Standards validation<br>
+                            ✓ HARDWARE_AGENT - Hardware health<br>
+                            ✓ NETWORK_AGENT - Network verification<br>
+                            ✓ SECURITY_AGENT - Security posture<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⚙️ CONFIG_AGENT</span>
+                        <span class="agent-status status-completed">Config Verified</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Configuration Status:</strong><br>
+                        ✅ 847/850 servers compliant<br>
+                        ⚠️ 3 configuration drifts detected<br>
+                        • MySQL max_connections changed<br>
+                        • VLAN 200 missing on switch<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔐 COMPLIANCE_AGENT</span>
+                        <span class="agent-status status-warning">Issues Found</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Compliance Results:</strong><br>
+                        ✅ PCI-DSS: Fully Compliant<br>
+                        ✅ SOC 2: Compliant<br>
+                        ⚠️ CIS: 3 medium findings<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
+                        <span class="agent-status status-completed">Verification Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Overall Compliance: 96.5%</strong><br>
+                        ✅ Infrastructure verified<br>
+                        ⚠️ 6 items need attention<br>
+                        <strong>Action Plan:</strong> Auto-remediation available<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        ✅ <strong>Verification Summary:</strong><br>
+                        • Compliance Score: 96.5%<br>
+                        • Config Drift: 6 items<br>
+                        • Hardware Alerts: 3<br>
+                        • Next Audit: 45 days<br>
+                        • Report Filed: Audit Committee
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'service-verification': {
+        title: 'Service Verification Testing',
+        icon: '🔍',
+        description: 'Black box and white box testing for VMs, containers, databases, and message queues',
+        initialQuery: 'Run comprehensive service verification tests',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🔍</span>
+                    <h3 class="workflow-title">Multi-Agent Service Testing Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Service Health Check Request<br>
+                        <strong>Test Scope:</strong> All datacenter services<br>
+                        <strong>Test Types:</strong> Black box + White box testing<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>TESTING_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 TESTING_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Tests</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ BLACKBOX_AGENT - External testing<br>
+                            ✓ WHITEBOX_AGENT - Internal testing<br>
+                            ✓ VM_TEST_AGENT - VM services<br>
+                            ✓ CONTAINER_AGENT - K8s testing<br>
+                            ✓ DB_TEST_AGENT - Database testing<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⬛ BLACKBOX_AGENT</span>
+                        <span class="agent-status status-completed">External Tests Done</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Black Box Results:</strong><br>
+                        ✅ VM Service: 48/50 passed<br>
+                        ✅ Kubernetes: 38/40 passed<br>
+                        ⚠️ Database: 3 slow queries<br>
+                        ✅ Message Queue: 35/36 passed<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⬜ WHITEBOX_AGENT</span>
+                        <span class="agent-status status-completed">Internal Tests Done</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>White Box Results:</strong><br>
+                        ✅ Code Coverage: 87%<br>
+                        ✅ Internal APIs: All passing<br>
+                        ⚠️ Memory leaks: 2 detected<br>
+                        ✅ Security: No vulnerabilities<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 TESTING_MRA</span>
+                        <span class="agent-status status-completed">Test Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Summary:</strong><br>
+                        • Overall Pass Rate: 95.7%<br>
+                        • Critical Issues: 0<br>
+                        • Performance Issues: 5<br>
+                        <strong>Recommendations:</strong> Optimize slow queries<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🔍 <strong>Service Health Report:</strong><br>
+                        • Tests Passed: 287/300<br>
+                        • Service SLA: 99.95%<br>
+                        • Code Coverage: 87%<br>
+                        • Next Test Cycle: 7 days<br>
+                        • Report Filed: DevOps Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'service-creation': {
+        title: 'AI Service Creation Agent',
+        icon: '🤖',
+        description: 'Automatically generate self-service portals from API documentation',
+        initialQuery: 'Create a self-service portal for Firewall as a Service',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🤖</span>
+                    <h3 class="workflow-title">Multi-Agent Service Creation Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> API Documentation (OpenAPI Spec)<br>
+                        <strong>Service:</strong> Firewall as a Service<br>
+                        <strong>Requirements:</strong> Self-service portal with UI + Backend<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>CREATION_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CREATION_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Pipeline</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Creation Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ API_PARSER_AGENT - Parse API spec<br>
+                            ✓ UI_DESIGNER_AGENT - Design interface<br>
+                            ✓ FRONTEND_DEV_AGENT - Generate UI<br>
+                            ✓ BACKEND_DEV_AGENT - Generate server<br>
+                            ✓ DEVOPS_AGENT - Create deployment<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📄 API_PARSER_AGENT</span>
+                        <span class="agent-status status-completed">API Analyzed</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>API Analysis:</strong><br>
+                        • Endpoints: 12 discovered<br>
+                        • Auth: API Key (Header)<br>
+                        • Models: 5 schemas extracted<br>
+                        <strong>→ Passing to UI_DESIGNER...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💻 FRONTEND_DEV_AGENT</span>
+                        <span class="agent-status status-completed">Frontend Generated</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>UI Components Generated:</strong><br>
+                        ✅ Dashboard component<br>
+                        ✅ Firewall creation form<br>
+                        ✅ Rule management table<br>
+                        ✅ Metrics dashboard<br>
+                        <strong>Files: 23 components created</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CREATION_MRA</span>
+                        <span class="agent-status status-completed">Portal Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Generation Summary:</strong><br>
+                        ✅ Full-stack application generated<br>
+                        ✅ 8,743 lines of code<br>
+                        ✅ Docker + K8s configs ready<br>
+                        ✅ Documentation generated<br>
+                        <strong>← Sending package to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Delivered to User</span>
+                    </div>
+                    <div class="agent-content">
+                        🤖 <strong>Portal Generated!</strong><br>
+                        • Generation Time: 4:28<br>
+                        • Code: 8.7k lines<br>
+                        • Test Coverage: 87%<br>
+                        • Time Saved: 3 weeks<br>
+                        • GitHub Repo: Ready to deploy
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'vm-management': {
+        title: 'VM Lifecycle Management',
+        icon: '💻',
+        description: 'Intelligent VM provisioning, optimization, and lifecycle automation',
+        initialQuery: 'Optimize VM resource allocation across clusters',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">💻</span>
+                    <h3 class="workflow-title">Multi-Agent VM Optimization Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> VM Optimization Request<br>
+                        <strong>Scope:</strong> 3,247 VMs across 85 hosts<br>
+                        <strong>Goal:</strong> Optimize resource allocation<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>VM_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VM_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Optimization</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>VM Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ VM_ANALYSIS_AGENT - Analyze usage<br>
+                            ✓ RIGHTSIZING_AGENT - Size optimization<br>
+                            ✓ PLACEMENT_AGENT - Host placement<br>
+                            ✓ MIGRATION_AGENT - Live migration<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📊 VM_ANALYSIS_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>VM Analysis:</strong><br>
+                        • Idle VMs: 234 (>7 days inactive)<br>
+                        • Oversized: 456 (using <30%)<br>
+                        • Undersized: 89 (>90% usage)<br>
+                        • Waste: $42,000/month<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VM_MRA</span>
+                        <span class="agent-status status-completed">Optimization Plan Ready</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimization Actions:</strong><br>
+                        ✅ Right-size 456 VMs<br>
+                        ✅ Migrate 78 VMs for balance<br>
+                        ✅ Consolidate 45 low-usage VMs<br>
+                        <strong>Savings: $67,000/month</strong><br>
+                        <strong>← Sending plan to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        💻 <strong>VM Optimization Complete:</strong><br>
+                        • VMs Optimized: 578<br>
+                        • Monthly Savings: $67k<br>
+                        • Performance Gain: 23%<br>
+                        • Zero Downtime Migration<br>
+                        • Report Filed: Infrastructure Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'container-orchestration': {
+        title: 'Container Orchestration',
+        icon: '🐳',
+        description: 'Kubernetes cluster management, scaling, and optimization',
+        initialQuery: 'Analyze and optimize Kubernetes cluster performance',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🐳</span>
+                    <h3 class="workflow-title">Multi-Agent K8s Optimization</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> K8s Cluster Optimization<br>
+                        <strong>Cluster Size:</strong> 45 nodes, 2,847 pods<br>
+                        <strong>Namespaces:</strong> 67 active<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>K8S_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 K8S_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>K8s Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ CLUSTER_AGENT - Cluster analysis<br>
+                            ✓ POD_OPTIMIZER - Pod optimization<br>
+                            ✓ HPA_TUNER - Autoscaling tuning<br>
+                            ✓ RESOURCE_AGENT - Resource limits<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">☸️ CLUSTER_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Cluster Status:</strong><br>
+                        • CPU Utilization: 68%<br>
+                        • Memory: 74%<br>
+                        • Unused PVCs: 234 (2.3TB)<br>
+                        • Pending Pods: 12<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 K8S_MRA</span>
+                        <span class="agent-status status-completed">Optimization Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimizations Applied:</strong><br>
+                        ✅ HPA tuned for 34 deployments<br>
+                        ✅ Resource limits adjusted<br>
+                        ✅ Pod distribution rebalanced<br>
+                        ✅ Unused PVCs cleaned<br>
+                        <strong>Savings: $18,000/month</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🐳 <strong>K8s Optimization Summary:</strong><br>
+                        • Pods Optimized: 1,234<br>
+                        • Storage Freed: 2.3TB<br>
+                        • Cost Savings: $18k/month<br>
+                        • Performance: +35%<br>
+                        • Report Filed: Platform Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'database-optimization': {
+        title: 'Database Performance Optimization',
+        icon: '🗄️',
+        description: 'AI-driven database tuning, query optimization, and capacity planning',
+        initialQuery: 'Optimize database performance and identify bottlenecks',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🗄️</span>
+                    <h3 class="workflow-title">Multi-Agent Database Optimization</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> Database Performance Optimization<br>
+                        <strong>Databases:</strong> 23 production instances<br>
+                        <strong>Types:</strong> PostgreSQL, MySQL, MongoDB<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>DB_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 DB_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Database Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ QUERY_ANALYZER - Query analysis<br>
+                            ✓ INDEX_OPTIMIZER - Index tuning<br>
+                            ✓ CACHE_TUNER - Cache optimization<br>
+                            ✓ SCHEMA_ADVISOR - Schema review<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔍 QUERY_ANALYZER</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Query Analysis:</strong><br>
+                        • Slow queries: 23 identified<br>
+                        • Missing indexes: 15 critical<br>
+                        • N+1 queries: 8 patterns<br>
+                        • Cache hit rate: 45%<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 DB_MRA</span>
+                        <span class="agent-status status-completed">Optimization Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimizations Applied:</strong><br>
+                        ✅ Created 15 missing indexes<br>
+                        ✅ Rewrote 8 inefficient queries<br>
+                        ✅ Adjusted buffer pool size<br>
+                        ✅ Enabled query caching<br>
+                        <strong>Performance: +65% improvement</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🗄️ <strong>Database Optimization Summary:</strong><br>
+                        • Query Latency: -65%<br>
+                        • Throughput: +120%<br>
+                        • CPU Usage: 85% → 52%<br>
+                        • Cache Hit: 45% → 78%<br>
+                        • Report Filed: DBA Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'network-automation': {
+        title: 'Network Automation & SDN',
+        icon: '🌐',
+        description: 'Software-defined networking, automated configuration, and optimization',
+        initialQuery: 'Automate network configuration and optimize traffic flow',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🌐</span>
+                    <h3 class="workflow-title">Multi-Agent Network Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> Network Automation Request<br>
+                        <strong>Scope:</strong> SDN configuration + optimization<br>
+                        <strong>Devices:</strong> 145 switches, 23 routers<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>NETWORK_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 NETWORK_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Automation</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Network Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ SDN_CONTROLLER - SDN management<br>
+                            ✓ CONFIG_AUTOMATION - Auto-config<br>
+                            ✓ TRAFFIC_OPTIMIZER - Flow optimization<br>
+                            ✓ SECURITY_POLICY - Policy enforcement<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔧 CONFIG_AUTOMATION</span>
+                        <span class="agent-status status-completed">Configuration Applied</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Automated Changes:</strong><br>
+                        ✅ VLANs provisioned: 12<br>
+                        ✅ BGP peers configured: 8<br>
+                        ✅ QoS policies: 23 services<br>
+                        ✅ Load balancing: 15 pools<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 NETWORK_MRA</span>
+                        <span class="agent-status status-completed">Automation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Network Optimization Results:</strong><br>
+                        ✅ Flow rules updated: 1,247<br>
+                        ✅ Traffic engineering applied<br>
+                        ✅ Micro-segmentation enabled<br>
+                        <strong>Performance: Latency -15%</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🌐 <strong>Network Automation Summary:</strong><br>
+                        • Configs Automated: 168<br>
+                        • Latency Reduced: 15%<br>
+                        • Packet Loss: 0.001%<br>
+                        • Bandwidth Optimized: +23%<br>
+                        • Report Filed: Network Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    }
+};
         let currentScenario = null;
         let messageHistory = [];
 
