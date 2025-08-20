@@ -360,15 +360,20 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
+            padding: 20px;
         }
         
         .success-content {
             background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             border: 2px solid #27ae60;
             border-radius: 20px;
-            padding: 50px;
+            padding: 40px;
             text-align: center;
-            max-width: 500px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: auto;
         }
         
         .success-icon {
@@ -409,6 +414,168 @@
             font-size: 24px;
             font-weight: 600;
             color: #27ae60;
+        }
+        
+        .downloads-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .downloads-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #27ae60;
+        }
+        
+        .agent-downloads {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .agent-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .download-items {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .download-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .download-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #27ae60;
+        }
+        
+        .download-info {
+            flex: 1;
+        }
+        
+        .download-type {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-filename {
+            font-size: 13px;
+            color: #888;
+            font-family: monospace;
+        }
+        
+        .download-size {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .download-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .quick-start {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .quick-start-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #27ae60;
+        }
+        
+        .command-box {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .command-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .command-text {
+            font-family: monospace;
+            font-size: 13px;
+            color: #00ff88;
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 10px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        .copy-btn:hover {
+            background: #444;
+        }
+        
+        .download-all-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .download-all-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
         }
         
         @keyframes scaleIn {
@@ -660,16 +827,42 @@
             <div class="success-icon">✅</div>
             <h2 class="success-title">Order Successful!</h2>
             <p class="success-message">
-                Thank you for your purchase! Your AI agents are being provisioned and will be ready within minutes.
+                Thank you for your purchase! Your AI agents are ready for download.
             </p>
             <div class="order-number">
                 <div class="order-number-label">Order Number</div>
                 <div class="order-number-value" id="orderNumber">ORD-2024-XXXXXX</div>
             </div>
-            <p style="font-size: 14px; color: #888; margin-bottom: 20px;">
-                A confirmation email has been sent to your registered email address with setup instructions.
-            </p>
-            <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='agent-marketplace.html'">
+            
+            <div class="downloads-section" id="downloadsSection">
+                <h3 class="downloads-title">📦 Your Agent Downloads</h3>
+                <!-- Downloads will be dynamically added here -->
+            </div>
+            
+            <div class="quick-start">
+                <div class="quick-start-title">🚀 Quick Start Instructions</div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyCommand('docker-cmd')">Copy</button>
+                    <div class="command-label">1. Load Container Image:</div>
+                    <div class="command-text" id="docker-cmd">docker load < layer1-agent-v1.0.tar.gz</div>
+                </div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyCommand('helm-cmd')">Copy</button>
+                    <div class="command-label">2. Deploy with Helm:</div>
+                    <div class="command-text" id="helm-cmd">helm install layer1-agent ./layer1-agent-chart.tgz --namespace cisco-agents --create-namespace</div>
+                </div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyCommand('verify-cmd')">Copy</button>
+                    <div class="command-label">3. Verify Deployment:</div>
+                    <div class="command-text" id="verify-cmd">kubectl get pods -n cisco-agents</div>
+                </div>
+            </div>
+            
+            <button class="download-all-btn" onclick="downloadAll()">
+                📥 Download All Files as ZIP
+            </button>
+            
+            <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="window.location.href='agent-marketplace.html'">
                 Back to Marketplace
             </button>
         </div>
@@ -852,6 +1045,9 @@
                 const orderNum = 'ORD-2024-' + Math.random().toString(36).substr(2, 6).toUpperCase();
                 document.getElementById('orderNumber').textContent = orderNum;
                 
+                // Generate download section
+                generateDownloads();
+                
                 // Show success modal
                 document.getElementById('successModal').style.display = 'flex';
                 
@@ -862,6 +1058,143 @@
                 button.textContent = 'Complete Purchase';
                 button.disabled = false;
             }, 2000);
+        }
+        
+        function generateDownloads() {
+            const downloadsSection = document.getElementById('downloadsSection');
+            const downloadHTML = cartItems.map(item => {
+                const agentId = item.id || 'layer1-agent';
+                const agentName = item.name || 'Layer1Agent';
+                
+                return `
+                    <div class="agent-downloads">
+                        <div class="agent-name">${agentName}</div>
+                        <div class="download-items">
+                            <div class="download-item">
+                                <div class="download-info">
+                                    <div class="download-type">
+                                        <span>🐳</span>
+                                        <span>Container Image</span>
+                                    </div>
+                                    <div class="download-filename">${agentId}-v1.0.tar.gz</div>
+                                    <div class="download-size">Size: 245 MB</div>
+                                </div>
+                                <button class="download-btn" onclick="downloadFile('${agentId}', 'container')">
+                                    Download
+                                </button>
+                            </div>
+                            
+                            <div class="download-item">
+                                <div class="download-info">
+                                    <div class="download-type">
+                                        <span>⎈</span>
+                                        <span>Helm Chart</span>
+                                    </div>
+                                    <div class="download-filename">${agentId}-chart.tgz</div>
+                                    <div class="download-size">Size: 15 KB</div>
+                                </div>
+                                <button class="download-btn" onclick="downloadFile('${agentId}', 'helm')">
+                                    Download
+                                </button>
+                            </div>
+                            
+                            <div class="download-item">
+                                <div class="download-info">
+                                    <div class="download-type">
+                                        <span>📖</span>
+                                        <span>User Guide</span>
+                                    </div>
+                                    <div class="download-filename">${agentId}-guide.pdf</div>
+                                    <div class="download-size">Size: 2.5 MB</div>
+                                </div>
+                                <button class="download-btn" onclick="downloadFile('${agentId}', 'guide')">
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            downloadsSection.innerHTML = '<h3 class="downloads-title">📦 Your Agent Downloads</h3>' + downloadHTML;
+            
+            // Update quick start commands based on first agent
+            if (cartItems.length > 0) {
+                const firstAgent = cartItems[0];
+                const agentId = firstAgent.id || 'layer1-agent';
+                document.getElementById('docker-cmd').textContent = `docker load < ${agentId}-v1.0.tar.gz`;
+                document.getElementById('helm-cmd').textContent = `helm install ${agentId} ./${agentId}-chart.tgz --namespace cisco-agents --create-namespace`;
+            }
+        }
+        
+        function downloadFile(agentId, type) {
+            // Map to actual files or create mock downloads
+            const files = {
+                'container': {
+                    'layer1-agent': '/downloads/container-images/layer1-agent-v1.0.tar.gz',
+                    'default': '/downloads/container-images/agent-v1.0.tar.gz'
+                },
+                'helm': {
+                    'layer1-agent': '/downloads/helm-charts/layer1-agent-chart.tgz',
+                    'default': '/downloads/helm-charts/agent-chart.tgz'
+                },
+                'guide': {
+                    'layer1-agent': '/downloads/user-guides/layer1-agent-guide.md',
+                    'default': '/downloads/user-guides/agent-guide.pdf'
+                }
+            };
+            
+            // Get file path or use default
+            const filePath = files[type][agentId] || files[type]['default'];
+            
+            // For demo, create a blob and download
+            const content = type === 'helm' ? 
+                'apiVersion: v2\nname: ' + agentId + '\nversion: 1.0.0' :
+                'Demo file content for ' + agentId;
+            
+            const blob = new Blob([content], { type: 'application/octet-stream' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${agentId}-${type === 'container' ? 'v1.0.tar.gz' : type === 'helm' ? 'chart.tgz' : 'guide.pdf'}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Show notification
+            alert(`Downloading ${agentId} ${type} file...`);
+        }
+        
+        function downloadAll() {
+            // In production, this would create a ZIP file
+            // For demo, we'll download each file sequentially
+            cartItems.forEach(item => {
+                const agentId = item.id || 'layer1-agent';
+                setTimeout(() => downloadFile(agentId, 'container'), 100);
+                setTimeout(() => downloadFile(agentId, 'helm'), 500);
+                setTimeout(() => downloadFile(agentId, 'guide'), 900);
+            });
+            
+            alert('Downloading all files... Please check your downloads folder.');
+        }
+        
+        function copyCommand(cmdId) {
+            const cmdText = document.getElementById(cmdId).textContent;
+            navigator.clipboard.writeText(cmdText).then(() => {
+                // Change button text temporarily
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#333';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy command');
+            });
         }
         
         // Initialize on page load
