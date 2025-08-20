@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Marketplace - Cisco AI Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .marketplace-title {
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .cart-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .cart-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff0000;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .search-section {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .search-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .search-input::placeholder {
+            color: #888;
+        }
+        
+        .search-btn {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .search-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tag {
+            padding: 8px 16px;
+            background: rgba(155, 89, 182, 0.2);
+            border: 1px solid #9b59b6;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: #9b59b6;
+            transform: scale(1.05);
+        }
+        
+        .main-content {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .category-menu {
+            list-style: none;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #9b59b6;
+        }
+        
+        .category-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category-item:hover {
+            background: rgba(155, 89, 182, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .category-item.active {
+            background: rgba(155, 89, 182, 0.3);
+            border-left: 3px solid #9b59b6;
+        }
+        
+        .category-count {
+            background: rgba(155, 89, 182, 0.3);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .agents-grid {
+            flex: 1;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .sort-dropdown {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .featured-bundles {
+            margin-bottom: 40px;
+        }
+        
+        .bundles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .bundle-card {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1), rgba(231, 76, 60, 0.1));
+            border: 2px solid #9b59b6;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .bundle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.3);
+        }
+        
+        .bundle-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .bundle-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .bundle-description {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .bundle-agents {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .bundle-agent-tag {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+        }
+        
+        .bundle-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .bundle-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: #9b59b6;
+        }
+        
+        .bundle-savings {
+            font-size: 12px;
+            color: #27ae60;
+        }
+        
+        .agents-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .agent-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-5px);
+            border-color: #9b59b6;
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.2);
+        }
+        
+        .agent-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .agent-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .agent-category {
+            font-size: 12px;
+            color: #9b59b6;
+            margin-bottom: 10px;
+        }
+        
+        .agent-description {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .agent-capabilities {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .capability-tag {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            color: #00ff88;
+        }
+        
+        .agent-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+        
+        .agent-price {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .agent-price .price-from {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .quick-subscribe {
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .quick-subscribe:hover {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #9b59b6;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        .agent-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .agent-detail-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        .agent-detail-info h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-detail-info .category {
+            color: #9b59b6;
+            margin-bottom: 10px;
+        }
+        
+        .agent-detail-info .description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .subscription-options {
+            margin: 30px 0;
+        }
+        
+        .subscription-options h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .pricing-card:hover,
+        .pricing-card.selected {
+            border-color: #9b59b6;
+            background: rgba(155, 89, 182, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card .plan-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-card .plan-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: #9b59b6;
+            margin-bottom: 5px;
+        }
+        
+        .pricing-card .plan-savings {
+            font-size: 12px;
+            color: #27ae60;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #9b59b6;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .cart-items {
+            margin: 20px 0;
+        }
+        
+        .cart-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-plan {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .cart-item-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #9b59b6;
+        }
+        
+        .remove-item {
+            background: #e74c3c;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        .cart-summary {
+            border-top: 2px solid #333;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-row.total {
+            font-size: 24px;
+            font-weight: 600;
+            color: #9b59b6;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
+                <h1 class="marketplace-title">Agent Marketplace</h1>
+            </div>
+            <div class="cart-section">
+                <button class="cart-btn" onclick="openCart()">
+                    🛒 Cart
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search for agents by name, capability, or use case...">
+                <button class="search-btn" onclick="searchAgents()">Search</button>
+            </div>
+            <div class="filter-tags">
+                <div class="filter-tag" onclick="filterByTag('troubleshooting')">Troubleshooting</div>
+                <div class="filter-tag" onclick="filterByTag('monitoring')">Monitoring</div>
+                <div class="filter-tag" onclick="filterByTag('automation')">Automation</div>
+                <div class="filter-tag" onclick="filterByTag('security')">Security</div>
+                <div class="filter-tag" onclick="filterByTag('performance')">Performance</div>
+                <div class="filter-tag" onclick="filterByTag('compliance')">Compliance</div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="main-content">
+        <aside class="sidebar">
+            <h3 class="category-title">Categories</h3>
+            <ul class="category-menu">
+                <li class="category-item active" onclick="filterByCategory('all')">
+                    <span>All Agents</span>
+                    <span class="category-count">44</span>
+                </li>
+                <li class="category-item" onclick="filterByCategory('transport')">
+                    <span>Transport</span>
+                    <span class="category-count">12</span>
+                </li>
+                <li class="category-item" onclick="filterByCategory('datacenter')">
+                    <span>Datacenter</span>
+                    <span class="category-count">15</span>
+                </li>
+                <li class="category-item" onclick="filterByCategory('security')">
+                    <span>Security</span>
+                    <span class="category-count">17</span>
+                </li>
+                <li class="category-item" onclick="filterByCategory('bundles')">
+                    <span>Bundles</span>
+                    <span class="category-count">8</span>
+                </li>
+            </ul>
+        </aside>
+        
+        <div class="agents-grid">
+            <div class="section-header">
+                <h2 class="section-title">Featured Bundles</h2>
+                <select class="sort-dropdown" onchange="sortAgents(this.value)">
+                    <option value="popular">Most Popular</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="newest">Newest</option>
+                </select>
+            </div>
+            
+            <div class="featured-bundles">
+                <div class="bundles-container" id="bundlesContainer">
+                    <!-- Bundles will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div class="section-header">
+                <h2 class="section-title">Individual Agents</h2>
+            </div>
+            
+            <div class="agents-list" id="agentsList">
+                <!-- Agents will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Agent Detail Modal -->
+    <div class="modal" id="agentModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div id="modalContent">
+                <!-- Agent details will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <button class="close-modal" onclick="closeCart()">&times;</button>
+            <h2>Shopping Cart</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0/month</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount:</span>
+                    <span id="discount">-$0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0/month</span>
+                </div>
+                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Item added to cart!
+    </div>
+    
+    <script>
+        // Agent Data
+        const agents = [
+            // Transport Agents
+            {
+                id: 'layer1-agent',
+                name: 'Layer1Agent',
+                category: 'transport',
+                icon: '🔌',
+                description: 'Monitors and troubleshoots physical layer issues including optics, DOM/BER, and link integrity.',
+                capabilities: ['Optics Monitoring', 'DOM/BER Analysis', 'Link Flapping Detection', 'Physical Diagnostics'],
+                price: 299,
+                useCases: ['Incident Management', 'Proactive Monitoring']
+            },
+            {
+                id: 'layer2-agent',
+                name: 'Layer2Agent',
+                category: 'transport',
+                icon: '🔗',
+                description: 'Handles Layer 2 protocols, VLAN configurations, VPC consistency, and switching issues.',
+                capabilities: ['VLAN Management', 'VPC Validation', 'STP Analysis', 'MAC Learning'],
+                price: 349,
+                useCases: ['Network Troubleshooting', 'Configuration Validation']
+            },
+            {
+                id: 'bgp-triage',
+                name: 'BGPTriageAgent',
+                category: 'transport',
+                icon: '🌐',
+                description: 'Specialized in BGP troubleshooting, peer management, and route analysis.',
+                capabilities: ['BGP Peer Analysis', 'Route Validation', 'AS Path Analysis', 'Policy Verification'],
+                price: 449,
+                useCases: ['BGP Incidents', 'Route Optimization']
+            },
+            {
+                id: 'igp-triage',
+                name: 'IGPTriageAgent',
+                category: 'transport',
+                icon: '🗺️',
+                description: 'Expert in IGP protocols (OSPF, IS-IS) for internal routing optimization.',
+                capabilities: ['OSPF/IS-IS Analysis', 'SPF Calculations', 'Area Design', 'Metric Optimization'],
+                price: 399,
+                useCases: ['IGP Convergence', 'Topology Changes']
+            },
+            {
+                id: 'mpls-vpn',
+                name: 'MPLS_VPNAgent',
+                category: 'transport',
+                icon: '🏷️',
+                description: 'Manages MPLS labels, VRFs, route targets, and L3VPN services.',
+                capabilities: ['Label Management', 'VRF Validation', 'RT/RD Configuration', 'L3VPN Troubleshooting'],
+                price: 499,
+                useCases: ['MPLS Services', 'VPN Management']
+            },
+            {
+                id: 'sr-agent',
+                name: 'SRAgent',
+                category: 'transport',
+                icon: '🚀',
+                description: 'Segment Routing specialist for SR-MPLS and SRv6 policy management.',
+                capabilities: ['SR Policy Creation', 'SID Management', 'Traffic Engineering', 'Path Computation'],
+                price: 549,
+                useCases: ['Traffic Engineering', 'Path Optimization']
+            },
+            {
+                id: 'qos-agent',
+                name: 'QoSAgent',
+                category: 'transport',
+                icon: '📊',
+                description: 'Quality of Service management including queue analysis and microburst detection.',
+                capabilities: ['Queue Management', 'Class Mapping', 'Microburst Detection', 'Buffer Tuning'],
+                price: 379,
+                useCases: ['Performance Issues', 'SLA Management']
+            },
+            {
+                id: 'timing-guardian',
+                name: 'TimingGuardian',
+                category: 'transport',
+                icon: '⏰',
+                description: 'PTP and SyncE verification for timing-critical applications.',
+                capabilities: ['PTP Validation', 'SyncE Monitoring', 'Clock Sync', 'Holdover Analysis'],
+                price: 429,
+                useCases: ['5G Networks', 'Financial Trading']
+            },
+            {
+                id: 'multicast-ranger',
+                name: 'MulticastRanger',
+                category: 'transport',
+                icon: '📡',
+                description: 'Multicast routing expert for IPTV and market data applications.',
+                capabilities: ['PIM Analysis', 'IGMP/MLD', 'RPF Validation', 'RP Management'],
+                price: 389,
+                useCases: ['IPTV Services', 'Market Data']
+            },
+            {
+                id: 'sr-policy-planner',
+                name: 'SRPolicyPlanner',
+                category: 'transport',
+                icon: '🛤️',
+                description: 'Advanced SR policy planning with traffic prediction and optimization.',
+                capabilities: ['Policy Design', 'Path Computation', 'Constraint Validation', 'Traffic Prediction'],
+                price: 599,
+                useCases: ['Traffic Shifting', 'Capacity Planning']
+            },
+            {
+                id: 'bng-doctor-cp',
+                name: 'BNGDoctorCP',
+                category: 'transport',
+                icon: '🏠',
+                description: 'BNG control plane specialist for subscriber management.',
+                capabilities: ['PPPoE/DHCP', 'RADIUS Auth', 'Session Management', 'AAA Troubleshooting'],
+                price: 469,
+                useCases: ['Broadband Services', 'Subscriber Issues']
+            },
+            {
+                id: 'bng-doctor-fp',
+                name: 'BNGDoctorFP',
+                category: 'transport',
+                icon: '🌊',
+                description: 'BNG forwarding plane optimization and CGNAT management.',
+                capabilities: ['CGNAT Pools', 'NAT Exhaustion', 'Traffic Analysis', 'Performance Tuning'],
+                price: 469,
+                useCases: ['NAT Issues', 'Performance Problems']
+            },
+            
+            // Datacenter Agents
+            {
+                id: 'fabric-doctor',
+                name: 'FabricDoctor',
+                category: 'datacenter',
+                icon: '🏥',
+                description: 'ACI/APIC fabric troubleshooting for multi-site deployments.',
+                capabilities: ['ACI Policy', 'EPG/BD Validation', 'Contract Analysis', 'VPC Consistency'],
+                price: 529,
+                useCases: ['Fabric Issues', 'Policy Conflicts']
+            },
+            {
+                id: 'dc-incident-orchestrator',
+                name: 'DCIncidentOrchestrator',
+                category: 'datacenter',
+                icon: '🎭',
+                description: 'Cross-domain incident correlation across compute, network, and storage.',
+                capabilities: ['vCenter Integration', 'Hypervisor Events', '5G Controller', 'App Correlation'],
+                price: 649,
+                useCases: ['Complex Incidents', 'Multi-Domain Issues']
+            },
+            {
+                id: 'resource-monitor',
+                name: 'ResourceMonitorAgent',
+                category: 'datacenter',
+                icon: '📈',
+                description: 'Real-time resource monitoring and capacity forecasting.',
+                capabilities: ['CPU/Memory Tracking', 'Storage Analysis', 'Capacity Planning', 'Trend Analysis'],
+                price: 299,
+                useCases: ['Capacity Management', 'Resource Optimization']
+            },
+            {
+                id: 'vm-migration',
+                name: 'VMMigrationAgent',
+                category: 'datacenter',
+                icon: '🚚',
+                description: 'Intelligent VM migration planning and execution.',
+                capabilities: ['vMotion Planning', 'Load Balancing', 'Risk Assessment', 'Migration Validation'],
+                price: 449,
+                useCases: ['Maintenance Windows', 'Load Distribution']
+            },
+            {
+                id: 'cooling-optimizer',
+                name: 'CoolingOptimizerAgent',
+                category: 'datacenter',
+                icon: '❄️',
+                description: 'HVAC and cooling system optimization for energy efficiency.',
+                capabilities: ['Temperature Monitoring', 'Airflow Analysis', 'Energy Optimization', 'Hot Spot Detection'],
+                price: 379,
+                useCases: ['Energy Savings', 'Thermal Management']
+            },
+            {
+                id: 'power-management',
+                name: 'PowerManagementAgent',
+                category: 'datacenter',
+                icon: '⚡',
+                description: 'Power distribution and UPS management for reliability.',
+                capabilities: ['PDU Monitoring', 'UPS Management', 'Power Capping', 'Redundancy Validation'],
+                price: 399,
+                useCases: ['Power Planning', 'Reliability']
+            },
+            {
+                id: 'backup-custodian',
+                name: 'BackupCustodian',
+                category: 'datacenter',
+                icon: '💾',
+                description: 'Backup verification and restore drill management.',
+                capabilities: ['Backup Validation', 'Integrity Checks', 'Restore Testing', 'Compliance Reporting'],
+                price: 359,
+                useCases: ['Disaster Recovery', 'Compliance']
+            },
+            {
+                id: 'maintenance-planner',
+                name: 'MaintenancePlanner',
+                category: 'datacenter',
+                icon: '🔧',
+                description: 'Intelligent maintenance window planning with risk assessment.',
+                capabilities: ['Window Scheduling', 'Impact Analysis', 'Risk Scoring', 'Rollback Planning'],
+                price: 429,
+                useCases: ['Change Management', 'Maintenance Windows']
+            },
+            {
+                id: 'intent-compiler',
+                name: 'IntentCompiler',
+                category: 'datacenter',
+                icon: '📝',
+                description: 'Intent-based networking configuration generation.',
+                capabilities: ['Intent Translation', 'Config Generation', 'Validation', 'Dry Run Testing'],
+                price: 579,
+                useCases: ['Service Provisioning', 'Automation']
+            },
+            {
+                id: 'check-suite-builder',
+                name: 'CheckSuiteBuilder',
+                category: 'datacenter',
+                icon: '✅',
+                description: 'Automated pre/post check generation for changes.',
+                capabilities: ['Check Generation', 'Scheduling', 'Validation', 'Reporting'],
+                price: 339,
+                useCases: ['Change Validation', 'Compliance']
+            },
+            {
+                id: 'hygiene-ncs540',
+                name: 'HygieneInspector_NCS540',
+                category: 'datacenter',
+                icon: '🔍',
+                description: 'NCS 540 hardware and software hygiene verification.',
+                capabilities: ['XR Validation', 'FPD Checks', 'Timing Verification', 'Security Audit'],
+                price: 289,
+                useCases: ['Device Health', 'Compliance']
+            },
+            {
+                id: 'hygiene-asr920',
+                name: 'HygieneInspector_ASR920',
+                category: 'datacenter',
+                icon: '🔬',
+                description: 'ASR 920 comprehensive health and compliance checks.',
+                capabilities: ['XE/ROMMON', 'Install Mode', 'L2 Services', 'Hardware Audit'],
+                price: 289,
+                useCases: ['Device Health', 'Pre-Change Validation']
+            },
+            {
+                id: 'hygiene-ncs560',
+                name: 'HygieneInspector_NCS560',
+                category: 'datacenter',
+                icon: '🏗️',
+                description: 'NCS 560 ISSU readiness and microcode validation.',
+                capabilities: ['ISSU Gates', 'Microcode Check', 'TCAM Analysis', 'Fabric Health'],
+                price: 319,
+                useCases: ['Upgrade Planning', 'Health Check']
+            },
+            {
+                id: 'hygiene-asr9000',
+                name: 'HygieneInspector_ASR9000',
+                category: 'datacenter',
+                icon: '🎛️',
+                description: 'ASR 9000 fabric and line card parity verification.',
+                capabilities: ['RSP/LC Parity', 'Fabric Health', 'ISSU Readiness', 'PSIRT Mapping'],
+                price: 359,
+                useCases: ['Core Health', 'Upgrade Planning']
+            },
+            {
+                id: 'hygiene-c8000',
+                name: 'HygieneInspector_C8000',
+                category: 'datacenter',
+                icon: '🔐',
+                description: 'Cisco 8000 secure boot and Silicon One health.',
+                capabilities: ['Secure Boot', 'NP Health', 'Telemetry Pipeline', 'Trust Validation'],
+                price: 399,
+                useCases: ['Security Compliance', 'Core Health']
+            },
+            
+            // Security Agents
+            {
+                id: 'behavioral-analysis',
+                name: 'BehavioralAnalysisAgent',
+                category: 'security',
+                icon: '🧠',
+                description: 'AI-driven behavioral analysis for threat detection.',
+                capabilities: ['Anomaly Detection', 'Pattern Recognition', 'ML Models', 'Baseline Learning'],
+                price: 699,
+                useCases: ['Lateral Movement', 'Zero-Day Detection']
+            },
+            {
+                id: 'threat-intelligence',
+                name: 'ThreatIntelligenceAgent',
+                category: 'security',
+                icon: '🕵️',
+                description: 'Threat intelligence correlation and enrichment.',
+                capabilities: ['Intel Feeds', 'IOC Matching', 'Attribution', 'Risk Scoring'],
+                price: 549,
+                useCases: ['Threat Hunting', 'Investigation']
+            },
+            {
+                id: 'uba-agent',
+                name: 'UBAAgent',
+                category: 'security',
+                icon: '👤',
+                description: 'User behavior analytics for insider threat detection.',
+                capabilities: ['User Profiling', 'Deviation Detection', 'Risk Scoring', 'Activity Timeline'],
+                price: 629,
+                useCases: ['Insider Threats', 'Account Compromise']
+            },
+            {
+                id: 'dlp-agent',
+                name: 'DLPAgent',
+                category: 'security',
+                icon: '🔒',
+                description: 'Data loss prevention and sensitive data monitoring.',
+                capabilities: ['Data Classification', 'Exfiltration Detection', 'Policy Enforcement', 'Encryption Validation'],
+                price: 579,
+                useCases: ['Data Protection', 'Compliance']
+            },
+            {
+                id: 'forensics-agent',
+                name: 'ForensicsAgent',
+                category: 'security',
+                icon: '🔎',
+                description: 'Digital forensics and incident reconstruction.',
+                capabilities: ['Timeline Reconstruction', 'Artifact Collection', 'Memory Analysis', 'Chain of Custody'],
+                price: 749,
+                useCases: ['Incident Response', 'Investigation']
+            },
+            {
+                id: 'cloud-config-analysis',
+                name: 'CloudConfigAnalysisAgent',
+                category: 'security',
+                icon: '☁️',
+                description: 'Cloud misconfiguration detection and remediation.',
+                capabilities: ['AWS/Azure/GCP', 'IaC Scanning', 'CSPM', 'Auto-Remediation'],
+                price: 499,
+                useCases: ['Cloud Security', 'Compliance']
+            },
+            {
+                id: 'adversarial-detection',
+                name: 'AdversarialDetectionAgent',
+                category: 'security',
+                icon: '🤖',
+                description: 'AI vs AI defense against adversarial attacks.',
+                capabilities: ['Model Protection', 'Adversarial Detection', 'Deception Tech', 'Counter-AI'],
+                price: 899,
+                useCases: ['AI Security', 'Advanced Threats']
+            },
+            {
+                id: 'vuln-risk-scoring',
+                name: 'VulnRiskScoringAgent',
+                category: 'security',
+                icon: '⚠️',
+                description: 'Contextual vulnerability risk scoring and prioritization.',
+                capabilities: ['CVSS Enhancement', 'Exploit Prediction', 'Asset Context', 'Remediation Priority'],
+                price: 429,
+                useCases: ['Vulnerability Management', 'Patching']
+            },
+            {
+                id: 'apt-attribution',
+                name: 'APTAttributionAgent',
+                category: 'security',
+                icon: '🎯',
+                description: 'Advanced persistent threat detection and attribution.',
+                capabilities: ['Campaign Detection', 'Actor Attribution', 'TTP Mapping', 'Predictive Analysis'],
+                price: 799,
+                useCases: ['APT Detection', 'Nation-State Threats']
+            },
+            {
+                id: 'kernel-behavior',
+                name: 'KernelBehaviorAgent',
+                category: 'security',
+                icon: '💻',
+                description: 'Kernel-level runtime security with eBPF.',
+                capabilities: ['eBPF Monitoring', 'Syscall Analysis', 'Runtime Protection', 'Container Security'],
+                price: 679,
+                useCases: ['Runtime Security', 'Container Protection']
+            },
+            {
+                id: 'image-analysis',
+                name: 'ImageAnalysisAgent',
+                category: 'security',
+                icon: '📦',
+                description: 'Container image vulnerability scanning.',
+                capabilities: ['Layer Scanning', 'Dependency Analysis', 'Registry Integration', 'SBOM Generation'],
+                price: 449,
+                useCases: ['Container Security', 'CI/CD Security']
+            },
+            {
+                id: 'static-analysis',
+                name: 'StaticAnalysisAgent',
+                category: 'security',
+                icon: '📄',
+                description: 'Static code analysis for security vulnerabilities.',
+                capabilities: ['SAST', 'Secret Detection', 'Code Review', 'PR Validation'],
+                price: 529,
+                useCases: ['DevSecOps', 'Code Security']
+            },
+            {
+                id: 'compliance-monitoring',
+                name: 'ComplianceMonitoringAgent',
+                category: 'security',
+                icon: '📋',
+                description: 'Continuous compliance monitoring across frameworks.',
+                capabilities: ['Multi-Framework', 'Control Validation', 'Gap Analysis', 'Audit Reports'],
+                price: 599,
+                useCases: ['Compliance', 'Audit Preparation']
+            },
+            {
+                id: 'ddos-detection',
+                name: 'DDoSDetectionAgent',
+                category: 'security',
+                icon: '🌊',
+                description: 'DDoS detection and mitigation orchestration.',
+                capabilities: ['Volume Detection', 'L7 Analysis', 'Mitigation Orchestration', 'BGP Flowspec'],
+                price: 729,
+                useCases: ['DDoS Protection', 'Network Defense']
+            },
+            {
+                id: 'api-abuse-detection',
+                name: 'APIAbuseDetectionAgent',
+                category: 'security',
+                icon: '🔌',
+                description: 'API abuse and telco fraud detection.',
+                capabilities: ['Rate Limiting', 'Pattern Detection', 'SIM Swap Detection', 'Fraud Modeling'],
+                price: 649,
+                useCases: ['API Security', 'Fraud Prevention']
+            },
+            {
+                id: 'config-baseline',
+                name: 'ConfigBaselineAgent',
+                category: 'security',
+                icon: '📐',
+                description: 'Configuration baseline and drift detection.',
+                capabilities: ['Baseline Management', 'Drift Detection', 'Policy Validation', 'Rollback Plans'],
+                price: 389,
+                useCases: ['Config Security', 'Change Control']
+            },
+            {
+                id: 'knowledge-graph',
+                name: 'KnowledgeGraphAgent',
+                category: 'security',
+                icon: '🗺️',
+                description: 'Security knowledge graph for decision support.',
+                capabilities: ['Playbook Management', 'Process Optimization', 'Knowledge Retention', 'Training Support'],
+                price: 459,
+                useCases: ['SOC Efficiency', 'Knowledge Management']
+            }
+        ];
+        
+        // Bundle Data
+        const bundles = [
+            {
+                id: 'troubleshooting-bundle',
+                name: 'Troubleshooting Bundle',
+                description: 'Complete troubleshooting toolkit for network incidents',
+                agents: ['Layer1Agent', 'Layer2Agent', 'BGPTriageAgent', 'IGPTriageAgent', 'QoSAgent'],
+                originalPrice: 1875,
+                bundlePrice: 1499,
+                savings: 20
+            },
+            {
+                id: 'performance-bundle',
+                name: 'Performance Optimization Bundle',
+                description: 'End-to-end performance monitoring and optimization',
+                agents: ['QoSAgent', 'SRPolicyPlanner', 'ResourceMonitorAgent', 'BandwidthForecaster'],
+                originalPrice: 1826,
+                bundlePrice: 1369,
+                savings: 25
+            },
+            {
+                id: 'security-operations-bundle',
+                name: 'Security Operations Bundle',
+                description: 'Essential security monitoring and incident response',
+                agents: ['BehavioralAnalysisAgent', 'ThreatIntelligenceAgent', 'ForensicsAgent', 'DDoSDetectionAgent'],
+                originalPrice: 2726,
+                bundlePrice: 1999,
+                savings: 27
+            },
+            {
+                id: 'datacenter-essentials',
+                name: 'Datacenter Essentials Bundle',
+                description: 'Core datacenter management and automation tools',
+                agents: ['FabricDoctor', 'ResourceMonitorAgent', 'VMMigrationAgent', 'BackupCustodian'],
+                originalPrice: 1836,
+                bundlePrice: 1399,
+                savings: 24
+            },
+            {
+                id: 'compliance-bundle',
+                name: 'Compliance & Audit Bundle',
+                description: 'Comprehensive compliance and audit automation',
+                agents: ['ComplianceMonitoringAgent', 'ConfigBaselineAgent', 'CheckSuiteBuilder'],
+                originalPrice: 1327,
+                bundlePrice: 999,
+                savings: 25
+            },
+            {
+                id: 'telco-bundle',
+                name: 'Telco Operations Bundle',
+                description: 'Specialized agents for telco service providers',
+                agents: ['BNGDoctorCP', 'BNGDoctorFP', 'TimingGuardian', 'APIAbuseDetectionAgent'],
+                originalPrice: 2016,
+                bundlePrice: 1599,
+                savings: 21
+            },
+            {
+                id: 'cloud-security-bundle',
+                name: 'Cloud Security Bundle',
+                description: 'Cloud-native security and compliance',
+                agents: ['CloudConfigAnalysisAgent', 'ImageAnalysisAgent', 'KernelBehaviorAgent'],
+                originalPrice: 1627,
+                bundlePrice: 1299,
+                savings: 20
+            },
+            {
+                id: 'enterprise-bundle',
+                name: 'Enterprise Complete Bundle',
+                description: 'Full suite for large enterprise deployments',
+                agents: ['Layer1Agent', 'Layer2Agent', 'BGPTriageAgent', 'FabricDoctor', 'BehavioralAnalysisAgent', 'ComplianceMonitoringAgent', 'ResourceMonitorAgent', 'MaintenancePlanner'],
+                originalPrice: 3784,
+                bundlePrice: 2499,
+                savings: 34
+            }
+        ];
+        
+        let cart = [];
+        let selectedPlan = 'monthly';
+        
+        // Initialize the page
+        function initializePage() {
+            loadBundles();
+            loadAgents();
+            updateCartCount();
+        }
+        
+        function loadBundles() {
+            const container = document.getElementById('bundlesContainer');
+            container.innerHTML = bundles.map(bundle => `
+                <div class="bundle-card" onclick="showBundleDetails('${bundle.id}')">
+                    <span class="bundle-badge">SAVE ${bundle.savings}%</span>
+                    <h3 class="bundle-name">${bundle.name}</h3>
+                    <p class="bundle-description">${bundle.description}</p>
+                    <div class="bundle-agents">
+                        ${bundle.agents.slice(0, 3).map(agent => `
+                            <span class="bundle-agent-tag">${agent}</span>
+                        `).join('')}
+                        ${bundle.agents.length > 3 ? `<span class="bundle-agent-tag">+${bundle.agents.length - 3} more</span>` : ''}
+                    </div>
+                    <div class="bundle-footer">
+                        <div>
+                            <div class="bundle-price">$${bundle.bundlePrice}/mo</div>
+                            <div class="bundle-savings">Save $${bundle.originalPrice - bundle.bundlePrice}/mo</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function loadAgents() {
+            const container = document.getElementById('agentsList');
+            container.innerHTML = agents.map(agent => `
+                <div class="agent-card" onclick="showAgentDetails('${agent.id}')">
+                    <div class="agent-icon">${agent.icon}</div>
+                    <h3 class="agent-name">${agent.name}</h3>
+                    <div class="agent-category">${agent.category.toUpperCase()}</div>
+                    <p class="agent-description">${agent.description}</p>
+                    <div class="agent-capabilities">
+                        ${agent.capabilities.slice(0, 3).map(cap => `
+                            <span class="capability-tag">${cap}</span>
+                        `).join('')}
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-price">
+                            <span class="price-from">from</span> $${agent.price}/mo
+                        </div>
+                        <button class="quick-subscribe" onclick="quickAddToCart(event, '${agent.id}')">Subscribe</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function showAgentDetails(agentId) {
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+            
+            const modal = document.getElementById('agentModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="agent-detail-header">
+                    <div class="agent-detail-icon">${agent.icon}</div>
+                    <div class="agent-detail-info">
+                        <h2>${agent.name}</h2>
+                        <div class="category">${agent.category.toUpperCase()} AGENT</div>
+                        <p class="description">${agent.description}</p>
+                    </div>
+                </div>
+                
+                <div class="capabilities-section">
+                    <h3>Capabilities</h3>
+                    <div class="agent-capabilities">
+                        ${agent.capabilities.map(cap => `
+                            <span class="capability-tag">${cap}</span>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="use-cases-section">
+                    <h3>Use Cases</h3>
+                    <ul>
+                        ${agent.useCases.map(useCase => `
+                            <li>${useCase}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+                
+                <div class="subscription-options">
+                    <h3>Choose Your Plan</h3>
+                    <div class="pricing-cards">
+                        <div class="pricing-card" onclick="selectPlan(this, 'ondemand', ${agent.price * 2})" data-plan="ondemand">
+                            <div class="plan-name">On-Demand</div>
+                            <div class="plan-price">$${agent.price * 2}</div>
+                            <div class="plan-savings">Pay as you go</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, 'hourly', ${Math.round(agent.price * 1.5)})" data-plan="hourly">
+                            <div class="plan-name">Hourly</div>
+                            <div class="plan-price">$${Math.round(agent.price * 1.5)}/mo</div>
+                            <div class="plan-savings">Flexible usage</div>
+                        </div>
+                        <div class="pricing-card selected" onclick="selectPlan(this, 'monthly', ${agent.price})" data-plan="monthly">
+                            <div class="plan-name">Monthly</div>
+                            <div class="plan-price">$${agent.price}/mo</div>
+                            <div class="plan-savings">Standard plan</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, '1year', ${Math.round(agent.price * 0.85)})" data-plan="1year">
+                            <div class="plan-name">1 Year</div>
+                            <div class="plan-price">$${Math.round(agent.price * 0.85)}/mo</div>
+                            <div class="plan-savings">Save 15%</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, '3year', ${Math.round(agent.price * 0.75)})" data-plan="3year">
+                            <div class="plan-name">3 Years</div>
+                            <div class="plan-price">$${Math.round(agent.price * 0.75)}/mo</div>
+                            <div class="plan-savings">Save 25%</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, '5year', ${Math.round(agent.price * 0.65)})" data-plan="5year">
+                            <div class="plan-name">5 Years</div>
+                            <div class="plan-price">$${Math.round(agent.price * 0.65)}/mo</div>
+                            <div class="plan-savings">Save 35%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart-btn" onclick="addToCartFromModal('${agent.id}')">Add to Cart</button>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function showBundleDetails(bundleId) {
+            const bundle = bundles.find(b => b.id === bundleId);
+            if (!bundle) return;
+            
+            const modal = document.getElementById('agentModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="agent-detail-header">
+                    <div class="agent-detail-icon">📦</div>
+                    <div class="agent-detail-info">
+                        <h2>${bundle.name}</h2>
+                        <div class="category">AGENT BUNDLE</div>
+                        <p class="description">${bundle.description}</p>
+                    </div>
+                </div>
+                
+                <div class="included-agents">
+                    <h3>Included Agents (${bundle.agents.length})</h3>
+                    <div class="bundle-agents">
+                        ${bundle.agents.map(agentName => {
+                            const agent = agents.find(a => a.name === agentName);
+                            return agent ? `
+                                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <strong>${agent.name}</strong> - ${agent.description}
+                                </div>
+                            ` : '';
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <div class="subscription-options">
+                    <h3>Bundle Pricing</h3>
+                    <div class="pricing-cards">
+                        <div class="pricing-card selected" onclick="selectPlan(this, 'monthly', ${bundle.bundlePrice})" data-plan="monthly">
+                            <div class="plan-name">Monthly</div>
+                            <div class="plan-price">$${bundle.bundlePrice}/mo</div>
+                            <div class="plan-savings">Save ${bundle.savings}%</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, '1year', ${Math.round(bundle.bundlePrice * 0.85)})" data-plan="1year">
+                            <div class="plan-name">1 Year</div>
+                            <div class="plan-price">$${Math.round(bundle.bundlePrice * 0.85)}/mo</div>
+                            <div class="plan-savings">Save ${bundle.savings + 15}%</div>
+                        </div>
+                        <div class="pricing-card" onclick="selectPlan(this, '3year', ${Math.round(bundle.bundlePrice * 0.75)})" data-plan="3year">
+                            <div class="plan-name">3 Years</div>
+                            <div class="plan-price">$${Math.round(bundle.bundlePrice * 0.75)}/mo</div>
+                            <div class="plan-savings">Save ${bundle.savings + 25}%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart-btn" onclick="addBundleToCart('${bundle.id}')">Add Bundle to Cart</button>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function selectPlan(element, plan, price) {
+            document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPlan = plan;
+            element.dataset.price = price;
+        }
+        
+        function quickAddToCart(event, agentId) {
+            event.stopPropagation();
+            const agent = agents.find(a => a.id === agentId);
+            if (agent) {
+                cart.push({
+                    id: agent.id,
+                    name: agent.name,
+                    price: agent.price,
+                    plan: 'monthly',
+                    type: 'agent'
+                });
+                updateCartCount();
+                showNotification('Added to cart!');
+            }
+        }
+        
+        function addToCartFromModal(agentId) {
+            const agent = agents.find(a => a.id === agentId);
+            const selectedCard = document.querySelector('.pricing-card.selected');
+            const plan = selectedCard.dataset.plan;
+            const price = parseInt(selectedCard.querySelector('.plan-price').textContent.replace('$', '').replace('/mo', ''));
+            
+            cart.push({
+                id: agent.id,
+                name: agent.name,
+                price: price,
+                plan: plan,
+                type: 'agent'
+            });
+            
+            updateCartCount();
+            closeModal();
+            showNotification('Added to cart!');
+        }
+        
+        function addBundleToCart(bundleId) {
+            const bundle = bundles.find(b => b.id === bundleId);
+            const selectedCard = document.querySelector('.pricing-card.selected');
+            const plan = selectedCard.dataset.plan;
+            const price = parseInt(selectedCard.querySelector('.plan-price').textContent.replace('$', '').replace('/mo', ''));
+            
+            cart.push({
+                id: bundle.id,
+                name: bundle.name,
+                price: price,
+                plan: plan,
+                type: 'bundle'
+            });
+            
+            updateCartCount();
+            closeModal();
+            showNotification('Bundle added to cart!');
+        }
+        
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        function openCart() {
+            const modal = document.getElementById('cartModal');
+            const itemsContainer = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p style="text-align: center; color: #888;">Your cart is empty</p>';
+            } else {
+                itemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-plan">${item.plan} subscription</div>
+                        </div>
+                        <div class="cart-item-price">$${item.price}/mo</div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `).join('');
+            }
+            
+            updateCartSummary();
+            modal.style.display = 'flex';
+        }
+        
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            const discount = Math.round(subtotal * 0.1); // 10% discount for multiple items
+            const total = subtotal - (cart.length > 2 ? discount : 0);
+            
+            document.getElementById('subtotal').textContent = `$${subtotal}/month`;
+            document.getElementById('discount').textContent = cart.length > 2 ? `-$${discount}` : '-$0';
+            document.getElementById('total').textContent = `$${total}/month`;
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            openCart(); // Refresh cart display
+            showNotification('Item removed from cart');
+        }
+        
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+        
+        function closeModal() {
+            document.getElementById('agentModal').style.display = 'none';
+        }
+        
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Store cart in localStorage for checkout page
+            localStorage.setItem('checkoutCart', JSON.stringify(cart));
+            window.location.href = 'checkout.html';
+        }
+        
+        function searchAgents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredAgents = agents.filter(agent => 
+                agent.name.toLowerCase().includes(searchTerm) ||
+                agent.description.toLowerCase().includes(searchTerm) ||
+                agent.capabilities.some(cap => cap.toLowerCase().includes(searchTerm))
+            );
+            
+            const container = document.getElementById('agentsList');
+            if (filteredAgents.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">No agents found matching your search</p>';
+            } else {
+                container.innerHTML = filteredAgents.map(agent => `
+                    <div class="agent-card" onclick="showAgentDetails('${agent.id}')">
+                        <div class="agent-icon">${agent.icon}</div>
+                        <h3 class="agent-name">${agent.name}</h3>
+                        <div class="agent-category">${agent.category.toUpperCase()}</div>
+                        <p class="agent-description">${agent.description}</p>
+                        <div class="agent-capabilities">
+                            ${agent.capabilities.slice(0, 3).map(cap => `
+                                <span class="capability-tag">${cap}</span>
+                            `).join('')}
+                        </div>
+                        <div class="agent-footer">
+                            <div class="agent-price">
+                                <span class="price-from">from</span> $${agent.price}/mo
+                            </div>
+                            <button class="quick-subscribe" onclick="quickAddToCart(event, '${agent.id}')">Subscribe</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function filterByCategory(category) {
+            // Update active state
+            document.querySelectorAll('.category-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.category-item').classList.add('active');
+            
+            // Filter agents
+            let filteredAgents = category === 'all' ? agents : agents.filter(a => a.category === category);
+            
+            // Update display
+            const container = document.getElementById('agentsList');
+            if (category === 'bundles') {
+                // Show only bundles
+                document.querySelector('.featured-bundles').style.display = 'block';
+                container.style.display = 'none';
+            } else {
+                document.querySelector('.featured-bundles').style.display = category === 'all' ? 'block' : 'none';
+                container.style.display = 'grid';
+                
+                container.innerHTML = filteredAgents.map(agent => `
+                    <div class="agent-card" onclick="showAgentDetails('${agent.id}')">
+                        <div class="agent-icon">${agent.icon}</div>
+                        <h3 class="agent-name">${agent.name}</h3>
+                        <div class="agent-category">${agent.category.toUpperCase()}</div>
+                        <p class="agent-description">${agent.description}</p>
+                        <div class="agent-capabilities">
+                            ${agent.capabilities.slice(0, 3).map(cap => `
+                                <span class="capability-tag">${cap}</span>
+                            `).join('')}
+                        </div>
+                        <div class="agent-footer">
+                            <div class="agent-price">
+                                <span class="price-from">from</span> $${agent.price}/mo
+                            </div>
+                            <button class="quick-subscribe" onclick="quickAddToCart(event, '${agent.id}')">Subscribe</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function filterByTag(tag) {
+            // Toggle active state
+            event.target.classList.toggle('active');
+            
+            // Get all active tags
+            const activeTags = Array.from(document.querySelectorAll('.filter-tag.active'))
+                .map(el => el.textContent.toLowerCase());
+            
+            if (activeTags.length === 0) {
+                loadAgents(); // Show all if no filters
+                return;
+            }
+            
+            // Filter agents by tags
+            const filteredAgents = agents.filter(agent => {
+                const agentTags = [
+                    ...agent.capabilities.map(c => c.toLowerCase()),
+                    ...agent.useCases.map(u => u.toLowerCase()),
+                    agent.category
+                ];
+                return activeTags.some(tag => 
+                    agentTags.some(agentTag => agentTag.includes(tag))
+                );
+            });
+            
+            // Update display
+            const container = document.getElementById('agentsList');
+            if (filteredAgents.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">No agents found matching selected filters</p>';
+            } else {
+                container.innerHTML = filteredAgents.map(agent => `
+                    <div class="agent-card" onclick="showAgentDetails('${agent.id}')">
+                        <div class="agent-icon">${agent.icon}</div>
+                        <h3 class="agent-name">${agent.name}</h3>
+                        <div class="agent-category">${agent.category.toUpperCase()}</div>
+                        <p class="agent-description">${agent.description}</p>
+                        <div class="agent-capabilities">
+                            ${agent.capabilities.slice(0, 3).map(cap => `
+                                <span class="capability-tag">${cap}</span>
+                            `).join('')}
+                        </div>
+                        <div class="agent-footer">
+                            <div class="agent-price">
+                                <span class="price-from">from</span> $${agent.price}/mo
+                            </div>
+                            <button class="quick-subscribe" onclick="quickAddToCart(event, '${agent.id}')">Subscribe</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function sortAgents(sortBy) {
+            let sortedAgents = [...agents];
+            
+            switch(sortBy) {
+                case 'price-low':
+                    sortedAgents.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    sortedAgents.sort((a, b) => b.price - a.price);
+                    break;
+                case 'newest':
+                    sortedAgents.reverse();
+                    break;
+                case 'popular':
+                default:
+                    // Keep original order for popular
+                    break;
+            }
+            
+            const container = document.getElementById('agentsList');
+            container.innerHTML = sortedAgents.map(agent => `
+                <div class="agent-card" onclick="showAgentDetails('${agent.id}')">
+                    <div class="agent-icon">${agent.icon}</div>
+                    <h3 class="agent-name">${agent.name}</h3>
+                    <div class="agent-category">${agent.category.toUpperCase()}</div>
+                    <p class="agent-description">${agent.description}</p>
+                    <div class="agent-capabilities">
+                        ${agent.capabilities.slice(0, 3).map(cap => `
+                            <span class="capability-tag">${cap}</span>
+                        `).join('')}
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-price">
+                            <span class="price-from">from</span> $${agent.price}/mo
+                        </div>
+                        <button class="quick-subscribe" onclick="quickAddToCart(event, '${agent.id}')">Subscribe</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Initialize on page load
+        window.onload = initializePage;
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+            if (event.target.classList.contains('cart-modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

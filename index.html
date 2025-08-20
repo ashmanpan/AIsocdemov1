@@ -118,9 +118,11 @@
         
         .demo-selection {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-bottom: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
         }
         
         .demo-card {
@@ -241,6 +243,19 @@
             background: radial-gradient(circle, rgba(255, 102, 0, 0.1) 0%, transparent 70%);
         }
         
+        .marketplace-card .demo-icon {
+            color: #9b59b6;
+        }
+        
+        .marketplace-card:hover {
+            border-color: #9b59b6;
+            box-shadow: 0 20px 40px rgba(155, 89, 182, 0.3);
+        }
+        
+        .marketplace-card::before {
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.1) 0%, transparent 70%);
+        }
+        
         .footer {
             margin-top: 60px;
             font-size: 14px;
@@ -311,6 +326,34 @@
         </div>
         
         <div class="demo-selection">
+            <div class="demo-card marketplace-card" onclick="window.location.href='agent-marketplace.html'">
+                <span class="demo-icon">🏪</span>
+                <h2 class="demo-title">Agent Marketplace</h2>
+                <p class="demo-description">
+                    Browse and subscribe to specialized AI agents for transport, datacenter, 
+                    and security operations with flexible pricing models.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>50+ Specialized AI Agents</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Bundled Agent Packages</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Flexible Subscription Models</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Try Before You Buy</span>
+                    </div>
+                </div>
+                <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
+            </div>
+            
             <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
                 <span class="demo-icon">🛡️</span>
                 <h2 class="demo-title">AI SOC Demo</h2>
