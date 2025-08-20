@@ -27,6 +27,25 @@
             z-index: 100;
         }
         
+        .home-nav-button {
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .home-nav-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
         .header-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -703,6 +722,9 @@
                 <h1 class="marketplace-title">Agent Marketplace</h1>
             </div>
             <div class="cart-section">
+                <a href="https://allinone.ciscoaidemo.com" class="home-nav-button">
+                    🏠 Back to Home
+                </a>
                 <button class="cart-btn" onclick="openCart()">
                     🛒 Cart
                     <span class="cart-count" id="cartCount">0</span>

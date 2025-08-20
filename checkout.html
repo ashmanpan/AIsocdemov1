@@ -23,6 +23,27 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid #333;
             padding: 20px;
+            position: relative;
+        }
+        
+        .home-nav-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-nav-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
         }
         
         .header-content {
@@ -424,6 +445,7 @@
             <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
             <h1 class="checkout-title">Secure Checkout</h1>
         </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-nav-btn">🏠 Back to Home</a>
     </header>
     
     <div class="checkout-container">
