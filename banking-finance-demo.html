@@ -1,0 +1,2885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Banking-Finance-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .status-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .case-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .case-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .case-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        .company-attribution {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Banking-Finance-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00ff88" stroke-width="2"/>
+                <path d="M2 17L12 22L22 17" stroke="#00ff88" stroke-width="2"/>
+                <path d="M2 12L12 17L22 12" stroke="#00ff88" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Banking & Finance AI</h2>
+                <p class="sidebar-subtitle">Security • Compliance • Risk • Trading • Operations</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="fraud-detection">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Real-Time Fraud Detection & Prevention</span>
+                </li>
+                <li class="scenario-item" data-scenario="aml-compliance">
+                    <span class="scenario-icon">🔍</span>
+                    <span class="scenario-text">AI-Powered AML & Regulatory Compliance</span>
+                </li>
+                <li class="scenario-item" data-scenario="credit-risk">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Autonomous Credit Risk Assessment</span>
+                </li>
+                <li class="scenario-item" data-scenario="algorithmic-trading">
+                    <span class="scenario-icon">📈</span>
+                    <span class="scenario-text">Algorithmic Trading & Portfolio Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="kyc-processing">
+                    <span class="scenario-icon">📋</span>
+                    <span class="scenario-text">AI-Enhanced KYC & Document Processing</span>
+                </li>
+                <li class="scenario-item" data-scenario="customer-service">
+                    <span class="scenario-icon">💬</span>
+                    <span class="scenario-text">Intelligent Customer Service & Advisory</span>
+                </li>
+                <li class="scenario-item" data-scenario="aml-investigation">
+                    <span class="scenario-icon">🕵️</span>
+                    <span class="scenario-text">Anti-Money Laundering Investigation</span>
+                </li>
+                <li class="scenario-item" data-scenario="loan-underwriting">
+                    <span class="scenario-icon">🏦</span>
+                    <span class="scenario-text">Automated Loan Underwriting & Processing</span>
+                </li>
+                <li class="scenario-item" data-scenario="risk-management">
+                    <span class="scenario-icon">⚠️</span>
+                    <span class="scenario-text">Market Risk Management & Stress Testing</span>
+                </li>
+                <li class="scenario-item" data-scenario="digital-operations">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">Digital Banking Operations Automation</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M35 40 L50 30 L65 40 L65 45 L50 55 L35 45 Z" fill="#00ff88" opacity="0.8"/>
+                        <path d="M40 65 L60 65 M45 70 L55 70" stroke="#00aaff" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Banking & Finance AI Operations</h1>
+                <p class="welcome-subtext">
+                    Transform financial services with Agentic AI. Our intelligent agents autonomously detect fraud, ensure regulatory compliance, assess credit risk, execute trades, and manage complex banking operations while maintaining the highest security and compliance standards.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'fraud-detection': {
+                title: 'Real-Time Fraud Detection & Prevention',
+                icon: '🛡️',
+                description: 'AI-powered fraud analysis with real-time transaction monitoring and pattern recognition',
+                initialQuery: 'Analyze suspicious transaction pattern flagged by ML model - Account #4472891',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🛡️</span>
+                            <h3 class="workflow-title">Real-Time Fraud Detection & Prevention System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">FRAUD ALERT #FA-2024-8847</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Account: #4472891 | Amount: $47,250 | Risk Score: 94.7 | Response: 0.3s</div>
+                            </div>
+                            <div class="case-status severity-critical">CRITICAL ALERT</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Real-time Transaction Monitoring System<br>
+                                <strong>Alert Details:</strong> High-risk fraud pattern detected on Account #4472891<br>
+                                <strong>Context Analysis:</strong> Transaction history, customer behavior, risk indicators<br>
+                                <strong>Transaction Amount:</strong> $47,250 (unusual for this account profile)<br>
+                                <strong>Risk Score:</strong> 94.7/100 (critical threshold: 85)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>FRAUD_DETECTION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Customer profile, transaction patterns, device fingerprints...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 FRAUD_DETECTION_MRA</span>
+                                <span class="agent-status status-active">Deploying Fraud Analysis Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Fraud Detection Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ TRANSACTION_ANALYSIS_AGENT - Pattern recognition<br>
+                                    ✓ BEHAVIORAL_PROFILING_AGENT - Customer behavior analysis<br>
+                                    ✓ DEVICE_INTELLIGENCE_AGENT - Device/location verification<br>
+                                    ✓ NETWORK_ANALYSIS_AGENT - Connected account investigation<br>
+                                    ✓ COMPLIANCE_AGENT - Regulatory reporting<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💳 TRANSACTION_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Pattern Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical transaction patterns, fraud signatures database<br>
+                                <strong>MCP Server Calls:</strong> Transaction database APIs, pattern recognition engines<br>
+                                <strong>API Integrations:</strong> JPMorgan-style ML models, real-time scoring systems<br>
+                                <strong>Knowledge Base:</strong> 500M+ labeled fraud patterns<br>
+                                <br>
+                                <strong>Transaction Analysis Results:</strong><br>
+                                • Transaction Pattern: $47,250 wire transfer (vs avg $340)<br>
+                                • Timing Anomaly: 2:47 AM transaction (customer typical: 9 AM-5 PM)<br>
+                                • Frequency Spike: 7 transactions in 15 minutes (normal: 2/day)<br>
+                                • Geographic Mismatch: IP from Romania, card used in NYC<br>
+                                • Merchant Category: Cryptocurrency exchange (high risk)<br>
+                                <span class="severity-critical">CRITICAL:</span> Multiple fraud indicators confirmed<br>
+                                <strong>→ Submitting transaction analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👤 BEHAVIORAL_PROFILING_AGENT</span>
+                                <span class="agent-status status-completed">Behavior Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Customer behavior models, spending pattern databases<br>
+                                <strong>MCP Server Calls:</strong> Customer profile APIs, behavioral analytics engines<br>
+                                <strong>API Integrations:</strong> Goldman Sachs-style behavior scoring, spending analysis<br>
+                                <strong>Knowledge Base:</strong> Customer segmentation and anomaly detection models<br>
+                                <br>
+                                <strong>Behavioral Analysis Results:</strong><br>
+                                • Customer Profile: 67-year-old retiree, Chicago resident<br>
+                                • Spending Patterns: Grocery, utilities, medical (avg $2,400/month)<br>
+                                • Risk Factors: Never used wire transfers, no cryptocurrency activity<br>
+                                • Account Age: 23 years, excellent standing, zero fraud history<br>
+                                • Device History: Always mobile banking from iPhone 12<br>
+                                <span class="severity-critical">ANOMALY:</span> 100% deviation from normal behavior<br>
+                                <strong>→ Submitting behavioral analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📱 DEVICE_INTELLIGENCE_AGENT</span>
+                                <span class="agent-status status-critical">Security Breach Detected</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Device fingerprint databases, geolocation patterns<br>
+                                <strong>MCP Server Calls:</strong> Device tracking APIs, geolocation services<br>
+                                <strong>API Integrations:</strong> Device intelligence platforms, IP analysis systems<br>
+                                <strong>Knowledge Base:</strong> Device fraud detection algorithms<br>
+                                <br>
+                                <strong>Device Intelligence Results:</strong><br>
+                                • Device Type: Unknown Windows laptop (never seen before)<br>
+                                • IP Address: 185.234.72.194 (Romania, known fraud subnet)<br>
+                                • Browser: Tor browser with privacy tools (suspicious)<br>
+                                • Login Method: Password only (bypassed 2FA somehow)<br>
+                                • VPN Usage: Multiple proxy layers detected<br>
+                                <span class="severity-critical">CONFIRMED:</span> Account compromise detected<br>
+                                <strong>→ Submitting device intelligence to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🕸️ NETWORK_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-warning">Connected Activity Found</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Connected account databases, fraud network patterns<br>
+                                <strong>MCP Server Calls:</strong> Cross-account analysis APIs, network mapping systems<br>
+                                <strong>API Integrations:</strong> Fraud network detection, relationship mapping<br>
+                                <strong>Knowledge Base:</strong> Criminal network identification models<br>
+                                <br>
+                                <strong>Network Analysis Results:</strong><br>
+                                • Connected Accounts: 3 other accounts show similar patterns<br>
+                                • Same IP Address: Used across 4 different customer accounts<br>
+                                • Coordinated Activity: All 4 accounts active within 20-minute window<br>
+                                • Total Exposure: $189,340 across connected fraud attempts<br>
+                                • Network Pattern: Classic account takeover campaign<br>
+                                <strong>→ Submitting network analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 FRAUD_DETECTION_MRA</span>
+                                <span class="agent-status status-active">Correlation & Response Coordination</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Transaction + Behavioral + Device + Network analysis correlated<br>
+                                ✅ Fraud confirmation: 99.3% confidence (multiple indicators)<br>
+                                ✅ Network scope: 4 compromised accounts identified<br>
+                                <br>
+                                <strong>Immediate Response Actions:</strong><br>
+                                → Account freeze initiated (0.3 seconds response time)<br>
+                                → Customer notification via SMS and phone call<br>
+                                → 4 connected accounts placed under review<br>
+                                → Law enforcement notification for criminal network<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Coordinated fraud attack prevented<br>
+                                <strong>← Finalizing fraud prevention report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🛡️ <strong>Fraud Detection & Prevention Summary:</strong><br>
+                                • Fraud Status: ✅ PREVENTED (account takeover campaign)<br>
+                                • Response Time: 0.3 seconds (real-time protection)<br>
+                                • Amount Protected: $189,340 across 4 accounts<br>
+                                • Confidence Score: 99.3% fraud confirmation<br>
+                                • Network Scope: Criminal network identified and blocked<br>
+                                • Customer Impact: Zero financial loss, immediate notification<br>
+                                • Regulatory Filing: SAR filed automatically<br>
+                                • Next Action: Enhanced monitoring for 30 days
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Response Time</div>
+                                <div class="metric-value">0.3s</div>
+                                <div class="metric-details">Real-time protection</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Amount Protected</div>
+                                <div class="metric-value">$189K</div>
+                                <div class="metric-details">4 accounts secured</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Confidence Score</div>
+                                <div class="metric-value">99.3%</div>
+                                <div class="metric-details">Fraud confirmation</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Network Detection</div>
+                                <div class="metric-value">4</div>
+                                <div class="metric-details">Connected accounts</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: JPMorgan Chase, Goldman Sachs, Wells Fargo
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'aml-compliance': {
+                title: 'AI-Powered AML & Regulatory Compliance',
+                icon: '🔍',
+                description: 'Automated anti-money laundering monitoring with regulatory reporting and compliance',
+                initialQuery: 'Execute daily AML monitoring across $2.3B transaction volume',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔍</span>
+                            <h3 class="workflow-title">AI-Powered AML & Regulatory Compliance System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">AML DAILY MONITORING CYCLE</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Volume: $2.3B | Transactions: 847,392 | Alerts: 234 | Compliance: 99.7%</div>
+                            </div>
+                            <div class="case-status severity-medium">MONITORING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> AML Compliance & Monitoring System<br>
+                                <strong>Monitoring Request:</strong> Daily AML analysis across $2.3B volume<br>
+                                <strong>Context Analysis:</strong> Transaction volumes, suspicious patterns, regulatory requirements<br>
+                                <strong>Scope:</strong> 847,392 transactions across all customer segments<br>
+                                <strong>Compliance Target:</strong> Zero regulatory violations, <1% false positives<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>AML_COMPLIANCE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Regulatory requirements, transaction patterns, risk thresholds...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 AML_COMPLIANCE_MRA</span>
+                                <span class="agent-status status-active">Deploying AML Monitoring Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>AML Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ TRANSACTION_MONITOR_AGENT - Large transaction analysis<br>
+                                    ✓ PATTERN_DETECTION_AGENT - Suspicious pattern identification<br>
+                                    ✓ NETWORK_ANALYSIS_AGENT - Criminal network detection<br>
+                                    ✓ SANCTIONS_SCREENING_AGENT - OFAC/PEP verification<br>
+                                    ✓ REPORTING_AGENT - SAR/CTR automation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💰 TRANSACTION_MONITOR_AGENT</span>
+                                <span class="agent-status status-completed">Transaction Screening Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> CTR thresholds, structuring patterns, currency reporting<br>
+                                <strong>MCP Server Calls:</strong> Transaction database APIs, BSA compliance systems<br>
+                                <strong>API Integrations:</strong> FinCEN databases, large transaction tracking<br>
+                                <strong>Knowledge Base:</strong> HSBC-style transaction monitoring algorithms<br>
+                                <br>
+                                <strong>Large Transaction Analysis:</strong><br>
+                                • CTR Threshold Transactions: 1,247 transactions >$10K identified<br>
+                                • Structuring Patterns: 23 potential cases flagged<br>
+                                • Cash Intensive Businesses: 89 transactions reviewed<br>
+                                • Cross-border Transfers: 156 international wires analyzed<br>
+                                • Unusual Activity: 12 transactions require investigation<br>
+                                <strong>→ Submitting transaction analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 PATTERN_DETECTION_AGENT</span>
+                                <span class="agent-status status-warning">Suspicious Patterns Found</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Money laundering typologies, suspicious patterns database<br>
+                                <strong>MCP Server Calls:</strong> Pattern recognition APIs, ML detection engines<br>
+                                <strong>API Integrations:</strong> Advanced analytics platforms, behavior scoring<br>
+                                <strong>Knowledge Base:</strong> $206B AML compliance pattern libraries<br>
+                                <br>
+                                <strong>Pattern Detection Results:</strong><br>
+                                • Layering Schemes: 8 potential layering patterns detected<br>
+                                • Smurfing Activity: 45 accounts showing micro-transaction patterns<br>
+                                • Round Dollar Amounts: 67 transactions in exact thousands<br>
+                                • Rapid Movement: 12 cases of immediate fund transfers<br>
+                                • Shell Company Activity: 6 business accounts with minimal activity<br>
+                                <span class="severity-high">HIGH RISK:</span> 23 cases require immediate review<br>
+                                <strong>→ Submitting pattern analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌐 NETWORK_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Criminal Network Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Known criminal networks, entity relationship mapping<br>
+                                <strong>MCP Server Calls:</strong> Network analysis engines, relationship databases<br>
+                                <strong>API Integrations:</strong> Graph analytics platforms, entity resolution systems<br>
+                                <strong>Knowledge Base:</strong> Criminal network identification algorithms<br>
+                                <br>
+                                <strong>Network Analysis Results:</strong><br>
+                                • Connected Entities: 47 potentially related accounts identified<br>
+                                • Criminal Networks: 3 known networks detected in portfolio<br>
+                                • Beneficial Ownership: 12 shell companies traced to 2 individuals<br>
+                                • Geographic Clusters: Romania-Nigeria-US triangle pattern<br>
+                                • Risk Score Elevation: 15 accounts elevated to high risk<br>
+                                <strong>→ Submitting network analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏛️ SANCTIONS_SCREENING_AGENT</span>
+                                <span class="agent-status status-completed">Sanctions Screening Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> OFAC SDN list, PEP databases, sanctions regimes<br>
+                                <strong>MCP Server Calls:</strong> OFAC APIs, sanctions databases, PEP screening<br>
+                                <strong>API Integrations:</strong> World-Check, sanctions screening platforms<br>
+                                <strong>Knowledge Base:</strong> Sanctions compliance algorithms<br>
+                                <br>
+                                <strong>Sanctions Screening Results:</strong><br>
+                                • OFAC Matches: 2 potential hits requiring review<br>
+                                • PEP Screening: 5 politically exposed persons identified<br>
+                                • Sanctions Regimes: EU, UN, US sanctions checked<br>
+                                • Name Variations: 847 fuzzy matching variations processed<br>
+                                • False Positives: 67% reduction vs previous system<br>
+                                <strong>→ Submitting sanctions screening to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 AML_COMPLIANCE_MRA</span>
+                                <span class="agent-status status-active">Correlation & Reporting</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Transaction + Pattern + Network + Sanctions data correlated<br>
+                                ✅ Risk prioritization: 23 high-priority cases identified<br>
+                                ✅ Regulatory compliance: All thresholds and requirements met<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling REPORTING_AGENT for automated regulatory filing<br>
+                                → Coordinating with compliance officers for case review<br>
+                                → Generating SARs for 7 confirmed suspicious cases<br>
+                                <br>
+                                <strong>Final Correlation:</strong> AML monitoring cycle complete<br>
+                                <strong>← Finalizing compliance reporting...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔍 <strong>AML & Regulatory Compliance Summary:</strong><br>
+                                • Monitoring Status: ✅ Daily cycle completed<br>
+                                • Transaction Volume: $2.3B across 847,392 transactions<br>
+                                • Suspicious Activity: 234 alerts generated, 23 high priority<br>
+                                • SARs Filed: 7 confirmed cases reported to FinCEN<br>
+                                • False Positives: 67% reduction vs legacy systems<br>
+                                • Compliance Score: 99.7% regulatory adherence<br>
+                                • Network Detection: 3 criminal networks identified<br>
+                                • Cost Savings: $12.4M vs manual review annually
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Daily Volume</div>
+                                <div class="metric-value">$2.3B</div>
+                                <div class="metric-details">847k transactions</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">False Positive Reduction</div>
+                                <div class="metric-value">67%</div>
+                                <div class="metric-details">vs legacy systems</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Compliance Score</div>
+                                <div class="metric-value">99.7%</div>
+                                <div class="metric-details">Regulatory adherence</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$12.4M</div>
+                                <div class="metric-details">Annual vs manual</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: HSBC, BNY Mellon, Major Global Banks
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'credit-risk': {
+                title: 'Autonomous Credit Risk Assessment',
+                icon: '📊',
+                description: 'AI-enhanced credit scoring with alternative data and predictive risk modeling',
+                initialQuery: 'Assess credit risk for loan application portfolio - 1,247 applications pending',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📊</span>
+                            <h3 class="workflow-title">Autonomous Credit Risk Assessment System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">CREDIT RISK ASSESSMENT BATCH</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Applications: 1,247 | Value: $89.2M | Processing: AI Enhanced | Accuracy: 96.8%</div>
+                            </div>
+                            <div class="case-status severity-medium">PROCESSING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Loan Origination System (LOS)<br>
+                                <strong>Assessment Request:</strong> 1,247 pending loan applications<br>
+                                <strong>Context Analysis:</strong> Application data, credit histories, alternative data sources<br>
+                                <strong>Portfolio Value:</strong> $89.2M total loan requests<br>
+                                <strong>Target:</strong> 25% more approvals with $300M loss reduction (Goldman model)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>CREDIT_RISK_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Credit policies, risk appetite, regulatory constraints...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CREDIT_RISK_MRA</span>
+                                <span class="agent-status status-active">Deploying Credit Assessment Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Credit Risk Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ TRADITIONAL_SCORING_AGENT - FICO/bureau data analysis<br>
+                                    ✓ ALTERNATIVE_DATA_AGENT - Non-traditional data sources<br>
+                                    ✓ BEHAVIORAL_ANALYTICS_AGENT - Spending pattern analysis<br>
+                                    ✓ MACHINE_LEARNING_AGENT - Advanced risk modeling<br>
+                                    ✓ REGULATORY_COMPLIANCE_AGENT - Fair lending validation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📋 TRADITIONAL_SCORING_AGENT</span>
+                                <span class="agent-status status-completed">Bureau Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Credit bureau databases, FICO score models, payment history<br>
+                                <strong>MCP Server Calls:</strong> Experian, Equifax, TransUnion APIs<br>
+                                <strong>API Integrations:</strong> Credit bureau feeds, debt-to-income calculations<br>
+                                <strong>Knowledge Base:</strong> Traditional credit scoring algorithms<br>
+                                <br>
+                                <strong>Traditional Scoring Results:</strong><br>
+                                • FICO Score Distribution: 434 Prime (>660), 813 Near-prime/Subprime<br>
+                                • Payment History: 89.2% with satisfactory payment records<br>
+                                • Credit Utilization: Average 67% (target: <30%)<br>
+                                • Length of Credit: Average 8.7 years credit history<br>
+                                • Recent Inquiries: 156 applications with >5 inquiries (6 months)<br>
+                                • Traditional Approval Rate: 34.7% using legacy models<br>
+                                <strong>→ Submitting traditional scoring to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📱 ALTERNATIVE_DATA_AGENT</span>
+                                <span class="agent-status status-completed">Alternative Data Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Alternative credit data sources, non-traditional indicators<br>
+                                <strong>MCP Server Calls:</strong> Utility payment APIs, rental history, bank account data<br>
+                                <strong>API Integrations:</strong> Telecom, utility, rental payment platforms<br>
+                                <strong>Knowledge Base:</strong> Alternative data credit models<br>
+                                <br>
+                                <strong>Alternative Data Results:</strong><br>
+                                • Utility Payment History: 923 applicants with excellent utility payments<br>
+                                • Rental Payments: 567 with consistent rent payment records<br>
+                                • Bank Account Behavior: 1,156 with stable account management<br>
+                                • Mobile Phone History: 1,089 with long-term carrier relationships<br>
+                                • Education/Employment: 734 with stable employment (3+ years)<br>
+                                • Alternative Approval Potential: +312 additional approvals identified<br>
+                                <strong>→ Submitting alternative data analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 MACHINE_LEARNING_AGENT</span>
+                                <span class="agent-status status-completed">ML Risk Modeling Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical loan performance, default patterns, economic indicators<br>
+                                <strong>MCP Server Calls:</strong> ML model servers, risk scoring engines<br>
+                                <strong>API Integrations:</strong> Goldman Sachs-style risk models, ensemble methods<br>
+                                <strong>Knowledge Base:</strong> Deep learning credit risk algorithms<br>
+                                <br>
+                                <strong>ML Risk Assessment Results:</strong><br>
+                                • Model Performance: 96.8% accuracy (vs 87% traditional)<br>
+                                • Risk Segmentation: 434 Low risk, 623 Medium, 190 High risk<br>
+                                • Default Probability: Reduced from 4.2% to 2.8% expected<br>
+                                • Approval Recommendations: 747 approvals (vs 432 traditional)<br>
+                                • Loss Reduction: $2.3M expected annual savings<br>
+                                • Model Confidence: 94.7% average prediction confidence<br>
+                                <strong>→ Submitting ML analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CREDIT_RISK_MRA</span>
+                                <span class="agent-status status-active">Correlation & Final Assessment</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Traditional + Alternative + Behavioral + ML scores correlated<br>
+                                ✅ Risk optimization: 25% more approvals with maintained quality<br>
+                                ✅ Regulatory compliance: Fair lending validation passed<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling REGULATORY_COMPLIANCE_AGENT for fair lending review<br>
+                                → Validating disparate impact analysis across demographics<br>
+                                → Confirming model governance and explainability requirements<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Credit decisions optimized and compliant<br>
+                                <strong>← Finalizing credit assessment recommendations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📊 <strong>Credit Risk Assessment Summary:</strong><br>
+                                • Applications Processed: 1,247 loans ($89.2M total value)<br>
+                                • Approval Rate: 59.9% (747 approvals vs 34.7% traditional)<br>
+                                • Enhanced Approvals: +315 additional approvals (25% increase)<br>
+                                • Risk Quality: 96.8% model accuracy maintained<br>
+                                • Expected Losses: $2.3M annual reduction achieved<br>
+                                • Processing Time: 2.3 minutes vs 2-5 days manual<br>
+                                • Fair Lending: 100% compliant, no disparate impact<br>
+                                • Model Explainability: Available for all decisions
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Approval Rate</div>
+                                <div class="metric-value">59.9%</div>
+                                <div class="metric-details">vs 34.7% traditional</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Model Accuracy</div>
+                                <div class="metric-value">96.8%</div>
+                                <div class="metric-details">Risk prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Loss Reduction</div>
+                                <div class="metric-value">$2.3M</div>
+                                <div class="metric-details">Annual savings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Processing Time</div>
+                                <div class="metric-value">2.3 min</div>
+                                <div class="metric-details">vs 2-5 days</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Goldman Sachs, Wells Fargo, JPMorgan Chase
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'algorithmic-trading': {
+                title: 'Algorithmic Trading & Portfolio Management',
+                icon: '📈',
+                description: 'AI-driven trading algorithms with real-time market analysis and portfolio optimization',
+                initialQuery: 'Execute algorithmic trading strategy for $2.5B equity portfolio optimization',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📈</span>
+                            <h3 class="workflow-title">Algorithmic Trading & Portfolio Management System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">ALGORITHMIC TRADING ENGINE</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Portfolio: $2.5B | Positions: 847 | Algorithms: 23 | Performance: +12.7%</div>
+                            </div>
+                            <div class="case-status severity-low">TRADING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Portfolio Management & Trading System<br>
+                                <strong>Trading Request:</strong> Optimize $2.5B equity portfolio performance<br>
+                                <strong>Context Analysis:</strong> Market conditions, portfolio composition, risk parameters<br>
+                                <strong>Current Holdings:</strong> 847 equity positions across sectors<br>
+                                <strong>Performance Target:</strong> Alpha generation with risk-adjusted returns<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>ALGORITHMIC_TRADING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Market data feeds, risk limits, performance benchmarks...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ALGORITHMIC_TRADING_MRA</span>
+                                <span class="agent-status status-active">Deploying Trading Intelligence Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Trading Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ MARKET_ANALYSIS_AGENT - Real-time market intelligence<br>
+                                    ✓ SENTIMENT_ANALYSIS_AGENT - News and social sentiment<br>
+                                    ✓ EXECUTION_ALGORITHM_AGENT - Optimal trade execution<br>
+                                    ✓ RISK_MANAGEMENT_AGENT - Portfolio risk monitoring<br>
+                                    ✓ PERFORMANCE_TRACKING_AGENT - Alpha generation analysis<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 MARKET_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Market Intelligence Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Market data, technical indicators, economic signals<br>
+                                <strong>MCP Server Calls:</strong> Bloomberg APIs, Reuters data feeds, market databases<br>
+                                <strong>API Integrations:</strong> BlackRock Aladdin-style analytics, real-time feeds<br>
+                                <strong>Knowledge Base:</strong> Technical analysis and market pattern recognition<br>
+                                <br>
+                                <strong>Market Analysis Results:</strong><br>
+                                • Market Regime: Bull market with elevated volatility (VIX: 23.4)<br>
+                                • Sector Rotation: Technology (+2.3%), Energy (-1.8%), Healthcare (+0.9%)<br>
+                                • Technical Indicators: RSI overbought in 34% of holdings<br>
+                                • Economic Data: Fed policy supportive, inflation trending down<br>
+                                • Correlation Analysis: Portfolio correlation 0.67 (target: <0.60)<br>
+                                <strong>→ Submitting market intelligence to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📰 SENTIMENT_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Sentiment Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> News databases, social media feeds, analyst reports<br>
+                                <strong>MCP Server Calls:</strong> News API feeds, social sentiment engines<br>
+                                <strong>API Integrations:</strong> Reuters, Bloomberg News, Twitter/X sentiment<br>
+                                <strong>Knowledge Base:</strong> NLP sentiment scoring models<br>
+                                <br>
+                                <strong>Sentiment Analysis Results:</strong><br>
+                                • Overall Market Sentiment: 67% bullish (moderate optimism)<br>
+                                • Stock-Specific Sentiment: 234 positive, 89 negative, 524 neutral<br>
+                                • News Impact Analysis: 12 earnings beats, 5 downgrades<br>
+                                • Social Media: Reddit WallStreetBets activity elevated<br>
+                                • Analyst Revisions: 45 upgrades, 23 downgrades this week<br>
+                                <strong>→ Submitting sentiment analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ EXECUTION_ALGORITHM_AGENT</span>
+                                <span class="agent-status status-completed">Trade Execution Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Execution algorithms, market microstructure, liquidity analysis<br>
+                                <strong>MCP Server Calls:</strong> Execution management systems, dark pool APIs<br>
+                                <strong>API Integrations:</strong> Trading platforms, order management systems<br>
+                                <strong>Knowledge Base:</strong> TWAP, VWAP, implementation shortfall algorithms<br>
+                                <br>
+                                <strong>Trade Execution Results:</strong><br>
+                                • Orders Executed: 234 trades ($67.8M notional)<br>
+                                • Execution Quality: 12.3 bps slippage (target: <15 bps)<br>
+                                • Algorithm Mix: 40% TWAP, 35% VWAP, 25% Implementation Shortfall<br>
+                                • Dark Pool Usage: 23% of volume (liquidity optimization)<br>
+                                • Market Impact: Minimal (<5 bps on average trade)<br>
+                                <strong>→ Submitting execution report to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚠️ RISK_MANAGEMENT_AGENT</span>
+                                <span class="agent-status status-completed">Risk Monitoring Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Risk models, VaR calculations, stress testing scenarios<br>
+                                <strong>MCP Server Calls:</strong> Risk management APIs, portfolio analytics engines<br>
+                                <strong>API Integrations:</strong> Risk systems, scenario analysis platforms<br>
+                                <strong>Knowledge Base:</strong> Market risk management algorithms<br>
+                                <br>
+                                <strong>Risk Management Results:</strong><br>
+                                • Portfolio VaR (95%): $12.4M daily (within $15M limit)<br>
+                                • Sector Concentration: Technology 23.4% (limit: 25%)<br>
+                                • Beta: 1.08 (market-like risk profile)<br>
+                                • Tracking Error: 2.34% (active management within targets)<br>
+                                • Stress Testing: -18.7% in 2008-style crisis scenario<br>
+                                <strong>→ Submitting risk assessment to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ALGORITHMIC_TRADING_MRA</span>
+                                <span class="agent-status status-active">Correlation & Performance Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Market + Sentiment + Execution + Risk data correlated<br>
+                                ✅ Trading strategy: Momentum + mean reversion + factor models<br>
+                                ✅ Risk management: All position limits maintained<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling PERFORMANCE_TRACKING_AGENT for alpha attribution analysis<br>
+                                → Validating benchmark performance and Sharpe ratio improvement<br>
+                                → Confirming regulatory compliance for algorithmic trading<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Portfolio optimization complete<br>
+                                <strong>← Finalizing algorithmic trading performance report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📈 <strong>Algorithmic Trading & Portfolio Summary:</strong><br>
+                                • Portfolio Optimization: $2.5B actively managed<br>
+                                • Performance: +12.7% annual return (vs +8.9% benchmark)<br>
+                                • Trade Execution: 234 trades, 12.3 bps average slippage<br>
+                                • Risk Management: VaR $12.4M (within limits)<br>
+                                • Alpha Generation: +3.8% excess return achieved<br>
+                                • Sharpe Ratio: 1.67 (excellent risk-adjusted performance)<br>
+                                • Market Impact: <5 bps (institutional quality execution)<br>
+                                • Regulatory Compliance: 100% MiFID II/SEC compliant
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Return</div>
+                                <div class="metric-value">+12.7%</div>
+                                <div class="metric-details">vs +8.9% benchmark</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Alpha Generated</div>
+                                <div class="metric-value">+3.8%</div>
+                                <div class="metric-details">Excess return</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Sharpe Ratio</div>
+                                <div class="metric-value">1.67</div>
+                                <div class="metric-details">Risk-adjusted</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Execution Quality</div>
+                                <div class="metric-value">12.3bps</div>
+                                <div class="metric-details">Average slippage</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: BlackRock Aladdin, Goldman Sachs, JPMorgan Chase
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'kyc-processing': {
+                title: 'AI-Enhanced KYC & Document Processing',
+                icon: '📋',
+                description: 'Automated customer onboarding with OCR, identity verification, and compliance validation',
+                initialQuery: 'Process KYC documentation for 450 new customer onboarding applications',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📋</span>
+                            <h3 class="workflow-title">AI-Enhanced KYC & Document Processing System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">KYC PROCESSING BATCH #2024-847</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Applications: 450 | Documents: 2,847 | Processing: 15 min | Accuracy: 98.9%</div>
+                            </div>
+                            <div class="case-status severity-medium">PROCESSING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Customer Onboarding Platform<br>
+                                <strong>KYC Request:</strong> 450 new customer applications pending<br>
+                                <strong>Context Analysis:</strong> Document types, identity verification needs, compliance requirements<br>
+                                <strong>Document Volume:</strong> 2,847 documents (ID, proof of address, income)<br>
+                                <strong>Compliance Target:</strong> 100% KYC compliance with <2% false rejection rate<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>KYC_PROCESSING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Document types, verification requirements, compliance rules...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 KYC_PROCESSING_MRA</span>
+                                <span class="agent-status status-active">Deploying KYC Processing Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>KYC Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ DOCUMENT_EXTRACTION_AGENT - OCR and data extraction<br>
+                                    ✓ IDENTITY_VERIFICATION_AGENT - ID authentication<br>
+                                    ✓ ADDRESS_VALIDATION_AGENT - Proof of address verification<br>
+                                    ✓ SANCTIONS_SCREENING_AGENT - OFAC/PEP checking<br>
+                                    ✓ COMPLIANCE_VALIDATION_AGENT - Regulatory adherence<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📄 DOCUMENT_EXTRACTION_AGENT</span>
+                                <span class="agent-status status-completed">OCR Processing Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Document templates, OCR training data, field mapping<br>
+                                <strong>MCP Server Calls:</strong> OCR engines, NLP processing APIs<br>
+                                <strong>API Integrations:</strong> Document AI platforms, text extraction services<br>
+                                <strong>Knowledge Base:</strong> JPMorgan COiN-style document processing (360k hours → seconds)<br>
+                                <br>
+                                <strong>Document Extraction Results:</strong><br>
+                                • Documents Processed: 2,847 documents across 450 applications<br>
+                                • OCR Accuracy: 98.9% field extraction accuracy<br>
+                                • Document Types: 450 IDs, 450 address proofs, 1,947 income docs<br>
+                                • Processing Speed: 0.8 seconds per document average<br>
+                                • Data Quality: 97.3% complete data extraction<br>
+                                • Error Handling: 67 documents flagged for manual review<br>
+                                <strong>→ Submitting extracted data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🆔 IDENTITY_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Identity Verification Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Identity databases, fraud patterns, verification algorithms<br>
+                                <strong>MCP Server Calls:</strong> Identity verification APIs, biometric platforms<br>
+                                <strong>API Integrations:</strong> Government ID databases, facial recognition systems<br>
+                                <strong>Knowledge Base:</strong> Multi-factor identity verification models<br>
+                                <br>
+                                <strong>Identity Verification Results:</strong><br>
+                                • Valid IDs: 423/450 applications verified successfully<br>
+                                • Biometric Match: 98.7% facial recognition accuracy<br>
+                                • Document Authenticity: 445 genuine, 5 potential forgeries<br>
+                                • Age Verification: All applicants >18 years confirmed<br>
+                                • Identity Fraud Flags: 8 applications show suspicious patterns<br>
+                                • Cross-reference Check: 67 applicants already in system<br>
+                                <span class="severity-high">ATTENTION:</span> 27 applications require additional verification<br>
+                                <strong>→ Submitting identity results to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏠 ADDRESS_VALIDATION_AGENT</span>
+                                <span class="agent-status status-completed">Address Verification Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Address databases, proof of residence validation<br>
+                                <strong>MCP Server Calls:</strong> Postal service APIs, utility company databases<br>
+                                <strong>API Integrations:</strong> Address verification services, geocoding platforms<br>
+                                <strong>Knowledge Base:</strong> Address validation and standardization algorithms<br>
+                                <br>
+                                <strong>Address Validation Results:</strong><br>
+                                • Valid Addresses: 434/450 addresses verified<br>
+                                • Proof Documents: Utility bills (67%), bank statements (33%)<br>
+                                • Address Standardization: 100% addresses normalized<br>
+                                • Geographic Distribution: 89% domestic, 11% international<br>
+                                • PO Box Restrictions: 23 applications flagged (policy violation)<br>
+                                <strong>→ Submitting address validation to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 SANCTIONS_SCREENING_AGENT</span>
+                                <span class="agent-status status-warning">Matches Found</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> OFAC SDN lists, PEP databases, sanctions regimes<br>
+                                <strong>MCP Server Calls:</strong> OFAC APIs, World-Check databases<br>
+                                <strong>API Integrations:</strong> Sanctions screening platforms, name matching engines<br>
+                                <strong>Knowledge Base:</strong> Advanced name matching and risk scoring<br>
+                                <br>
+                                <strong>Sanctions Screening Results:</strong><br>
+                                • OFAC Screening: 3 potential matches requiring investigation<br>
+                                • PEP Matches: 7 politically exposed persons identified<br>
+                                • High-Risk Countries: 12 applicants from FATF grey list countries<br>
+                                • Name Variations: 15,670 name permutations checked<br>
+                                • False Positive Rate: 12% (within acceptable range)<br>
+                                <span class="severity-medium">REVIEW:</span> 22 applications need compliance review<br>
+                                <strong>→ Submitting sanctions results to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 KYC_PROCESSING_MRA</span>
+                                <span class="agent-status status-active">Correlation & Compliance Validation</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Document + Identity + Address + Sanctions data correlated<br>
+                                ✅ Pass/fail determination: 401 clear approvals, 49 require review<br>
+                                ✅ Risk tiering: Customer risk ratings assigned<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling COMPLIANCE_VALIDATION_AGENT for final compliance check<br>
+                                → Reviewing enhanced due diligence requirements for high-risk customers<br>
+                                → Validating CIP (Customer Identification Program) compliance<br>
+                                <br>
+                                <strong>Final Correlation:</strong> KYC processing complete with recommendations<br>
+                                <strong>← Finalizing customer onboarding decisions...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📋 <strong>KYC & Document Processing Summary:</strong><br>
+                                • Applications Processed: 450 customer onboarding requests<br>
+                                • Processing Time: 15 minutes (vs 3-5 days manual)<br>
+                                • Approval Rate: 89.1% (401 approved, 49 under review)<br>
+                                • Document Accuracy: 98.9% OCR extraction precision<br>
+                                • Identity Verification: 98.7% successful verification<br>
+                                • Compliance Rate: 100% regulatory adherence<br>
+                                • Cost Reduction: $45k vs manual processing ($60M annual savings)<br>
+                                • Customer Experience: Same-day account opening enabled
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Processing Time</div>
+                                <div class="metric-value">15 min</div>
+                                <div class="metric-details">vs 3-5 days manual</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Approval Rate</div>
+                                <div class="metric-value">89.1%</div>
+                                <div class="metric-details">401/450 approved</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">OCR Accuracy</div>
+                                <div class="metric-value">98.9%</div>
+                                <div class="metric-details">Field extraction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$60M</div>
+                                <div class="metric-details">Annual potential</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: JPMorgan Chase COiN, Wells Fargo, BNY Mellon
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'customer-service': {
+                title: 'Intelligent Customer Service & Advisory',
+                icon: '💬',
+                description: 'AI-powered customer service with personalized financial advisory and 245M+ interactions',
+                initialQuery: 'Handle customer service escalation - Premium wealth client portfolio review request',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">💬</span>
+                            <h3 class="workflow-title">Intelligent Customer Service & Advisory Platform</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">CUSTOMER SERVICE CASE #CS-VIP-8847</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Client: VIP Wealth | Portfolio: $2.7M | Type: Advisory | Priority: Premium</div>
+                            </div>
+                            <div class="case-status severity-high">VIP ESCALATION</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Premium Customer Service Platform<br>
+                                <strong>Service Request:</strong> VIP wealth management client portfolio review<br>
+                                <strong>Context Analysis:</strong> Client profile, portfolio performance, service history<br>
+                                <strong>Client Status:</strong> Premium wealth management ($2.7M AUM)<br>
+                                <strong>Request Type:</strong> Portfolio performance review and advisory consultation<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>CUSTOMER_SERVICE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Client preferences, portfolio data, market conditions...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CUSTOMER_SERVICE_MRA</span>
+                                <span class="agent-status status-active">Deploying Customer Service Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Customer Service Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ CLIENT_PROFILE_AGENT - Customer data analysis<br>
+                                    ✓ PORTFOLIO_ANALYTICS_AGENT - Investment performance review<br>
+                                    ✓ ADVISORY_AGENT - Personalized recommendations<br>
+                                    ✓ MARKET_RESEARCH_AGENT - Market intelligence and trends<br>
+                                    ✓ COMMUNICATION_AGENT - Client interaction optimization<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👤 CLIENT_PROFILE_AGENT</span>
+                                <span class="agent-status status-completed">Profile Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Client history, preferences, investment objectives<br>
+                                <strong>MCP Server Calls:</strong> CRM systems, client database APIs<br>
+                                <strong>API Integrations:</strong> Wells Fargo Fargo-style client intelligence<br>
+                                <strong>Knowledge Base:</strong> Client segmentation and preference models<br>
+                                <br>
+                                <strong>Client Profile Results:</strong><br>
+                                • Client Tenure: 12 years (premium relationship)<br>
+                                • Risk Profile: Moderate (60% equity, 40% fixed income)<br>
+                                • Investment Objectives: Wealth preservation + growth<br>
+                                • Life Events: Recent retirement (3 months ago)<br>
+                                • Communication Preference: Quarterly reviews, email updates<br>
+                                • Service History: 245M+ interaction capability (Wells Fargo scale)<br>
+                                <strong>→ Submitting client profile to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 PORTFOLIO_ANALYTICS_AGENT</span>
+                                <span class="agent-status status-completed">Portfolio Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Portfolio performance, benchmark data, attribution analysis<br>
+                                <strong>MCP Server Calls:</strong> Portfolio management systems, performance databases<br>
+                                <strong>API Integrations:</strong> Market data feeds, benchmark providers<br>
+                                <strong>Knowledge Base:</strong> Portfolio optimization and performance analysis<br>
+                                <br>
+                                <strong>Portfolio Analysis Results:</strong><br>
+                                • Portfolio Value: $2,734,567 (current market value)<br>
+                                • YTD Performance: +8.9% (vs +7.2% benchmark)<br>
+                                • Asset Allocation: 62% equity, 28% bonds, 10% alternatives<br>
+                                • Risk Metrics: Volatility 12.3%, Sharpe ratio 1.24<br>
+                                • Rebalancing Needed: Portfolio drift +7% from targets<br>
+                                • Income Generation: $89,400 annual dividend/interest<br>
+                                <strong>→ Submitting portfolio analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💡 ADVISORY_AGENT</span>
+                                <span class="agent-status status-completed">Advisory Recommendations Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Investment strategies, retirement planning, tax optimization<br>
+                                <strong>MCP Server Calls:</strong> Advisory platforms, financial planning engines<br>
+                                <strong>API Integrations:</strong> Tax planning systems, retirement calculators<br>
+                                <strong>Knowledge Base:</strong> JPMorgan Coach AI-style advisory models<br>
+                                <br>
+                                <strong>Advisory Recommendations:</strong><br>
+                                • Rebalancing: Reduce equity exposure to 55% (retirement focus)<br>
+                                • Tax Strategy: Tax-loss harvesting opportunity ($12,400 potential)<br>
+                                • Income Focus: Increase dividend-paying stocks to 40%<br>
+                                • Risk Reduction: Add 15% to bond allocation (stability)<br>
+                                • Estate Planning: Review beneficiary designations<br>
+                                • Expected Benefit: $650M-style revenue enhancement opportunity<br>
+                                <strong>→ Submitting advisory recommendations to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CUSTOMER_SERVICE_MRA</span>
+                                <span class="agent-status status-active">Correlation & Service Optimization</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Client profile + Portfolio + Advisory + Market data correlated<br>
+                                ✅ Personalized strategy: Retirement-focused optimization identified<br>
+                                ✅ Service quality: Premium experience recommendations generated<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling COMMUNICATION_AGENT for optimal client presentation<br>
+                                → Scheduling personalized advisory meeting<br>
+                                → Preparing detailed portfolio review materials<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Comprehensive advisory package ready<br>
+                                <strong>← Finalizing premium customer service response...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                💬 <strong>Customer Service & Advisory Summary:</strong><br>
+                                • Service Level: ✅ Premium VIP experience delivered<br>
+                                • Response Time: 2.3 minutes (target: <5 minutes)<br>
+                                • Portfolio Review: Complete analysis with recommendations<br>
+                                • Advisory Value: $650k revenue opportunity identified<br>
+                                • Client Satisfaction: 98.7% (measured post-interaction)<br>
+                                • Personalization: 100% tailored to client profile<br>
+                                • Follow-up: Advisory meeting scheduled within 24 hours<br>
+                                • Scale Capability: 245M+ interaction capacity (Wells Fargo proven)
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Response Time</div>
+                                <div class="metric-value">2.3 min</div>
+                                <div class="metric-details">Premium service</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Client Satisfaction</div>
+                                <div class="metric-value">98.7%</div>
+                                <div class="metric-details">Post-interaction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Revenue Opportunity</div>
+                                <div class="metric-value">$650K</div>
+                                <div class="metric-details">Advisory value</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Scale Capacity</div>
+                                <div class="metric-value">245M+</div>
+                                <div class="metric-details">Annual interactions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Wells Fargo Fargo AI, JPMorgan Coach AI, BNY Eliza
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'aml-investigation': {
+                title: 'Anti-Money Laundering Investigation',
+                icon: '🕵️',
+                description: 'Advanced AML investigation with criminal network detection and case management',
+                initialQuery: 'Investigate complex money laundering scheme - Case #AML-2024-5672',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🕵️</span>
+                            <h3 class="workflow-title">Advanced AML Investigation System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">AML INVESTIGATION #AML-2024-5672</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Complexity: High | Network: 47 entities | Value: $12.8M | Priority: Federal</div>
+                            </div>
+                            <div class="case-status severity-critical">INVESTIGATION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> AML Investigation Unit<br>
+                                <strong>Investigation Case:</strong> Complex money laundering scheme<br>
+                                <strong>Context Analysis:</strong> Multi-entity network, cross-border transactions<br>
+                                <strong>Case Complexity:</strong> 47 connected entities, $12.8M transaction volume<br>
+                                <strong>Priority Level:</strong> Federal investigation coordination required<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>AML_INVESTIGATION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Case files, transaction history, entity relationships...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 AML_INVESTIGATION_MRA</span>
+                                <span class="agent-status status-active">Deploying Investigation Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Investigation Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ TRANSACTION_TRACING_AGENT - Fund flow analysis<br>
+                                    ✓ ENTITY_MAPPING_AGENT - Network relationship analysis<br>
+                                    ✓ PATTERN_RECOGNITION_AGENT - Laundering typology detection<br>
+                                    ✓ INTELLIGENCE_GATHERING_AGENT - External data correlation<br>
+                                    ✓ EVIDENCE_COMPILATION_AGENT - Legal documentation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 TRANSACTION_TRACING_AGENT</span>
+                                <span class="agent-status status-completed">Fund Flow Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Transaction chains, fund flow patterns, layering schemes<br>
+                                <strong>MCP Server Calls:</strong> Core banking APIs, wire transfer databases<br>
+                                <strong>API Integrations:</strong> SWIFT network data, correspondent banking records<br>
+                                <strong>Knowledge Base:</strong> HSBC-style criminal network detection algorithms<br>
+                                <br>
+                                <strong>Fund Flow Analysis:</strong><br>
+                                • Transaction Chain: 156 transactions across 8 countries<br>
+                                • Layering Pattern: Classic 3-stage laundering detected<br>
+                                • Shell Companies: 12 entities used for fund movement<br>
+                                • Geographic Route: US → Cyprus → UAE → Switzerland → US<br>
+                                • Time Analysis: Rapid movement within 72-hour windows<br>
+                                • Total Value: $12.8M traced through network<br>
+                                <strong>→ Submitting transaction trace to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🕸️ ENTITY_MAPPING_AGENT</span>
+                                <span class="agent-status status-completed">Network Mapping Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Corporate registries, beneficial ownership, entity relationships<br>
+                                <strong>MCP Server Calls:</strong> Corporate database APIs, UBO databases<br>
+                                <strong>API Integrations:</strong> Entity resolution platforms, graph analytics<br>
+                                <strong>Knowledge Base:</strong> Criminal network topology algorithms<br>
+                                <br>
+                                <strong>Entity Network Results:</strong><br>
+                                • Connected Entities: 47 companies, trusts, and individuals<br>
+                                • Ultimate Beneficial Owners: 3 individuals control entire network<br>
+                                • Shell Company Analysis: 23 entities with no real business activity<br>
+                                • Jurisdiction Shopping: Entities across 12 countries<br>
+                                • Relationship Depth: 5-layer ownership structure<br>
+                                • Criminal Associates: 8 entities linked to known criminals<br>
+                                <strong>→ Submitting entity mapping to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📝 EVIDENCE_COMPILATION_AGENT</span>
+                                <span class="agent-status status-completed">Legal Documentation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Legal precedents, evidence standards, SAR requirements<br>
+                                <strong>MCP Server Calls:</strong> Case management systems, legal databases<br>
+                                <strong>API Integrations:</strong> Document management, evidence tracking platforms<br>
+                                <strong>Knowledge Base:</strong> AML prosecution support algorithms<br>
+                                <br>
+                                <strong>Evidence Compilation:</strong><br>
+                                • SAR Filing: Comprehensive 47-page suspicious activity report<br>
+                                • Transaction Evidence: 156 transactions with full audit trail<br>
+                                • Entity Documentation: Corporate structures with UBO identification<br>
+                                • Timeline Analysis: Criminal activity mapped over 18 months<br>
+                                • Legal Standard: Evidence meets federal prosecution requirements<br>
+                                • Coordination: FBI, FinCEN, and international partners notified<br>
+                                <strong>→ Submitting evidence package to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 AML_INVESTIGATION_MRA</span>
+                                <span class="agent-status status-completed">Investigation Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Investigation Correlation:</strong><br>
+                                ✅ Transaction tracing + Entity mapping + Pattern recognition + Evidence<br>
+                                ✅ Criminal network: 47-entity laundering operation exposed<br>
+                                ✅ Legal case: Federal prosecution-ready evidence compiled<br>
+                                <br>
+                                <strong>Investigation Findings:</strong><br>
+                                • Money Laundering Scheme: $12.8M criminal proceeds laundered<br>
+                                • Criminal Network: International organized crime syndicate<br>
+                                • Law Enforcement: Federal case referral with complete evidence<br>
+                                • Bank Protection: All suspicious accounts frozen<br>
+                                <br>
+                                <strong>Final Assessment:</strong> Major criminal network disrupted<br>
+                                <strong>← Delivering investigation results...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🕵️ <strong>AML Investigation Summary:</strong><br>
+                                • Investigation Status: ✅ COMPLETED<br>
+                                • Criminal Network: 47 entities, 3 UBOs identified<br>
+                                • Money Laundered: $12.8M traced and documented<br>
+                                • Evidence Quality: Federal prosecution standard<br>
+                                • Accounts Secured: All suspicious accounts frozen<br>
+                                • Law Enforcement: FBI/FinCEN coordination active<br>
+                                • Investigation Time: 6.7 hours (vs 3-6 months manual)<br>
+                                • Network Disruption: International criminal operation exposed
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Criminal Network</div>
+                                <div class="metric-value">47</div>
+                                <div class="metric-details">Entities identified</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Money Traced</div>
+                                <div class="metric-value">$12.8M</div>
+                                <div class="metric-details">Criminal proceeds</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Investigation Time</div>
+                                <div class="metric-value">6.7 hrs</div>
+                                <div class="metric-details">vs 3-6 months</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">UBOs Identified</div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-details">Ultimate controllers</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: HSBC, Major Global Banks, Federal Investigation Units
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'loan-underwriting': {
+                title: 'Automated Loan Underwriting & Processing',
+                icon: '🏦',
+                description: 'AI-driven loan processing with automated underwriting and risk assessment',
+                initialQuery: 'Process automated underwriting for mortgage application pipeline - 567 applications',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🏦</span>
+                            <h3 class="workflow-title">Automated Loan Underwriting & Processing System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">LOAN UNDERWRITING PIPELINE</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Applications: 567 | Value: $234M | Type: Mortgage | Processing: 23 min</div>
+                            </div>
+                            <div class="case-status severity-medium">UNDERWRITING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Mortgage Loan Origination System<br>
+                                <strong>Underwriting Request:</strong> 567 mortgage applications pending<br>
+                                <strong>Context Analysis:</strong> Application completeness, risk factors, regulatory requirements<br>
+                                <strong>Portfolio Value:</strong> $234M in loan requests<br>
+                                <strong>Processing Model:</strong> Wells Fargo 15-year archive re-underwriting approach<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>LOAN_UNDERWRITING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Underwriting guidelines, risk policies, regulatory requirements...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 LOAN_UNDERWRITING_MRA</span>
+                                <span class="agent-status status-active">Deploying Underwriting Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Underwriting Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ INCOME_VERIFICATION_AGENT - Employment and income analysis<br>
+                                    ✓ ASSET_VALIDATION_AGENT - Asset verification and valuation<br>
+                                    ✓ CREDIT_ANALYSIS_AGENT - Credit worthiness assessment<br>
+                                    ✓ PROPERTY_APPRAISAL_AGENT - Automated valuation models<br>
+                                    ✓ REGULATORY_COMPLIANCE_AGENT - QM/ATR compliance<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💼 INCOME_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Income Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Employment verification, income documentation, tax returns<br>
+                                <strong>MCP Server Calls:</strong> Employment verification APIs, tax transcript services<br>
+                                <strong>API Integrations:</strong> IRS transcript APIs, payroll company databases<br>
+                                <strong>Knowledge Base:</strong> Income stability and verification algorithms<br>
+                                <br>
+                                <strong>Income Verification Results:</strong><br>
+                                • Employment Status: 534/567 verified stable employment<br>
+                                • Income Documentation: 89.7% complete income verification<br>
+                                • Debt-to-Income Ratio: Average 34.7% (guideline: <43%)<br>
+                                • Income Stability: 78% with 2+ years same employer<br>
+                                • Self-Employed: 89 applications requiring additional documentation<br>
+                                <strong>→ Submitting income analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏠 PROPERTY_APPRAISAL_AGENT</span>
+                                <span class="agent-status status-completed">Automated Valuation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Property databases, comparable sales, market trends<br>
+                                <strong>MCP Server Calls:</strong> MLS databases, property tax records, valuation APIs<br>
+                                <strong>API Integrations:</strong> Automated Valuation Models (AVM), appraisal platforms<br>
+                                <strong>Knowledge Base:</strong> Real estate valuation and risk assessment<br>
+                                <br>
+                                <strong>Property Valuation Results:</strong><br>
+                                • Properties Valued: 567 automated valuations completed<br>
+                                • AVM Confidence: 94.7% average confidence score<br>
+                                • Loan-to-Value Ratio: Average 78.2% (guideline: <80%)<br>
+                                • Market Conditions: Stable to appreciating markets<br>
+                                • Property Types: 456 SFR, 78 condos, 33 townhomes<br>
+                                • High-Risk Properties: 23 require full appraisal review<br>
+                                <strong>→ Submitting property valuations to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 LOAN_UNDERWRITING_MRA</span>
+                                <span class="agent-status status-completed">Underwriting Decision Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Underwriting Correlation:</strong><br>
+                                ✅ Income + Assets + Credit + Property + Compliance correlated<br>
+                                ✅ Underwriting decisions: 489 approved, 78 conditional/denied<br>
+                                ✅ Risk quality maintained with faster processing<br>
+                                <br>
+                                <strong>Underwriting Results:</strong><br>
+                                • Approval Rate: 86.2% (489/567 applications)<br>
+                                • Processing Time: 23 minutes average (vs 30-45 days)<br>
+                                • Conditional Approvals: 45 with additional requirements<br>
+                                • Risk Quality: Maintained underwriting standards<br>
+                                • Regulatory Compliance: 100% QM/ATR adherence<br>
+                                <strong>← Finalizing loan decisions...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🏦 <strong>Loan Underwriting & Processing Summary:</strong><br>
+                                • Applications Processed: 567 mortgage applications<br>
+                                • Processing Time: 23 minutes (vs 30-45 days manual)<br>
+                                • Approval Rate: 86.2% with maintained quality standards<br>
+                                • Portfolio Value: $202M approved loans ($234M requested)<br>
+                                • Risk Quality: All underwriting guidelines maintained<br>
+                                • Regulatory Compliance: 100% QM/ATR adherence<br>
+                                • Customer Experience: Same-day loan decisions<br>
+                                • Operational Savings: $2.8M annually vs manual processing
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Processing Time</div>
+                                <div class="metric-value">23 min</div>
+                                <div class="metric-details">vs 30-45 days</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Approval Rate</div>
+                                <div class="metric-value">86.2%</div>
+                                <div class="metric-details">489/567 approved</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Loans Approved</div>
+                                <div class="metric-value">$202M</div>
+                                <div class="metric-details">Portfolio value</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Savings</div>
+                                <div class="metric-value">$2.8M</div>
+                                <div class="metric-details">vs manual process</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Wells Fargo, JPMorgan Chase, Bank of America
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'risk-management': {
+                title: 'Market Risk Management & Stress Testing',
+                icon: '⚠️',
+                description: 'AI-driven risk management with Basel III compliance and automated stress testing',
+                initialQuery: 'Execute quarterly stress testing and risk assessment for $15B trading portfolio',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">⚠️</span>
+                            <h3 class="workflow-title">Market Risk Management & Stress Testing System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">QUARTERLY STRESS TEST Q2-2024</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Portfolio: $15B | Scenarios: 847 | Models: 23 | Basel III: Compliant</div>
+                            </div>
+                            <div class="case-status severity-high">STRESS TESTING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Risk Management & Regulatory Compliance<br>
+                                <strong>Stress Test Request:</strong> Q2 2024 comprehensive risk assessment<br>
+                                <strong>Context Analysis:</strong> Portfolio composition, market conditions, regulatory requirements<br>
+                                <strong>Testing Scope:</strong> $15B trading portfolio across asset classes<br>
+                                <strong>Regulatory Compliance:</strong> Fed CCAR, Basel III, FRTB requirements<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>RISK_MANAGEMENT_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Risk models, stress scenarios, regulatory requirements...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 RISK_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-active">Deploying Risk Assessment Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Risk Management Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ VAR_CALCULATION_AGENT - Value at Risk modeling<br>
+                                    ✓ STRESS_TESTING_AGENT - Scenario analysis and testing<br>
+                                    ✓ BASEL_COMPLIANCE_AGENT - Regulatory capital assessment<br>
+                                    ✓ LIQUIDITY_RISK_AGENT - Funding and liquidity analysis<br>
+                                    ✓ MODEL_VALIDATION_AGENT - Risk model performance<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 VAR_CALCULATION_AGENT</span>
+                                <span class="agent-status status-completed">VaR Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical market data, volatility models, correlation matrices<br>
+                                <strong>MCP Server Calls:</strong> Risk calculation engines, market data APIs<br>
+                                <strong>API Integrations:</strong> Bloomberg risk analytics, portfolio valuation systems<br>
+                                <strong>Knowledge Base:</strong> VaR methodologies and Monte Carlo simulations<br>
+                                <br>
+                                <strong>VaR Calculation Results:</strong><br>
+                                • Daily VaR (95%): $89.7M (within $100M limit)<br>
+                                • Weekly VaR: $201M (stress period consideration)<br>
+                                • Portfolio Composition: 45% equities, 30% fixed income, 25% derivatives<br>
+                                • Correlation Analysis: Increased correlation during stress<br>
+                                • Backtesting: 4 exceedances in 250 days (acceptable)<br>
+                                <strong>→ Submitting VaR calculations to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ STRESS_TESTING_AGENT</span>
+                                <span class="agent-status status-completed">Stress Scenarios Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Stress scenarios, crisis simulations, regulatory test requirements<br>
+                                <strong>MCP Server Calls:</strong> Scenario engines, simulation platforms<br>
+                                <strong>API Integrations:</strong> Fed stress test scenarios, market shock simulators<br>
+                                <strong>Knowledge Base:</strong> CCAR and FRTB stress testing methodologies<br>
+                                <br>
+                                <strong>Stress Testing Results:</strong><br>
+                                • Severely Adverse Scenario: -$2.8B loss (Fed CCAR scenario)<br>
+                                • Market Shock: -18.9% equity market crash simulation<br>
+                                • Credit Spread Widening: +450 bps corporate bond stress<br>
+                                • Interest Rate Shock: +300 bps parallel shift test<br>
+                                • Liquidity Stress: 30-day survival ratio 127% (requirement: >100%)<br>
+                                • Capital Impact: Tier 1 ratio remains above 8% minimum<br>
+                                <strong>→ Submitting stress test results to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏛️ BASEL_COMPLIANCE_AGENT</span>
+                                <span class="agent-status status-completed">Regulatory Compliance Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Basel III requirements, capital calculations, regulatory ratios<br>
+                                <strong>MCP Server Calls:</strong> Regulatory reporting APIs, capital calculation engines<br>
+                                <strong>API Integrations:</strong> Basel compliance platforms, regulatory databases<br>
+                                <strong>Knowledge Base:</strong> Basel III capital and liquidity requirements<br>
+                                <br>
+                                <strong>Basel Compliance Results:</strong><br>
+                                • Common Equity Tier 1: 12.7% (minimum: 7%)<br>
+                                • Total Capital Ratio: 15.9% (minimum: 10.5%)<br>
+                                • Leverage Ratio: 6.8% (minimum: 3%)<br>
+                                • Liquidity Coverage Ratio: 127% (minimum: 100%)<br>
+                                • Net Stable Funding Ratio: 118% (minimum: 100%)<br>
+                                • FRTB Compliance: All market risk requirements met<br>
+                                <strong>→ Submitting compliance results to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 RISK_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-completed">Risk Assessment Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Risk Correlation:</strong><br>
+                                ✅ VaR + Stress testing + Basel compliance + Liquidity analysis<br>
+                                ✅ Capital adequacy: All regulatory ratios exceed minimums<br>
+                                ✅ Stress resilience: Portfolio survives severe adverse scenarios<br>
+                                <br>
+                                <strong>Risk Management Summary:</strong><br>
+                                • Overall Risk Rating: STRONG (within all limits)<br>
+                                • Stress Test Result: PASS (capital above minimums)<br>
+                                • Regulatory Status: COMPLIANT (all Basel III requirements)<br>
+                                • Risk Appetite: 67% of maximum authorized limits used<br>
+                                <strong>← Finalizing quarterly risk report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                ⚠️ <strong>Risk Management & Stress Testing Summary:</strong><br>
+                                • Stress Test Status: ✅ PASSED all scenarios<br>
+                                • Portfolio Risk: $15B within approved limits<br>
+                                • Capital Ratios: All exceed regulatory minimums<br>
+                                • VaR Performance: $89.7M daily (within $100M limit)<br>
+                                • Basel III Compliance: 100% regulatory adherence<br>
+                                • Stress Resilience: Survives severe adverse scenarios<br>
+                                • Liquidity Position: Strong (127% coverage ratio)<br>
+                                • Regulatory Filing: Fed CCAR submission ready
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Stress Test</div>
+                                <div class="metric-value">PASS</div>
+                                <div class="metric-details">All scenarios</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Capital Ratio</div>
+                                <div class="metric-value">12.7%</div>
+                                <div class="metric-details">CET1 (min 7%)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Daily VaR</div>
+                                <div class="metric-value">$89.7M</div>
+                                <div class="metric-details">95% confidence</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Liquidity</div>
+                                <div class="metric-value">127%</div>
+                                <div class="metric-details">Coverage ratio</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: JPMorgan Chase, Goldman Sachs, Wells Fargo, Major Banks
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'digital-operations': {
+                title: 'Digital Banking Operations Automation',
+                icon: '🤖',
+                description: 'Autonomous digital banking operations with BNY-style agent workforce and automation',
+                initialQuery: 'Optimize digital banking operations for 50,000+ employee AI agent workforce',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🤖</span>
+                            <h3 class="workflow-title">Digital Banking Operations Automation System</h3>
+                        </div>
+                        
+                        <div class="case-info">
+                            <div>
+                                <div class="case-id">DIGITAL OPERATIONS CENTER</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Employees: 50,000+ | AI Agents: 2,847 | Automation: 87% | Efficiency: +47%</div>
+                            </div>
+                            <div class="case-status severity-low">OPTIMIZING</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Digital Banking Operations Platform<br>
+                                <strong>Optimization Request:</strong> Enterprise-wide operations for 50,000+ workforce<br>
+                                <strong>Context Analysis:</strong> Current automation levels, efficiency metrics, process bottlenecks<br>
+                                <strong>Scope:</strong> BNY Mellon-style AI agent workforce with email and managers<br>
+                                <strong>Target:</strong> 87% automation with maintained service quality<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>DIGITAL_OPERATIONS_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Process inventory, automation opportunities, workforce data...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DIGITAL_OPERATIONS_MRA</span>
+                                <span class="agent-status status-active">Deploying Operations Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Digital Operations Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ PROCESS_AUTOMATION_AGENT - Workflow optimization<br>
+                                    ✓ AI_WORKFORCE_AGENT - Agent deployment and management<br>
+                                    ✓ EFFICIENCY_MONITORING_AGENT - Performance tracking<br>
+                                    ✓ CUSTOMER_EXPERIENCE_AGENT - Service quality assurance<br>
+                                    ✓ COST_OPTIMIZATION_AGENT - Operational cost analysis<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚙️ PROCESS_AUTOMATION_AGENT</span>
+                                <span class="agent-status status-completed">Automation Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Process databases, automation opportunities, workflow patterns<br>
+                                <strong>MCP Server Calls:</strong> Process mining APIs, workflow management systems<br>
+                                <strong>API Integrations:</strong> RPA platforms, business process management<br>
+                                <strong>Knowledge Base:</strong> Process optimization and automation algorithms<br>
+                                <br>
+                                <strong>Process Automation Results:</strong><br>
+                                • Processes Analyzed: 2,847 banking processes mapped<br>
+                                • Automation Potential: 87% of processes can be automated<br>
+                                • Current Automation: 34% (significant opportunity)<br>
+                                • High-Impact Areas: Account opening, loan processing, compliance<br>
+                                • Time Savings: 2.3M hours annually through automation<br>
+                                • Process Complexity: 456 simple, 1,234 moderate, 1,157 complex<br>
+                                <strong>→ Submitting automation analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 AI_WORKFORCE_AGENT</span>
+                                <span class="agent-status status-completed">Agent Deployment Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Agent capabilities, task allocation, workforce planning<br>
+                                <strong>MCP Server Calls:</strong> AI agent management platforms, task orchestration<br>
+                                <strong>API Integrations:</strong> BNY Eliza-style agent deployment systems<br>
+                                <strong>Knowledge Base:</strong> Multi-agent workforce optimization models<br>
+                                <br>
+                                <strong>AI Workforce Results:</strong><br>
+                                • Active AI Agents: 2,847 agents with specific roles<br>
+                                • Agent Types: Customer service, compliance, processing, analysis<br>
+                                • Workforce Integration: Each agent has email, manager, login<br>
+                                • Collaboration: Agents "negotiate with each other" (BNY model)<br>
+                                • Training Status: 22,000 employees trained on agent collaboration<br>
+                                • Productivity Impact: +47% efficiency improvement<br>
+                                <strong>→ Submitting workforce analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 EFFICIENCY_MONITORING_AGENT</span>
+                                <span class="agent-status status-completed">Performance Tracking Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Performance benchmarks, efficiency metrics, quality indicators<br>
+                                <strong>MCP Server Calls:</strong> Performance monitoring APIs, analytics platforms<br>
+                                <strong>API Integrations:</strong> Business intelligence systems, dashboard platforms<br>
+                                <strong>Knowledge Base:</strong> Operations excellence and continuous improvement<br>
+                                <br>
+                                <strong>Efficiency Monitoring Results:</strong><br>
+                                • Overall Efficiency: +47% improvement vs manual operations<br>
+                                • Processing Speed: 89% faster transaction processing<br>
+                                • Error Reduction: 67% fewer operational errors<br>
+                                • Cost per Transaction: $0.23 (vs $1.47 manual)<br>
+                                • Customer Wait Time: 78% reduction in service time<br>
+                                • SLA Performance: 98.9% within service level agreements<br>
+                                <strong>→ Submitting efficiency metrics to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DIGITAL_OPERATIONS_MRA</span>
+                                <span class="agent-status status-completed">Operations Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Operations Correlation:</strong><br>
+                                ✅ Process + AI workforce + Efficiency + Customer experience optimized<br>
+                                ✅ Enterprise transformation: 87% automation achieved<br>
+                                ✅ Cost optimization: $125M annual operational savings<br>
+                                <br>
+                                <strong>Digital Operations Results:</strong><br>
+                                • Automation Level: 87% of banking processes automated<br>
+                                • AI Agent Workforce: 2,847 active agents across operations<br>
+                                • Efficiency Improvement: +47% operational performance<br>
+                                • Cost Reduction: $125M annually vs manual operations<br>
+                                • Service Quality: 98.9% SLA compliance maintained<br>
+                                <strong>← Finalizing operations optimization report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🤖 <strong>Digital Banking Operations Summary:</strong><br>
+                                • Automation Achievement: 87% of processes automated<br>
+                                • AI Workforce: 2,847 agents with dedicated roles<br>
+                                • Efficiency Gain: +47% operational improvement<br>
+                                • Cost Savings: $125M annually vs manual operations<br>
+                                • Service Quality: 98.9% SLA compliance maintained<br>
+                                • Employee Enablement: 50,000+ staff AI-augmented<br>
+                                • Processing Speed: 89% faster transaction handling<br>
+                                • Error Reduction: 67% fewer operational errors
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Automation Level</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-details">Processes automated</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">AI Workforce</div>
+                                <div class="metric-value">2,847</div>
+                                <div class="metric-details">Active agents</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Efficiency Gain</div>
+                                <div class="metric-value">+47%</div>
+                                <div class="metric-details">Operational improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$125M</div>
+                                <div class="metric-details">Annual vs manual</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: BNY Mellon Eliza Platform, JPMorgan Chase, Wells Fargo
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                        <span class="alert-icon" style="color: #00ff88;">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title" style="color: #00ff88;">Banking Systems Status: All Services Operational</div>
+                            <div class="alert-description">All banking and financial services are running securely. Fraud detection at 99.3% accuracy, compliance monitoring active, and customer service maintaining 98.7% satisfaction.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Real-time fraud detection and prevention
+                    <br>• AML compliance and regulatory monitoring
+                    <br>• Credit risk assessment and loan processing
+                    <br>• Algorithmic trading and portfolio management
+                    <br>• KYC documentation and customer onboarding
+                    <br>• Customer service and wealth advisory
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously securing banking operations, ensuring compliance, and optimizing financial services for maximum security, efficiency, and customer satisfaction. Would you like me to run a specific analysis?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            // Split HTML into chunks for streaming
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            // Helper function for random delays
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Function to process the next chunk with variable timing
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Decide on the delay for the next chunk
+                    let nextDelay;
+                    
+                    // Every 10 chunks, pause for a bit longer to simulate thinking
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } 
+                    // Every 5 chunks, pause briefly
+                    else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    }
+                    // Regular typing speed
+                    else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            // Start the processing
+            processNextChunk();
+        }
+        
+        // Function to split HTML into chunks while preserving tags
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                
+                // Always add the current character to the chunk
+                currentChunk += char;
+                
+                // If we're inside a tag, don't count it toward chunk size
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                // If we've reached chunk size and we're not inside a tag, add chunk to result
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            // Add the remaining chunk if there is any
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>
