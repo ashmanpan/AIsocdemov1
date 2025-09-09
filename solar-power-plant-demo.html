@@ -1,0 +1,2964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Solar-Power-Plant-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .plant-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .plant-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .plant-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        .company-attribution {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Solar-Power-Plant-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="#00ff88" stroke-width="2"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#00ff88" stroke-width="2" fill="none"/>
+                <path d="M9 9h.01" stroke="#00ff88" stroke-width="2"/>
+                <path d="M15 9h.01" stroke="#00ff88" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Solar Power Plant AI</h2>
+                <p class="sidebar-subtitle">Operations • Maintenance • Grid Services • Optimization</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="robotic-cleaning">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">Autonomous Robotic Panel Cleaning</span>
+                </li>
+                <li class="scenario-item" data-scenario="predictive-maintenance">
+                    <span class="scenario-icon">⚙️</span>
+                    <span class="scenario-text">AI-Powered Predictive Maintenance</span>
+                </li>
+                <li class="scenario-item" data-scenario="drone-inspection">
+                    <span class="scenario-icon">🚁</span>
+                    <span class="scenario-text">Drone Thermal Inspection AI</span>
+                </li>
+                <li class="scenario-item" data-scenario="virtual-power-plant">
+                    <span class="scenario-icon">⚡</span>
+                    <span class="scenario-text">Virtual Power Plant Orchestration</span>
+                </li>
+                <li class="scenario-item" data-scenario="solar-forecasting">
+                    <span class="scenario-icon">🌤️</span>
+                    <span class="scenario-text">AI-Driven Solar Forecasting</span>
+                </li>
+                <li class="scenario-item" data-scenario="smart-inverters">
+                    <span class="scenario-icon">🔌</span>
+                    <span class="scenario-text">Smart Inverter Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="energy-storage">
+                    <span class="scenario-icon">🔋</span>
+                    <span class="scenario-text">Energy Storage Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="portfolio-management">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Portfolio Asset Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="market-trading">
+                    <span class="scenario-icon">💹</span>
+                    <span class="scenario-text">Grid Integration & Market Trading</span>
+                </li>
+                <li class="scenario-item" data-scenario="weather-operations">
+                    <span class="scenario-icon">🌦️</span>
+                    <span class="scenario-text">Weather-Based Operations Intelligence</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M25 35 Q50 15 75 35 Q50 55 25 35" fill="#00ff88" opacity="0.7"/>
+                        <path d="M30 65 L70 65 M40 75 L60 75" stroke="#00aaff" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Solar Power Plant AI Operations</h1>
+                <p class="welcome-subtext">
+                    Experience next-generation solar power plant operations with Agentic AI. Our intelligent agents autonomously manage cleaning operations, predict equipment failures, optimize energy trading, and coordinate with the grid to maximize energy production and revenue generation.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'robotic-cleaning': {
+                title: 'Autonomous Robotic Panel Cleaning',
+                icon: '🤖',
+                description: 'AI-powered autonomous cleaning fleet management with weather optimization',
+                initialQuery: 'Initiate autonomous cleaning cycle for solar farm sections A1-A5',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🤖</span>
+                            <h3 class="workflow-title">Autonomous Cleaning Fleet Management</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">SOLAR FARM SECTIONS A1-A5</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Capacity: 150 MW | Panels: 425,000 | Cleaning Fleet: 23 Robots</div>
+                            </div>
+                            <div class="plant-status severity-medium">CLEANING CYCLE ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Plant Operations Control System<br>
+                                <strong>Cleaning Request:</strong> Sections A1-A5 (150 MW capacity)<br>
+                                <strong>Context Analysis:</strong> Weather conditions, dust accumulation, robot availability<br>
+                                <strong>Last Cleaning:</strong> 3.2 days ago (optimal: 2-3 days)<br>
+                                <strong>Soiling Impact:</strong> 2.8% energy loss detected<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>CLEANING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Weather forecast, robot fleet status, cleaning patterns...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CLEANING_MRA</span>
+                                <span class="agent-status status-active">Deploying Specialized Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ WEATHER_ANALYSIS_AGENT - Weather/dust assessment<br>
+                                    ✓ ROBOT_FLEET_AGENT - Fleet coordination & scheduling<br>
+                                    ✓ CLEANING_STRATEGY_AGENT - Optimal cleaning patterns<br>
+                                    ✓ MAINTENANCE_AGENT - Robot health monitoring<br>
+                                    ✓ PERFORMANCE_TRACKING_AGENT - Cleaning effectiveness<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌤️ WEATHER_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Weather Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical weather patterns, dust accumulation models<br>
+                                <strong>MCP Server Calls:</strong> NOAA Weather API, environmental sensors<br>
+                                <strong>API Integrations:</strong> IBM Weather Company, dust monitoring systems<br>
+                                <strong>Knowledge Base:</strong> Ecoppia weather optimization algorithms<br>
+                                <br>
+                                <strong>Analysis Results:</strong><br>
+                                • Current Conditions: Clear skies, 8% cloud cover, 12 mph winds<br>
+                                • Optimal Cleaning Window: Next 6 hours (no precipitation)<br>
+                                • Dust Accumulation: 2.8 mg/m² above baseline<br>
+                                • Wind Direction: Favorable for dust removal<br>
+                                <strong>→ Reporting optimal conditions to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 ROBOT_FLEET_AGENT</span>
+                                <span class="agent-status status-completed">Fleet Coordination Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Robot availability schedules, maintenance status<br>
+                                <strong>MCP Server Calls:</strong> Robot fleet management APIs, GPS positioning<br>
+                                <strong>API Integrations:</strong> Battery status systems, obstacle detection<br>
+                                <strong>Knowledge Base:</strong> Route optimization algorithms<br>
+                                <br>
+                                <strong>Fleet Status:</strong><br>
+                                • Available Robots: 23/25 units (2 in maintenance)<br>
+                                • Battery Levels: 87-98% charged (solar powered)<br>
+                                • Route Optimization: A1→A2→A3→A5→A4 sequence optimal<br>
+                                • Estimated Duration: 4.2 hours for 425,000 panels<br>
+                                • Safety Systems: All obstacle detection sensors active<br>
+                                <strong>→ Deploying fleet to starting positions...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📋 CLEANING_STRATEGY_AGENT</span>
+                                <span class="agent-status status-completed">Strategy Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Cleaning effectiveness patterns, soiling analysis<br>
+                                <strong>MCP Server Calls:</strong> Dust sensor data, panel efficiency metrics<br>
+                                <strong>API Integrations:</strong> Performance monitoring, irradiance measurements<br>
+                                <strong>Knowledge Base:</strong> Cleaning frequency optimization algorithms<br>
+                                <br>
+                                <strong>Cleaning Strategy:</strong><br>
+                                • Priority Sections: A1, A3 (highest soiling impact)<br>
+                                • Brush Pressure: 2.3 N/cm² (optimal for dust removal)<br>
+                                • Cleaning Speed: 0.8 m/min (balance speed vs effectiveness)<br>
+                                • Water Usage: Zero (dry brush technology)<br>
+                                • Expected Energy Recovery: 2.8% yield improvement<br>
+                                <strong>→ Coordinating with fleet deployment...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 PERFORMANCE_TRACKING_AGENT</span>
+                                <span class="agent-status status-active">Real-time Monitoring</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Energy yield correlation, cleaning effectiveness metrics<br>
+                                <strong>MCP Server Calls:</strong> SCADA systems, power generation monitoring<br>
+                                <strong>API Integrations:</strong> Irradiance sensors, performance ratio calculations<br>
+                                <strong>Knowledge Base:</strong> Before/after cleaning impact models<br>
+                                <br>
+                                <strong>Real-time Tracking:</strong><br>
+                                • Section A1: 67% complete, +1.9% yield already<br>
+                                • Section A2: 34% complete, +1.2% yield<br>
+                                • Section A3: Started, baseline established<br>
+                                • Robot Performance: 99.7% uptime maintained<br>
+                                <strong>→ Continuous monitoring active...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CLEANING_MRA</span>
+                                <span class="agent-status status-completed">Correlation & Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Weather conditions optimal throughout cleaning cycle<br>
+                                ✅ Fleet coordination: 23 robots working in perfect sync<br>
+                                ✅ Cleaning effectiveness: 99.1% dust removal achieved<br>
+                                ✅ Energy recovery: 2.8% yield improvement confirmed<br>
+                                <br>
+                                <strong>Additional Information Requested:</strong><br>
+                                Called MAINTENANCE_AGENT for robot health post-cleaning<br>
+                                <strong>Result:</strong> All robots operational, no maintenance needed<br>
+                                <br>
+                                <strong>Final Cleaning Report:</strong> Operations successful, targets exceeded<br>
+                                <strong>← Sending comprehensive report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🤖 <strong>Autonomous Cleaning Operation Summary:</strong><br>
+                                • Cleaning Status: ✅ COMPLETED<br>
+                                • Duration: 4.2 hours (23 robots deployed)<br>
+                                • Energy Recovery: 2.8% yield improvement<br>
+                                • Water Savings: 2,400 liters vs manual cleaning<br>
+                                • Robot Fleet Health: 100% operational<br>
+                                • Cost Efficiency: 78% lower than manual<br>
+                                • Next Cleaning: Auto-scheduled in 72 hours<br>
+                                • Environmental Impact: 2 billion liters saved annually
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Energy Recovery</div>
+                                <div class="metric-value">2.8%</div>
+                                <div class="metric-details">Yield improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Fleet Uptime</div>
+                                <div class="metric-value">99.7%</div>
+                                <div class="metric-details">23 active robots</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Water Saved</div>
+                                <div class="metric-value">2,400L</div>
+                                <div class="metric-details">vs manual cleaning</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Efficiency</div>
+                                <div class="metric-value">78%</div>
+                                <div class="metric-details">Lower than manual</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Ecoppia, IFBOT, Solar Drone LTD, Sunpure, Aegeus Technologies
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'predictive-maintenance': {
+                title: 'AI-Powered Predictive Maintenance',
+                icon: '⚙️',
+                description: 'Physics-informed maintenance intelligence with IoT sensor networks',
+                initialQuery: 'Analyze equipment health and predict failures across 150 GW portfolio',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">⚙️</span>
+                            <h3 class="workflow-title">Physics-Informed Maintenance Intelligence System</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">PORTFOLIO MAINTENANCE ANALYSIS</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Capacity: 150 GW | Sites: 47 | IoT Sensors: 18,247 | Accuracy: >90%</div>
+                            </div>
+                            <div class="plant-status severity-warning">3 CRITICAL ALERTS</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Portfolio-wide Maintenance Management System<br>
+                                <strong>Analysis Request:</strong> 150 GW across 47 solar facilities<br>
+                                <strong>Context Analysis:</strong> 18,247 IoT sensors, equipment types, failure history<br>
+                                <strong>Data Volume:</strong> 2.8M data points/hour processing required<br>
+                                <strong>Alert Priority:</strong> 3 critical, 7 high-priority equipment issues<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>PREDICTIVE_MAINTENANCE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Equipment inventory, sensor status, maintenance history...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 PREDICTIVE_MAINTENANCE_MRA</span>
+                                <span class="agent-status status-active">Deploying Specialized Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Specialized Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ SENSOR_DATA_AGENT - IoT sensor analysis<br>
+                                    ✓ THERMAL_IMAGING_AGENT - Heat signature analysis<br>
+                                    ✓ VIBRATION_ANALYSIS_AGENT - Mechanical health assessment<br>
+                                    ✓ ML_PREDICTION_AGENT - Failure forecasting models<br>
+                                    ✓ MAINTENANCE_SCHEDULER_AGENT - Optimal maintenance timing<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 SENSOR_DATA_AGENT</span>
+                                <span class="agent-status status-completed">IoT Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical sensor data, baseline performance patterns<br>
+                                <strong>MCP Server Calls:</strong> IoT sensor networks, SCADA systems, data historians<br>
+                                <strong>API Integrations:</strong> Equipment monitoring systems, anomaly detection<br>
+                                <strong>Knowledge Base:</strong> SmartHelio physics-informed models<br>
+                                <br>
+                                <strong>Sensor Network Analysis:</strong><br>
+                                • Active Sensors: 18,247 (99.8% operational)<br>
+                                • Data Quality: 99.1% integrity score<br>
+                                • Anomalies Detected: 3 critical, 7 high-priority<br>
+                                • Network Latency: 0.23ms (excellent response)<br>
+                                <strong>→ Submitting findings to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌡️ THERMAL_IMAGING_AGENT</span>
+                                <span class="agent-status status-completed">Thermal Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Thermal signature databases, defect pattern libraries<br>
+                                <strong>MCP Server Calls:</strong> Thermal camera networks, infrared analysis systems<br>
+                                <strong>API Integrations:</strong> FLIR thermal APIs, heat signature processing<br>
+                                <strong>Knowledge Base:</strong> Heat signature classification models<br>
+                                <br>
+                                <strong>Thermal Analysis Results:</strong><br>
+                                • Equipment Scanned: 1,456 major components<br>
+                                • Temperature Anomalies: 12 identified<br>
+                                • Critical Finding: Inverter #INV-23 (+3.2°C rise over 48h)<br>
+                                • Heat Pattern: Non-uniform distribution detected<br>
+                                • Root Cause Prediction: Cooling fan degradation<br>
+                                <strong>→ Submitting thermal report to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">〰️ VIBRATION_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-warning">Critical Alert</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Vibration pattern libraries, bearing wear signatures<br>
+                                <strong>MCP Server Calls:</strong> Accelerometer networks, frequency analysis systems<br>
+                                <strong>API Integrations:</strong> Vibration monitoring APIs, FFT analysis engines<br>
+                                <strong>Knowledge Base:</strong> Mechanical failure prediction models<br>
+                                <br>
+                                <strong>Vibration Analysis Results:</strong><br>
+                                • Equipment: Laminator #LM-07<br>
+                                • Issue: Bearing wear pattern detected at 847Hz<br>
+                                • Vibration Level: 2.3x baseline (critical threshold)<br>
+                                • Failure Prediction: 72 hours ± 12 hours<br>
+                                • Confidence Level: 94.2%<br>
+                                <span class="severity-critical">CRITICAL:</span> Immediate maintenance required<br>
+                                <strong>→ Submitting urgent alert to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 ML_PREDICTION_AGENT</span>
+                                <span class="agent-status status-completed">Prediction Models Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> 24 months historical failure data, performance patterns<br>
+                                <strong>MCP Server Calls:</strong> Machine learning model servers, prediction APIs<br>
+                                <strong>API Integrations:</strong> SmartHelio physics-informed AI models<br>
+                                <strong>Knowledge Base:</strong> 5+ billion labeled data points<br>
+                                <br>
+                                <strong>ML Prediction Results:</strong><br>
+                                • Model Accuracy: 96.7% validated over 3 months<br>
+                                • Failure Predictions:<br>
+                                &nbsp;&nbsp;- 3 Critical (0-72 hours): Immediate action needed<br>
+                                &nbsp;&nbsp;- 7 High (3-7 days): Schedule next week<br>
+                                &nbsp;&nbsp;- 23 Medium (1-4 weeks): Plan upcoming maintenance<br>
+                                • Cost Impact: $125k downtime prevented this month<br>
+                                <strong>→ Submitting predictions to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 PREDICTIVE_MAINTENANCE_MRA</span>
+                                <span class="agent-status status-active">Correlation & Additional Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Sensor data + Thermal imaging + Vibration + ML predictions correlated<br>
+                                ✅ Cross-validation: Multiple detection methods confirm findings<br>
+                                ✅ Priority ranking: Critical issues identified and prioritized<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling MAINTENANCE_SCHEDULER_AGENT for optimal timing<br>
+                                → Verifying parts availability for critical components<br>
+                                → Coordinating technician schedules for minimal disruption<br>
+                                <br>
+                                <strong>Final Correlation Complete:</strong> Maintenance plan optimized<br>
+                                <strong>← Finalizing comprehensive report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                ⚙️ <strong>Predictive Maintenance Intelligence Summary:</strong><br>
+                                • Portfolio Health Score: 97.8% overall condition<br>
+                                • Critical Predictions: 3 failures prevented (72h window)<br>
+                                • IoT Network: 18,247 sensors, 99.8% operational<br>
+                                • Prediction Accuracy: 96.7% validated performance<br>
+                                • Cost Savings: $125k/month downtime prevention<br>
+                                • Parts Auto-Ordered: 15 components for critical repairs<br>
+                                • Maintenance Windows: Optimized for minimal disruption<br>
+                                • Next Analysis: Continuous monitoring active
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Portfolio Health</div>
+                                <div class="metric-value">97.8%</div>
+                                <div class="metric-details">150 GW capacity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">IoT Sensors</div>
+                                <div class="metric-value">18,247</div>
+                                <div class="metric-details">99.8% operational</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Prediction Accuracy</div>
+                                <div class="metric-value">96.7%</div>
+                                <div class="metric-details">Validated performance</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Monthly Savings</div>
+                                <div class="metric-value">$125K</div>
+                                <div class="metric-details">Downtime prevention</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: SmartHelio, Rapid Innovation, Intelliarts, Argonne National Laboratory
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'drone-inspection': {
+                title: 'Drone Thermal Inspection AI',
+                icon: '🚁',
+                description: 'AI-integrated aerial inspection with thermal imaging and defect classification',
+                initialQuery: 'Deploy drone fleet for thermal inspection of 500 MW solar farm',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🚁</span>
+                            <h3 class="workflow-title">AI-Integrated Aerial Inspection System</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">THERMAL INSPECTION MISSION</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Target: 500 MW | Panels: 1.4M | Drone Fleet: 12 Units | Runtime: 83 min</div>
+                            </div>
+                            <div class="plant-status severity-medium">INSPECTION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Operations & Maintenance Department<br>
+                                <strong>Inspection Scope:</strong> 500 MW solar farm (1.4M panels)<br>
+                                <strong>Context Analysis:</strong> Weather conditions, drone availability, priority areas<br>
+                                <strong>Inspection Type:</strong> Comprehensive thermal + visual analysis<br>
+                                <strong>Target Speed:</strong> 10 minutes per MW (industry leading)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>DRONE_INSPECTION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Farm layout, weather window, drone fleet status...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DRONE_INSPECTION_MRA</span>
+                                <span class="agent-status status-active">Deploying Specialized Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Specialized Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ FLIGHT_PLANNING_AGENT - Optimal flight path coordination<br>
+                                    ✓ THERMAL_ANALYSIS_AGENT - AI-powered thermal processing<br>
+                                    ✓ DEFECT_CLASSIFICATION_AGENT - CNN-LSTM identification<br>
+                                    ✓ GEO_MAPPING_AGENT - Precise defect location mapping<br>
+                                    ✓ SAFETY_MONITORING_AGENT - Flight safety compliance<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🛩️ FLIGHT_PLANNING_AGENT</span>
+                                <span class="agent-status status-completed">Flight Coordination Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Farm topology, no-fly zones, optimal inspection patterns<br>
+                                <strong>MCP Server Calls:</strong> Weather APIs, airspace databases, drone fleet management<br>
+                                <strong>API Integrations:</strong> GPS systems, flight control software, FAA databases<br>
+                                <strong>Knowledge Base:</strong> MapperX flight optimization algorithms<br>
+                                <br>
+                                <strong>Flight Plan Optimization:</strong><br>
+                                • Drone Fleet: 12 units deployed (DJI M300 RTK + thermal cameras)<br>
+                                • Flight Pattern: Grid survey at 150ft altitude<br>
+                                • Coverage Strategy: Overlapping coverage, 4.2-hour window<br>
+                                • Weather Window: Clear conditions, 8 mph winds<br>
+                                • Safety Compliance: All airspace clearances obtained<br>
+                                <strong>→ Submitting flight plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌡️ THERMAL_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Thermal Processing Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Thermal signature databases, hotspot classification models<br>
+                                <strong>MCP Server Calls:</strong> Thermal imaging servers, AI inference engines<br>
+                                <strong>API Integrations:</strong> FLIR thermal processing, MapperX analysis platform<br>
+                                <strong>Knowledge Base:</strong> Thermal anomaly detection algorithms<br>
+                                <br>
+                                <strong>Thermal Imaging Results:</strong><br>
+                                • Images Processed: 14,567 thermal captures<br>
+                                • Thermal Anomalies: 234 hotspots detected<br>
+                                • Temperature Variations: 15-85°C range analyzed<br>
+                                • Processing Speed: 500 images/minute<br>
+                                • False Positive Rate: 2.1% (excellent accuracy)<br>
+                                <strong>→ Submitting thermal data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DEFECT_CLASSIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">AI Classification Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Solar panel defect libraries, failure mode databases<br>
+                                <strong>MCP Server Calls:</strong> Computer vision APIs, CNN-LSTM model servers<br>
+                                <strong>API Integrations:</strong> Defect classification engines, pattern recognition<br>
+                                <strong>Knowledge Base:</strong> 92% accuracy fault detection models<br>
+                                <br>
+                                <strong>AI Classification Results:</strong><br>
+                                • Total Defects Identified: 234 issues classified<br>
+                                • Bypass Diode Failures: 89 units (critical priority)<br>
+                                • Cell Micro-cracks: 145 panels (medium priority)<br>
+                                • Hot Spot Anomalies: 67 locations (high priority)<br>
+                                • Soiling Issues: 156 panels (low priority)<br>
+                                • Classification Confidence: 96.8% average<br>
+                                <strong>→ Submitting classification to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🗺️ GEO_MAPPING_AGENT</span>
+                                <span class="agent-status status-completed">GPS Mapping Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Farm layout databases, GPS coordinate systems<br>
+                                <strong>MCP Server Calls:</strong> GIS mapping systems, coordinate transformation APIs<br>
+                                <strong>API Integrations:</strong> GPS positioning, surveying databases<br>
+                                <strong>Knowledge Base:</strong> Precision mapping algorithms<br>
+                                <br>
+                                <strong>Precision Mapping Results:</strong><br>
+                                • GPS Accuracy: ±0.3 meters precision<br>
+                                • Defect Coordinates: 234 precise locations mapped<br>
+                                • Maintenance Routes: Optimized for technician efficiency<br>
+                                • Work Order Generation: Auto-created with coordinates<br>
+                                • Asset Database: Updated with defect locations<br>
+                                <strong>→ Submitting geo-data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DRONE_INSPECTION_MRA</span>
+                                <span class="agent-status status-active">Correlation & Additional Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Flight data + thermal analysis + AI classification + GPS mapping<br>
+                                ✅ Cross-validation: Multiple detection algorithms confirm findings<br>
+                                ✅ Priority assessment: 89 critical issues require immediate action<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling SAFETY_MONITORING_AGENT for compliance verification<br>
+                                → Validating inspection coverage completeness<br>
+                                → Generating maintenance work orders with priority ranking<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Inspection quality verified, report ready<br>
+                                <strong>← Finalizing comprehensive inspection report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🚁 <strong>AI-Integrated Aerial Inspection Summary:</strong><br>
+                                • Inspection Complete: 500 MW in 83 minutes achieved<br>
+                                • Speed Performance: 10 min/MW (vs 2-5 hours manual)<br>
+                                • Defects Identified: 234 issues with GPS coordinates<br>
+                                • Priority Classification: 89 critical, 145 medium<br>
+                                • Cost Reduction: 80% vs traditional inspection<br>
+                                • Accuracy: 96.8% AI classification confidence<br>
+                                • Work Orders: Auto-generated with maintenance routes<br>
+                                • Next Inspection: Scheduled in 30 days
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Inspection Speed</div>
+                                <div class="metric-value">10 min</div>
+                                <div class="metric-details">per MW</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Defects Found</div>
+                                <div class="metric-value">234</div>
+                                <div class="metric-details">GPS mapped</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Reduction</div>
+                                <div class="metric-value">80%</div>
+                                <div class="metric-details">vs manual</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">AI Accuracy</div>
+                                <div class="metric-value">96.8%</div>
+                                <div class="metric-details">Classification</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: MapperX, Folio3 AI, Founder Group + VC AI, Futr Energy, Teledyne FLIR
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'virtual-power-plant': {
+                title: 'Virtual Power Plant Orchestration',
+                icon: '⚡',
+                description: 'Multi-asset VPP coordination with grid services and market participation',
+                initialQuery: 'Optimize VPP dispatch for wholesale market participation in ERCOT',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">⚡</span>
+                            <h3 class="workflow-title">Multi-Asset VPP Grid Services Platform</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">VPP ERCOT MARKET DISPATCH</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Assets: 3,800 customers | Capacity: 24 MW/44 MWh | Response Rate: 87%</div>
+                            </div>
+                            <div class="plant-status severity-low">MARKET ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> VPP Management Platform<br>
+                                <strong>Market Request:</strong> ERCOT wholesale market optimization<br>
+                                <strong>Context Analysis:</strong> Market prices, grid conditions, asset availability<br>
+                                <strong>Asset Portfolio:</strong> Solar + Storage + Demand Response across Texas<br>
+                                <strong>Participants:</strong> 3,800+ customers with 24 MW capacity<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>VPP_ORCHESTRATION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Asset portfolio, market conditions, grid requirements...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 VPP_ORCHESTRATION_MRA</span>
+                                <span class="agent-status status-active">Deploying Specialized Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>VPP Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ MARKET_ANALYSIS_AGENT - Real-time price forecasting<br>
+                                    ✓ ASSET_COORDINATION_AGENT - Solar+storage+DR coordination<br>
+                                    ✓ GRID_SERVICES_AGENT - Ancillary services optimization<br>
+                                    ✓ REVENUE_OPTIMIZATION_AGENT - Multi-stream revenue max<br>
+                                    ✓ DISPATCH_CONTROL_AGENT - Real-time dispatch decisions<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 MARKET_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Market Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical ERCOT pricing, market patterns, demand curves<br>
+                                <strong>MCP Server Calls:</strong> ERCOT market APIs, wholesale pricing feeds<br>
+                                <strong>API Integrations:</strong> Energy trading platforms, price forecasting<br>
+                                <strong>Knowledge Base:</strong> Sunnova ERCOT market participation models<br>
+                                <br>
+                                <strong>Market Intelligence Results:</strong><br>
+                                • Current Price: $67.45/MWh (day-ahead)<br>
+                                • Peak Window: 2:00 PM - 6:00 PM ($85/MWh expected)<br>
+                                • Ancillary Services: $12.20/MW/hour frequency regulation<br>
+                                • Demand Response: $450/MW/month capacity payment<br>
+                                • Market Congestion: Zone North favorable pricing<br>
+                                <strong>→ Submitting market analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ ASSET_COORDINATION_AGENT</span>
+                                <span class="agent-status status-completed">Asset Fleet Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Asset performance data, customer availability patterns<br>
+                                <strong>MCP Server Calls:</strong> Tesla Powerwall APIs, Sunnova asset management<br>
+                                <strong>API Integrations:</strong> Smart inverter systems, battery management APIs<br>
+                                <strong>Knowledge Base:</strong> Puerto Rico VPP 87% response rate models<br>
+                                <br>
+                                <strong>Asset Coordination Results:</strong><br>
+                                • Solar Assets: 2,450 rooftop systems (avg 8.2 kW)<br>
+                                • Battery Storage: 44 MWh available (3,800 Powerwalls)<br>
+                                • Demand Response: 1,200 controllable loads<br>
+                                • Participation Rate: 87% (based on Puerto Rico data)<br>
+                                • Available Capacity: 24 MW dispatch ready<br>
+                                <strong>→ Submitting asset status to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔌 GRID_SERVICES_AGENT</span>
+                                <span class="agent-status status-completed">Grid Services Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Grid service requirements, frequency regulation markets<br>
+                                <strong>MCP Server Calls:</strong> ERCOT grid APIs, ancillary service platforms<br>
+                                <strong>API Integrations:</strong> Grid operator systems, frequency monitoring<br>
+                                <strong>Knowledge Base:</strong> Tesla VPP grid services revenue models<br>
+                                <br>
+                                <strong>Grid Services Optimization:</strong><br>
+                                • Frequency Regulation: $8,900/month potential<br>
+                                • Voltage Support: $3,400/month available<br>
+                                • Spinning Reserve: $2,100/month capacity<br>
+                                • Emergency Response: $5,600/month premium<br>
+                                • Grid Stability Score: 98.7% reliability contribution<br>
+                                <strong>→ Submitting grid services data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💰 REVENUE_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Revenue Stacking Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Revenue stacking strategies, market arbitrage patterns<br>
+                                <strong>MCP Server Calls:</strong> Financial optimization engines, trading algorithms<br>
+                                <strong>API Integrations:</strong> Revenue tracking systems, payment platforms<br>
+                                <strong>Knowledge Base:</strong> Multi-stream revenue optimization models<br>
+                                <br>
+                                <strong>Revenue Optimization Results:</strong><br>
+                                • Energy Sales: $45,000/day (wholesale market)<br>
+                                • Ancillary Services: $12,000/month (frequency regulation)<br>
+                                • Capacity Payments: $8,000/month (demand response)<br>
+                                • Customer Earnings: $400+ per household (Tesla VPP model)<br>
+                                • Total Portfolio Value: $67,000/month optimized<br>
+                                <strong>→ Submitting revenue analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 VPP_ORCHESTRATION_MRA</span>
+                                <span class="agent-status status-active">Correlation & Additional Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Market analysis + Asset coordination + Grid services + Revenue optimization<br>
+                                ✅ Real-time price tracking: Peak window 2-6 PM optimal<br>
+                                ✅ Asset availability: 87% participation rate confirmed<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling DISPATCH_CONTROL_AGENT for real-time execution<br>
+                                → Monitoring grid frequency for regulation opportunities<br>
+                                → Tracking customer response rates for optimization<br>
+                                <br>
+                                <strong>Final Correlation:</strong> VPP dispatch strategy optimized<br>
+                                <strong>← Finalizing market participation plan...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                ⚡ <strong>VPP Orchestration Summary:</strong><br>
+                                • Market Optimization: ERCOT wholesale participation active<br>
+                                • Asset Coordination: 24 MW across 3,800+ customers<br>
+                                • Participation Rate: 87% customer response confirmed<br>
+                                • Revenue Streams: Energy + ancillary + capacity optimized<br>
+                                • Customer Earnings: $400+ per household projected<br>
+                                • Grid Stability: 98.7% reliability contribution<br>
+                                • Cost Savings: $500k customer portfolio savings<br>
+                                • Next Dispatch: Continuous market monitoring
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">VPP Capacity</div>
+                                <div class="metric-value">24 MW</div>
+                                <div class="metric-details">3,800+ customers</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Response Rate</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-details">Customer participation</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Customer Earnings</div>
+                                <div class="metric-value">$400+</div>
+                                <div class="metric-details">Per household</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Portfolio Savings</div>
+                                <div class="metric-value">$500K</div>
+                                <div class="metric-details">Customer savings</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Tesla VPP, Sonnen VPP, Sunnova VPP
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'solar-forecasting': {
+                title: 'AI-Driven Solar Forecasting',
+                icon: '🌤️',
+                description: 'High-resolution weather-based generation forecasting with satellite data fusion',
+                initialQuery: 'Generate 5-minute to 14-day solar generation forecast for 150 GW portfolio',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🌤️</span>
+                            <h3 class="workflow-title">High-Resolution Weather-Based Generation Forecasting</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">SOLCAST-STYLE FORECASTING SYSTEM</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Portfolio: 150 GW | Sites: 2,000+ | Resolution: 1-2km | Uptime: >99.99%</div>
+                            </div>
+                            <div class="plant-status severity-low">FORECASTING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Portfolio Management & Grid Operations<br>
+                                <strong>Forecast Request:</strong> 5-minute to 14-day horizons for 150 GW<br>
+                                <strong>Context Analysis:</strong> Weather data availability, accuracy requirements<br>
+                                <strong>Portfolio Scope:</strong> 2,000+ sites across 20 countries<br>
+                                <strong>Accuracy Target:</strong> 25% better than weather models<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>SOLAR_FORECASTING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Portfolio locations, weather model access, accuracy requirements...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SOLAR_FORECASTING_MRA</span>
+                                <span class="agent-status status-active">Deploying Forecasting Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Forecasting Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ WEATHER_DATA_AGENT - Meteorological data fusion<br>
+                                    ✓ SATELLITE_IMAGING_AGENT - Real-time cloud tracking<br>
+                                    ✓ ML_PREDICTION_AGENT - Multi-model ensemble forecasting<br>
+                                    ✓ ACCURACY_VALIDATION_AGENT - Performance monitoring<br>
+                                    ✓ GRID_INTEGRATION_AGENT - Utility-specific formatting<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌤️ WEATHER_DATA_AGENT</span>
+                                <span class="agent-status status-completed">Weather Data Fusion Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical weather patterns, seasonal variations<br>
+                                <strong>MCP Server Calls:</strong> NOAA APIs, European weather model feeds<br>
+                                <strong>API Integrations:</strong> IBM Weather Company, meteorological databases<br>
+                                <strong>Knowledge Base:</strong> Multi-model ensemble algorithms<br>
+                                <br>
+                                <strong>Weather Data Results:</strong><br>
+                                • Data Sources: 47 weather models integrated<br>
+                                • Spatial Resolution: 1-2km grid precision<br>
+                                • Temporal Updates: 5-15 minute refresh cycles<br>
+                                • Global Coverage: 2,000+ sites across 20 countries<br>
+                                • Model Fusion: Ensemble weighting optimized<br>
+                                <strong>→ Submitting weather data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🛰️ SATELLITE_IMAGING_AGENT</span>
+                                <span class="agent-status status-completed">Satellite Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Cloud movement patterns, irradiance correlation models<br>
+                                <strong>MCP Server Calls:</strong> Solcast satellite APIs, real-time cloud tracking<br>
+                                <strong>API Integrations:</strong> Satellite imagery processing, cloud detection<br>
+                                <strong>Knowledge Base:</strong> Real-time cloud tracking algorithms<br>
+                                <br>
+                                <strong>Satellite Imaging Results:</strong><br>
+                                • Real-time Cloud Tracking: 5-minute update cycles active<br>
+                                • Irradiance Mapping: 1-2km resolution achieved<br>
+                                • Cloud Movement: Vector analysis for 0-6 hour forecasts<br>
+                                • Downscaling: 90-meter precision for critical sites<br>
+                                • Processing Speed: 12,000 images/minute<br>
+                                <strong>→ Submitting satellite data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 ML_PREDICTION_AGENT</span>
+                                <span class="agent-status status-completed">ML Forecasting Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> 5+ billion labeled solar data points (Solcast model)<br>
+                                <strong>MCP Server Calls:</strong> ML inference servers, ensemble prediction engines<br>
+                                <strong>API Integrations:</strong> Physics-informed AI models, neural networks<br>
+                                <strong>Knowledge Base:</strong> Multi-horizon prediction algorithms<br>
+                                <br>
+                                <strong>Machine Learning Results:</strong><br>
+                                • Model Performance: 25% better day-ahead vs weather models<br>
+                                • Hour-ahead Accuracy: 50% better than standard forecasts<br>
+                                • Ensemble Models: 12 different algorithms combined<br>
+                                • Uncertainty Quantification: P10/P50/P90 bands generated<br>
+                                • Real-time Updates: Continuous model recalibration<br>
+                                <strong>→ Submitting ML forecasts to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">✅ ACCURACY_VALIDATION_AGENT</span>
+                                <span class="agent-status status-completed">Validation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical forecast performance, error analysis databases<br>
+                                <strong>MCP Server Calls:</strong> Validation databases, performance tracking systems<br>
+                                <strong>API Integrations:</strong> Accuracy measurement APIs, benchmark comparisons<br>
+                                <strong>Knowledge Base:</strong> 98.7% accuracy benchmarks (135 site validation)<br>
+                                <br>
+                                <strong>Validation Results:</strong><br>
+                                • API Uptime: >99.99% reliability maintained<br>
+                                • Forecast Accuracy: Within target performance bands<br>
+                                • Error Metrics: MAE, RMSE, MBE all within specs<br>
+                                • Model Confidence: 96.4% average confidence score<br>
+                                • Quality Assurance: All forecasts pass validation<br>
+                                <strong>→ Submitting validation report to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SOLAR_FORECASTING_MRA</span>
+                                <span class="agent-status status-active">Correlation & Final Processing</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Weather data + Satellite imagery + ML predictions + Validation<br>
+                                ✅ Ensemble fusion: 12 model outputs optimally weighted<br>
+                                ✅ Quality assurance: All accuracy targets exceeded<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling GRID_INTEGRATION_AGENT for utility-specific formats<br>
+                                → Generating P10/P50/P90 uncertainty quantification<br>
+                                → Formatting outputs for 47 different utility systems<br>
+                                <br>
+                                <strong>Final Processing:</strong> Multi-horizon forecasts ready for delivery<br>
+                                <strong>← Finalizing forecast package...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🌤️ <strong>Solar Forecasting System Summary:</strong><br>
+                                • Portfolio Coverage: 150 GW across 2,000+ sites<br>
+                                • Forecast Horizons: 5-min to 14-day complete<br>
+                                • Spatial Resolution: 1-2km, downscaled to 90m<br>
+                                • Accuracy Performance: 25% better day-ahead<br>
+                                • API Uptime: >99.99% reliability<br>
+                                • Model Updates: Real-time continuous calibration<br>
+                                • Uncertainty Bands: P10/P50/P90 provided<br>
+                                • Grid Integration: 47 utility formats delivered
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Portfolio Size</div>
+                                <div class="metric-value">150 GW</div>
+                                <div class="metric-details">2,000+ sites</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Accuracy Gain</div>
+                                <div class="metric-value">25%</div>
+                                <div class="metric-details">vs weather models</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">API Uptime</div>
+                                <div class="metric-value">>99.99%</div>
+                                <div class="metric-details">Reliability</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Resolution</div>
+                                <div class="metric-value">1-2km</div>
+                                <div class="metric-details">5-min updates</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Solcast, IBM Watson, DNV, Clean Power Research
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'smart-inverters': {
+                title: 'Smart Inverter Management',
+                icon: '🔌',
+                description: 'AI-enhanced inverter fleet optimization with predictive diagnostics',
+                initialQuery: 'Optimize inverter performance and diagnose issues across 500 MW solar plant',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔌</span>
+                            <h3 class="workflow-title">AI-Enhanced Inverter Fleet Optimization</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">SMART INVERTER FLEET MANAGEMENT</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Plant: 500 MW | Inverters: 1,247 | Efficiency: 98.9% | Grid: IEEE 1547</div>
+                            </div>
+                            <div class="plant-status severity-medium">OPTIMIZATION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Plant SCADA & Inverter Management System<br>
+                                <strong>Optimization Request:</strong> 500 MW plant inverter fleet<br>
+                                <strong>Context Analysis:</strong> Performance deviations, grid conditions, efficiency targets<br>
+                                <strong>Fleet Size:</strong> 1,247 inverters across plant<br>
+                                <strong>Current Performance:</strong> 98.9% average efficiency<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>SMART_INVERTER_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Inverter topology, performance baselines, grid requirements...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SMART_INVERTER_MRA</span>
+                                <span class="agent-status status-active">Deploying Inverter Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Inverter Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ PERFORMANCE_MONITORING_AGENT - Real-time efficiency tracking<br>
+                                    ✓ DIAGNOSTIC_AGENT - Fault detection and analysis<br>
+                                    ✓ OPTIMIZATION_AGENT - Parameter tuning<br>
+                                    ✓ GRID_COMPLIANCE_AGENT - Grid code adherence<br>
+                                    ✓ STRING_ANALYSIS_AGENT - DC-side optimization<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 PERFORMANCE_MONITORING_AGENT</span>
+                                <span class="agent-status status-completed">Fleet Monitoring Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Baseline performance data, efficiency benchmarks<br>
+                                <strong>MCP Server Calls:</strong> Huawei/Sungrow inverter APIs, performance databases<br>
+                                <strong>API Integrations:</strong> SCADA systems, power quality meters<br>
+                                <strong>Knowledge Base:</strong> Inverter optimization algorithms<br>
+                                <br>
+                                <strong>Performance Analysis:</strong><br>
+                                • Inverters Monitored: 1,247 units (500 MW plant)<br>
+                                • Average Efficiency: 98.9% (target: 98.5%)<br>
+                                • Performance Deviations: 3 inverters below threshold<br>
+                                • Power Quality: All within IEEE standards<br>
+                                • String Performance: 99.2% operational<br>
+                                <strong>→ Submitting performance data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 DIAGNOSTIC_AGENT</span>
+                                <span class="agent-status status-warning">Issues Detected</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Fault signature libraries, diagnostic patterns<br>
+                                <strong>MCP Server Calls:</strong> SolarEdge monitoring, fault detection APIs<br>
+                                <strong>API Integrations:</strong> Diagnostic engines, alarm management systems<br>
+                                <strong>Knowledge Base:</strong> AI diagnostic models, failure mode databases<br>
+                                <br>
+                                <strong>Diagnostic Results:</strong><br>
+                                • Ground Fault Detected: Inverter INV-245 (isolation resistance low)<br>
+                                • Efficiency Drop: Inverter INV-891 (2.3% below baseline)<br>
+                                • Grid Connection: INV-456 phase imbalance detected<br>
+                                • DC Input Issues: 5 string-level anomalies<br>
+                                • Predictive Alerts: 2 inverters showing early wear signs<br>
+                                <span class="severity-high">HIGH:</span> Ground fault requires immediate attention<br>
+                                <strong>→ Submitting diagnostic findings to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚙️ OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Parameter Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Optimal parameter settings, environmental correlations<br>
+                                <strong>MCP Server Calls:</strong> Inverter control APIs, grid integration systems<br>
+                                <strong>API Integrations:</strong> Parameter adjustment engines, optimization algorithms<br>
+                                <strong>Knowledge Base:</strong> Machine learning optimization models<br>
+                                <br>
+                                <strong>Optimization Results:</strong><br>
+                                • MPPT Tuning: 847 inverters optimized for irradiance conditions<br>
+                                • Power Factor: Adjusted to 0.95 for grid stability<br>
+                                • Voltage Regulation: ±1% tolerance maintained<br>
+                                • Temperature Derating: Optimized for 45°C ambient<br>
+                                • Efficiency Improvement: 2.3% gain achieved<br>
+                                <strong>→ Submitting optimization report to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📋 GRID_COMPLIANCE_AGENT</span>
+                                <span class="agent-status status-completed">Compliance Verification Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Grid code requirements, IEEE 1547 standards<br>
+                                <strong>MCP Server Calls:</strong> Grid operator APIs, utility communication systems<br>
+                                <strong>API Integrations:</strong> Compliance monitoring, regulatory databases<br>
+                                <strong>Knowledge Base:</strong> Grid code compliance algorithms<br>
+                                <br>
+                                <strong>Compliance Status:</strong><br>
+                                • IEEE 1547 Compliance: 100% of inverters certified<br>
+                                • Voltage Support: Smart volt-var control active<br>
+                                • Frequency Response: Grid support functions enabled<br>
+                                • Power Quality: THD < 3% maintained<br>
+                                • Anti-islanding: All protection functions verified<br>
+                                <strong>→ Submitting compliance report to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SMART_INVERTER_MRA</span>
+                                <span class="agent-status status-active">Correlation & Additional Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Performance + Diagnostic + Optimization + Compliance data correlated<br>
+                                ✅ Issue prioritization: Ground fault INV-245 highest priority<br>
+                                ✅ Efficiency gains: 2.3% improvement across fleet<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling STRING_ANALYSIS_AGENT for DC-side root cause analysis<br>
+                                → Verifying maintenance team availability for critical repairs<br>
+                                → Coordinating with grid operator for planned maintenance<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Inverter optimization plan complete<br>
+                                <strong>← Finalizing comprehensive inverter report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔌 <strong>Smart Inverter Management Summary:</strong><br>
+                                • Fleet Status: 1,247 inverters optimized across 500 MW<br>
+                                • Performance Gain: 2.3% efficiency improvement achieved<br>
+                                • Issues Resolved: 3 performance deviations corrected<br>
+                                • Grid Compliance: 100% IEEE 1547 adherence<br>
+                                • Diagnostic Accuracy: Real-time fault detection active<br>
+                                • Power Quality: THD < 3% maintained<br>
+                                • Revenue Impact: $125k annual from efficiency gains<br>
+                                • Next Optimization: Continuous monitoring active
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Fleet Size</div>
+                                <div class="metric-value">1,247</div>
+                                <div class="metric-details">Inverters optimized</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Efficiency Gain</div>
+                                <div class="metric-value">2.3%</div>
+                                <div class="metric-details">Performance improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Grid Compliance</div>
+                                <div class="metric-value">100%</div>
+                                <div class="metric-details">IEEE 1547</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Revenue Impact</div>
+                                <div class="metric-value">$125K</div>
+                                <div class="metric-details">Annual gains</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Huawei Smart Inverters, Sungrow AI Inverters, SolarEdge
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'energy-storage': {
+                title: 'Energy Storage Optimization',
+                icon: '🔋',
+                description: 'Multi-revenue stream battery management with arbitrage and grid services',
+                initialQuery: 'Optimize battery systems for maximum revenue generation across storage portfolio',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔋</span>
+                            <h3 class="workflow-title">Multi-Revenue Stream Battery Management</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">ENERGY STORAGE OPTIMIZATION</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Capacity: 44 MWh | Efficiency: 94.3% | Revenue: $67k/month | ROI: 187%</div>
+                            </div>
+                            <div class="plant-status severity-low">REVENUE OPTIMIZATION</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Energy Storage Management System<br>
+                                <strong>Optimization Request:</strong> Portfolio-wide battery revenue maximization<br>
+                                <strong>Context Analysis:</strong> Market prices, grid services opportunities, battery health<br>
+                                <strong>Storage Portfolio:</strong> 44 MWh across distributed and utility-scale<br>
+                                <strong>Revenue Targets:</strong> Multi-stream optimization (arbitrage + services)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>ENERGY_STORAGE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Battery inventory, market conditions, degradation status...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ENERGY_STORAGE_MRA</span>
+                                <span class="agent-status status-active">Deploying Storage Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Storage Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ ARBITRAGE_AGENT - Price-based charge/discharge optimization<br>
+                                    ✓ ANCILLARY_SERVICES_AGENT - Grid services revenue<br>
+                                    ✓ BATTERY_HEALTH_AGENT - SOC and degradation management<br>
+                                    ✓ DEMAND_RESPONSE_AGENT - Peak shaving optimization<br>
+                                    ✓ REVENUE_STACKING_AGENT - Multi-stream coordination<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💹 ARBITRAGE_AGENT</span>
+                                <span class="agent-status status-completed">Price Arbitrage Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical price patterns, arbitrage opportunities<br>
+                                <strong>MCP Server Calls:</strong> Energy market APIs, real-time pricing feeds<br>
+                                <strong>API Integrations:</strong> Tesla Powerwall APIs, battery management systems<br>
+                                <strong>Knowledge Base:</strong> Price arbitrage optimization algorithms<br>
+                                <br>
+                                <strong>Arbitrage Analysis:</strong><br>
+                                • Price Spread: $45/MWh peak vs $18/MWh off-peak<br>
+                                • Optimal Charging: 12:00 AM - 6:00 AM (low prices)<br>
+                                • Optimal Discharge: 2:00 PM - 8:00 PM (peak prices)<br>
+                                • Daily Revenue Potential: $12,450/day<br>
+                                • Round-trip Efficiency: 94.3% factored in<br>
+                                <strong>→ Submitting arbitrage strategy to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ ANCILLARY_SERVICES_AGENT</span>
+                                <span class="agent-status status-completed">Grid Services Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Grid service requirements, frequency regulation markets<br>
+                                <strong>MCP Server Calls:</strong> Grid operator APIs, ancillary service platforms<br>
+                                <strong>API Integrations:</strong> Grid frequency monitoring, regulation markets<br>
+                                <strong>Knowledge Base:</strong> Sonnen community energy sharing models<br>
+                                <br>
+                                <strong>Ancillary Services Results:</strong><br>
+                                • Frequency Regulation: $8,900/month revenue opportunity<br>
+                                • Voltage Support: $3,400/month grid stability services<br>
+                                • Spinning Reserve: $2,100/month backup capacity<br>
+                                • Ramping Services: $1,800/month ramp rate support<br>
+                                • Grid Resilience: $4,200/month emergency response<br>
+                                <strong>→ Submitting grid services data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔋 BATTERY_HEALTH_AGENT</span>
+                                <span class="agent-status status-completed">Health Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Battery degradation models, optimal SOC ranges<br>
+                                <strong>MCP Server Calls:</strong> Battery management APIs, health monitoring systems<br>
+                                <strong>API Integrations:</strong> Tesla/Sonnen battery optimization APIs<br>
+                                <strong>Knowledge Base:</strong> Li-ion degradation prevention algorithms<br>
+                                <br>
+                                <strong>Battery Health Results:</strong><br>
+                                • SOC Management: 10-90% optimal range maintained<br>
+                                • Cycle Optimization: 1.3 cycles/day (battery life optimal)<br>
+                                • Temperature Control: Thermal management active<br>
+                                • Degradation Rate: 0.8%/year (industry leading)<br>
+                                • Warranty Compliance: All cycling within manufacturer limits<br>
+                                <strong>→ Submitting health status to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ENERGY_STORAGE_MRA</span>
+                                <span class="agent-status status-active">Correlation & Revenue Stacking</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Arbitrage + Ancillary services + Battery health + Demand response<br>
+                                ✅ Revenue stacking: Multiple income streams optimized<br>
+                                ✅ Constraint management: Battery health vs revenue balanced<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling REVENUE_STACKING_AGENT for optimal revenue mix<br>
+                                → Coordinating with grid operator for service commitments<br>
+                                → Validating customer comfort during demand response events<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Multi-revenue optimization complete<br>
+                                <strong>← Finalizing storage strategy...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔋 <strong>Energy Storage Optimization Summary:</strong><br>
+                                • Revenue Optimization: Multi-stream generation coordinated<br>
+                                • Arbitrage Performance: $12.45k/day peak/off-peak trading<br>
+                                • Grid Services: $8.9k/month frequency regulation<br>
+                                • Community Savings: $500k portfolio customer savings<br>
+                                • Battery Health: 94.3% efficiency maintained<br>
+                                • Revenue Stacking: Energy + ancillary + capacity optimized<br>
+                                • Customer Impact: $400+ average household earnings<br>
+                                • ROI Performance: 187% annual return achieved
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Daily Arbitrage</div>
+                                <div class="metric-value">$12.45K</div>
+                                <div class="metric-details">Peak/off-peak</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Grid Services</div>
+                                <div class="metric-value">$8.9K</div>
+                                <div class="metric-details">Monthly revenue</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Customer Savings</div>
+                                <div class="metric-value">$500K</div>
+                                <div class="metric-details">Portfolio total</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">ROI</div>
+                                <div class="metric-value">187%</div>
+                                <div class="metric-details">Annual return</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Tesla Powerwall VPP, Sonnen ecoLinx, Enphase Energy
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'portfolio-management': {
+                title: 'Portfolio Asset Management',
+                icon: '📊',
+                description: 'Enterprise solar asset intelligence with performance benchmarking and ROI optimization',
+                initialQuery: 'Generate comprehensive performance analysis across 2.5 GW solar portfolio',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📊</span>
+                            <h3 class="workflow-title">Enterprise Solar Asset Intelligence Platform</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">PORTFOLIO ASSET MANAGEMENT</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Portfolio: 2.5 GW | Sites: 47 | Performance: 87.3% | ROI: 12.7%</div>
+                            </div>
+                            <div class="plant-status severity-low">ANALYZING</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Enterprise Asset Management Platform<br>
+                                <strong>Analysis Request:</strong> 2.5 GW portfolio across 47 solar facilities<br>
+                                <strong>Context Analysis:</strong> Portfolio composition, financial targets, operational KPIs<br>
+                                <strong>Analysis Scope:</strong> Performance benchmarking, investment optimization<br>
+                                <strong>Reporting Period:</strong> 12-month comprehensive analysis<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>ASSET_MANAGEMENT_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Asset inventory, financial targets, operational KPIs...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ASSET_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-active">Deploying Asset Intelligence Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Asset Management Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ PERFORMANCE_BENCHMARKING_AGENT - Cross-site analysis<br>
+                                    ✓ FINANCIAL_ANALYTICS_AGENT - ROI optimization<br>
+                                    ✓ OPERATIONAL_INTELLIGENCE_AGENT - O&M cost analysis<br>
+                                    ✓ RISK_ASSESSMENT_AGENT - Portfolio risk evaluation<br>
+                                    ✓ INVESTMENT_PLANNING_AGENT - Capacity expansion<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 PERFORMANCE_BENCHMARKING_AGENT</span>
+                                <span class="agent-status status-completed">Cross-Site Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Industry benchmarks, peer performance databases<br>
+                                <strong>MCP Server Calls:</strong> SCADA systems across 47 sites, performance databases<br>
+                                <strong>API Integrations:</strong> Weather normalization APIs, performance ratio calculations<br>
+                                <strong>Knowledge Base:</strong> Portfolio benchmarking algorithms<br>
+                                <br>
+                                <strong>Performance Benchmarking Results:</strong><br>
+                                • Portfolio Performance Ratio: 84.2% (industry avg: 81.5%)<br>
+                                • Top Quartile Sites: 12 facilities achieving >89.1% PR<br>
+                                • Underperforming Assets: 8 sites below 80% PR threshold<br>
+                                • Energy Yield: 3,247 GWh annually across portfolio<br>
+                                • Capacity Factor: 23.7% (excellent for solar)<br>
+                                <strong>→ Submitting benchmarking data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💰 FINANCIAL_ANALYTICS_AGENT</span>
+                                <span class="agent-status status-completed">ROI Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Financial models, LCOE calculations, market benchmarks<br>
+                                <strong>MCP Server Calls:</strong> Financial databases, market pricing APIs<br>
+                                <strong>API Integrations:</strong> Investment tracking systems, revenue analytics<br>
+                                <strong>Knowledge Base:</strong> Excelsior Energy asset management models<br>
+                                <br>
+                                <strong>Financial Performance Results:</strong><br>
+                                • Portfolio IRR: 12.7% (target: 12.0%)<br>
+                                • LCOE Average: $0.045/kWh (competitive positioning)<br>
+                                • Revenue Performance: $247M annually across portfolio<br>
+                                • Underperforming Assets: 3 sites below target IRR<br>
+                                • Optimization Potential: $2.3M identified across sites<br>
+                                <strong>→ Submitting financial analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔧 OPERATIONAL_INTELLIGENCE_AGENT</span>
+                                <span class="agent-status status-completed">O&M Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> O&M cost databases, maintenance effectiveness patterns<br>
+                                <strong>MCP Server Calls:</strong> Maintenance management systems, cost tracking APIs<br>
+                                <strong>API Integrations:</strong> Parts inventory systems, workforce management<br>
+                                <strong>Knowledge Base:</strong> Operational efficiency optimization models<br>
+                                <br>
+                                <strong>Operational Intelligence Results:</strong><br>
+                                • O&M Costs: $12.4/MWh (industry avg: $14.2/MWh)<br>
+                                • Maintenance Efficiency: 15% above industry benchmark<br>
+                                • Predictive Maintenance ROI: 285% across portfolio<br>
+                                • Availability Factor: 97.8% (target: 97%)<br>
+                                • Cleaning Cost Optimization: 23% reduction opportunity<br>
+                                <strong>→ Submitting operational data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚠️ RISK_ASSESSMENT_AGENT</span>
+                                <span class="agent-status status-completed">Risk Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Risk databases, insurance claims, weather pattern analysis<br>
+                                <strong>MCP Server Calls:</strong> Weather risk APIs, equipment failure databases<br>
+                                <strong>API Integrations:</strong> Insurance platforms, catastrophe modeling systems<br>
+                                <strong>Knowledge Base:</strong> Portfolio diversification risk models<br>
+                                <br>
+                                <strong>Risk Assessment Results:</strong><br>
+                                • Geographic Risk: 34% concentration in Texas (weather risk)<br>
+                                • Technology Risk: 67% using >5-year old inverters<br>
+                                • Counterparty Risk: 12% PPA exposure to single utility<br>
+                                • Market Risk: 23% merchant exposure to price volatility<br>
+                                • Climate Risk: 3 sites in high-hail probability zones<br>
+                                <strong>→ Submitting risk assessment to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ASSET_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-active">Correlation & Investment Planning</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Performance + Financial + Operational + Risk data correlated<br>
+                                ✅ Underperformer identification: 8 sites need attention<br>
+                                ✅ Optimization value: $2.3M opportunity quantified<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling INVESTMENT_PLANNING_AGENT for expansion recommendations<br>
+                                → Analyzing geographic diversification opportunities<br>
+                                → Evaluating technology upgrade ROI for aging assets<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Portfolio optimization strategy complete<br>
+                                <strong>← Finalizing asset management recommendations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📊 <strong>Portfolio Asset Management Summary:</strong><br>
+                                • Portfolio Health: 87.3% overall performance rating<br>
+                                • Financial Performance: 12.7% IRR (above target)<br>
+                                • O&M Efficiency: 15% above industry benchmark<br>
+                                • Optimization Value: $2.3M improvement opportunity<br>
+                                • Risk Profile: Moderate, diversification recommended<br>
+                                • Underperformers: 8 sites identified for improvement<br>
+                                • Investment Recommendation: Geographic expansion<br>
+                                • Next Review: Quarterly board presentation
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Portfolio IRR</div>
+                                <div class="metric-value">12.7%</div>
+                                <div class="metric-details">Above 12% target</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Performance Ratio</div>
+                                <div class="metric-value">84.2%</div>
+                                <div class="metric-details">vs 81.5% industry</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Optimization Value</div>
+                                <div class="metric-value">$2.3M</div>
+                                <div class="metric-details">Improvement opportunity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">O&M Efficiency</div>
+                                <div class="metric-value">15%</div>
+                                <div class="metric-details">Above benchmark</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Excelsior Energy + Proximal Energy, SmartHelio, DNV
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'market-trading': {
+                title: 'Grid Integration & Market Trading',
+                icon: '💹',
+                description: 'Automated energy market participation with AI-driven bidding and grid services',
+                initialQuery: 'Execute automated energy trading strategy for 800 MW solar portfolio in multiple markets',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">💹</span>
+                            <h3 class="workflow-title">Automated Energy Market Participation System</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">MULTI-MARKET TRADING SYSTEM</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Portfolio: 800 MW | Markets: ERCOT, PJM, CAISO | Clearing: 94.7%</div>
+                            </div>
+                            <div class="plant-status severity-low">TRADING ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Energy Trading & Risk Management System<br>
+                                <strong>Trading Request:</strong> 800 MW portfolio across multiple markets<br>
+                                <strong>Context Analysis:</strong> Market prices, grid constraints, portfolio generation<br>
+                                <strong>Market Coverage:</strong> ERCOT, PJM, CAISO wholesale markets<br>
+                                <strong>Trading Strategy:</strong> Automated bidding with grid services optimization<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>GRID_TRADING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Market access, grid capacity, regulatory constraints...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 GRID_TRADING_MRA</span>
+                                <span class="agent-status status-active">Deploying Trading Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Trading Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ MARKET_INTELLIGENCE_AGENT - Multi-market price analysis<br>
+                                    ✓ BID_OPTIMIZATION_AGENT - Automated bidding strategies<br>
+                                    ✓ GRID_CONSTRAINT_AGENT - Transmission analysis<br>
+                                    ✓ CONTRACT_MANAGEMENT_AGENT - PPA optimization<br>
+                                    ✓ SETTLEMENT_AGENT - Revenue reconciliation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 MARKET_INTELLIGENCE_AGENT</span>
+                                <span class="agent-status status-completed">Market Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical market data, price correlation patterns<br>
+                                <strong>MCP Server Calls:</strong> ERCOT, PJM, CAISO market APIs, forward curves<br>
+                                <strong>API Integrations:</strong> Energy trading platforms, market forecast services<br>
+                                <strong>Knowledge Base:</strong> Multi-market trading optimization models<br>
+                                <br>
+                                <strong>Market Intelligence Results:</strong><br>
+                                • ERCOT Day-ahead: $42.15/MWh (peak $67/MWh)<br>
+                                • PJM Real-time: $38.90/MWh (congestion premium)<br>
+                                • CAISO Market: $51.20/MWh (renewable curtailment risk)<br>
+                                • Ancillary Services: $12.20/MW/hour opportunity<br>
+                                • Grid Congestion: Zone optimization opportunities<br>
+                                <strong>→ Submitting market analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🎯 BID_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Bid Strategy Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Bidding strategies, market clearing patterns<br>
+                                <strong>MCP Server Calls:</strong> Trading algorithm servers, bid optimization engines<br>
+                                <strong>API Integrations:</strong> Market bidding platforms, clearing prediction<br>
+                                <strong>Knowledge Base:</strong> Sunnova ERCOT participation models<br>
+                                <br>
+                                <strong>Bid Optimization Results:</strong><br>
+                                • ERCOT Bids: 300 MW at $41.80/MWh (94.7% clearing probability)<br>
+                                • PJM Bids: 250 MW at $38.50/MWh (congestion premium)<br>
+                                • CAISO Bids: 200 MW at $50.90/MWh (curtailment hedge)<br>
+                                • Ancillary Bids: 50 MW frequency regulation<br>
+                                • Risk Management: Price floor hedging active<br>
+                                <strong>→ Submitting bid strategies to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔌 GRID_CONSTRAINT_AGENT</span>
+                                <span class="agent-status status-completed">Transmission Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Transmission capacity data, curtailment history<br>
+                                <strong>MCP Server Calls:</strong> Grid operator APIs, transmission databases<br>
+                                <strong>API Integrations:</strong> Congestion management systems, capacity forecasting<br>
+                                <strong>Knowledge Base:</strong> Transmission constraint algorithms<br>
+                                <br>
+                                <strong>Grid Constraint Results:</strong><br>
+                                • ERCOT Transmission: 750 MW capacity available<br>
+                                • PJM Constraints: 230 MW during peak hours<br>
+                                • CAISO Curtailment Risk: 15% probability (renewables)<br>
+                                • Congestion Costs: $2.30/MWh average across portfolio<br>
+                                • Firm Transmission: 89% of portfolio secured<br>
+                                <strong>→ Submitting constraint analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 GRID_TRADING_MRA</span>
+                                <span class="agent-status status-active">Correlation & Contract Optimization</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Market intelligence + Bid optimization + Grid constraints + Contracts<br>
+                                ✅ Trading strategy: Multi-market risk diversification<br>
+                                ✅ Revenue optimization: PPA + merchant + ancillary balanced<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling SETTLEMENT_AGENT for revenue optimization verification<br>
+                                → Validating contract compliance across all markets<br>
+                                → Coordinating with grid operators for service commitments<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Multi-market trading strategy optimized<br>
+                                <strong>← Finalizing automated trading execution...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                💹 <strong>Grid Integration & Market Trading Summary:</strong><br>
+                                • Trading Strategy: 800 MW across ERCOT, PJM, CAISO<br>
+                                • Bid Performance: 94.7% clearing rate achieved<br>
+                                • Grid Utilization: 750 MW transmission secured<br>
+                                • Revenue Streams: Energy + ancillary + capacity optimized<br>
+                                • Market Diversification: Risk spread across 3 markets<br>
+                                • Contract Balance: PPA + merchant exposure optimized<br>
+                                • Settlement Accuracy: 99.8% revenue capture<br>
+                                • Next Trading: Continuous market participation
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Bid Clearing Rate</div>
+                                <div class="metric-value">94.7%</div>
+                                <div class="metric-details">Multi-market average</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Transmission Secured</div>
+                                <div class="metric-value">750 MW</div>
+                                <div class="metric-details">Grid capacity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Revenue Capture</div>
+                                <div class="metric-value">99.8%</div>
+                                <div class="metric-details">Settlement accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Market Coverage</div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-details">Markets active</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Sunnova ERCOT, Tesla VPP Grid Services, Sonnen Primary Control
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'weather-operations': {
+                title: 'Weather-Based Operations Intelligence',
+                icon: '🌦️',
+                description: 'Meteorological operations optimization with 7-day forecasting and risk mitigation',
+                initialQuery: 'Optimize plant operations based on 7-day weather forecast for 12 solar facilities',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🌦️</span>
+                            <h3 class="workflow-title">Meteorological Operations Optimization System</h3>
+                        </div>
+                        
+                        <div class="plant-info">
+                            <div>
+                                <div class="plant-id">WEATHER OPERATIONS INTELLIGENCE</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Facilities: 12 Sites | Capacity: 1.8 GW | Forecast: 7-day | Accuracy: 92.8%</div>
+                            </div>
+                            <div class="plant-status severity-medium">WEATHER ANALYSIS</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Multi-Site Operations Control Center<br>
+                                <strong>Optimization Request:</strong> Weather-based operations for 12 facilities<br>
+                                <strong>Context Analysis:</strong> Weather forecast data, operational flexibility<br>
+                                <strong>Portfolio Scope:</strong> 1.8 GW across diverse geographic regions<br>
+                                <strong>Forecast Horizon:</strong> 7-day detailed meteorological analysis<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>WEATHER_OPERATIONS_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Site locations, weather sensitivity, operational constraints...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 WEATHER_OPERATIONS_MRA</span>
+                                <span class="agent-status status-active">Deploying Weather Intelligence Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Weather Operations Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ METEOROLOGICAL_AGENT - Advanced weather analytics<br>
+                                    ✓ GENERATION_FORECAST_AGENT - Weather-to-power conversion<br>
+                                    ✓ MAINTENANCE_SCHEDULING_AGENT - Weather-optimized maintenance<br>
+                                    ✓ CLEANING_OPTIMIZATION_AGENT - Weather-based cleaning<br>
+                                    ✓ RISK_MITIGATION_AGENT - Extreme weather preparation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌦️ METEOROLOGICAL_AGENT</span>
+                                <span class="agent-status status-completed">Weather Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical weather patterns, seasonal variations<br>
+                                <strong>MCP Server Calls:</strong> NOAA APIs, IBM Weather Company services<br>
+                                <strong>API Integrations:</strong> Meteorological databases, satellite imagery<br>
+                                <strong>Knowledge Base:</strong> Multi-site weather correlation models<br>
+                                <br>
+                                <strong>7-Day Weather Analysis:</strong><br>
+                                • Days 1-2: High pressure system, clear skies (98% solar irradiance)<br>
+                                • Day 3: Partly cloudy, 15 mph winds (82% irradiance)<br>
+                                • Days 4-5: Thunderstorm risk 65% (45% irradiance expected)<br>
+                                • Days 6-7: Post-storm clearing (dust accumulation likely)<br>
+                                • Extreme Weather: Day 5 severe thunderstorm watch<br>
+                                <strong>→ Submitting weather intelligence to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ GENERATION_FORECAST_AGENT</span>
+                                <span class="agent-status status-completed">Power Forecast Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Weather-to-power correlation models, irradiance databases<br>
+                                <strong>MCP Server Calls:</strong> Solcast APIs, solar resource assessment systems<br>
+                                <strong>API Integrations:</strong> Plant performance models, generation tracking<br>
+                                <strong>Knowledge Base:</strong> Site-specific performance coefficients<br>
+                                <br>
+                                <strong>Generation Forecast Results:</strong><br>
+                                • Days 1-2: 847 MWh/day (peak generation period)<br>
+                                • Day 3: 695 MWh/day (partial cloud impact)<br>
+                                • Days 4-5: 381 MWh/day (storm impact, 55% reduction)<br>
+                                • Days 6-7: 623 MWh/day (post-storm recovery)<br>
+                                • Weekly Total: 4,285 MWh (vs 5,929 MWh clear week)<br>
+                                <strong>→ Submitting generation forecast to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔧 MAINTENANCE_SCHEDULING_AGENT</span>
+                                <span class="agent-status status-completed">Maintenance Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Maintenance task databases, weather sensitivity analysis<br>
+                                <strong>MCP Server Calls:</strong> CMMS systems, workforce management APIs<br>
+                                <strong>API Integrations:</strong> Scheduling platforms, resource allocation systems<br>
+                                <strong>Knowledge Base:</strong> Weather-based maintenance optimization<br>
+                                <br>
+                                <strong>Maintenance Scheduling Results:</strong><br>
+                                • Optimal Windows: Days 1-2 (clear weather, low generation loss)<br>
+                                • Emergency Prep: Day 4 storm preparation protocols<br>
+                                • Post-Storm Inspection: Day 6 damage assessment scheduled<br>
+                                • Preventive Tasks: 23 activities moved to Days 1-2<br>
+                                • Workforce Allocation: 45 technicians optimally scheduled<br>
+                                <strong>→ Submitting maintenance plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧽 CLEANING_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Cleaning Strategy Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Dust accumulation models, cleaning effectiveness data<br>
+                                <strong>MCP Server Calls:</strong> Environmental monitoring, soiling sensors<br>
+                                <strong>API Integrations:</strong> Cleaning robot fleets, water management systems<br>
+                                <strong>Knowledge Base:</strong> Ecoppia weather-based cleaning algorithms<br>
+                                <br>
+                                <strong>Cleaning Optimization Results:</strong><br>
+                                • Pre-storm Cleaning: Day 2 optimal (before storm arrival)<br>
+                                • Storm Period: Cleaning suspended Day 4-5<br>
+                                • Post-storm Assessment: Day 6 dust accumulation evaluation<br>
+                                • Water Conservation: Dry cleaning methods prioritized<br>
+                                • Robot Fleet: 67 units pre-positioned for rapid deployment<br>
+                                <strong>→ Submitting cleaning strategy to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 WEATHER_OPERATIONS_MRA</span>
+                                <span class="agent-status status-active">Correlation & Risk Assessment</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Data Correlation:</strong><br>
+                                ✅ Weather + Generation + Maintenance + Cleaning data correlated<br>
+                                ✅ Operations optimization: Activities scheduled for optimal windows<br>
+                                ✅ Risk mitigation: Storm preparation protocols activated<br>
+                                <br>
+                                <strong>Requesting Additional Information:</strong><br>
+                                → Calling RISK_MITIGATION_AGENT for extreme weather protocols<br>
+                                → Coordinating insurance claims preparation for potential damage<br>
+                                → Activating emergency response teams for Day 5 storm<br>
+                                <br>
+                                <strong>Final Correlation:</strong> Weather-optimized operations plan complete<br>
+                                <strong>← Finalizing 7-day operational strategy...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🌦️ <strong>Weather-Based Operations Summary:</strong><br>
+                                • Operations Optimized: 12 sites coordinated for 7-day window<br>
+                                • Generation Forecast: 4,285 MWh (storm impact 28% reduction)<br>
+                                • Maintenance Windows: Days 1-2 optimal, Day 5 avoided<br>
+                                • Cleaning Schedule: Pre-storm Day 2, post-storm Day 6<br>
+                                • Risk Mitigation: Storm protocols active for Day 5<br>
+                                • Cost Optimization: $67k savings through weather planning<br>
+                                • Safety Compliance: All extreme weather protocols activated<br>
+                                • Next Forecast: Daily updates with 4-hour refresh
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Weekly Generation</div>
+                                <div class="metric-value">4,285</div>
+                                <div class="metric-details">MWh forecasted</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Storm Impact</div>
+                                <div class="metric-value">28%</div>
+                                <div class="metric-details">Generation reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$67K</div>
+                                <div class="metric-details">Weather planning</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Forecast Accuracy</div>
+                                <div class="metric-value">92.8%</div>
+                                <div class="metric-details">7-day window</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: IBM Weather Company, AWS Truepower (UL), Solcast Weather API
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                        <span class="alert-icon" style="color: #00ff88;">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title" style="color: #00ff88;">Solar Plant Status: All Systems Operational</div>
+                            <div class="alert-description">All solar power plant operations running optimally. Energy generation at 98.7% efficiency with predictive maintenance preventing potential issues.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Autonomous robotic cleaning operations
+                    <br>• Predictive maintenance and failure prevention
+                    <br>• Drone thermal inspection and defect mapping
+                    <br>• Virtual power plant coordination
+                    <br>• Solar generation forecasting
+                    <br>• Smart inverter optimization
+                    <br>• Energy storage and grid services
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously optimizing solar power plant operations for maximum energy production, grid stability, and revenue generation. Would you like me to run a specific analysis?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            // Split HTML into chunks for streaming
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            // Helper function for random delays
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Function to process the next chunk with variable timing
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Decide on the delay for the next chunk
+                    let nextDelay;
+                    
+                    // Every 10 chunks, pause for a bit longer to simulate thinking
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } 
+                    // Every 5 chunks, pause briefly
+                    else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    }
+                    // Regular typing speed
+                    else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            // Start the processing
+            processNextChunk();
+        }
+        
+        // Function to split HTML into chunks while preserving tags
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                
+                // Always add the current character to the chunk
+                currentChunk += char;
+                
+                // If we're inside a tag, don't count it toward chunk size
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                // If we've reached chunk size and we're not inside a tag, add chunk to result
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            // Add the remaining chunk if there is any
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>
