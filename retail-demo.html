@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Retail-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .store-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .store-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .store-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .company-attribution {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Retail-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 4V2C7 1.44772 7.44772 1 8 1H16C16.5523 1 17 1.44772 17 2V4H20C20.5523 4 21 4.44772 21 5C21 5.55228 20.5523 6 20 6H19V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V6H4C3.44772 6 3 5.55228 3 5C3 4.44772 3.44772 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z" fill="#00ff88"/>
+                <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z" fill="#0a0a0a"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Retail AI Operations</h2>
+                <p class="sidebar-subtitle">Inventory • Pricing • Customer • Automation • Analytics</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="inventory-management">
+                    <span class="scenario-icon">📦</span>
+                    <span class="scenario-text">Autonomous Inventory Management & Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="dynamic-pricing">
+                    <span class="scenario-icon">💰</span>
+                    <span class="scenario-text">Dynamic Pricing & Competitive Intelligence</span>
+                </li>
+                <li class="scenario-item" data-scenario="customer-service">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">AI-Powered Customer Service & Shopping Assistants</span>
+                </li>
+                <li class="scenario-item" data-scenario="cashierless-operations">
+                    <span class="scenario-icon">🏪</span>
+                    <span class="scenario-text">Cashierless Store Operations</span>
+                </li>
+                <li class="scenario-item" data-scenario="supply-chain">
+                    <span class="scenario-icon">🚚</span>
+                    <span class="scenario-text">Supply Chain & Logistics Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="personalization">
+                    <span class="scenario-icon">🎯</span>
+                    <span class="scenario-text">Personalized Marketing & Recommendation Engines</span>
+                </li>
+                <li class="scenario-item" data-scenario="loss-prevention">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Loss Prevention & Theft Detection</span>
+                </li>
+                <li class="scenario-item" data-scenario="demand-forecasting">
+                    <span class="scenario-icon">📈</span>
+                    <span class="scenario-text">Demand Forecasting & Procurement Automation</span>
+                </li>
+                <li class="scenario-item" data-scenario="store-optimization">
+                    <span class="scenario-icon">🏬</span>
+                    <span class="scenario-text">Store Operations & Space Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="customer-analytics">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Customer Experience Analytics</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M25 30 L75 30 L75 70 L25 70 Z" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M35 40 L45 40 M35 50 L45 50 M35 60 L45 60" stroke="#00aaff" stroke-width="2"/>
+                        <path d="M55 40 L65 40 M55 50 L65 50 M55 60 L65 60" stroke="#00aaff" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Retail AI Operations</h1>
+                <p class="welcome-subtext">
+                    Revolutionize retail operations with Agentic AI. Our intelligent agents optimize inventory management, automate pricing strategies, enhance customer experiences, and coordinate complex retail workflows to maximize sales, efficiency, and customer satisfaction.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'inventory-management': {
+                title: 'Autonomous Inventory Management & Optimization',
+                icon: '📦',
+                description: 'Walmart-style shelf-scanning robots with 10% stock-out reduction and real-time optimization',
+                initialQuery: 'Execute autonomous inventory optimization across 2,500-store chain using shelf-scanning robots',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📦</span>
+                            <h3 class="workflow-title">Autonomous Inventory Management & Optimization System</h3>
+                        </div>
+                        
+                        <div class="store-info">
+                            <div>
+                                <div class="store-id">WALMART AUTONOMOUS INVENTORY SYSTEM</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Stores: 2,500 | SKUs: 142k | Robots: 7,500 | Stock-outs: -10% | Savings: $1B</div>
+                            </div>
+                            <div class="store-status severity-low">OPTIMIZATION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Enterprise Inventory Management System<br>
+                                <strong>Optimization Request:</strong> Chain-wide inventory optimization (2,500 stores)<br>
+                                <strong>Context Analysis:</strong> Current stock levels, sales velocity, shelf-scanning data<br>
+                                <strong>Scope:</strong> 142,000 SKUs across retail chain<br>
+                                <strong>Target Performance:</strong> 10% stock-out reduction (Walmart proven model)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>INVENTORY_MANAGEMENT_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Store layouts, robot fleet status, inventory levels...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 INVENTORY_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-active">Deploying Inventory Intelligence Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Inventory Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ SHELF_SCANNING_AGENT - Robot fleet coordination<br>
+                                    ✓ DEMAND_PREDICTION_AGENT - Sales velocity analysis<br>
+                                    ✓ REPLENISHMENT_AGENT - Automated restocking<br>
+                                    ✓ PRICE_VERIFICATION_AGENT - Price accuracy monitoring<br>
+                                    ✓ ANALYTICS_REPORTING_AGENT - Performance tracking<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 SHELF_SCANNING_AGENT</span>
+                                <span class="agent-status status-completed">Robot Fleet Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Robot patrol data, shelf conditions, out-of-stock detection<br>
+                                <strong>MCP Server Calls:</strong> Robot fleet APIs, computer vision systems<br>
+                                <strong>API Integrations:</strong> Walmart-style shelf-scanning platforms, RFID readers<br>
+                                <strong>Knowledge Base:</strong> Retail inventory robot optimization algorithms<br>
+                                <br>
+                                <strong>Shelf Scanning Results:</strong><br>
+                                • Active Shelf-Scanning Robots: 7,500 across chain<br>
+                                • Coverage Speed: 3x faster than human employees<br>
+                                • Accuracy Rate: 99.2% product identification<br>
+                                • Out-of-Stock Detection: 12,450 items identified<br>
+                                • Price Discrepancies: 2,340 pricing errors found<br>
+                                • Misplaced Products: 8,790 items requiring relocation<br>
+                                • Store Coverage: 100% of aisles scanned every 2 hours<br>
+                                <strong>→ Submitting scanning data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 DEMAND_PREDICTION_AGENT</span>
+                                <span class="agent-status status-completed">Demand Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Sales history, seasonal patterns, promotional impact<br>
+                                <strong>MCP Server Calls:</strong> POS systems, sales databases, market analytics<br>
+                                <strong>API Integrations:</strong> Demand forecasting platforms, sales tracking systems<br>
+                                <strong>Knowledge Base:</strong> Retail demand prediction algorithms<br>
+                                <br>
+                                <strong>Demand Prediction Results:</strong><br>
+                                • Sales Velocity Analysis: 142,000 SKUs performance tracked<br>
+                                • Fast Movers: 2,340 items requiring daily replenishment<br>
+                                • Seasonal Adjustments: +23% for holiday merchandise<br>
+                                • Promotional Impact: 45% lift during sale events<br>
+                                • Regional Variations: Store-specific demand patterns<br>
+                                • Prediction Accuracy: 94.8% forecast confidence<br>
+                                <strong>→ Submitting demand forecasts to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔄 REPLENISHMENT_AGENT</span>
+                                <span class="agent-status status-completed">Restocking Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Replenishment rules, supplier data, logistics optimization<br>
+                                <strong>MCP Server Calls:</strong> Supply chain APIs, vendor management systems<br>
+                                <strong>API Integrations:</strong> Warehouse management, transportation platforms<br>
+                                <strong>Knowledge Base:</strong> Automated replenishment algorithms<br>
+                                <br>
+                                <strong>Replenishment Optimization:</strong><br>
+                                • Automated Orders: 23,450 replenishment orders generated<br>
+                                • Just-in-Time Delivery: 89% of orders within 24-hour window<br>
+                                • Inventory Turnover: +15% improvement vs manual ordering<br>
+                                • Carrying Cost Reduction: $67M annually across chain<br>
+                                • Stock-out Prevention: 10% reduction achieved (Walmart model)<br>
+                                • Overstock Minimization: 23% reduction in excess inventory<br>
+                                <strong>→ Submitting replenishment plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💲 PRICE_VERIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Price Accuracy Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Pricing databases, competitive intelligence, promotional schedules<br>
+                                <strong>MCP Server Calls:</strong> Pricing engines, competitor monitoring APIs<br>
+                                <strong>API Integrations:</strong> Price management platforms, promotion systems<br>
+                                <strong>Knowledge Base:</strong> Walmart 500M+ price point optimization algorithms<br>
+                                <br>
+                                <strong>Price Verification Results:</strong><br>
+                                • Price Points Analyzed: 500M+ weekly (Walmart scale)<br>
+                                • Pricing Errors: 2,340 discrepancies corrected automatically<br>
+                                • Competitive Alignment: Prices optimized vs 23 competitors<br>
+                                • Promotional Accuracy: 99.7% promotion execution<br>
+                                • Revenue Impact: $12.4M additional revenue through optimization<br>
+                                <strong>→ Submitting price verification to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 INVENTORY_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-completed">Inventory Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Inventory Correlation:</strong><br>
+                                ✅ Shelf scanning + Demand prediction + Replenishment + Pricing<br>
+                                ✅ Stock optimization: 10% stock-out reduction achieved<br>
+                                ✅ Cost optimization: $1B annual savings (Walmart 2022 model)<br>
+                                <br>
+                                <strong>Inventory Management Results:</strong><br>
+                                • Stock-out Reduction: 10% improvement (Walmart proven)<br>
+                                • Inventory Accuracy: 99.2% vs 87% manual counting<br>
+                                • Carrying Cost Savings: $67M annually<br>
+                                • Robot Fleet Efficiency: 7,500 units, 3x faster coverage<br>
+                                • Revenue Protection: $12.4M through price optimization<br>
+                                <strong>← Finalizing inventory optimization strategy...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📦 <strong>Autonomous Inventory Management Summary:</strong><br>
+                                • Stock-out Reduction: 10% improvement achieved<br>
+                                • Robot Fleet: 7,500 shelf-scanning units active<br>
+                                • Inventory Accuracy: 99.2% (vs 87% manual)<br>
+                                • Coverage Speed: 3x faster than human counting<br>
+                                • Cost Savings: $1B annually (Walmart 2022 model)<br>
+                                • Price Optimization: 500M+ weekly price points<br>
+                                • Carrying Cost Reduction: $67M annual savings<br>
+                                • Revenue Protection: $12.4M through optimization
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Stock-out Reduction</div>
+                                <div class="metric-value">10%</div>
+                                <div class="metric-details">Walmart proven</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Robot Fleet</div>
+                                <div class="metric-value">7,500</div>
+                                <div class="metric-details">Scanning units</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Savings</div>
+                                <div class="metric-value">$1B</div>
+                                <div class="metric-details">Walmart 2022 model</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Accuracy Rate</div>
+                                <div class="metric-value">99.2%</div>
+                                <div class="metric-details">vs 87% manual</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Walmart Shelf-Scanning Robots, Target Inventory AI
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'cashierless-operations': {
+                title: 'Cashierless Store Operations',
+                icon: '🏪',
+                description: 'Amazon Go computer vision technology with 60% wait time reduction and theft prevention',
+                initialQuery: 'Deploy cashierless technology for autonomous checkout across retail locations',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🏪</span>
+                            <h3 class="workflow-title">Cashierless Store Operations System</h3>
+                        </div>
+                        
+                        <div class="store-info">
+                            <div>
+                                <div class="store-id">AMAZON GO CASHIERLESS TECHNOLOGY</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Stores: 47 | Cameras: 12,000 | Customers: 3,400/day | Wait Time: -60%</div>
+                            </div>
+                            <div class="store-status severity-medium">CASHIERLESS ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Cashierless Technology Management Platform<br>
+                                <strong>Deployment Request:</strong> Autonomous checkout across retail locations<br>
+                                <strong>Context Analysis:</strong> Store layouts, customer flow, technology readiness<br>
+                                <strong>Technology Scope:</strong> Computer vision, sensor fusion, deep learning<br>
+                                <strong>Target Performance:</strong> 60% wait time reduction (proven Amazon Go model)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>CASHIERLESS_OPERATIONS_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Store topology, customer patterns, payment systems...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CASHIERLESS_OPERATIONS_MRA</span>
+                                <span class="agent-status status-active">Deploying Cashierless Technology Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Cashierless Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ COMPUTER_VISION_AGENT - Customer tracking and recognition<br>
+                                    ✓ PRODUCT_IDENTIFICATION_AGENT - Item recognition and tracking<br>
+                                    ✓ PAYMENT_PROCESSING_AGENT - Autonomous billing and charging<br>
+                                    ✓ THEFT_PREVENTION_AGENT - Security and loss prevention<br>
+                                    ✓ CUSTOMER_FLOW_AGENT - Traffic optimization and analytics<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👁️ COMPUTER_VISION_AGENT</span>
+                                <span class="agent-status status-completed">Customer Tracking Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Customer tracking patterns, movement analytics, privacy compliance<br>
+                                <strong>MCP Server Calls:</strong> Computer vision APIs, camera network systems<br>
+                                <strong>API Integrations:</strong> Amazon Go-style tracking, facial recognition platforms<br>
+                                <strong>Knowledge Base:</strong> Customer tracking and privacy algorithms<br>
+                                <br>
+                                <strong>Computer Vision Results:</strong><br>
+                                • Camera Network: 12,000 cameras across 47 store locations<br>
+                                • Customer Tracking: 3,400 daily customers tracked seamlessly<br>
+                                • Recognition Accuracy: 99.7% customer identification<br>
+                                • Privacy Compliance: GDPR/CCPA compliant tracking<br>
+                                • Real-time Processing: <100ms customer association<br>
+                                • Anonymous Analytics: No personal data stored<br>
+                                <strong>→ Submitting vision analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏷️ PRODUCT_IDENTIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Product Recognition Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Product databases, SKU recognition, weight verification<br>
+                                <strong>MCP Server Calls:</strong> Product recognition APIs, sensor fusion systems<br>
+                                <strong>API Integrations:</strong> Computer vision + weight sensors + RFID integration<br>
+                                <strong>Knowledge Base:</strong> Deep learning product identification models<br>
+                                <br>
+                                <strong>Product Identification Results:</strong><br>
+                                • SKU Recognition: 142,000 products accurately identified<br>
+                                • Multi-Modal Detection: Vision + weight + RFID fusion<br>
+                                • Recognition Speed: 0.2 seconds per item pickup<br>
+                                • Accuracy Rate: 99.8% product identification<br>
+                                • Complex Items: Fresh produce, bulk items successfully tracked<br>
+                                • Error Handling: 0.2% manual intervention rate<br>
+                                <strong>→ Submitting product data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💳 PAYMENT_PROCESSING_AGENT</span>
+                                <span class="agent-status status-completed">Autonomous Billing Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Payment methods, billing accuracy, customer accounts<br>
+                                <strong>MCP Server Calls:</strong> Payment processing APIs, billing systems<br>
+                                <strong>API Integrations:</strong> Credit card processors, mobile payment platforms<br>
+                                <strong>Knowledge Base:</strong> Autonomous checkout and billing algorithms<br>
+                                <br>
+                                <strong>Payment Processing Results:</strong><br>
+                                • Autonomous Transactions: 3,400 daily checkouts processed<br>
+                                • Billing Accuracy: 99.9% correct charges<br>
+                                • Payment Methods: Credit cards, mobile payments, store cards<br>
+                                • Processing Speed: Instant billing on store exit<br>
+                                • Customer Satisfaction: 96.8% positive feedback<br>
+                                • Fraud Prevention: Real-time payment validation<br>
+                                <strong>→ Submitting payment data to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🛡️ THEFT_PREVENTION_AGENT</span>
+                                <span class="agent-status status-completed">Security Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Theft patterns, security protocols, behavioral analysis<br>
+                                <strong>MCP Server Calls:</strong> Security systems, behavioral analytics engines<br>
+                                <strong>API Integrations:</strong> Target-style behavioral analysis, loss prevention<br>
+                                <strong>Knowledge Base:</strong> Retail theft detection and prevention algorithms<br>
+                                <br>
+                                <strong>Loss Prevention Results:</strong><br>
+                                • Theft Detection: 97.3% accuracy in suspicious behavior<br>
+                                • False Positive Rate: 2.1% (excellent performance)<br>
+                                • Shrinkage Reduction: 45% vs traditional checkout<br>
+                                • Security Alerts: 67 prevented theft attempts daily<br>
+                                • Behavioral Analysis: Real-time risk scoring<br>
+                                • Loss Prevention: $2.3M annually across store chain<br>
+                                <strong>→ Submitting security analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 CASHIERLESS_OPERATIONS_MRA</span>
+                                <span class="agent-status status-completed">Cashierless System Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Cashierless Correlation:</strong><br>
+                                ✅ Computer vision + Product ID + Payment + Security optimized<br>
+                                ✅ Customer experience: 60% wait time reduction achieved<br>
+                                ✅ Operational efficiency: 89% reduction in checkout staff needs<br>
+                                <br>
+                                <strong>Cashierless Operations Results:</strong><br>
+                                • Wait Time Reduction: 60% (Amazon Go proven model)<br>
+                                • Customer Throughput: +78% store capacity improvement<br>
+                                • Operational Savings: $45M annually in labor costs<br>
+                                • Customer Satisfaction: 96.8% positive experience rating<br>
+                                • Theft Prevention: $2.3M annual loss prevention<br>
+                                <strong>← Finalizing cashierless operations report...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🏪 <strong>Cashierless Store Operations Summary:</strong><br>
+                                • Technology Deployment: 47 stores with Amazon Go technology<br>
+                                • Wait Time Reduction: 60% improvement achieved<br>
+                                • Customer Throughput: +78% store capacity<br>
+                                • Payment Accuracy: 99.9% correct billing<br>
+                                • Theft Prevention: $2.3M annual loss prevention<br>
+                                • Customer Satisfaction: 96.8% positive rating<br>
+                                • Labor Savings: $45M annually in checkout costs<br>
+                                • Processing Speed: Instant billing on store exit
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Wait Time Reduction</div>
+                                <div class="metric-value">60%</div>
+                                <div class="metric-details">Amazon Go model</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Throughput Increase</div>
+                                <div class="metric-value">+78%</div>
+                                <div class="metric-details">Store capacity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Loss Prevention</div>
+                                <div class="metric-value">$2.3M</div>
+                                <div class="metric-details">Annual savings</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Customer Rating</div>
+                                <div class="metric-value">96.8%</div>
+                                <div class="metric-details">Satisfaction</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Amazon Go, Target Mobile Checkout, Walmart Scan & Go
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div style="border-color: #00ff88; background-color: #001a0f; border: 1px solid #00ff88; padding: 15px; border-radius: 8px; display: flex; gap: 15px; align-items: center;">
+                        <span style="color: #00ff88; font-size: 24px;">✅</span>
+                        <div>
+                            <div style="color: #00ff88; font-size: 16px; font-weight: 600;">Retail Operations Status: All Systems Optimal</div>
+                            <div style="color: #ccc; font-size: 14px;">All retail operations running efficiently. Inventory optimization active, customer satisfaction 96.8%, and automation delivering significant cost savings.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Autonomous inventory management and optimization
+                    <br>• Dynamic pricing and competitive intelligence
+                    <br>• Cashierless store operations and checkout
+                    <br>• Supply chain and logistics optimization
+                    <br>• Personalized marketing and recommendations
+                    <br>• Loss prevention and theft detection
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously optimizing retail operations, managing inventory, enhancing customer experiences, and maximizing sales efficiency. Would you like me to run a specific analysis?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    let nextDelay;
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    } else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            processNextChunk();
+        }
+        
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+                
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>

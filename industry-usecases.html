@@ -296,6 +296,19 @@
             background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
         }
         
+        .retail-card .industry-icon {
+            color: #e67e22;
+        }
+        
+        .retail-card:hover {
+            border-color: #e67e22;
+            box-shadow: 0 20px 40px rgba(230, 126, 34, 0.3);
+        }
+        
+        .retail-card::before {
+            background: radial-gradient(circle, rgba(230, 126, 34, 0.1) 0%, transparent 70%);
+        }
+        
         .government-card .industry-icon {
             color: #16a085;
         }
@@ -521,36 +534,68 @@
                 <a href="banking-finance-demo.html" class="industry-button">Explore Banking AI</a>
             </div>
             
-            <div class="industry-card hospitality-card">
+            <div class="industry-card hospitality-card" onclick="window.location.href='hospitality-demo.html'">
                 <span class="industry-icon">🏨</span>
                 <h2 class="industry-title">Hospitality</h2>
                 <p class="industry-description">
-                    Transform guest experiences, optimize operations, and increase revenue 
-                    through intelligent hospitality management systems.
+                    Transform hotel operations with agentic AI for dynamic pricing, automated housekeeping, 
+                    food waste management, and intelligent guest services.
                 </p>
                 <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Guest experience personalization</span>
+                        <span>Marriott-style dynamic pricing & revenue optimization</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Dynamic pricing optimization</span>
+                        <span>Autonomous housekeeping with 20% efficiency gains</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Predictive maintenance for facilities</span>
+                        <span>AI food waste management (62% reduction)</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Staff scheduling automation</span>
+                        <span>Hilton Connie-style AI concierge services</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Revenue management systems</span>
+                        <span>Energy management & sustainability optimization</span>
                     </div>
                 </div>
-                <a href="#" class="industry-button">Explore Hospitality AI</a>
+                <a href="hospitality-demo.html" class="industry-button">Explore Hospitality AI</a>
+            </div>
+            
+            <div class="industry-card retail-card" onclick="window.location.href='retail-demo.html'">
+                <span class="industry-icon">🛒</span>
+                <h2 class="industry-title">Retail & Commerce</h2>
+                <p class="industry-description">
+                    Revolutionize retail operations with autonomous inventory management, cashierless checkout, 
+                    dynamic pricing, and AI-powered customer experiences.
+                </p>
+                <div class="industry-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Walmart-style autonomous inventory (10% stock-out reduction)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Amazon Go cashierless operations (60% wait reduction)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Dynamic pricing with 500M+ price points</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>AI customer service & shopping assistants</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Supply chain optimization ($1B+ savings)</span>
+                    </div>
+                </div>
+                <a href="retail-demo.html" class="industry-button">Explore Retail AI</a>
             </div>
             
             <div class="industry-card government-card">

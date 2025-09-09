@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Hospitality-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .hotel-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hotel-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .hotel-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .company-attribution {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Hospitality-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#00ff88" stroke-width="2" fill="none"/>
+                <path d="M9 22V12H15V22" stroke="#00ff88" stroke-width="2" fill="none"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Hospitality AI Operations</h2>
+                <p class="sidebar-subtitle">Revenue • Guest Experience • Operations • Sustainability</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="dynamic-pricing">
+                    <span class="scenario-icon">💰</span>
+                    <span class="scenario-text">AI-Powered Dynamic Pricing & Revenue Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="guest-experience">
+                    <span class="scenario-icon">✨</span>
+                    <span class="scenario-text">Intelligent Guest Experience Personalization</span>
+                </li>
+                <li class="scenario-item" data-scenario="housekeeping-automation">
+                    <span class="scenario-icon">🧹</span>
+                    <span class="scenario-text">Autonomous Housekeeping Operations</span>
+                </li>
+                <li class="scenario-item" data-scenario="food-waste-management">
+                    <span class="scenario-icon">🍽️</span>
+                    <span class="scenario-text">AI-Enhanced Food Service & Waste Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="predictive-maintenance">
+                    <span class="scenario-icon">🔧</span>
+                    <span class="scenario-text">Predictive Maintenance for Hotel Infrastructure</span>
+                </li>
+                <li class="scenario-item" data-scenario="energy-management">
+                    <span class="scenario-icon">🌿</span>
+                    <span class="scenario-text">Energy Management & Sustainability Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="virtual-concierge">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">Guest Service Chatbots & Virtual Assistants</span>
+                </li>
+                <li class="scenario-item" data-scenario="automated-checkin">
+                    <span class="scenario-icon">📱</span>
+                    <span class="scenario-text">Automated Check-in/Check-out Operations</span>
+                </li>
+                <li class="scenario-item" data-scenario="security-monitoring">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Security & Safety Monitoring Systems</span>
+                </li>
+                <li class="scenario-item" data-scenario="staff-optimization">
+                    <span class="scenario-icon">👥</span>
+                    <span class="scenario-text">Staff Scheduling & Workforce Optimization</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M20 70 L80 70 L80 30 L50 20 L20 30 Z" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M35 45 L65 45 M35 55 L65 55" stroke="#00aaff" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Hospitality AI Operations</h1>
+                <p class="welcome-subtext">
+                    Transform hotel operations with Agentic AI. Our intelligent agents optimize pricing strategies, personalize guest experiences, automate housekeeping, manage energy consumption, and coordinate complex hospitality workflows to maximize revenue and guest satisfaction.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'dynamic-pricing': {
+                title: 'AI-Powered Dynamic Pricing & Revenue Management',
+                icon: '💰',
+                description: 'Marriott-style dynamic pricing with real-time market analysis and revenue optimization',
+                initialQuery: 'Optimize room pricing for 500-room hotel during convention week',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">💰</span>
+                            <h3 class="workflow-title">Dynamic Pricing & Revenue Management System</h3>
+                        </div>
+                        
+                        <div class="hotel-info">
+                            <div>
+                                <div class="hotel-id">MARRIOTT DOWNTOWN CONVENTION CENTER</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Rooms: 500 | Occupancy: 87% | ADR: $247 | RevPAR: $215 | Convention Week</div>
+                            </div>
+                            <div class="hotel-status severity-high">HIGH DEMAND PERIOD</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Hotel Revenue Management System<br>
+                                <strong>Pricing Request:</strong> Convention week optimization for 500-room property<br>
+                                <strong>Context Analysis:</strong> Occupancy rates, competitor pricing, local events, demand patterns<br>
+                                <strong>Event Impact:</strong> Major technology convention (15,000 attendees expected)<br>
+                                <strong>Current Performance:</strong> 87% occupancy, $247 ADR, $215 RevPAR<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>REVENUE_MANAGEMENT_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Market conditions, competitive landscape, demand forecasts...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 REVENUE_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-active">Deploying Revenue Optimization Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Revenue Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ MARKET_ANALYSIS_AGENT - Competitive intelligence<br>
+                                    ✓ DEMAND_FORECASTING_AGENT - Booking pattern prediction<br>
+                                    ✓ PRICING_OPTIMIZATION_AGENT - Rate strategy development<br>
+                                    ✓ INVENTORY_MANAGEMENT_AGENT - Room allocation optimization<br>
+                                    ✓ PERFORMANCE_TRACKING_AGENT - RevPAR monitoring<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 MARKET_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Market Intelligence Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Competitor pricing data, market positioning, rate intelligence<br>
+                                <strong>MCP Server Calls:</strong> Market intelligence APIs, competitor monitoring systems<br>
+                                <strong>API Integrations:</strong> STR (Smith Travel Research), OTA pricing feeds<br>
+                                <strong>Knowledge Base:</strong> Marriott Dynamic Pricing Engine algorithms<br>
+                                <br>
+                                <strong>Market Analysis Results:</strong><br>
+                                • Competitive Set ADR: $234 (our premium: +5.6%)<br>
+                                • Market Occupancy: 92% (convention impact confirmed)<br>
+                                • Rate Shopping: 23 competitor properties analyzed<br>
+                                • Local Events: Convention + 2 corporate meetings<br>
+                                • Price Elasticity: Inelastic demand (corporate bookings)<br>
+                                • Market Share: 12.7% of available room nights<br>
+                                <strong>→ Submitting market intelligence to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 DEMAND_FORECASTING_AGENT</span>
+                                <span class="agent-status status-completed">Demand Forecast Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical booking patterns, convention data, demand models<br>
+                                <strong>MCP Server Calls:</strong> Booking system APIs, historical data warehouses<br>
+                                <strong>API Integrations:</strong> PMS systems, demand forecasting platforms<br>
+                                <strong>Knowledge Base:</strong> Convention demand prediction algorithms<br>
+                                <br>
+                                <strong>Demand Forecasting Results:</strong><br>
+                                • Convention Week Demand: 97% projected occupancy<br>
+                                • Booking Pace: +23% vs same week last year<br>
+                                • Channel Mix: 45% corporate, 35% group, 20% leisure<br>
+                                • Length of Stay: Average 3.2 nights (convention attendees)<br>
+                                • Cancellation Rate: 8.7% (low for business travel)<br>
+                                • Price Sensitivity: Low (expense account bookings)<br>
+                                <strong>→ Submitting demand forecast to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💲 PRICING_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Pricing Strategy Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Pricing models, revenue optimization, rate elasticity<br>
+                                <strong>MCP Server Calls:</strong> Revenue management engines, optimization algorithms<br>
+                                <strong>API Integrations:</strong> Dynamic pricing platforms, rate management systems<br>
+                                <strong>Knowledge Base:</strong> IHG 4.2% revenue increase optimization models<br>
+                                <br>
+                                <strong>Pricing Optimization Results:</strong><br>
+                                • Recommended Rate Strategy: Graduated pricing by day<br>
+                                • Monday-Tuesday: $289/night (+17% vs current)<br>
+                                • Wednesday-Thursday: $324/night (+31% peak convention)<br>
+                                • Friday-Sunday: $267/night (leisure transition)<br>
+                                • Revenue Projection: +$67,400 additional revenue<br>
+                                • Risk Assessment: 94% probability of achieving targets<br>
+                                <strong>→ Submitting pricing strategy to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏨 INVENTORY_MANAGEMENT_AGENT</span>
+                                <span class="agent-status status-completed">Room Allocation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Room inventory, allocation strategies, overbooking models<br>
+                                <strong>MCP Server Calls:</strong> PMS inventory APIs, allocation management systems<br>
+                                <strong>API Integrations:</strong> Room management platforms, overbooking engines<br>
+                                <strong>Knowledge Base:</strong> Hotel inventory optimization algorithms<br>
+                                <br>
+                                <strong>Inventory Management Results:</strong><br>
+                                • Room Categories: Standard (280), Deluxe (150), Suite (70)<br>
+                                • Allocation Strategy: 23% premium rooms for convention<br>
+                                • Overbooking Level: 3.2% (optimal for 8.7% cancellation rate)<br>
+                                • Upgrade Opportunities: 45 automatic upgrades planned<br>
+                                • Block Management: Convention group blocks optimized<br>
+                                <strong>→ Submitting inventory plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 REVENUE_MANAGEMENT_MRA</span>
+                                <span class="agent-status status-completed">Revenue Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Revenue Correlation:</strong><br>
+                                ✅ Market + Demand + Pricing + Inventory data correlated<br>
+                                ✅ Revenue strategy: Premium pricing with managed inventory<br>
+                                ✅ Risk mitigation: Overbooking optimized for demand patterns<br>
+                                <br>
+                                <strong>Revenue Management Results:</strong><br>
+                                • Projected Occupancy: 97% (vs 87% baseline)<br>
+                                • Projected ADR: $301 (+22% vs current $247)<br>
+                                • Projected RevPAR: $292 (+36% vs current $215)<br>
+                                • Additional Revenue: $67,400 for convention week<br>
+                                • Annual Impact: $2.8M revenue optimization potential<br>
+                                <strong>← Finalizing revenue management strategy...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                💰 <strong>Dynamic Pricing & Revenue Management Summary:</strong><br>
+                                • Revenue Optimization: $67.4k additional convention week revenue<br>
+                                • Occupancy Projection: 97% (vs 87% baseline)<br>
+                                • ADR Increase: +22% to $301/night optimal<br>
+                                • RevPAR Improvement: +36% to $292 projected<br>
+                                • Market Position: Premium pricing justified by demand<br>
+                                • Risk Management: 3.2% overbooking for optimization<br>
+                                • Annual Potential: $2.8M revenue uplift opportunity<br>
+                                • Implementation: Real-time pricing adjustments active
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">RevPAR Increase</div>
+                                <div class="metric-value">+36%</div>
+                                <div class="metric-details">To $292 projected</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Additional Revenue</div>
+                                <div class="metric-value">$67.4K</div>
+                                <div class="metric-details">Convention week</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Occupancy Target</div>
+                                <div class="metric-value">97%</div>
+                                <div class="metric-details">vs 87% baseline</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Potential</div>
+                                <div class="metric-value">$2.8M</div>
+                                <div class="metric-details">Revenue uplift</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Marriott Dynamic Pricing Engine, IHG Revenue Management
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'housekeeping-automation': {
+                title: 'Autonomous Housekeeping Operations',
+                icon: '🧹',
+                description: 'IHG/Ritz-Carlton style automated housekeeping with 20% efficiency improvements',
+                initialQuery: 'Optimize housekeeping operations for 500-room hotel with automated scheduling',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🧹</span>
+                            <h3 class="workflow-title">Autonomous Housekeeping Operations System</h3>
+                        </div>
+                        
+                        <div class="hotel-info">
+                            <div>
+                                <div class="hotel-id">RITZ-CARLTON HOUSEKEEPING OPERATIONS</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Rooms: 500 | Staff: 45 | Efficiency: +20% | Robots: 12 | Guest Score: 4.8/5</div>
+                            </div>
+                            <div class="hotel-status severity-medium">OPTIMIZATION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Housekeeping Management Platform<br>
+                                <strong>Optimization Request:</strong> 500-room hotel housekeeping automation<br>
+                                <strong>Context Analysis:</strong> Guest checkout patterns, staff schedules, room priorities<br>
+                                <strong>Current Performance:</strong> 45 housekeeping staff, 20 rooms/staff/shift<br>
+                                <strong>Target:</strong> Ritz-Carlton 20% efficiency improvement model<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>HOUSEKEEPING_AUTOMATION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Room status, staff availability, guest preferences...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 HOUSEKEEPING_AUTOMATION_MRA</span>
+                                <span class="agent-status status-active">Deploying Housekeeping Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Housekeeping Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ ROOM_STATUS_AGENT - Real-time room condition monitoring<br>
+                                    ✓ STAFF_SCHEDULING_AGENT - Optimal workforce allocation<br>
+                                    ✓ ROBOTIC_ASSISTANCE_AGENT - Cleaning robot coordination<br>
+                                    ✓ QUALITY_ASSURANCE_AGENT - Cleaning standard verification<br>
+                                    ✓ GUEST_PREFERENCE_AGENT - Personalized service delivery<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏠 ROOM_STATUS_AGENT</span>
+                                <span class="agent-status status-completed">Room Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Room status databases, checkout patterns, cleaning requirements<br>
+                                <strong>MCP Server Calls:</strong> PMS systems, IoT sensor networks, door lock APIs<br>
+                                <strong>API Integrations:</strong> Room monitoring systems, guest activity tracking<br>
+                                <strong>Knowledge Base:</strong> IHG automated housekeeping models<br>
+                                <br>
+                                <strong>Room Status Analysis:</strong><br>
+                                • Checkout Rooms: 187 rooms require cleaning (11 AM - 2 PM peak)<br>
+                                • Stay-over Rooms: 234 rooms need maintenance cleaning<br>
+                                • Out-of-Order: 3 rooms requiring maintenance attention<br>
+                                • Priority Rooms: 23 VIP/suite-level rooms (45-min standard)<br>
+                                • Amenity Restocking: Hilton Tokyo Bay-style predictive needs<br>
+                                • Room Condition: IoT sensors report maintenance needs<br>
+                                <strong>→ Submitting room status to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👥 STAFF_SCHEDULING_AGENT</span>
+                                <span class="agent-status status-completed">Schedule Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Staff schedules, productivity patterns, workload balancing<br>
+                                <strong>MCP Server Calls:</strong> Workforce management APIs, scheduling platforms<br>
+                                <strong>API Integrations:</strong> HR systems, productivity tracking, time management<br>
+                                <strong>Knowledge Base:</strong> Hospitality workforce optimization algorithms<br>
+                                <br>
+                                <strong>Staff Scheduling Results:</strong><br>
+                                • Available Staff: 45 housekeepers across 3 shifts<br>
+                                • Workload Distribution: 11 rooms per staff member optimal<br>
+                                • Skill-based Assignment: VIP rooms to senior staff<br>
+                                • Efficiency Zones: Geographic clustering for travel time<br>
+                                • Break Scheduling: Staggered to maintain coverage<br>
+                                • Overtime Optimization: Minimal OT required (+2.3 hours)<br>
+                                <strong>→ Submitting scheduling plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 ROBOTIC_ASSISTANCE_AGENT</span>
+                                <span class="agent-status status-completed">Robot Coordination Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Robot capabilities, cleaning protocols, human-robot collaboration<br>
+                                <strong>MCP Server Calls:</strong> Robot fleet APIs, cleaning robot management<br>
+                                <strong>API Integrations:</strong> Autonomous cleaning systems, task coordination<br>
+                                <strong>Knowledge Base:</strong> Hospitality cleaning robot optimization<br>
+                                <br>
+                                <strong>Robotic Assistance Results:</strong><br>
+                                • Active Cleaning Robots: 12 units across hotel floors<br>
+                                • Task Allocation: Vacuum, bathroom cleaning, linen transport<br>
+                                • Human-Robot Coordination: 30% tasks automated<br>
+                                • Quality Assurance: AI vision for cleaning verification<br>
+                                • Safety Protocols: Guest area navigation optimized<br>
+                                • Efficiency Gain: 20% improvement (Ritz-Carlton model)<br>
+                                <strong>→ Submitting robot coordination to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 HOUSEKEEPING_AUTOMATION_MRA</span>
+                                <span class="agent-status status-completed">Housekeeping Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Housekeeping Correlation:</strong><br>
+                                ✅ Room status + Staff scheduling + Robot coordination + Quality assurance<br>
+                                ✅ Efficiency optimization: 20% improvement achieved<br>
+                                ✅ Guest satisfaction: Maintained 4.8/5 rating with faster service<br>
+                                <br>
+                                <strong>Housekeeping Results:</strong><br>
+                                • Efficiency Improvement: +20% (Ritz-Carlton San Francisco model)<br>
+                                • Room Cleaning Time: 28 minutes (vs 35 minutes manual)<br>
+                                • Guest Satisfaction: 4.8/5 rating maintained<br>
+                                • Staff Productivity: 24 rooms per shift (vs 20 baseline)<br>
+                                • Robot Integration: 30% of tasks successfully automated<br>
+                                <strong>← Finalizing housekeeping optimization...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🧹 <strong>Autonomous Housekeeping Summary:</strong><br>
+                                • Efficiency Achievement: +20% housekeeping improvement<br>
+                                • Room Cleaning: 28 min per room (vs 35 min baseline)<br>
+                                • Staff Productivity: 24 rooms/shift (vs 20 rooms)<br>
+                                • Robot Integration: 12 units, 30% task automation<br>
+                                • Guest Satisfaction: 4.8/5 rating maintained<br>
+                                • Quality Standards: 100% compliance maintained<br>
+                                • Cost Savings: $125k annually vs manual operations<br>
+                                • Service Speed: 20% faster room turnover achieved
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Efficiency Gain</div>
+                                <div class="metric-value">+20%</div>
+                                <div class="metric-details">Ritz-Carlton model</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cleaning Time</div>
+                                <div class="metric-value">28 min</div>
+                                <div class="metric-details">per room</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Guest Rating</div>
+                                <div class="metric-value">4.8/5</div>
+                                <div class="metric-details">Satisfaction maintained</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Robot Fleet</div>
+                                <div class="metric-value">12</div>
+                                <div class="metric-details">Cleaning units</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Ritz-Carlton San Francisco, IHG Hotels, Automated Systems
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'food-waste-management': {
+                title: 'AI-Enhanced Food Service & Waste Management',
+                icon: '🍽️',
+                description: 'Winnow AI food waste management with 62% reduction (Hilton) and 25% reduction (Marriott)',
+                initialQuery: 'Implement AI-driven food waste reduction across hotel restaurant operations',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🍽️</span>
+                            <h3 class="workflow-title">AI-Enhanced Food Service & Waste Management</h3>
+                        </div>
+                        
+                        <div class="hotel-info">
+                            <div>
+                                <div class="hotel-id">FOOD WASTE OPTIMIZATION SYSTEM</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Restaurants: 4 | Daily Covers: 1,200 | Target: 62% Reduction | Platform: Winnow AI</div>
+                            </div>
+                            <div class="hotel-status severity-medium">WASTE REDUCTION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Trigger Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Food & Beverage Management System<br>
+                                <strong>Optimization Request:</strong> AI-driven food waste reduction implementation<br>
+                                <strong>Context Analysis:</strong> Current waste levels, kitchen operations, cost impact<br>
+                                <strong>Scope:</strong> 4 restaurant outlets serving 1,200+ covers daily<br>
+                                <strong>Target Performance:</strong> 62% waste reduction (Hilton UAE model)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>FOOD_WASTE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Contextual Data: Kitchen operations, waste patterns, cost analysis...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 FOOD_WASTE_MRA</span>
+                                <span class="agent-status status-active">Deploying Food Service Agents</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Food Service Agent Deployment Based on Context:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ WASTE_TRACKING_AGENT - Smart scale monitoring<br>
+                                    ✓ DEMAND_PREDICTION_AGENT - Food demand forecasting<br>
+                                    ✓ INVENTORY_OPTIMIZATION_AGENT - Supply planning<br>
+                                    ✓ KITCHEN_EFFICIENCY_AGENT - Preparation optimization<br>
+                                    ✓ SUSTAINABILITY_AGENT - Environmental impact tracking<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚖️ WASTE_TRACKING_AGENT</span>
+                                <span class="agent-status status-completed">Waste Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Historical waste data, food category patterns, cost analysis<br>
+                                <strong>MCP Server Calls:</strong> Winnow AI-style smart scale systems, waste databases<br>
+                                <strong>API Integrations:</strong> Kitchen management systems, inventory tracking<br>
+                                <strong>Knowledge Base:</strong> Food waste pattern recognition algorithms<br>
+                                <br>
+                                <strong>Waste Tracking Results:</strong><br>
+                                • Daily Food Waste: 347 kg/day (baseline measurement)<br>
+                                • Waste Categories: 45% prep waste, 35% plate waste, 20% spoilage<br>
+                                • Cost Impact: $2,340/day food cost waste ($854k annually)<br>
+                                • Peak Waste Times: Breakfast buffet, dinner service<br>
+                                • High-Waste Items: Seafood (34%), fresh produce (28%)<br>
+                                • Winnow AI Analysis: 89 waste reduction opportunities identified<br>
+                                <strong>→ Submitting waste analysis to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 DEMAND_PREDICTION_AGENT</span>
+                                <span class="agent-status status-completed">Demand Forecast Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Guest dining patterns, seasonal trends, event impact<br>
+                                <strong>MCP Server Calls:</strong> Reservation systems, historical dining data<br>
+                                <strong>API Integrations:</strong> POS systems, guest preference databases<br>
+                                <strong>Knowledge Base:</strong> Food demand forecasting models<br>
+                                <br>
+                                <strong>Demand Prediction Results:</strong><br>
+                                • Daily Covers Forecast: 1,247 guests (convention week impact)<br>
+                                • Cuisine Preferences: 67% American, 23% Italian, 10% Asian<br>
+                                • Dietary Requirements: 156 vegetarian, 89 gluten-free, 34 vegan<br>
+                                • Peak Service Times: 7-9 AM, 12-2 PM, 6-9 PM<br>
+                                • Seasonal Adjustments: +15% for business travel period<br>
+                                • Accuracy Rate: 94.7% prediction confidence<br>
+                                <strong>→ Submitting demand forecast to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📦 INVENTORY_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Supply Planning Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>RAG Query:</strong> Inventory levels, supplier data, shelf-life optimization<br>
+                                <strong>MCP Server Calls:</strong> Inventory management APIs, supplier systems<br>
+                                <strong>API Integrations:</strong> Food procurement platforms, expiration tracking<br>
+                                <strong>Knowledge Base:</strong> Food inventory optimization algorithms<br>
+                                <br>
+                                <strong>Inventory Optimization Results:</strong><br>
+                                • Procurement Adjustment: -23% seafood orders (high waste item)<br>
+                                • FIFO Optimization: Automated rotation scheduling<br>
+                                • Supplier Coordination: Just-in-time delivery for perishables<br>
+                                • Shelf-life Management: 89% of inventory within optimal range<br>
+                                • Cost Optimization: $45k monthly procurement savings<br>
+                                <strong>→ Submitting inventory plan to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 FOOD_WASTE_MRA</span>
+                                <span class="agent-status status-completed">Waste Reduction Strategy Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Multi-Agent Food Service Correlation:</strong><br>
+                                ✅ Waste tracking + Demand prediction + Inventory + Kitchen efficiency<br>
+                                ✅ Waste reduction: 62% target achievable (Hilton UAE model)<br>
+                                ✅ Cost savings: $528k annually through optimization<br>
+                                <br>
+                                <strong>Food Waste Management Results:</strong><br>
+                                • Waste Reduction: 62% decrease (347kg → 132kg daily)<br>
+                                • Cost Savings: $528k annually (Marriott 25% UK model scaled)<br>
+                                • Sustainability Impact: 78.5 tons CO₂ avoided annually<br>
+                                • Kitchen Efficiency: +35% preparation optimization<br>
+                                • Guest Satisfaction: Maintained quality with less waste<br>
+                                <strong>← Finalizing food service optimization...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Final Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🍽️ <strong>Food Service & Waste Management Summary:</strong><br>
+                                • Waste Reduction: 62% decrease achieved (Hilton UAE model)<br>
+                                • Daily Waste: 132kg (vs 347kg baseline)<br>
+                                • Annual Savings: $528k food cost optimization<br>
+                                • Kitchen Efficiency: +35% preparation improvement<br>
+                                • Sustainability: 78.5 tons CO₂ avoided annually<br>
+                                • Guest Quality: Service standards maintained<br>
+                                • Platform: Winnow AI integration successful<br>
+                                • ROI: 285% return on waste management investment
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Waste Reduction</div>
+                                <div class="metric-value">62%</div>
+                                <div class="metric-details">Hilton UAE model</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Savings</div>
+                                <div class="metric-value">$528K</div>
+                                <div class="metric-details">Food cost optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Kitchen Efficiency</div>
+                                <div class="metric-value">+35%</div>
+                                <div class="metric-details">Preparation improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">CO₂ Avoided</div>
+                                <div class="metric-value">78.5T</div>
+                                <div class="metric-details">Annual impact</div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-attribution">
+                            Real implementations: Hilton Winnow AI (62% reduction), Marriott UK (25% reduction)
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div style="border-color: #00ff88; background-color: #001a0f; border: 1px solid #00ff88; padding: 15px; border-radius: 8px; display: flex; gap: 15px; align-items: center;">
+                        <span style="color: #00ff88; font-size: 24px;">✅</span>
+                        <div>
+                            <div style="color: #00ff88; font-size: 16px; font-weight: 600;">Hotel Operations Status: All Systems Optimal</div>
+                            <div style="color: #ccc; font-size: 14px;">All hospitality operations running efficiently. Revenue optimization active, guest satisfaction 4.8/5, and sustainability targets being met.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Dynamic pricing and revenue optimization
+                    <br>• Guest experience personalization
+                    <br>• Automated housekeeping operations
+                    <br>• Food waste management and sustainability
+                    <br>• Predictive maintenance for hotel infrastructure
+                    <br>• Energy management and cost optimization
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously optimizing hotel operations, enhancing guest experiences, and maximizing revenue while maintaining the highest service standards. Would you like me to run a specific analysis?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    let nextDelay;
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    } else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            processNextChunk();
+        }
+        
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+                
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>
