@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cisco AI Operations Center - Choose Your Demo</title>
+    <title>Cisco AI Operations Center - Vertical Industry Use Cases</title>
     <style>
         * {
             margin: 0;
@@ -39,7 +39,7 @@
             content: '';
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            background: radial-gradient(circle, #f39c12 0%, transparent 70%);
             animation: float 20s infinite ease-in-out;
         }
         
@@ -56,7 +56,7 @@
             bottom: -40%;
             right: -40%;
             animation-delay: -10s;
-            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+            background: radial-gradient(circle, #e67e22 0%, transparent 70%);
         }
         
         @keyframes float {
@@ -82,20 +82,40 @@
             z-index: 1;
         }
         
-        .logo-section {
-            margin-bottom: 50px;
+        .header-section {
+            margin-bottom: 3rem;
             animation: fadeInDown 1s ease;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
         }
         
         .logo {
             height: 60px;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
         h1 {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 700;
-            background: linear-gradient(45deg, #00ff88, #00aaff);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
@@ -118,7 +138,7 @@
             animation: fadeInUp 1s ease 0.2s both;
         }
         
-        .demo-selection {
+        .industry-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
@@ -128,7 +148,7 @@
             margin: 0 auto 2.5rem;
         }
         
-        .demo-card {
+        .industry-card {
             background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
             border: 2px solid #333;
             border-radius: 20px;
@@ -138,47 +158,45 @@
             position: relative;
             overflow: hidden;
             animation: fadeInUp 1s ease 0.4s both;
-            min-height: 380px;
+            min-height: 420px;
             display: flex;
             flex-direction: column;
         }
         
-        .demo-card:hover {
+        .industry-card:hover {
             transform: translateY(-10px);
-            border-color: #00ff88;
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
-        .demo-card::before {
+        .industry-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
             transform: scale(0);
             transition: transform 0.5s ease;
         }
         
-        .demo-card:hover::before {
+        .industry-card:hover::before {
             transform: scale(1);
         }
         
-        .demo-icon {
+        .industry-icon {
             font-size: clamp(2.5rem, 4vw, 3rem);
             margin-bottom: 1rem;
             display: block;
         }
         
-        .demo-title {
+        .industry-title {
             font-size: clamp(1.25rem, 2.5vw, 1.5rem);
             font-weight: 600;
             margin-bottom: 0.75rem;
             color: #fff;
         }
         
-        .demo-description {
+        .industry-description {
             font-size: clamp(0.875rem, 1.5vw, 1rem);
             color: #aaa;
             line-height: 1.5;
@@ -187,29 +205,29 @@
             flex-grow: 1;
         }
         
-        .demo-features {
+        .industry-features {
             text-align: left;
-            margin-bottom: 25px;
+            margin-bottom: 1.5rem;
         }
         
         .feature-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            font-size: 12px;
+            margin-bottom: 0.625rem;
+            font-size: clamp(0.75rem, 1.25vw, 0.875rem);
             color: #ccc;
         }
         
         .feature-icon {
-            color: #00ff88;
-            margin-right: 8px;
-            font-size: 14px;
+            color: #f39c12;
+            margin-right: 0.5rem;
+            font-size: 1rem;
         }
         
-        .demo-button {
+        .industry-button {
             display: inline-block;
             padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.25rem, 2.5vw, 1.875rem);
-            background: linear-gradient(45deg, #00ff88, #00aaff);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
             color: #000;
             text-decoration: none;
             border-radius: 25px;
@@ -221,53 +239,79 @@
             margin-top: auto;
         }
         
-        .demo-button:hover {
+        .industry-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.5);
         }
         
-        .noc-card .demo-icon {
-            color: #00aaff;
+        .manufacturing-card .industry-icon {
+            color: #3498db;
         }
         
-        .noc-card:hover {
-            border-color: #00aaff;
-            box-shadow: 0 20px 40px rgba(0, 170, 255, 0.3);
+        .manufacturing-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 20px 40px rgba(52, 152, 219, 0.3);
         }
         
-        .noc-card::before {
-            background: radial-gradient(circle, rgba(0, 170, 255, 0.1) 0%, transparent 70%);
+        .manufacturing-card::before {
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
         }
         
-        .dc-card .demo-icon {
-            color: #ff6600;
+        .energy-card .industry-icon {
+            color: #27ae60;
         }
         
-        .dc-card:hover {
-            border-color: #ff6600;
-            box-shadow: 0 20px 40px rgba(255, 102, 0, 0.3);
+        .energy-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 20px 40px rgba(39, 174, 96, 0.3);
         }
         
-        .dc-card::before {
-            background: radial-gradient(circle, rgba(255, 102, 0, 0.1) 0%, transparent 70%);
+        .energy-card::before {
+            background: radial-gradient(circle, rgba(39, 174, 96, 0.1) 0%, transparent 70%);
         }
         
-        .marketplace-card .demo-icon {
+        .finance-card .industry-icon {
             color: #9b59b6;
         }
         
-        .marketplace-card:hover {
+        .finance-card:hover {
             border-color: #9b59b6;
             box-shadow: 0 20px 40px rgba(155, 89, 182, 0.3);
         }
         
-        .marketplace-card::before {
+        .finance-card::before {
             background: radial-gradient(circle, rgba(155, 89, 182, 0.1) 0%, transparent 70%);
         }
         
+        .hospitality-card .industry-icon {
+            color: #e74c3c;
+        }
+        
+        .hospitality-card:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.3);
+        }
+        
+        .hospitality-card::before {
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
+        }
+        
+        .government-card .industry-icon {
+            color: #16a085;
+        }
+        
+        .government-card:hover {
+            border-color: #16a085;
+            box-shadow: 0 20px 40px rgba(22, 160, 133, 0.3);
+        }
+        
+        .government-card::before {
+            background: radial-gradient(circle, rgba(22, 160, 133, 0.1) 0%, transparent 70%);
+        }
+        
         .footer {
-            margin-top: 60px;
-            font-size: 14px;
+            margin-top: 3rem;
+            font-size: 0.875rem;
             color: #666;
             animation: fadeIn 1s ease 0.6s both;
         }
@@ -303,21 +347,8 @@
             }
         }
         
-        .industry-card .demo-icon {
-            color: #f39c12;
-        }
-        
-        .industry-card:hover {
-            border-color: #f39c12;
-            box-shadow: 0 20px 40px rgba(243, 156, 18, 0.3);
-        }
-        
-        .industry-card::before {
-            background: radial-gradient(circle, rgba(243, 156, 18, 0.1) 0%, transparent 70%);
-        }
-        
         @media (max-width: 1200px) {
-            .demo-selection {
+            .industry-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
@@ -327,25 +358,23 @@
                 padding: 1.5rem 1rem;
             }
             
-            .logo-section {
+            .header-section {
                 margin-bottom: 2rem;
             }
             
-            .demo-selection {
+            .industry-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
             
-            .demo-card {
+            .industry-card {
                 min-height: auto;
             }
             
-            .demo-features {
+            .back-button {
+                position: static;
                 margin-bottom: 1.5rem;
-            }
-            
-            .feature-item {
-                font-size: 0.75rem;
+                display: inline-block;
             }
         }
         
@@ -358,203 +387,207 @@
                 height: 40px;
             }
             
-            .demo-card {
+            .industry-card {
                 padding: 1.25rem 1rem;
             }
             
-            .demo-button {
+            .industry-button {
                 width: 100%;
                 text-align: center;
             }
         }
         
         @media (hover: none) and (pointer: coarse) {
-            .demo-card:hover {
+            .industry-card:hover {
                 transform: none;
             }
             
-            .demo-button:hover {
+            .industry-button:hover {
                 transform: none;
             }
             
-            .demo-card {
+            .industry-card {
                 -webkit-tap-highlight-color: transparent;
             }
         }
     </style>
 </head>
 <body>
-    <script>
-        // Domain-based routing
-        window.addEventListener('DOMContentLoaded', function() {
-            const hostname = window.location.hostname;
-            
-            // Redirect based on domain
-            if (hostname === 'aisoc.ciscoaidemo.com') {
-                window.location.href = '/Cisco-AI-SoC-Telco-v2.5.html';
-            } else if (hostname === 'ainoc.ciscoaidemo.com') {
-                window.location.href = '/Cisco-AI-NoC-Telco-v5.html';
-            } else if (hostname === 'aidcnoc.ciscoaidemo.com') {
-                window.location.href = '/Cisco-AI-DC-v1.0.html';
-            } else if (hostname === 'marketplace.ciscoaidemo.com') {
-                window.location.href = '/agent-marketplace.html';
-            }
-            // allinone.ciscoaidemo.com stays on index.html
-        });
-    </script>
     <div class="bg-animation"></div>
     
     <div class="container">
-        <div class="logo-section">
+        <a href="index.html" class="back-button">← Back to Main</a>
+        
+        <div class="header-section">
             <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
-            <h1>AI Operations Center</h1>
-            <p class="subtitle">Choose Your Agentic AI Experience</p>
+            <h1>Vertical Industry Use Cases</h1>
+            <p class="subtitle">AI-Powered Solutions Tailored for Your Industry</p>
         </div>
         
-        <div class="demo-selection">
-            <div class="demo-card marketplace-card" onclick="window.location.href='agent-marketplace.html'">
-                <span class="demo-icon">🏪</span>
-                <h2 class="demo-title">Agent Marketplace</h2>
-                <p class="demo-description">
-                    Browse and subscribe to specialized AI agents for transport, datacenter, 
-                    and security operations with flexible pricing models.
+        <div class="industry-grid">
+            <div class="industry-card manufacturing-card">
+                <span class="industry-icon">🏭</span>
+                <h2 class="industry-title">Manufacturing</h2>
+                <p class="industry-description">
+                    Optimize production lines, predict equipment failures, and enhance quality control 
+                    with AI-driven manufacturing intelligence.
                 </p>
-                <div class="demo-features">
+                <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>50+ Specialized AI Agents</span>
+                        <span>Predictive maintenance & downtime reduction</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Bundled Agent Packages</span>
+                        <span>Quality assurance automation</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Flexible Subscription Models</span>
+                        <span>Supply chain optimization</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Try Before You Buy</span>
+                        <span>Real-time production monitoring</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Energy efficiency management</span>
                     </div>
                 </div>
-                <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
+                <a href="#" class="industry-button">Explore Manufacturing AI</a>
             </div>
             
-            <div class="demo-card industry-card" onclick="window.location.href='industry-usecases.html'">
-                <span class="demo-icon">🏭</span>
-                <h2 class="demo-title">Vertical Industry Use Cases</h2>
-                <p class="demo-description">
-                    Explore AI-powered solutions tailored for specific industries including 
-                    manufacturing, energy, finance, hospitality, and government sectors.
+            <div class="industry-card energy-card">
+                <span class="industry-icon">⚡</span>
+                <h2 class="industry-title">Green Energy</h2>
+                <p class="industry-description">
+                    Maximize renewable energy output, optimize grid distribution, and accelerate 
+                    the transition to sustainable power systems.
                 </p>
-                <div class="demo-features">
+                <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Industry-specific AI solutions</span>
+                        <span>Solar & wind farm optimization</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Regulatory compliance built-in</span>
+                        <span>Smart grid management</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Best practices implementation</span>
+                        <span>Energy demand forecasting</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>ROI-focused deployments</span>
+                        <span>Carbon footprint tracking</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Battery storage optimization</span>
                     </div>
                 </div>
-                <a href="industry-usecases.html" class="demo-button">Explore Industries</a>
+                <a href="#" class="industry-button">Explore Energy AI</a>
             </div>
             
-            <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
-                <span class="demo-icon">🛡️</span>
-                <h2 class="demo-title">AI SOC Demo</h2>
-                <p class="demo-description">
-                    Experience AI-driven Security Operations with multi-agent collaboration 
-                    for threat detection, investigation, and response.
+            <div class="industry-card finance-card">
+                <span class="industry-icon">💰</span>
+                <h2 class="industry-title">Banking & Finance</h2>
+                <p class="industry-description">
+                    Enhance fraud detection, automate compliance, and deliver personalized 
+                    financial services with secure AI solutions.
                 </p>
-                <div class="demo-features">
+                <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>18 Telco-specific security scenarios</span>
+                        <span>Real-time fraud prevention</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Real-time threat analysis</span>
+                        <span>AML & regulatory compliance</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>5G/4G infrastructure protection</span>
+                        <span>Credit risk assessment</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Integrated security tools</span>
+                        <span>Personalized banking services</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Transaction pattern analysis</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-SoC-Telco-v2.5.html" class="demo-button">Launch SOC Demo</a>
+                <a href="#" class="industry-button">Explore Finance AI</a>
             </div>
             
-            <div class="demo-card noc-card" onclick="window.location.href='Cisco-AI-NoC-Telco-v5.html'">
-                <span class="demo-icon">🌐</span>
-                <h2 class="demo-title">AI NOC Demo</h2>
-                <p class="demo-description">
-                    Explore AI-powered Network Operations with intelligent agents for 
-                    performance monitoring, troubleshooting, and optimization.
+            <div class="industry-card hospitality-card">
+                <span class="industry-icon">🏨</span>
+                <h2 class="industry-title">Hospitality</h2>
+                <p class="industry-description">
+                    Transform guest experiences, optimize operations, and increase revenue 
+                    through intelligent hospitality management systems.
                 </p>
-                <div class="demo-features">
+                <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>12 Network operation scenarios</span>
+                        <span>Guest experience personalization</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Root cause analysis</span>
+                        <span>Dynamic pricing optimization</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Performance optimization</span>
+                        <span>Predictive maintenance for facilities</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Predictive maintenance</span>
+                        <span>Staff scheduling automation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Revenue management systems</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-NoC-Telco-v5.html" class="demo-button">Launch NOC Demo</a>
+                <a href="#" class="industry-button">Explore Hospitality AI</a>
             </div>
             
-            <div class="demo-card dc-card" onclick="window.location.href='Cisco-AI-DC-v1.0.html'">
-                <span class="demo-icon">🏢</span>
-                <h2 class="demo-title">AI Datacenter Demo</h2>
-                <p class="demo-description">
-                    Discover AI-powered Datacenter Operations with intelligent agents for 
-                    infrastructure management, capacity planning, and service automation.
+            <div class="industry-card government-card">
+                <span class="industry-icon">🏛️</span>
+                <h2 class="industry-title">Government & Public Sector</h2>
+                <p class="industry-description">
+                    Enhance citizen services, improve public safety, and streamline operations 
+                    with secure and compliant AI solutions.
                 </p>
-                <div class="demo-features">
+                <div class="industry-features">
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>10 Datacenter operation scenarios</span>
+                        <span>Smart city infrastructure</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Incident management & resolution</span>
+                        <span>Public safety & emergency response</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Capacity & resiliency testing</span>
+                        <span>Digital citizen services</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✓</span>
-                        <span>Service creation automation</span>
+                        <span>Traffic & transportation management</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Document processing automation</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-DC-v1.0.html" class="demo-button">Launch DC Demo</a>
+                <a href="#" class="industry-button">Explore Government AI</a>
             </div>
         </div>
         
         <div class="footer">
-            <p>Powered by Cisco Agentic AI • Multi-Agent Collaboration Platform</p>
+            <p>Powered by Cisco Agentic AI • Industry-Specific Solutions</p>
         </div>
     </div>
 </body>
