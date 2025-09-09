@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Solar-Manufacturing-Demo-V1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .batch-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .batch-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .batch-priority {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Solar-Manufacturing-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="3" stroke="#00ff88" stroke-width="2"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#00ff88" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Solar Manufacturing AI</h2>
+                <p class="sidebar-subtitle">Production • Quality • Optimization • Automation</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="quality-control">
+                    <span class="scenario-icon">🔍</span>
+                    <span class="scenario-text">AI-Powered Quality Control & Defect Detection</span>
+                </li>
+                <li class="scenario-item" data-scenario="lighthouse-factory">
+                    <span class="scenario-icon">🏭</span>
+                    <span class="scenario-text">LONGi Lighthouse Factory System</span>
+                </li>
+                <li class="scenario-item" data-scenario="rayzon-integrated">
+                    <span class="scenario-icon">⚡</span>
+                    <span class="scenario-text">Rayzon Solar 4GW Integrated System</span>
+                </li>
+                <li class="scenario-item" data-scenario="robotic-assembly">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">Robotic Cell Stringing Assembly</span>
+                </li>
+                <li class="scenario-item" data-scenario="predictive-maintenance">
+                    <span class="scenario-icon">⚙️</span>
+                    <span class="scenario-text">Predictive Maintenance IoT System</span>
+                </li>
+                <li class="scenario-item" data-scenario="production-optimization">
+                    <span class="scenario-icon">📈</span>
+                    <span class="scenario-text">AI-Driven Production Schedule Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="material-handling">
+                    <span class="scenario-icon">📦</span>
+                    <span class="scenario-text">Automated Material Handling & Inventory</span>
+                </li>
+                <li class="scenario-item" data-scenario="energy-management">
+                    <span class="scenario-icon">🔋</span>
+                    <span class="scenario-text">AI-Powered Energy Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="digital-twin">
+                    <span class="scenario-icon">🔬</span>
+                    <span class="scenario-text">Digital Twin Production Simulation</span>
+                </li>
+                <li class="scenario-item" data-scenario="manufacturing-analytics">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Manufacturing Analytics Dashboard</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M30 35 L45 25 L60 35 L60 40 L50 45 L40 40 Z" fill="#00ff88"/>
+                        <path d="M40 55 L50 50 L60 55 L60 65 L50 70 L40 65 Z" fill="#00aaff"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Solar Manufacturing AI Operations</h1>
+                <p class="welcome-subtext">
+                    Experience the future of solar panel manufacturing with Agentic AI. Our intelligent agents optimize production lines, ensure quality control, predict maintenance needs, and coordinate complex manufacturing workflows to maximize efficiency and minimize waste.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+            'quality-control': {
+                title: 'AI-Powered Quality Control & Defect Detection',
+                icon: '🔍',
+                description: 'Real-time defect detection using computer vision and automated quality assurance',
+                initialQuery: 'Run quality inspection on production batch SP-2024-8847',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔍</span>
+                            <h3 class="workflow-title">Multi-Agent Quality Control Orchestration</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">BATCH #SP-2024-8847</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Production Line: Gujarat Fab-3 | Shift: A-Morning</div>
+                            </div>
+                            <div class="batch-priority severity-high">HIGH PRIORITY</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Production Quality System<br>
+                                <strong>Batch Details:</strong> 2,450 solar panels (72-cell mono PERC)<br>
+                                <strong>Production Time:</strong> 06:45 - 14:30 IST<br>
+                                <strong>Priority:</strong> Export batch for European market<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>QUALITY_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 QUALITY_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Inspection</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Quality Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ VISION_AGENT - Computer vision inspection<br>
+                                    ✓ CLASSIFICATION_AGENT - Defect categorization<br>
+                                    ✓ SORTING_AGENT - Automated routing<br>
+                                    ✓ ANALYTICS_AGENT - Quality metrics<br>
+                                    ✓ REPORTING_AGENT - Compliance documentation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👁️ VISION_AGENT</span>
+                                <span class="agent-status status-completed">Inspection Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Computer Vision Analysis:</strong><br>
+                                • Panels Inspected: 2,450 units<br>
+                                • Micro-cracks Detected: 23 units (0.94%)<br>
+                                • Soldering Defects: 5 units (0.20%)<br>
+                                • Misaligned Busbars: 3 units (0.12%)<br>
+                                • Cell Discoloration: 2 units (0.08%)<br>
+                                <strong>→ Reporting findings to MRA...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏷️ CLASSIFICATION_AGENT</span>
+                                <span class="agent-status status-completed">Classification Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Defect Classification:</strong><br>
+                                <span class="severity-low">Grade A (Repairable):</span> 18 panels<br>
+                                <span class="severity-medium">Grade B (Minor defects):</span> 10 panels<br>
+                                <span class="severity-high">Grade C (Major defects):</span> 5 panels<br>
+                                <br>
+                                <strong>Repair Recommendations:</strong><br>
+                                • Re-solder: 5 units<br>
+                                • Cell replacement: 3 units<br>
+                                • Cosmetic repair: 15 units<br>
+                                <strong>→ Sending routing instructions...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 QUALITY_MRA</span>
+                                <span class="agent-status status-completed">Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Quality Assessment Summary:</strong><br>
+                                ✅ Pass Rate: 98.65% (Industry avg: 95.2%)<br>
+                                ✅ Export Quality Standards: Met<br>
+                                ✅ Cost Savings: $12,450 (repairs vs scrapping)<br>
+                                ✅ Production Efficiency: Above target<br>
+                                <strong>Action Plan:</strong> Route 23 panels to repair station<br>
+                                <strong>← Sending report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Quality Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔍 <strong>Quality Control Summary:</strong><br>
+                                • Batch Status: ✅ PASSED<br>
+                                • Panels Inspected: 2,450<br>
+                                • Pass Rate: 98.65%<br>
+                                • Defects Prevented: 33 units<br>
+                                • Cost Savings: $12,450<br>
+                                • Repair Time: 2.5 hours<br>
+                                • Next Batch: SP-2024-8848 queued<br>
+                                • Export Certification: Generated
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Quality Score</div>
+                                <div class="metric-value">98.65%</div>
+                                <div class="metric-details">Target: 95%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Defect Rate</div>
+                                <div class="metric-value">1.35%</div>
+                                <div class="metric-details">Industry: 4.8%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$12.4K</div>
+                                <div class="metric-details">vs Scrapping</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Inspection Time</div>
+                                <div class="metric-value">47 min</div>
+                                <div class="metric-details">Manual: 6 hours</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'lighthouse-factory': {
+                title: 'LONGi Lighthouse Factory System',
+                icon: '🏭',
+                description: 'World Economic Forum recognized smart manufacturing with AI-driven production optimization',
+                initialQuery: 'Optimize production line efficiency for 14GW annual target',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🏭</span>
+                            <h3 class="workflow-title">Lighthouse Factory Production Orchestration</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">LIGHTHOUSE FACTORY - JIAXING</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">WEF Recognized Facility | Target: 14GW/year | Current: 10.2GW YTD</div>
+                            </div>
+                            <div class="batch-priority severity-medium">OPTIMIZATION MODE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Lighthouse Factory Management System<br>
+                                <strong>Current Status:</strong> 73% of annual target achieved<br>
+                                <strong>Production Lines:</strong> 8 active lines (Hi-MO 6 modules)<br>
+                                <strong>Target Gap:</strong> 3.8GW remaining (108 days left)<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>LIGHTHOUSE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Activating World-Class Manufacturing Intelligence...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 LIGHTHOUSE_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Factory Floor</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Lighthouse Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ PRODUCTION_AGENT - Line optimization<br>
+                                    ✓ LOGISTICS_AGENT - Material flow<br>
+                                    ✓ EFFICIENCY_AGENT - Process improvement<br>
+                                    ✓ ENERGY_AGENT - Power management<br>
+                                    ✓ MAINTENANCE_AGENT - Equipment health<br>
+                                    ✓ QUALITY_AGENT - Zero-defect manufacturing<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ PRODUCTION_AGENT</span>
+                                <span class="agent-status status-completed">Line Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Production Line Optimization:</strong><br>
+                                • Current Throughput: 28.6 MW/day<br>
+                                • Bottleneck Identified: Cell stringer #3 (92% efficiency)<br>
+                                • Takt Time Analysis: 12.4 seconds/module<br>
+                                • Recommended Actions:<br>
+                                &nbsp;&nbsp;- Cell stringer speed: +15% (safety verified)<br>
+                                &nbsp;&nbsp;- Lamination temperature: -3°C (quality maintained)<br>
+                                &nbsp;&nbsp;- Buffer optimization: +200 modules<br>
+                                <strong>→ Implementing optimizations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📦 LOGISTICS_AGENT</span>
+                                <span class="agent-status status-completed">Flow Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Material Flow Analysis:</strong><br>
+                                • AGV Fleet: 23 autonomous vehicles coordinated<br>
+                                • Warehouse Efficiency: 97.3% utilization<br>
+                                • Just-in-Time Delivery: 99.1% accuracy<br>
+                                • Raw Material Buffer: 2.3 days optimized<br>
+                                • Finished Goods: Auto-sorted by destination<br>
+                                <strong>Result:</strong> 18% reduction in material handling time<br>
+                                <strong>→ Syncing with production schedule...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 LIGHTHOUSE_MRA</span>
+                                <span class="agent-status status-completed">Factory Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Lighthouse Factory Performance:</strong><br>
+                                ✅ Production Increase: 47% boost achieved<br>
+                                ✅ New Throughput: 42.1 MW/day (vs 28.6 MW)<br>
+                                ✅ Cycle Time: 6.2 hours per GW (vs 8.7 hours)<br>
+                                ✅ OEE Improvement: 94.7% (industry best-in-class)<br>
+                                ✅ Annual Target: Now achievable in 91 days<br>
+                                <strong>Projected Annual Output:</strong> 15.3 GW (109% of target)<br>
+                                <strong>← Sending optimization report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🏭 <strong>Lighthouse Factory Summary:</strong><br>
+                                • Production Boost: +47%<br>
+                                • Daily Output: 42.1 MW<br>
+                                • Annual Projection: 15.3 GW<br>
+                                • Target Achievement: 109%<br>
+                                • Cost per Watt: $0.089 (15% reduction)<br>
+                                • Quality Score: 99.2%<br>
+                                • Energy Efficiency: +23%<br>
+                                • Report Filed: WEF Lighthouse Network
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Daily Output</div>
+                                <div class="metric-value">42.1 MW</div>
+                                <div class="metric-details">+47% increase</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">OEE Score</div>
+                                <div class="metric-value">94.7%</div>
+                                <div class="metric-details">World Class</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Target</div>
+                                <div class="metric-value">109%</div>
+                                <div class="metric-details">15.3 GW projected</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost per Watt</div>
+                                <div class="metric-value">$0.089</div>
+                                <div class="metric-details">-15% reduction</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'rayzon-integrated': {
+                title: 'Rayzon Solar 4GW Integrated System',
+                icon: '⚡',
+                description: 'AI, robotics, and IoT integration for automated cell placement and quality control',
+                initialQuery: 'Analyze 4GW integrated manufacturing system performance',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">⚡</span>
+                            <h3 class="workflow-title">4GW Integrated Manufacturing Intelligence</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">RAYZON SOLAR - GUJARAT FAB</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">4GW Capacity | AI+Robotics+IoT Integration | 24/7 Operations</div>
+                            </div>
+                            <div class="batch-priority severity-low">OPERATIONAL</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Integrated Manufacturing Control System<br>
+                                <strong>Facility:</strong> Rayzon Solar Gujarat (4GW capacity)<br>
+                                <strong>Integration Scope:</strong> AI + Robotics + IoT ecosystem<br>
+                                <strong>Analysis Period:</strong> Last 24 hours operational data<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>INTEGRATION_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating integrated system analysis...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 INTEGRATION_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Analysis</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Integrated System Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ ROBOTICS_AGENT - 6-axis system analysis<br>
+                                    ✓ IOT_AGENT - 25,000+ sensor network<br>
+                                    ✓ AI_VISION_AGENT - Computer vision systems<br>
+                                    ✓ CELL_PLACEMENT_AGENT - Precision assembly<br>
+                                    ✓ QUALITY_AGENT - Real-time inspection<br>
+                                    ✓ PERFORMANCE_AGENT - KPI monitoring<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 ROBOTICS_AGENT</span>
+                                <span class="agent-status status-completed">Robot Fleet Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>6-Axis Robotic System Performance:</strong><br>
+                                • Active Robots: 847 units across 8 production lines<br>
+                                • Uptime: 99.7% (industry leading)<br>
+                                • Precision: ±0.05mm tolerance maintained<br>
+                                • Pressure-Sensitive Grips: 100% silicon wafer integrity<br>
+                                • Artificial Vision: 99.94% accuracy in cell placement<br>
+                                • Predictive Maintenance: 3 robots scheduled for service<br>
+                                <strong>Issue Detected:</strong> Robot #R-847 vibration anomaly<br>
+                                <strong>→ Auto-scheduling maintenance window...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📡 IOT_AGENT</span>
+                                <span class="agent-status status-completed">Sensor Network Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>IoT Sensor Network Status:</strong><br>
+                                • Active Sensors: 25,847 across facility<br>
+                                • Data Points/Hour: 2.3M measurements<br>
+                                • Network Uptime: 99.98%<br>
+                                • Real-time Monitoring:<br>
+                                &nbsp;&nbsp;- Temperature: 847 sensors (±0.1°C accuracy)<br>
+                                &nbsp;&nbsp;- Humidity: 234 sensors (45-55% RH maintained)<br>
+                                &nbsp;&nbsp;- Vibration: 456 sensors (predictive maintenance)<br>
+                                &nbsp;&nbsp;- Power Quality: 156 sensors (99.95% stability)<br>
+                                <strong>Alert:</strong> Cleanroom 3 humidity spike detected<br>
+                                <strong>→ Auto-adjusting HVAC system...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👁️ AI_VISION_AGENT</span>
+                                <span class="agent-status status-completed">Vision System Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Computer Vision Performance:</strong><br>
+                                • Inspection Cameras: 1,245 high-resolution units<br>
+                                • Defect Detection Rate: 99.96% accuracy<br>
+                                • Processing Speed: 12,000 cells/hour per camera<br>
+                                • AI Model Performance: 0.04% false positive rate<br>
+                                • Detected Issues (24h):<br>
+                                &nbsp;&nbsp;- Micro-cracks: 234 cells flagged<br>
+                                &nbsp;&nbsp;- Soldering defects: 45 joints reworked<br>
+                                &nbsp;&nbsp;- Alignment issues: 89 modules adjusted<br>
+                                <strong>Quality Improvement:</strong> 78% waste reduction vs manual<br>
+                                <strong>→ Feeding data to quality optimization...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 INTEGRATION_MRA</span>
+                                <span class="agent-status status-completed">Integration Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>4GW Integrated System Performance:</strong><br>
+                                ✅ Overall Equipment Effectiveness: 96.8%<br>
+                                ✅ Production Rate: 11.2 MW/day (target: 10.9)<br>
+                                ✅ Quality Score: 99.2% first-pass yield<br>
+                                ✅ Waste Reduction: 78% vs traditional manufacturing<br>
+                                ✅ Energy Efficiency: 23% improvement<br>
+                                ✅ Predictive Maintenance: Zero unplanned downtime<br>
+                                <strong>System Integration Score:</strong> 98.7% (Excellent)<br>
+                                <strong>← Sending comprehensive report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                ⚡ <strong>4GW Integrated System Summary:</strong><br>
+                                • System Integration: 98.7%<br>
+                                • Daily Production: 11.2 MW<br>
+                                • Robot Fleet Uptime: 99.7%<br>
+                                • IoT Network Health: 99.98%<br>
+                                • AI Vision Accuracy: 99.96%<br>
+                                • Quality First-Pass: 99.2%<br>
+                                • Waste Reduction: 78%<br>
+                                • Annual Capacity: On track for 4.1 GW
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">OEE Score</div>
+                                <div class="metric-value">96.8%</div>
+                                <div class="metric-details">World Class</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Robot Uptime</div>
+                                <div class="metric-value">99.7%</div>
+                                <div class="metric-details">847 active units</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Waste Reduction</div>
+                                <div class="metric-value">78%</div>
+                                <div class="metric-details">vs Traditional</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Daily Output</div>
+                                <div class="metric-value">11.2 MW</div>
+                                <div class="metric-details">103% of target</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'robotic-assembly': {
+                title: 'Robotic Cell Stringing Assembly',
+                icon: '🤖',
+                description: 'AI-guided robotic systems for precision cell interconnection and module assembly',
+                initialQuery: 'Optimize robotic cell interconnection process for maximum efficiency',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🤖</span>
+                            <h3 class="workflow-title">Precision Cell Assembly Automation</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">CELL STRINGING LINE A-3</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Target: 10,000 cells/hour | Current: 9,247/hour | Efficiency: 92.5%</div>
+                            </div>
+                            <div class="batch-priority severity-medium">OPTIMIZATION NEEDED</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Robotic Cell Assembly Control System<br>
+                                <strong>Assembly Line:</strong> High-speed stringer A-3<br>
+                                <strong>Current Performance:</strong> 9,247 cells/hour (92.5% efficiency)<br>
+                                <strong>Target Performance:</strong> 10,000 cells/hour<br>
+                                <strong>Cell Type:</strong> M10 (182mm) monocrystalline PERC<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>STRINGING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating precision assembly optimization...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 STRINGING_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Assembly Line</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Assembly Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ VISION_CALIBRATION_AGENT - Alignment systems<br>
+                                    ✓ SOLDER_OPTIMIZATION_AGENT - Temperature/pressure<br>
+                                    ✓ SPEED_CONTROL_AGENT - Throughput management<br>
+                                    ✓ QUALITY_MONITOR_AGENT - Real-time inspection<br>
+                                    ✓ MAINTENANCE_PREDICT_AGENT - Component health<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👁️ VISION_CALIBRATION_AGENT</span>
+                                <span class="agent-status status-completed">Calibration Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Machine Vision System Analysis:</strong><br>
+                                • Camera Resolution: 5MP (accuracy: ±0.02mm)<br>
+                                • Cell Alignment Detection: 99.97% accuracy<br>
+                                • Busbar Position Verification: ±0.01mm tolerance<br>
+                                • Processing Time: 0.12 seconds per cell<br>
+                                • Calibration Drift: Detected 0.08mm offset on Camera #3<br>
+                                <strong>Issue Identified:</strong> Micro-misalignment causing 7.5% efficiency loss<br>
+                                <strong>→ Auto-calibrating vision system...</strong>
+                                <div style="background: #0a1a0a; padding: 8px; border-radius: 4px; margin-top: 8px;">
+                                    <strong>✅ Calibration Complete:</strong> Alignment accuracy restored to 99.99%
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔥 SOLDER_OPTIMIZATION_AGENT</span>
+                                <span class="agent-status status-completed">Solder Process Optimized</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Solder Joint Optimization:</strong><br>
+                                • Current Parameters: 385°C, 2.1N pressure, 0.8s dwell<br>
+                                • Machine Learning Analysis: 23,450 joint samples<br>
+                                • Defect Pattern Detection: Weak joints at ribbon edges<br>
+                                • Optimization Recommendations:<br>
+                                &nbsp;&nbsp;- Temperature: +2°C (387°C optimal)<br>
+                                &nbsp;&nbsp;- Pressure: +15% (2.4N for edge consistency)<br>
+                                &nbsp;&nbsp;- Dwell Time: -5% (0.76s speed improvement)<br>
+                                <strong>Predicted Improvement:</strong> 23% defect reduction<br>
+                                <strong>→ Implementing optimized parameters...</strong>
+                                <div style="background: #0a1a0a; padding: 8px; border-radius: 4px; margin-top: 8px;">
+                                    <strong>✅ Parameters Applied:</strong> Zero solder defects in last 500 cells
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ SPEED_CONTROL_AGENT</span>
+                                <span class="agent-status status-completed">Throughput Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Production Speed Analysis:</strong><br>
+                                • Current Takt Time: 0.389 seconds/cell<br>
+                                • Bottleneck Analysis: Solder station dwell time<br>
+                                • Line Balance: 94.2% (target: 98%)<br>
+                                • Acceleration Profile: Optimized for ±0.5g smooth motion<br>
+                                • Safety Margins: Maintained within 85% of max capability<br>
+                                <strong>Speed Optimization:</strong><br>
+                                &nbsp;&nbsp;- Conveyor Speed: +5% (safety verified)<br>
+                                &nbsp;&nbsp;- Robot Acceleration: +12% (vibration within limits)<br>
+                                &nbsp;&nbsp;- Buffer Management: Increased to 50 cells<br>
+                                <strong>New Takt Time:</strong> 0.36 seconds/cell (10,000/hour achieved)<br>
+                                <strong>→ Monitoring for stability...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 STRINGING_MRA</span>
+                                <span class="agent-status status-completed">Assembly Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Cell Stringing Performance Results:</strong><br>
+                                ✅ Throughput Target: 10,000 cells/hour ACHIEVED<br>
+                                ✅ Efficiency Improvement: 92.5% → 100%<br>
+                                ✅ Zero Defect Rate: Last 2,450 cells perfect<br>
+                                ✅ Solder Joint Quality: 99.97% first-pass yield<br>
+                                ✅ Vision Accuracy: 99.99% alignment precision<br>
+                                ✅ Waste Reduction: 78% vs manual process<br>
+                                <strong>Cost Impact:</strong> $2.3M annual savings through optimization<br>
+                                <strong>← Sending performance report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🤖 <strong>Robotic Assembly Summary:</strong><br>
+                                • Target Achieved: ✅ 10,000 cells/hour<br>
+                                • Efficiency: 100% (from 92.5%)<br>
+                                • Defect Rate: 0% (last 2,450 cells)<br>
+                                • Alignment Precision: 99.99%<br>
+                                • Solder Quality: 99.97%<br>
+                                • Waste Reduction: 78%<br>
+                                • Annual Savings: $2.3M<br>
+                                • Next Optimization: Line B-1 scheduled
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Throughput</div>
+                                <div class="metric-value">10,000</div>
+                                <div class="metric-details">cells/hour</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Efficiency</div>
+                                <div class="metric-value">100%</div>
+                                <div class="metric-details">Target achieved</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Defect Rate</div>
+                                <div class="metric-value">0%</div>
+                                <div class="metric-details">Last 2,450 cells</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Annual Savings</div>
+                                <div class="metric-value">$2.3M</div>
+                                <div class="metric-details">Through optimization</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'predictive-maintenance': {
+                title: 'Predictive Maintenance IoT System',
+                icon: '⚙️',
+                description: 'AI-driven equipment health monitoring and failure prediction using IoT sensors',
+                initialQuery: 'Monitor manufacturing equipment health and predict maintenance needs',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">⚙️</span>
+                            <h3 class="workflow-title">Equipment Health Monitoring System</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">MAINTENANCE SYSTEM - ACTIVE</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">IoT Sensors: 18,247 | Equipment Units: 1,456 | Uptime: 99.7%</div>
+                            </div>
+                            <div class="batch-priority severity-warning">ALERT DETECTED</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Integrated Maintenance Management System<br>
+                                <strong>Monitoring Scope:</strong> 1,456 equipment units across facility<br>
+                                <strong>IoT Network:</strong> 18,247 active sensors<br>
+                                <strong>Data Processing:</strong> 2.8M data points/hour<br>
+                                <strong>Alert Status:</strong> 3 predictive alerts requiring attention<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>MAINTENANCE_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating predictive maintenance analysis...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 MAINTENANCE_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Health Monitoring</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Predictive Maintenance Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ SENSOR_ANALYSIS_AGENT - IoT data processing<br>
+                                    ✓ VIBRATION_AGENT - Mechanical health analysis<br>
+                                    ✓ THERMAL_AGENT - Temperature monitoring<br>
+                                    ✓ PERFORMANCE_AGENT - Efficiency degradation<br>
+                                    ✓ PREDICTION_AGENT - Failure forecasting<br>
+                                    ✓ SCHEDULING_AGENT - Maintenance optimization<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 SENSOR_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">IoT Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>IoT Sensor Network Status:</strong><br>
+                                • Active Sensors: 18,247 (99.8% operational)<br>
+                                • Data Acquisition Rate: 2.8M points/hour<br>
+                                • Network Latency: 0.23ms (excellent)<br>
+                                • Sensor Types:<br>
+                                &nbsp;&nbsp;- Vibration: 4,567 sensors (0.1Hz-20kHz range)<br>
+                                &nbsp;&nbsp;- Temperature: 3,892 sensors (±0.1°C accuracy)<br>
+                                &nbsp;&nbsp;- Current/Power: 2,245 sensors<br>
+                                &nbsp;&nbsp;- Pressure: 1,834 sensors<br>
+                                &nbsp;&nbsp;- Acoustic: 1,123 sensors<br>
+                                <strong>Anomalies Detected:</strong> 3 equipment units flagged<br>
+                                <strong>→ Routing to specialized agents...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">〰️ VIBRATION_AGENT</span>
+                                <span class="agent-status status-warning">Critical Alert</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Vibration Analysis Results:</strong><br>
+                                • Equipment: Laminator #LM-07<br>
+                                • Issue: Bearing wear pattern detected<br>
+                                • Vibration Signature: 2.3x baseline at 847Hz<br>
+                                • Failure Prediction: 72 hours ± 12 hours<br>
+                                • Confidence Level: 94.2%<br>
+                                • Impact Assessment: 6-hour production loss if failed<br>
+                                • Replacement Parts: ✅ In stock (Bearing SKU-4472)<br>
+                                <span class="severity-critical">CRITICAL:</span> Schedule immediate maintenance<br>
+                                <strong>→ Auto-generating work order WO-2024-8847...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🌡️ THERMAL_AGENT</span>
+                                <span class="agent-status status-warning">Temperature Alert</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Thermal Analysis Results:</strong><br>
+                                • Equipment: Inverter Array #INV-23<br>
+                                • Issue: Gradual temperature rise (+3.2°C over 48h)<br>
+                                • Current Temperature: 67.8°C (normal: 62-65°C)<br>
+                                • Heat Pattern: Non-uniform distribution detected<br>
+                                • Root Cause: Likely cooling fan degradation<br>
+                                • Failure Prediction: 8-12 days<br>
+                                • Risk Level: Medium (efficiency loss, no immediate failure)<br>
+                                <span class="severity-medium">SCHEDULE:</span> Maintenance within 5 days<br>
+                                <strong>→ Adding to maintenance queue...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔮 PREDICTION_AGENT</span>
+                                <span class="agent-status status-completed">Predictive Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Machine Learning Predictions:</strong><br>
+                                • Model Training Data: 24 months historical performance<br>
+                                • Prediction Accuracy: 96.7% (validated over 3 months)<br>
+                                • Current Predictions:<br>
+                                &nbsp;&nbsp;- 3 Critical (0-72 hours): Immediate action needed<br>
+                                &nbsp;&nbsp;- 7 High (3-7 days): Schedule next week<br>
+                                &nbsp;&nbsp;- 23 Medium (1-4 weeks): Plan upcoming maintenance<br>
+                                &nbsp;&nbsp;- 45 Low (1-3 months): Include in quarterly service<br>
+                                <strong>Maintenance Optimization:</strong> $125k downtime prevented this month<br>
+                                <strong>→ Optimizing maintenance schedule...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 MAINTENANCE_MRA</span>
+                                <span class="agent-status status-completed">Health Monitoring Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Predictive Maintenance Summary:</strong><br>
+                                ✅ Equipment Health: 97.8% overall condition<br>
+                                ✅ Prevented Failures: 3 critical issues identified<br>
+                                ✅ Maintenance Optimized: 47% reduction in unplanned downtime<br>
+                                ✅ Cost Savings: $125k/month avoided downtime costs<br>
+                                ✅ Parts Availability: 98.2% (auto-ordered 15 components)<br>
+                                ✅ Technician Scheduling: Optimized for minimal disruption<br>
+                                <strong>Next Maintenance Window:</strong> Tonight 22:00-06:00<br>
+                                <strong>← Sending maintenance plan to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                ⚙️ <strong>Predictive Maintenance Summary:</strong><br>
+                                • Equipment Health: 97.8%<br>
+                                • IoT Sensors Active: 18,247<br>
+                                • Failures Predicted: 3 critical, 7 high<br>
+                                • Downtime Prevented: $125k/month<br>
+                                • Prediction Accuracy: 96.7%<br>
+                                • Parts Auto-Ordered: 15 components<br>
+                                • Unplanned Downtime: -47%<br>
+                                • Next Service: Tonight 22:00-06:00
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Equipment Health</div>
+                                <div class="metric-value">97.8%</div>
+                                <div class="metric-details">1,456 units</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">IoT Sensors</div>
+                                <div class="metric-value">18,247</div>
+                                <div class="metric-details">99.8% active</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$125K</div>
+                                <div class="metric-details">per month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Downtime Reduction</div>
+                                <div class="metric-value">47%</div>
+                                <div class="metric-details">Unplanned events</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'production-optimization': {
+                title: 'AI-Driven Production Schedule Optimization',
+                icon: '📈',
+                description: 'Smart manufacturing resource planner with demand forecasting and capacity optimization',
+                initialQuery: 'Optimize production schedule for Q2 2025 demand forecast',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📈</span>
+                            <h3 class="workflow-title">Smart Manufacturing Resource Planner</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">Q2 2025 PRODUCTION PLANNING</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Target: 2.8GW Capacity | Current: 2.1GW/Q1 | Growth: +33%</div>
+                            </div>
+                            <div class="batch-priority severity-high">OPTIMIZATION REQUIRED</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Enterprise Resource Planning System<br>
+                                <strong>Planning Horizon:</strong> Q2 2025 (Apr-Jun)<br>
+                                <strong>Demand Forecast:</strong> 2.8 GW capacity required<br>
+                                <strong>Current Q1 Performance:</strong> 2.1 GW achieved<br>
+                                <strong>Growth Target:</strong> +33% capacity increase<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>PLANNING_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating production schedule optimization...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 PLANNING_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Production Planning</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Production Planning Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ DEMAND_FORECAST_AGENT - Market analysis<br>
+                                    ✓ CAPACITY_ANALYSIS_AGENT - Resource evaluation<br>
+                                    ✓ BOTTLENECK_DETECTOR_AGENT - Constraint identification<br>
+                                    ✓ SHIFT_OPTIMIZER_AGENT - Workforce planning<br>
+                                    ✓ MATERIAL_PLANNER_AGENT - Supply chain coordination<br>
+                                    ✓ ENERGY_SCHEDULER_AGENT - Power optimization<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 DEMAND_FORECAST_AGENT</span>
+                                <span class="agent-status status-completed">Market Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Q2 2025 Demand Analysis:</strong><br>
+                                • Total Market Demand: 2.8 GW confirmed orders<br>
+                                • Regional Breakdown:<br>
+                                &nbsp;&nbsp;- Europe: 1.2 GW (43%) - Premium modules<br>
+                                &nbsp;&nbsp;- North America: 0.9 GW (32%) - Bifacial panels<br>
+                                &nbsp;&nbsp;- Asia-Pacific: 0.7 GW (25%) - Standard modules<br>
+                                • Product Mix Requirements:<br>
+                                &nbsp;&nbsp;- Hi-MO 6 (182mm): 60% of total demand<br>
+                                &nbsp;&nbsp;- Hi-MO X6 (210mm): 40% of total demand<br>
+                                <strong>Critical Deadline:</strong> European orders due by May 15th<br>
+                                <strong>→ Passing requirements to capacity analysis...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ CAPACITY_ANALYSIS_AGENT</span>
+                                <span class="agent-status status-completed">Resource Evaluation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Current Manufacturing Capacity:</strong><br>
+                                • Available Production Lines: 8 (2 under maintenance)<br>
+                                • Current Throughput: 23.3 MW/day<br>
+                                • Q2 Capacity (90 days): 2.1 GW (75% of target)<br>
+                                • Equipment Utilization:<br>
+                                &nbsp;&nbsp;- Cell stringers: 87% (bottleneck identified)<br>
+                                &nbsp;&nbsp;- Laminators: 94% (near capacity)<br>
+                                &nbsp;&nbsp;- Testing stations: 76% (adequate)<br>
+                                <strong>Capacity Gap:</strong> 700 MW shortfall without optimization<br>
+                                <strong>→ Identifying bottlenecks and solutions...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔍 BOTTLENECK_DETECTOR_AGENT</span>
+                                <span class="agent-status status-completed">Constraint Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Production Bottleneck Analysis:</strong><br>
+                                • Primary Bottleneck: EVA lamination capacity at 85%<br>
+                                • Secondary: Cell stringing speed (87% utilization)<br>
+                                • Material Constraints: Silver paste lead time 6 weeks<br>
+                                • Workforce: Night shift understaffed by 15%<br>
+                                <strong>Optimization Recommendations:</strong><br>
+                                &nbsp;&nbsp;- Add 2 lamination lines (delivery: 4 weeks)<br>
+                                &nbsp;&nbsp;- Increase stringing speed by 12% (proven safe)<br>
+                                &nbsp;&nbsp;- Implement 3-shift operation (24/7)<br>
+                                &nbsp;&nbsp;- Pre-order Q3 silver paste (hedge supply)<br>
+                                <strong>→ Calculating optimization impact...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">👥 SHIFT_OPTIMIZER_AGENT</span>
+                                <span class="agent-status status-completed">Workforce Planning Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Optimal Shift Configuration:</strong><br>
+                                • Current: 2-shift operation (16 hours/day)<br>
+                                • Proposed: 3-shift operation (24 hours/day)<br>
+                                • Workforce Requirements:<br>
+                                &nbsp;&nbsp;- Day Shift: 145 operators (current: 140)<br>
+                                &nbsp;&nbsp;- Evening Shift: 132 operators (current: 125)<br>
+                                &nbsp;&nbsp;- Night Shift: 98 operators (current: 45) ⚠️<br>
+                                • Training Program: 53 new hires + 28 cross-trained<br>
+                                • Productivity Impact: +50% daily output<br>
+                                <strong>HR Action Required:</strong> Recruit 53 skilled operators<br>
+                                <strong>→ Coordinating with material planning...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 PLANNING_MRA</span>
+                                <span class="agent-status status-completed">Optimization Plan Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Q2 2025 Production Optimization:</strong><br>
+                                ✅ Target Achievement: 2.9 GW (104% of demand)<br>
+                                ✅ Daily Output Increase: 23.3 MW → 35.1 MW (+51%)<br>
+                                ✅ Bottleneck Resolution: Lamination capacity +40%<br>
+                                ✅ Shift Optimization: 24/7 operation implemented<br>
+                                ✅ Material Planning: Silver paste secured for Q3<br>
+                                ✅ Quality Maintained: 99.1% first-pass yield<br>
+                                <strong>Investment Required:</strong> $12.5M (2 laminators + workforce)<br>
+                                <strong>ROI:</strong> 285% within Q2, break-even in 6 weeks<br>
+                                <strong>← Sending optimization plan to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Plan Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📈 <strong>Production Schedule Optimization:</strong><br>
+                                • Q2 Target: 104% achievement (2.9 GW)<br>
+                                • Daily Output: +51% increase<br>
+                                • Bottleneck Resolved: Lamination +40%<br>
+                                • Operation Mode: 24/7 continuous<br>
+                                • Investment: $12.5M<br>
+                                • ROI: 285% in Q2<br>
+                                • Break-even: 6 weeks<br>
+                                • Implementation: Starting Week 14
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Q2 Target</div>
+                                <div class="metric-value">104%</div>
+                                <div class="metric-details">2.9 GW capacity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Daily Output</div>
+                                <div class="metric-value">+51%</div>
+                                <div class="metric-details">35.1 MW/day</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">ROI</div>
+                                <div class="metric-value">285%</div>
+                                <div class="metric-details">Q2 period</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Break-even</div>
+                                <div class="metric-value">6 weeks</div>
+                                <div class="metric-details">$12.5M invested</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'material-handling': {
+                title: 'Automated Material Handling & Inventory',
+                icon: '📦',
+                description: 'Autonomous supply chain management with AI-driven inventory optimization and logistics',
+                initialQuery: 'Optimize raw material inventory and automated logistics system',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📦</span>
+                            <h3 class="workflow-title">Autonomous Supply Chain Management</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">SUPPLY CHAIN OPTIMIZATION</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Components: 15,247 SKUs | AGVs: 67 Active | Inventory: $45.2M</div>
+                            </div>
+                            <div class="batch-priority severity-warning">SHORTAGE PREDICTION</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Integrated Supply Chain Management System<br>
+                                <strong>Inventory Scope:</strong> 15,247 unique SKUs tracked<br>
+                                <strong>Current Value:</strong> $45.2M raw materials & components<br>
+                                <strong>AGV Fleet:</strong> 67 autonomous vehicles operational<br>
+                                <strong>Alert Status:</strong> Silver paste shortage predicted in 8 days<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>SUPPLY_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating supply chain optimization...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SUPPLY_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Supply Chain</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Supply Chain Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ INVENTORY_TRACKER_AGENT - Stock monitoring<br>
+                                    ✓ DEMAND_PREDICTOR_AGENT - Consumption forecasting<br>
+                                    ✓ PROCUREMENT_AGENT - Automated purchasing<br>
+                                    ✓ AGV_COORDINATOR_AGENT - Fleet management<br>
+                                    ✓ WAREHOUSE_OPTIMIZER_AGENT - Storage efficiency<br>
+                                    ✓ QUALITY_INSPECTOR_AGENT - Incoming QC<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 INVENTORY_TRACKER_AGENT</span>
+                                <span class="agent-status status-completed">Stock Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Real-time Inventory Status:</strong><br>
+                                • Total SKUs: 15,247 components tracked<br>
+                                • Critical Materials:<br>
+                                &nbsp;&nbsp;- Silver paste: 8.2 days remaining ⚠️<br>
+                                &nbsp;&nbsp;- EVA film: 23 days remaining ✅<br>
+                                &nbsp;&nbsp;- Backsheet: 31 days remaining ✅<br>
+                                &nbsp;&nbsp;- Junction boxes: 12 days remaining ⚠️<br>
+                                &nbsp;&nbsp;- Glass sheets: 45 days remaining ✅<br>
+                                • Slow-moving Items: 234 SKUs (>90 days stock)<br>
+                                • Excess Inventory: $2.1M tied up in overstocked items<br>
+                                <strong>→ Generating procurement recommendations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔮 DEMAND_PREDICTOR_AGENT</span>
+                                <span class="agent-status status-completed">Consumption Forecast Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>AI-Powered Demand Forecasting:</strong><br>
+                                • Model Accuracy: 96.8% (validated over 12 months)<br>
+                                • Production Ramp-up Detected: +33% in Q2<br>
+                                • Critical Consumption Rates:<br>
+                                &nbsp;&nbsp;- Silver paste: 247 kg/week (increasing to 328 kg/week)<br>
+                                &nbsp;&nbsp;- EVA film: 12,450 m²/week (stable)<br>
+                                &nbsp;&nbsp;- Junction boxes: 34,500 units/week (+15%)<br>
+                                • Supply Risk Assessment:<br>
+                                &nbsp;&nbsp;- High Risk: Silver paste (supplier constraints)<br>
+                                &nbsp;&nbsp;- Medium Risk: Junction boxes (demand spike)<br>
+                                &nbsp;&nbsp;- Low Risk: Standard materials (multiple suppliers)<br>
+                                <strong>→ Triggering automated procurement...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🛒 PROCUREMENT_AGENT</span>
+                                <span class="agent-status status-completed">Auto-Purchasing Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Automated Procurement Actions:</strong><br>
+                                • Emergency Order: 2,100 kg silver paste (expedited)<br>
+                                &nbsp;&nbsp;- Supplier: DuPont (primary) + Heraeus (backup)<br>
+                                &nbsp;&nbsp;- Delivery: 5 days (expedited shipping)<br>
+                                &nbsp;&nbsp;- Cost: $847k (15% expedite premium)<br>
+                                • Standard Orders Generated:<br>
+                                &nbsp;&nbsp;- EVA film: 750,000 m² (30-day supply)<br>
+                                &nbsp;&nbsp;- Junction boxes: 1.2M units (35-day supply)<br>
+                                &nbsp;&nbsp;- Backsheet: 500,000 m² (standard lead time)<br>
+                                • Contract Negotiations: 3 long-term agreements initiated<br>
+                                <strong>Total Procurement Value:</strong> $3.2M auto-authorized<br>
+                                <strong>→ Coordinating with AGV fleet for receiving...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🤖 AGV_COORDINATOR_AGENT</span>
+                                <span class="agent-status status-completed">Fleet Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Autonomous Vehicle Fleet Status:</strong><br>
+                                • Active AGVs: 67 units (99.2% uptime)<br>
+                                • Fleet Utilization: 87% (optimal range: 80-90%)<br>
+                                • Material Transport Efficiency:<br>
+                                &nbsp;&nbsp;- Average delivery time: 4.2 minutes<br>
+                                &nbsp;&nbsp;- Route optimization: 23% improvement vs manual<br>
+                                &nbsp;&nbsp;- Zero accidents: 847 days safety record<br>
+                                • Predictive Maintenance: AGV-23 battery replacement due<br>
+                                • Traffic Flow Optimization: 15% reduction in congestion<br>
+                                <strong>Performance Gain:</strong> 31% faster material movement<br>
+                                <strong>→ Optimizing warehouse layout...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 SUPPLY_MRA</span>
+                                <span class="agent-status status-completed">Supply Chain Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Autonomous Supply Chain Results:</strong><br>
+                                ✅ Critical Shortage Prevented: Silver paste secured<br>
+                                ✅ Just-in-Time Delivery: 99.1% accuracy maintained<br>
+                                ✅ Inventory Optimization: $2.1M excess identified<br>
+                                ✅ AGV Fleet Efficiency: 87% utilization optimal<br>
+                                ✅ Cost Reduction: 23% logistics cost savings<br>
+                                ✅ Zero Stockouts: 186 days continuous record<br>
+                                <strong>Annual Savings:</strong> $5.8M through optimization<br>
+                                <strong>Next Optimization:</strong> Vendor consolidation analysis<br>
+                                <strong>← Sending supply chain report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📦 <strong>Supply Chain Management Summary:</strong><br>
+                                • Critical Materials: Secured (silver paste)<br>
+                                • Inventory Value: $45.2M optimized<br>
+                                • AGV Fleet: 67 units, 99.2% uptime<br>
+                                • Delivery Accuracy: 99.1% JIT<br>
+                                • Cost Savings: $5.8M annually<br>
+                                • Zero Stockouts: 186 days record<br>
+                                • Excess Inventory: $2.1M identified<br>
+                                • Next Review: 72 hours
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">JIT Accuracy</div>
+                                <div class="metric-value">99.1%</div>
+                                <div class="metric-details">Delivery precision</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">AGV Uptime</div>
+                                <div class="metric-value">99.2%</div>
+                                <div class="metric-details">67 active units</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$5.8M</div>
+                                <div class="metric-details">Annual optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Zero Stockouts</div>
+                                <div class="metric-value">186</div>
+                                <div class="metric-details">Consecutive days</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'energy-management': {
+                title: 'AI-Powered Energy Management',
+                icon: '🔋',
+                description: 'Green manufacturing energy optimizer with renewable integration and peak shaving',
+                initialQuery: 'Optimize factory energy consumption and renewable integration',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔋</span>
+                            <h3 class="workflow-title">Green Manufacturing Energy Optimizer</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">ENERGY MANAGEMENT SYSTEM</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Solar: 50MW | Grid: 85MW | Storage: 25MWh | Efficiency: 94.3%</div>
+                            </div>
+                            <div class="batch-priority severity-low">OPTIMIZING</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Integrated Energy Management System<br>
+                                <strong>Energy Portfolio:</strong> 50MW on-site solar + 85MW grid connection<br>
+                                <strong>Storage Capacity:</strong> 25 MWh battery energy storage<br>
+                                <strong>Manufacturing Load:</strong> 78.5 MW average consumption<br>
+                                <strong>Optimization Goal:</strong> Maximize renewable usage, minimize costs<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>ENERGY_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating energy optimization analysis...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ENERGY_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Energy Management</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Energy Management Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ SOLAR_FORECASTER_AGENT - PV generation prediction<br>
+                                    ✓ DEMAND_ANALYZER_AGENT - Load forecasting<br>
+                                    ✓ PEAK_SHAVING_AGENT - Grid optimization<br>
+                                    ✓ STORAGE_OPTIMIZER_AGENT - Battery management<br>
+                                    ✓ PROCESS_SCHEDULER_AGENT - Production timing<br>
+                                    ✓ COST_MINIMIZER_AGENT - Economic optimization<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">☀️ SOLAR_FORECASTER_AGENT</span>
+                                <span class="agent-status status-completed">Solar Forecast Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Solar Generation Forecast (24h):</strong><br>
+                                • Weather Data: Clear skies, 8% cloud cover<br>
+                                • Expected Generation: 847 MWh (94% of capacity)<br>
+                                • Peak Production: 11:30 AM - 2:30 PM (47.2 MW)<br>
+                                • Morning Ramp: 6:00 AM start, full capacity by 9:00 AM<br>
+                                • Evening Decline: Gradual drop after 4:00 PM<br>
+                                • Quality Score: 98.7% (excellent forecast confidence)<br>
+                                <strong>Optimization Window:</strong> 9 hours peak solar available<br>
+                                <strong>→ Coordinating with demand analysis...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚡ DEMAND_ANALYZER_AGENT</span>
+                                <span class="agent-status status-completed">Load Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Manufacturing Energy Demand Profile:</strong><br>
+                                • Base Load: 62.3 MW (continuous operations)<br>
+                                • Production Peaks: 78.5 MW during cell stringing<br>
+                                • Flexible Loads Identified:<br>
+                                &nbsp;&nbsp;- Lamination processes: 12.4 MW (shiftable ±2 hours)<br>
+                                &nbsp;&nbsp;- Testing equipment: 3.7 MW (non-critical timing)<br>
+                                &nbsp;&nbsp;- HVAC systems: 8.9 MW (±3°C temperature buffer)<br>
+                                &nbsp;&nbsp;- Compressed air: 4.2 MW (pressure buffer available)<br>
+                                • Energy-Intensive Processes: Cell furnaces, laminators<br>
+                                <strong>Shiftable Capacity:</strong> 29.2 MW (37% of peak load)<br>
+                                <strong>→ Optimizing load scheduling...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏔️ PEAK_SHAVING_AGENT</span>
+                                <span class="agent-status status-completed">Grid Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Peak Shaving Strategy:</strong><br>
+                                • Grid Demand Peak: 2:00 PM - 6:00 PM (highest rates)<br>
+                                • Current Strategy: 34% renewable during peak hours<br>
+                                • Optimization Recommendations:<br>
+                                &nbsp;&nbsp;- Shift high-energy processes to 10 AM - 2 PM solar peak<br>
+                                &nbsp;&nbsp;- Use battery storage during 3 PM - 5 PM grid peak<br>
+                                &nbsp;&nbsp;- Pre-cool facilities during low-rate hours<br>
+                                &nbsp;&nbsp;- Schedule maintenance during solar generation hours<br>
+                                • Demand Response Participation: $45k/month revenue<br>
+                                <strong>Peak Reduction Target:</strong> 23% (18 MW) during grid peak<br>
+                                <strong>→ Coordinating with storage optimization...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔋 STORAGE_OPTIMIZER_AGENT</span>
+                                <span class="agent-status status-completed">Battery Strategy Optimized</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Battery Energy Storage Optimization:</strong><br>
+                                • Current Capacity: 25 MWh (80% depth of discharge)<br>
+                                • Charge Strategy: 9 AM - 2 PM (solar excess)<br>
+                                • Discharge Strategy: 3 PM - 8 PM (grid peak + evening)<br>
+                                • Round-trip Efficiency: 94.3% (excellent performance)<br>
+                                • Cycle Optimization: 1.3 cycles/day (battery life optimal)<br>
+                                • Arbitrage Value: $12,450/day (peak/off-peak spread)<br>
+                                • Grid Services: Frequency regulation revenue $8,900/month<br>
+                                <strong>Storage ROI:</strong> 187% annual return on investment<br>
+                                <strong>→ Implementing optimal charging schedule...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ENERGY_MRA</span>
+                                <span class="agent-status status-completed">Energy Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Green Manufacturing Energy Results:</strong><br>
+                                ✅ Renewable Energy Usage: 67% (target: 50%)<br>
+                                ✅ Peak Demand Reduction: 23% during grid peak hours<br>
+                                ✅ Energy Cost Savings: $180,000/month<br>
+                                ✅ Carbon Footprint: 47% reduction (2,340 tons CO₂/month)<br>
+                                ✅ Grid Independence: 89% during daylight hours<br>
+                                ✅ Energy Efficiency: 94.3% overall system efficiency<br>
+                                <strong>Annual Environmental Impact:</strong> 28,080 tons CO₂ avoided<br>
+                                <strong>Cost Savings:</strong> $2.16M annually through optimization<br>
+                                <strong>← Sending energy report to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔋 <strong>Energy Management Summary:</strong><br>
+                                • Renewable Usage: 67% (vs 34% baseline)<br>
+                                • Solar Generation: 847 MWh/day forecasted<br>
+                                • Peak Shaving: 23% demand reduction<br>
+                                • Storage Efficiency: 94.3% round-trip<br>
+                                • Cost Savings: $2.16M annually<br>
+                                • CO₂ Reduction: 28,080 tons/year<br>
+                                • Grid Independence: 89% daylight hours<br>
+                                • Next Optimization: Storage expansion analysis
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Renewable %</div>
+                                <div class="metric-value">67%</div>
+                                <div class="metric-details">vs 34% baseline</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$2.16M</div>
+                                <div class="metric-details">Annual optimization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">CO₂ Avoided</div>
+                                <div class="metric-value">28,080</div>
+                                <div class="metric-details">Tons per year</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Storage ROI</div>
+                                <div class="metric-value">187%</div>
+                                <div class="metric-details">Annual return</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'digital-twin': {
+                title: 'Digital Twin Production Simulation',
+                icon: '🔬',
+                description: 'Virtual factory optimization platform with real-time simulation and predictive modeling',
+                initialQuery: 'Simulate new 12GW production line setup and optimization',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">🔬</span>
+                            <h3 class="workflow-title">Virtual Factory Optimization Platform</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">DIGITAL TWIN SIMULATION</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Target: 12GW Line | Scenarios: 847 | Accuracy: 98.7% | Runtime: 4.2 min</div>
+                            </div>
+                            <div class="batch-priority severity-medium">SIMULATION ACTIVE</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Production Planning Department<br>
+                                <strong>Simulation Target:</strong> New 12 GW/year production line<br>
+                                <strong>Investment Budget:</strong> $850M capital expenditure<br>
+                                <strong>Timeline:</strong> 18-month construction + 6-month ramp-up<br>
+                                <strong>Technology:</strong> Latest N-type TOPCon with 25.8% efficiency<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>DIGITAL_TWIN_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initializing virtual factory simulation...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DIGITAL_TWIN_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Virtual Factory</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Digital Twin Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ LAYOUT_DESIGNER_AGENT - Factory floor optimization<br>
+                                    ✓ PROCESS_MODELER_AGENT - Manufacturing workflow<br>
+                                    ✓ EQUIPMENT_SELECTOR_AGENT - Technology choices<br>
+                                    ✓ SIMULATION_ENGINE_AGENT - Virtual testing<br>
+                                    ✓ OPTIMIZATION_AGENT - Performance tuning<br>
+                                    ✓ VALIDATION_AGENT - Real-world correlation<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏗️ LAYOUT_DESIGNER_AGENT</span>
+                                <span class="agent-status status-completed">Factory Layout Optimized</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Optimal Factory Layout Analysis:</strong><br>
+                                • Factory Footprint: 185,000 m² (optimized for 12 GW)<br>
+                                • Production Lines: 12 parallel lines (1 GW each)<br>
+                                • Material Flow: U-shaped design (minimal transport)<br>
+                                • Clean Room Zones: 65% of floor space (Class 1000)<br>
+                                • Equipment Arrangement:<br>
+                                &nbsp;&nbsp;- Cell processing: 45% of production area<br>
+                                &nbsp;&nbsp;- Module assembly: 35% of production area<br>
+                                &nbsp;&nbsp;- Testing/packaging: 20% of production area<br>
+                                • Logistics Optimization: 89% reduction in material handling<br>
+                                <strong>Space Efficiency:</strong> 65 MW/1000 m² (industry best)<br>
+                                <strong>→ Passing layout to process modeling...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">⚙️ PROCESS_MODELER_AGENT</span>
+                                <span class="agent-status status-completed">Process Model Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Manufacturing Process Simulation:</strong><br>
+                                • Takt Time: 3.8 seconds per module (target: 4.0s)<br>
+                                • Process Stages: 47 automated stations per line<br>
+                                • Bottleneck Analysis: Junction box application (3.7s)<br>
+                                • Quality Gates: 12 inline inspection points<br>
+                                • Automation Level: 94% (minimal human intervention)<br>
+                                • Process Yield Prediction:<br>
+                                &nbsp;&nbsp;- Cell processing: 99.2%<br>
+                                &nbsp;&nbsp;- Module assembly: 98.8%<br>
+                                &nbsp;&nbsp;- Overall first-pass: 98.0%<br>
+                                <strong>Throughput Projection:</strong> 12.3 GW/year (102% of target)<br>
+                                <strong>→ Optimizing equipment selection...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🔬 SIMULATION_ENGINE_AGENT</span>
+                                <span class="agent-status status-completed">847 Scenarios Tested</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Comprehensive Virtual Testing:</strong><br>
+                                • Simulation Runtime: 4.2 minutes (real-time 18 months)<br>
+                                • Scenarios Tested: 847 different configurations<br>
+                                • Monte Carlo Iterations: 10,000 per scenario<br>
+                                • Key Variables Optimized:<br>
+                                &nbsp;&nbsp;- Equipment speeds (±15% range tested)<br>
+                                &nbsp;&nbsp;- Buffer sizes (0-500 modules tested)<br>
+                                &nbsp;&nbsp;- Maintenance schedules (12 strategies)<br>
+                                &nbsp;&nbsp;- Shift patterns (5 different models)<br>
+                                • Accuracy Validation: 98.7% vs historical data<br>
+                                • Risk Scenarios: Supply disruption, equipment failure<br>
+                                <strong>Optimal Configuration Identified:</strong> Scenario #623<br>
+                                <strong>→ Validating against real-world data...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">✅ VALIDATION_AGENT</span>
+                                <span class="agent-status status-completed">Model Validation Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Digital Twin Validation Results:</strong><br>
+                                • Historical Correlation: 98.7% accuracy<br>
+                                • Prediction Confidence: 96.4% for 24-month horizon<br>
+                                • Key Validations:<br>
+                                &nbsp;&nbsp;- Throughput prediction: ±2.1% actual vs simulated<br>
+                                &nbsp;&nbsp;- Quality yield: ±1.8% actual vs simulated<br>
+                                &nbsp;&nbsp;- Energy consumption: ±3.2% actual vs simulated<br>
+                                &nbsp;&nbsp;- Maintenance costs: ±4.1% actual vs simulated<br>
+                                • Edge Cases Tested: Equipment failure, supply shortage<br>
+                                • Sensitivity Analysis: Critical parameter identification<br>
+                                <strong>Model Reliability:</strong> Approved for $850M investment decision<br>
+                                <strong>→ Generating final recommendations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 DIGITAL_TWIN_MRA</span>
+                                <span class="agent-status status-completed">Virtual Factory Optimization Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>12GW Production Line Simulation Results:</strong><br>
+                                ✅ Throughput Optimization: 12.3 GW/year (102% of target)<br>
+                                ✅ Layout Efficiency: 23% improvement over standard design<br>
+                                ✅ Investment ROI: 23.7% IRR over 10 years<br>
+                                ✅ Risk Mitigation: 15 potential issues identified & solved<br>
+                                ✅ Time Savings: 6 weeks eliminated from ramp-up schedule<br>
+                                ✅ Cost Optimization: $47M saved through virtual testing<br>
+                                <strong>Implementation Confidence:</strong> 96.4% success probability<br>
+                                <strong>Recommendation:</strong> Proceed with optimal configuration #623<br>
+                                <strong>← Sending comprehensive analysis to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                🔬 <strong>Digital Twin Simulation Summary:</strong><br>
+                                • Target Capacity: 102% achievement (12.3 GW)<br>
+                                • Scenarios Tested: 847 configurations<br>
+                                • Simulation Accuracy: 98.7%<br>
+                                • Layout Optimization: +23% efficiency<br>
+                                • Investment ROI: 23.7% IRR<br>
+                                • Risk Mitigation: 15 issues resolved<br>
+                                • Cost Savings: $47M through virtual testing<br>
+                                • Implementation Ready: Configuration #623 approved
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Target Achievement</div>
+                                <div class="metric-value">102%</div>
+                                <div class="metric-details">12.3 GW capacity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Simulation Accuracy</div>
+                                <div class="metric-value">98.7%</div>
+                                <div class="metric-details">Historical validation</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">ROI</div>
+                                <div class="metric-value">23.7%</div>
+                                <div class="metric-details">IRR over 10 years</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Savings</div>
+                                <div class="metric-value">$47M</div>
+                                <div class="metric-details">Virtual testing</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            },
+
+            'manufacturing-analytics': {
+                title: 'Manufacturing Analytics Dashboard',
+                icon: '📊',
+                description: 'Executive manufacturing intelligence center with comprehensive KPI monitoring and insights',
+                initialQuery: 'Generate comprehensive manufacturing performance analytics report',
+                responses: [
+                    `<div class="agent-workflow">
+                        <div class="workflow-header">
+                            <span class="workflow-icon">📊</span>
+                            <h3 class="workflow-title">Executive Manufacturing Intelligence Center</h3>
+                        </div>
+                        
+                        <div class="batch-info">
+                            <div>
+                                <div class="batch-id">MANUFACTURING ANALYTICS DASHBOARD</div>
+                                <div style="font-size: 12px; color: #888; margin-top: 5px;">Data Points: 2.3M | KPIs: 847 | Trends: 12-month | Accuracy: 99.1%</div>
+                            </div>
+                            <div class="batch-priority severity-low">GENERATING INSIGHTS</div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Request Received</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Input Source:</strong> Manufacturing Execution System (MES)<br>
+                                <strong>Data Scope:</strong> 2.3M data points across 12 months<br>
+                                <strong>Analysis Period:</strong> Full year performance review<br>
+                                <strong>KPI Coverage:</strong> 847 manufacturing metrics<br>
+                                <strong>Report Type:</strong> Executive dashboard with actionable insights<br>
+                                <br>
+                                <strong>🎯 MRA Selection:</strong> Routing to <code>ANALYTICS_MRA</code><br>
+                                <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                    <strong>→ Initiating comprehensive analytics processing...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ANALYTICS_MRA</span>
+                                <span class="agent-status status-active">Orchestrating Analytics Engine</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Manufacturing Intelligence Agent Deployment:</strong><br>
+                                <div style="margin-left: 20px; color: #00ff88;">
+                                    ✓ DATA_AGGREGATOR_AGENT - Multi-source data fusion<br>
+                                    ✓ KPI_CALCULATOR_AGENT - Performance metrics<br>
+                                    ✓ TREND_ANALYZER_AGENT - Historical analysis<br>
+                                    ✓ BENCHMARK_AGENT - Industry comparisons<br>
+                                    ✓ INSIGHT_GENERATOR_AGENT - AI-driven insights<br>
+                                    ✓ RECOMMENDATION_AGENT - Action planning<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📊 DATA_AGGREGATOR_AGENT</span>
+                                <span class="agent-status status-completed">Data Integration Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Manufacturing Data Integration:</strong><br>
+                                • Production Systems: 847 KPIs aggregated<br>
+                                • Quality Management: 234,567 inspection records<br>
+                                • Equipment Health: 1.2M sensor readings/day<br>
+                                • Energy Management: 456,789 consumption data points<br>
+                                • Supply Chain: 89,234 logistics transactions<br>
+                                • Workforce: 23,456 labor efficiency records<br>
+                                • Financial: $2.1B cost & revenue data integrated<br>
+                                • Data Quality Score: 99.1% (excellent integrity)<br>
+                                <strong>Real-time Updates:</strong> 15-second refresh cycle<br>
+                                <strong>→ Processing KPI calculations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📈 KPI_CALCULATOR_AGENT</span>
+                                <span class="agent-status status-completed">Performance Metrics Generated</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Key Performance Indicators (12-month):</strong><br>
+                                • Overall Equipment Effectiveness (OEE): 94.2%<br>
+                                • First Pass Yield: 98.7% (target: 95%)<br>
+                                • Cost per Watt: $0.089 (15% below industry avg)<br>
+                                • Production Volume: 14.7 GW (target: 14.0 GW)<br>
+                                • Quality Score: 99.2% customer satisfaction<br>
+                                • Energy Efficiency: 3.2 kWh/kW module produced<br>
+                                • Waste Reduction: 78% vs traditional methods<br>
+                                • Defect Rate: 0.8% (industry avg: 3.2%)<br>
+                                • On-time Delivery: 99.3% schedule adherence<br>
+                                <strong>Performance Grade:</strong> A+ (World-class manufacturing)<br>
+                                <strong>→ Analyzing performance trends...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">📉 TREND_ANALYZER_AGENT</span>
+                                <span class="agent-status status-completed">Trend Analysis Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>12-Month Performance Trends:</strong><br>
+                                • OEE Improvement: +2.3% monthly average<br>
+                                • Quality Yield Trend: Steady 98%+ for 8 months<br>
+                                • Cost Reduction: 12% achieved year-over-year<br>
+                                • Productivity Growth: +23% vs previous year<br>
+                                • Energy Efficiency: +18% improvement<br>
+                                • Seasonal Patterns: Q4 peak (holiday demand)<br>
+                                • Technology Adoption: AI/ML 47% contribution to gains<br>
+                                • Workforce Productivity: +31% with AI assistance<br>
+                                <strong>Forecast (6 months):</strong> Continued 2.1% monthly improvement<br>
+                                <strong>→ Benchmarking against industry standards...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">🏆 BENCHMARK_AGENT</span>
+                                <span class="agent-status status-completed">Industry Benchmark Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Industry Benchmark Analysis:</strong><br>
+                                • Global Ranking: Top 3% of solar manufacturers<br>
+                                • OEE vs Industry: 94.2% vs 78.5% (world-class)<br>
+                                • Quality vs Peers: 99.2% vs 92.1% (best-in-class)<br>
+                                • Cost Competitiveness: 15% below industry average<br>
+                                • Innovation Index: 87th percentile (technology leader)<br>
+                                • Sustainability Score: 94% (ESG compliance)<br>
+                                • Competitive Advantages:<br>
+                                &nbsp;&nbsp;- Lowest defect rate in industry (0.8%)<br>
+                                &nbsp;&nbsp;- Highest automation level (94%)<br>
+                                &nbsp;&nbsp;- Best energy efficiency (3.2 kWh/kW)<br>
+                                <strong>Market Position:</strong> Premium manufacturer with cost leadership<br>
+                                <strong>→ Generating strategic insights...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step">
+                            <div class="agent-header">
+                                <span class="agent-name">💡 INSIGHT_GENERATOR_AGENT</span>
+                                <span class="agent-status status-completed">AI Insights Generated</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>AI-Powered Strategic Insights:</strong><br>
+                                • Hidden Pattern: Thursday 2-4 PM shows 3% efficiency dip<br>
+                                • Root Cause: Shift changeover and material restocking<br>
+                                • Opportunity: 5 optimization areas identified worth $2.3M<br>
+                                • Correlation Discovery: Humidity affects yield by 0.3%<br>
+                                • Predictive Alert: Q2 silver shortage risk (78% probability)<br>
+                                • Technology Impact: AI adoption driving 47% of improvements<br>
+                                • Market Intelligence: Demand spike predicted for H2 2025<br>
+                                • Competitive Edge: 18-month technology lead maintained<br>
+                                <strong>Strategic Recommendation:</strong> Expand AI deployment to packaging<br>
+                                <strong>→ Finalizing action recommendations...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00ff88;">
+                            <div class="agent-header">
+                                <span class="agent-name">🧠 ANALYTICS_MRA</span>
+                                <span class="agent-status status-completed">Executive Analytics Complete</span>
+                            </div>
+                            <div class="agent-content">
+                                <strong>Manufacturing Intelligence Summary:</strong><br>
+                                ✅ World-Class Performance: OEE 94.2% (Top 3% globally)<br>
+                                ✅ Quality Excellence: 99.2% customer satisfaction<br>
+                                ✅ Cost Leadership: 15% below industry average ($0.089/W)<br>
+                                ✅ Innovation Leadership: 87th percentile technology adoption<br>
+                                ✅ Sustainability: 78% waste reduction, carbon neutral<br>
+                                ✅ Growth Trajectory: +23% productivity, +2.3% monthly OEE<br>
+                                <strong>5 Priority Actions:</strong> $2.3M optimization opportunity<br>
+                                <strong>Strategic Position:</strong> Premium manufacturer with cost advantage<br>
+                                <strong>← Delivering executive dashboard to IO_AGENT...</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-step" style="border: 2px solid #00aaff;">
+                            <div class="agent-header">
+                                <span class="agent-name">📥 IO_AGENT</span>
+                                <span class="agent-status status-completed">Executive Report Delivered</span>
+                            </div>
+                            <div class="agent-content">
+                                📊 <strong>Manufacturing Analytics Executive Summary:</strong><br>
+                                • Global Ranking: Top 3% solar manufacturer<br>
+                                • OEE Performance: 94.2% (world-class)<br>
+                                • Annual Production: 14.7 GW (105% of target)<br>
+                                • Quality Score: 99.2% customer satisfaction<br>
+                                • Cost Position: 15% below industry average<br>
+                                • Optimization Value: $2.3M identified<br>
+                                • Growth Trend: +23% YoY productivity<br>
+                                • Next Review: Monthly board presentation
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-title">Global Ranking</div>
+                                <div class="metric-value">Top 3%</div>
+                                <div class="metric-details">Solar manufacturers</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">OEE Score</div>
+                                <div class="metric-value">94.2%</div>
+                                <div class="metric-details">World-class level</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Cost Leadership</div>
+                                <div class="metric-value">15%</div>
+                                <div class="metric-details">Below industry avg</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Quality Score</div>
+                                <div class="metric-value">99.2%</div>
+                                <div class="metric-details">Customer satisfaction</div>
+                            </div>
+                        </div>
+                    </div>`
+                ]
+            }
+        };
+
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                        <span class="alert-icon" style="color: #00ff88;">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title" style="color: #00ff88;">Manufacturing Status: All Systems Operational</div>
+                            <div class="alert-description">All solar manufacturing lines are running within optimal parameters. Production targets are being met with 99.2% quality scores.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Quality control and defect detection
+                    <br>• Production line optimization
+                    <br>• Robotic assembly systems
+                    <br>• Predictive maintenance
+                    <br>• Energy management
+                    <br>• Manufacturing analytics
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously optimizing solar panel manufacturing processes for maximum efficiency, quality, and sustainability. Would you like me to run a specific analysis?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            // Split HTML into chunks for streaming
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            // Helper function for random delays
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Function to process the next chunk with variable timing
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Decide on the delay for the next chunk
+                    let nextDelay;
+                    
+                    // Every 10 chunks, pause for a bit longer to simulate thinking
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } 
+                    // Every 5 chunks, pause briefly
+                    else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    }
+                    // Regular typing speed
+                    else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            // Start the processing
+            processNextChunk();
+        }
+        
+        // Function to split HTML into chunks while preserving tags
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                
+                // Always add the current character to the chunk
+                currentChunk += char;
+                
+                // If we're inside a tag, don't count it toward chunk size
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                // If we've reached chunk size and we're not inside a tag, add chunk to result
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            // Add the remaining chunk if there is any
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>
