@@ -6319,15 +6319,19 @@ Continuous Monitoring:
 
                 // Build request body based on model type
                 const requestBody = isGPT5 ? {
-                    // GPT-5 Responses API format
+                    // GPT-5 Responses API format - uses 'input' instead of 'messages'
                     model: selectedModel,
-                    messages: [
+                    input: [
                         { role: 'system', content: context },
                         ...CONFIG.conversationHistory,
                         { role: 'user', content: message }
                     ],
-                    verbosity: 'medium',  // GPT-5 verbosity parameter
-                    reasoning_effort: 'minimal',  // GPT-5 minimal reasoning for faster responses
+                    text: {
+                        verbosity: 'medium'  // GPT-5 verbosity parameter
+                    },
+                    reasoning: {
+                        effort: 'minimal'  // GPT-5 minimal reasoning for faster responses
+                    },
                     max_tokens: 500
                 } : {
                     // Legacy chat completions format
@@ -6358,8 +6362,10 @@ Continuous Monitoring:
 
                 const data = await response.json();
                 // Handle both GPT-5 responses and legacy format
+                // GPT-5 returns: data.text or data.content
+                // GPT-4 returns: data.choices[0].message.content
                 const aiResponse = isGPT5
-                    ? (data.content || data.message?.content || data.choices?.[0]?.message?.content)
+                    ? (data.text || data.content || data.message?.content || 'Response received')
                     : data.choices[0].message.content;
 
                 // Add AI response
