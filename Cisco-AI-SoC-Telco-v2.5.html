@@ -5902,6 +5902,12 @@ Continuous Monitoring:
                                id="qaApiKey"
                                placeholder="Enter OpenAI API Key (sk-...)"
                                class="qa-api-input">
+                        <select id="modelSelect" class="qa-api-input" style="margin-bottom: 10px;">
+                            <option value="gpt-5-mini" selected>GPT-5 Mini (Fast & Balanced)</option>
+                            <option value="gpt-5">GPT-5 (Most Powerful)</option>
+                            <option value="gpt-5-nano">GPT-5 Nano (Fastest)</option>
+                            <option value="gpt-4">GPT-4 (Legacy)</option>
+                        </select>
                         <button onclick="saveQAApiKey()" class="qa-api-button">Enable Q&A</button>
                         <div style="font-size: 11px; color: #666; margin-top: 8px; text-align: center;">
                             Your key is stored locally and never sent to any server
@@ -6260,9 +6266,12 @@ Continuous Monitoring:
         // Save API key
         window.saveQAApiKey = function() {
             const apiKey = document.getElementById('qaApiKey').value;
+            const selectedModel = document.getElementById('modelSelect').value;
             if (apiKey) {
                 CONFIG.openaiApiKey = apiKey;
+                CONFIG.selectedModel = selectedModel;
                 localStorage.setItem('qa_openai_key', apiKey);
+                localStorage.setItem('qa_model', selectedModel);
                 document.getElementById('qaApiSetup').style.display = 'none';
                 document.getElementById('qaChatContainer').style.display = 'flex';
                 document.getElementById('qaInput').focus();
@@ -6298,15 +6307,38 @@ Continuous Monitoring:
                 const scenarioId = activeScenario ? activeScenario.dataset.scenario : 'lateral-movement';
                 const context = SCENARIO_CONTEXTS[scenarioId] || SCENARIO_CONTEXTS['lateral-movement'];
 
+                // Get selected model
+                const selectedModel = document.getElementById('modelSelect')?.value || CONFIG.selectedModel || 'gpt-5-mini';
+
+                // Determine endpoint based on model
+                const isGPT5 = selectedModel.startsWith('gpt-5');
+                const endpoint = isGPT5 ? 'https://api.openai.com/v1/responses' : 'https://api.openai.com/v1/chat/completions';
+
                 // Call OpenAI API
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${CONFIG.openaiApiKey}`
                     },
-                    body: JSON.stringify({
-                        model: 'gpt-4',
+                    body: JSON.stringify(isGPT5 ? {
+                        // GPT-5 format
+                        model: selectedModel,
+                        input: [
+                            { role: 'system', content: context },
+                            ...CONFIG.conversationHistory,
+                            { role: 'user', content: message }
+                        ],
+                        text: {
+                            verbosity: 'medium'
+                        },
+                        reasoning: {
+                            effort: 'minimal'
+                        },
+                        max_tokens: 500
+                    } : {
+                        // GPT-4 format (legacy)
+                        model: selectedModel,
                         messages: [
                             { role: 'system', content: context },
                             ...CONFIG.conversationHistory,
@@ -6323,7 +6355,8 @@ Continuous Monitoring:
                 }
 
                 const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
+                // GPT-5 API returns response in a different format
+                const aiResponse = data.text || data.content || (data.choices && data.choices[0].message.content) || 'Response received';
 
                 // Add AI response
                 addQAMessage('ai', aiResponse);
@@ -6369,12 +6402,17 @@ Continuous Monitoring:
         setTimeout(function() {
             createQAPanel();
 
-            // Check for saved API key
+            // Check for saved API key and model
             const savedKey = localStorage.getItem('qa_openai_key');
+            const savedModel = localStorage.getItem('qa_model');
             if (savedKey) {
                 CONFIG.openaiApiKey = savedKey;
+                CONFIG.selectedModel = savedModel || 'gpt-5-mini';
                 document.getElementById('qaApiSetup').style.display = 'none';
                 document.getElementById('qaChatContainer').style.display = 'flex';
+                if (document.getElementById('modelSelect')) {
+                    document.getElementById('modelSelect').value = CONFIG.selectedModel;
+                }
             }
 
             // Update scenario context when user switches scenarios
