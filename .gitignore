@@ -18,3 +18,4 @@ Thumbs.db
 *.tmp
 *.temp
 *.log.github-token
+.github-token
