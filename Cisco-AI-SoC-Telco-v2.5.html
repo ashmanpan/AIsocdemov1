@@ -5903,11 +5903,11 @@ Continuous Monitoring:
                                placeholder="Enter OpenAI API Key (sk-...)"
                                class="qa-api-input">
                         <select id="modelSelect" class="qa-api-input" style="margin-bottom: 10px;">
-                            <option value="gpt-5-mini" selected>GPT-5 Mini (Fast & Balanced)</option>
-                            <option value="gpt-5">GPT-5 (Most Powerful - 94.6% AIME)</option>
-                            <option value="gpt-5-nano">GPT-5 Nano (Fastest)</option>
-                            <option value="gpt-4o">GPT-4o (Previous Generation)</option>
-                            <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Legacy)</option>
+                            <option value="gpt-3.5-turbo" selected>GPT-3.5 Turbo (Works with all keys)</option>
+                            <option value="gpt-4">GPT-4 (Requires GPT-4 access)</option>
+                            <option value="gpt-4-turbo-preview">GPT-4 Turbo</option>
+                            <option value="gpt-4o">GPT-4o (Latest)</option>
+                            <option value="gpt-4o-mini">GPT-4o Mini</option>
                         </select>
                         <button onclick="saveQAApiKey()" class="qa-api-button">Enable Q&A</button>
                         <div style="font-size: 11px; color: #666; margin-top: 8px; text-align: center;">
@@ -6309,32 +6309,13 @@ Continuous Monitoring:
                 const context = SCENARIO_CONTEXTS[scenarioId] || SCENARIO_CONTEXTS['lateral-movement'];
 
                 // Get selected model
-                const selectedModel = document.getElementById('modelSelect')?.value || CONFIG.selectedModel || 'gpt-5-mini';
+                const selectedModel = document.getElementById('modelSelect')?.value || CONFIG.selectedModel || 'gpt-3.5-turbo';
 
-                // Determine endpoint based on model - GPT-5 uses responses endpoint
-                const isGPT5 = selectedModel.startsWith('gpt-5');
-                const endpoint = isGPT5
-                    ? 'https://api.openai.com/v1/responses'
-                    : 'https://api.openai.com/v1/chat/completions';
+                // Use standard OpenAI chat completions endpoint
+                const endpoint = 'https://api.openai.com/v1/chat/completions';
 
-                // Build request body based on model type
-                const requestBody = isGPT5 ? {
-                    // GPT-5 Responses API format - uses 'input' instead of 'messages'
-                    model: selectedModel,
-                    input: [
-                        { role: 'system', content: context },
-                        ...CONFIG.conversationHistory,
-                        { role: 'user', content: message }
-                    ],
-                    text: {
-                        verbosity: 'medium'  // GPT-5 verbosity parameter
-                    },
-                    reasoning: {
-                        effort: 'minimal'  // GPT-5 minimal reasoning for faster responses
-                    },
-                    max_tokens: 500
-                } : {
-                    // Legacy chat completions format
+                // Build request body
+                const requestBody = {
                     model: selectedModel,
                     messages: [
                         { role: 'system', content: context },
@@ -6361,12 +6342,8 @@ Continuous Monitoring:
                 }
 
                 const data = await response.json();
-                // Handle both GPT-5 responses and legacy format
-                // GPT-5 returns: data.text or data.content
-                // GPT-4 returns: data.choices[0].message.content
-                const aiResponse = isGPT5
-                    ? (data.text || data.content || data.message?.content || 'Response received')
-                    : data.choices[0].message.content;
+                // Standard OpenAI response format
+                const aiResponse = data.choices[0].message.content;
 
                 // Add AI response
                 addQAMessage('ai', aiResponse);
@@ -6417,7 +6394,7 @@ Continuous Monitoring:
             const savedModel = localStorage.getItem('qa_model');
             if (savedKey) {
                 CONFIG.openaiApiKey = savedKey;
-                CONFIG.selectedModel = savedModel || 'gpt-5-mini';
+                CONFIG.selectedModel = savedModel || 'gpt-3.5-turbo';
                 document.getElementById('qaApiSetup').style.display = 'none';
                 document.getElementById('qaChatContainer').style.display = 'flex';
                 if (document.getElementById('modelSelect')) {
