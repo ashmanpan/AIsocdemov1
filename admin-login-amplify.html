@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Cisco AI Operations Center</title>
+
+    <!-- AWS Amplify Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/aws-amplify@5.3.11/dist/aws-amplify.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -214,24 +218,41 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+        .success-message {
+            display: none;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #00ff88;
-            cursor: pointer;
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
 
-        .remember-me label {
-            color: #888;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .forgot-password a {
+            color: #00aaff;
+            text-decoration: none;
             font-size: 0.875rem;
-            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #00ff88;
         }
 
         .btn-login {
@@ -282,22 +303,57 @@
             to { transform: rotate(360deg); }
         }
 
-        .login-footer {
+        /* OAuth Section */
+        .divider {
             text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #333;
+            margin: 2rem 0;
+            position: relative;
         }
 
-        .back-link {
-            color: #888;
-            text-decoration: none;
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #333;
+        }
+
+        .divider span {
+            background: #1a1a1a;
+            padding: 0 1rem;
+            color: #666;
+            position: relative;
             font-size: 0.875rem;
-            transition: color 0.3s ease;
         }
 
-        .back-link:hover {
-            color: #00ff88;
+        .oauth-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-oauth {
+            flex: 1;
+            padding: 0.75rem;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-oauth:hover {
+            background: #282828;
+            border-color: #444;
+            color: #fff;
         }
 
         /* Success Animation */
@@ -340,44 +396,39 @@
             }
         }
 
-        /* Attempts Warning */
-        .attempts-warning {
-            display: none;
-            background: rgba(255, 102, 0, 0.1);
-            border: 1px solid rgba(255, 102, 0, 0.3);
-            color: #ff9933;
-            padding: 0.75rem;
-            border-radius: 8px;
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .signup-link {
             margin-bottom: 1rem;
+            color: #888;
             font-size: 0.875rem;
-            text-align: center;
         }
 
-        .attempts-warning.show {
-            display: block;
+        .signup-link a {
+            color: #9b59b6;
+            text-decoration: none;
+            font-weight: 600;
         }
 
-        /* Lockout Message */
-        .lockout-message {
-            display: none;
-            background: rgba(255, 51, 51, 0.2);
-            border: 1px solid rgba(255, 51, 51, 0.4);
-            color: #ff6666;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
+        .signup-link a:hover {
+            text-decoration: underline;
         }
 
-        .lockout-message.show {
-            display: block;
+        .back-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
         }
 
-        .lockout-timer {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff3333;
-            margin-top: 0.5rem;
+        .back-link:hover {
+            color: #00ff88;
         }
 
         /* Responsive */
@@ -404,17 +455,13 @@
             <span class="security-badge">🔒 SECURE LOGIN</span>
         </div>
 
+        <div class="success-message" id="successMessage"></div>
         <div class="error-message" id="errorMessage"></div>
-        <div class="attempts-warning" id="attemptsWarning"></div>
-        <div class="lockout-message" id="lockoutMessage">
-            <div>Too many failed attempts. Please wait:</div>
-            <div class="lockout-timer" id="lockoutTimer"></div>
-        </div>
 
         <form class="login-form" id="loginForm">
             <div class="form-group">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-input" id="username" required autocomplete="username">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" id="username" required autocomplete="username">
             </div>
 
             <div class="form-group">
@@ -425,9 +472,8 @@
                 </div>
             </div>
 
-            <div class="remember-me">
-                <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">Remember me for 30 days</label>
+            <div class="forgot-password">
+                <a href="#" onclick="handleForgotPassword()">Forgot password?</a>
             </div>
 
             <button type="submit" class="btn-login" id="loginBtn">
@@ -437,94 +483,50 @@
 
         <div class="success-check" id="successCheck"></div>
 
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <div class="oauth-buttons">
+            <button class="btn-oauth" onclick="handleFederatedSignIn('Google')">
+                <span>🔍</span> Google
+            </button>
+            <button class="btn-oauth" onclick="handleFederatedSignIn('Facebook')">
+                <span>f</span> Facebook
+            </button>
+        </div>
+
         <div class="login-footer">
-            <p style="margin-bottom: 1rem; color: #888; font-size: 0.875rem;">
+            <p class="signup-link">
                 Don't have an account?
-                <a href="register.html" style="color: #9b59b6; text-decoration: none; font-weight: 600;">Sign Up</a>
+                <a href="register-amplify.html">Sign Up</a>
             </p>
             <a href="index.html" class="back-link">← Back to Home</a>
         </div>
     </div>
 
+    <!-- Load Amplify configuration -->
+    <script src="amplify-config.js"></script>
+
     <script>
-        // Admin credentials (in production, this would be handled server-side)
-        const ADMIN_CREDENTIALS = [
-            {
-                username: 'admin',
-                password: 'CiscoAI2024!', // Default admin password
-                role: 'super-admin'
-            },
-            {
-                username: 'videoadmin',
-                password: 'Video@Admin123', // Video admin password
-                role: 'video-admin'
-            },
-            {
-                username: 'demo',
-                password: 'Demo@2024', // Demo account
-                role: 'demo-admin'
-            }
-        ];
-
-        // Security settings
-        const MAX_ATTEMPTS = 5;
-        const LOCKOUT_DURATION = 300000; // 5 minutes in milliseconds
-        const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
-        const REMEMBER_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-        let failedAttempts = 0;
-        let lockoutTimer = null;
-
         // Check if already logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            checkExistingSession();
-            setupEventListeners();
-            checkLockout();
-            checkRegistrationSuccess();
-        });
-
-        function checkRegistrationSuccess() {
-            // Check if user just registered
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('registered') === 'true') {
-                const successMsg = document.createElement('div');
-                successMsg.style.cssText = `
-                    background: rgba(0, 255, 136, 0.1);
-                    border: 1px solid rgba(0, 255, 136, 0.3);
-                    color: #00ff88;
-                    padding: 0.75rem;
-                    border-radius: 8px;
-                    margin-bottom: 1rem;
-                    text-align: center;
-                    animation: fadeIn 0.5s ease;
-                `;
-                successMsg.textContent = 'Registration successful! Please login with your credentials.';
-                document.querySelector('.login-form').insertAdjacentElement('beforebegin', successMsg);
-
-                // Remove the parameter from URL
-                window.history.replaceState({}, document.title, window.location.pathname);
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize Amplify if not already done
+            if (!window.Amplify || !window.Amplify.Auth) {
+                console.error('Amplify not configured. Please set up amplify-config.js with your Cognito details.');
+                showError('Authentication service not configured. Please contact administrator.');
+                return;
             }
-        }
 
-        function checkExistingSession() {
-            const session = getSession();
-            if (session && session.expires > Date.now()) {
-                // Valid session exists, redirect to admin page
+            // Check for existing session
+            const isAuthenticated = await window.AmplifyAuthService.isAuthenticated();
+            if (isAuthenticated) {
                 window.location.href = 'admin-videos.html';
             }
-        }
 
-        function getSession() {
-            const sessionStr = localStorage.getItem('adminSession');
-            if (sessionStr) {
-                try {
-                    return JSON.parse(sessionStr);
-                } catch (e) {
-                    return null;
-                }
-            }
-            return null;
-        }
+            setupEventListeners();
+            checkRegistrationSuccess();
+        });
 
         function setupEventListeners() {
             // Form submission
@@ -538,87 +540,51 @@
             document.getElementById('password').addEventListener('input', clearErrors);
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-
-            // Check if locked out
-            if (isLockedOut()) {
-                return;
+        function checkRegistrationSuccess() {
+            // Check if user just registered
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('registered') === 'true') {
+                showSuccess('Registration successful! Please login with your credentials.');
+                // Remove the parameter from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
             }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
 
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
 
             // Show loading state
             showLoading(true);
 
-            // Simulate async authentication (in production, this would be an API call)
-            setTimeout(() => {
-                const user = authenticateUser(username, password);
+            // Sign in with Amplify
+            const result = await window.AmplifyAuthService.signIn(username, password);
 
-                if (user) {
-                    // Success
-                    handleLoginSuccess(user, rememberMe);
-                } else {
-                    // Failure
-                    handleLoginFailure();
+            if (result.success) {
+                // Check if user needs to change password (first login)
+                if (result.user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+                    // Handle password change requirement
+                    showError('Please change your temporary password');
+                    // In production, redirect to password change page
+                    showLoading(false);
+                    return;
                 }
-            }, 1000); // Simulate network delay
+
+                // Success
+                handleLoginSuccess();
+            } else {
+                // Failure
+                handleLoginFailure(result.error);
+            }
         }
 
-        function authenticateUser(username, password) {
-            // First check admin credentials
-            let user = ADMIN_CREDENTIALS.find(cred =>
-                cred.username.toLowerCase() === username.toLowerCase() &&
-                cred.password === password
-            );
-
-            if (user) {
-                return user;
-            }
-
-            // Then check registered users (using email as username)
-            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-            const registeredUser = registeredUsers.find(u =>
-                (u.email.toLowerCase() === username.toLowerCase() ||
-                 (u.firstName + '.' + u.lastName).toLowerCase() === username.toLowerCase()) &&
-                u.password === password &&
-                u.status === 'active'
-            );
-
-            if (registeredUser) {
-                return {
-                    username: registeredUser.email,
-                    role: registeredUser.role || 'user',
-                    firstName: registeredUser.firstName,
-                    lastName: registeredUser.lastName
-                };
-            }
-
-            return null;
-        }
-
-        function handleLoginSuccess(user, rememberMe) {
-            // Reset failed attempts
-            failedAttempts = 0;
-            localStorage.removeItem('failedAttempts');
-            localStorage.removeItem('lockoutUntil');
-
-            // Create session
-            const sessionDuration = rememberMe ? REMEMBER_DURATION : SESSION_DURATION;
-            const session = {
-                username: user.username,
-                role: user.role,
-                loginTime: Date.now(),
-                expires: Date.now() + sessionDuration,
-                rememberMe: rememberMe
-            };
-
-            localStorage.setItem('adminSession', JSON.stringify(session));
-
+        function handleLoginSuccess() {
             // Show success animation
-            showSuccess();
+            showSuccess('Login successful! Redirecting...');
+            document.getElementById('successCheck').classList.add('show');
+            document.getElementById('loginForm').style.opacity = '0';
 
             // Redirect after animation
             setTimeout(() => {
@@ -626,109 +592,55 @@
             }, 1500);
         }
 
-        function handleLoginFailure() {
-            failedAttempts++;
-            localStorage.setItem('failedAttempts', failedAttempts);
-
+        function handleLoginFailure(error) {
             showLoading(false);
 
-            if (failedAttempts >= MAX_ATTEMPTS) {
-                // Lock out the user
-                const lockoutUntil = Date.now() + LOCKOUT_DURATION;
-                localStorage.setItem('lockoutUntil', lockoutUntil);
-                showLockout();
-            } else if (failedAttempts >= MAX_ATTEMPTS - 2) {
-                // Show warning
-                showAttemptsWarning(MAX_ATTEMPTS - failedAttempts);
+            // Parse error message
+            let errorMessage = 'Invalid username or password';
+
+            if (error.includes('User does not exist')) {
+                errorMessage = 'Account not found. Please check your email or sign up.';
+            } else if (error.includes('Incorrect username or password')) {
+                errorMessage = 'Incorrect password. Please try again.';
+            } else if (error.includes('User is not confirmed')) {
+                errorMessage = 'Please verify your email before signing in.';
+            } else if (error.includes('Password attempts exceeded')) {
+                errorMessage = 'Too many failed attempts. Please try again later.';
             }
 
-            showError('Invalid username or password');
+            showError(errorMessage);
 
             // Add shake animation to inputs
             document.getElementById('username').classList.add('error');
             document.getElementById('password').classList.add('error');
         }
 
-        function checkLockout() {
-            const storedAttempts = localStorage.getItem('failedAttempts');
-            if (storedAttempts) {
-                failedAttempts = parseInt(storedAttempts);
+        async function handleForgotPassword() {
+            const email = document.getElementById('username').value;
+
+            if (!email) {
+                showError('Please enter your email address first');
+                return;
             }
 
-            if (isLockedOut()) {
-                showLockout();
+            showLoading(true);
+            const result = await window.AmplifyAuthService.forgotPassword(email);
+            showLoading(false);
+
+            if (result.success) {
+                showSuccess('Password reset code sent to your email');
+                // In production, redirect to password reset page
+            } else {
+                showError(result.error || 'Failed to send reset code');
             }
         }
 
-        function isLockedOut() {
-            const lockoutUntil = localStorage.getItem('lockoutUntil');
-            if (lockoutUntil) {
-                const lockoutTime = parseInt(lockoutUntil);
-                if (Date.now() < lockoutTime) {
-                    return true;
-                } else {
-                    // Lockout expired, clear it
-                    localStorage.removeItem('lockoutUntil');
-                    localStorage.removeItem('failedAttempts');
-                    failedAttempts = 0;
-                }
+        async function handleFederatedSignIn(provider) {
+            try {
+                await window.AmplifyAuthService.federatedSignIn(provider);
+            } catch (error) {
+                showError(`${provider} sign-in is not configured yet`);
             }
-            return false;
-        }
-
-        function showLockout() {
-            const lockoutMessage = document.getElementById('lockoutMessage');
-            const loginForm = document.getElementById('loginForm');
-            const lockoutTimerElem = document.getElementById('lockoutTimer');
-
-            lockoutMessage.classList.add('show');
-            loginForm.style.opacity = '0.5';
-            loginForm.style.pointerEvents = 'none';
-
-            // Start countdown timer
-            if (lockoutTimer) {
-                clearInterval(lockoutTimer);
-            }
-
-            lockoutTimer = setInterval(() => {
-                const lockoutUntil = localStorage.getItem('lockoutUntil');
-                if (lockoutUntil) {
-                    const timeRemaining = parseInt(lockoutUntil) - Date.now();
-                    if (timeRemaining > 0) {
-                        const minutes = Math.floor(timeRemaining / 60000);
-                        const seconds = Math.floor((timeRemaining % 60000) / 1000);
-                        lockoutTimerElem.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                    } else {
-                        // Lockout expired
-                        clearInterval(lockoutTimer);
-                        lockoutMessage.classList.remove('show');
-                        loginForm.style.opacity = '1';
-                        loginForm.style.pointerEvents = 'auto';
-                        localStorage.removeItem('lockoutUntil');
-                        localStorage.removeItem('failedAttempts');
-                        failedAttempts = 0;
-                    }
-                }
-            }, 1000);
-        }
-
-        function showAttemptsWarning(remainingAttempts) {
-            const warning = document.getElementById('attemptsWarning');
-            warning.textContent = `Warning: ${remainingAttempts} attempt${remainingAttempts > 1 ? 's' : ''} remaining before account lockout`;
-            warning.classList.add('show');
-        }
-
-        function showError(message) {
-            const errorElement = document.getElementById('errorMessage');
-            errorElement.textContent = message;
-            errorElement.classList.add('show');
-        }
-
-        function clearErrors() {
-            document.getElementById('errorMessage').classList.remove('show');
-            document.getElementById('attemptsWarning').classList.remove('show');
-            document.getElementById('username').classList.remove('error');
-            document.getElementById('password').classList.remove('error');
         }
 
         function togglePassword() {
@@ -744,6 +656,24 @@
             }
         }
 
+        function clearErrors() {
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('username').classList.remove('error');
+            document.getElementById('password').classList.remove('error');
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        function showSuccess(message) {
+            const successElement = document.getElementById('successMessage');
+            successElement.textContent = message;
+            successElement.classList.add('show');
+        }
+
         function showLoading(show) {
             const loginBtn = document.getElementById('loginBtn');
             const loginBtnText = document.getElementById('loginBtnText');
@@ -755,14 +685,6 @@
                 loginBtn.classList.remove('loading');
                 loginBtnText.textContent = 'Sign In';
             }
-        }
-
-        function showSuccess() {
-            const successCheck = document.getElementById('successCheck');
-            const loginForm = document.getElementById('loginForm');
-
-            successCheck.classList.add('show');
-            loginForm.style.opacity = '0';
         }
     </script>
 </body>

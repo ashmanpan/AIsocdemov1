@@ -947,8 +947,34 @@
             // super-admin: Full access
             // video-admin: Can add/edit/delete videos, but not change settings
             // demo-admin: Can only view and add videos, no delete or settings
+            // user: Can only view videos (registered users from sign-up)
 
-            if (currentUser.role === 'demo-admin') {
+            if (currentUser.role === 'user') {
+                // Regular users - view only mode
+                // Hide all admin tabs except manage
+                document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                    if (index !== 1) { // Keep only "Manage Videos" tab
+                        btn.style.display = 'none';
+                    }
+                });
+
+                // Hide all action buttons
+                document.querySelectorAll('.action-btn').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+
+                // Hide admin badge
+                const adminBadge = document.querySelector('.admin-badge');
+                if (adminBadge) {
+                    adminBadge.textContent = 'USER';
+                    adminBadge.style.background = 'linear-gradient(45deg, #666, #888)';
+                }
+
+                // Show view-only message
+                setTimeout(() => {
+                    showToast('You have view-only access. Contact admin for full access.', 'success');
+                }, 1000);
+            } else if (currentUser.role === 'demo-admin') {
                 // Hide delete buttons and settings tab
                 document.querySelectorAll('.action-btn[title="Delete"]').forEach(btn => {
                     btn.style.display = 'none';
