@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Cisco AI Operations Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+            75% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+
+        /* Login Container */
+        .login-container {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .security-badge {
+            display: inline-block;
+            background: rgba(255, 102, 0, 0.2);
+            color: #ff6600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Form Styles */
+        .login-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+        }
+
+        .form-input.error {
+            border-color: #ff3333;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #fff;
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            color: #ff6666;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #00ff88;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            color: #888;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-login.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .back-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #00ff88;
+        }
+
+        /* Success Animation */
+        .success-check {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 50%;
+            animation: successPulse 0.5s ease;
+        }
+
+        .success-check.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-check::after {
+            content: '✓';
+            font-size: 3rem;
+            color: #00ff88;
+        }
+
+        @keyframes successPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Attempts Warning */
+        .attempts-warning {
+            display: none;
+            background: rgba(255, 102, 0, 0.1);
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            color: #ff9933;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        .attempts-warning.show {
+            display: block;
+        }
+
+        /* Lockout Message */
+        .lockout-message {
+            display: none;
+            background: rgba(255, 51, 51, 0.2);
+            border: 1px solid rgba(255, 51, 51, 0.4);
+            color: #ff6666;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .lockout-message.show {
+            display: block;
+        }
+
+        .lockout-timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff3333;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="login-container">
+        <div class="login-header">
+            <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
+            <h1 class="login-title">Admin Access</h1>
+            <p class="login-subtitle">Video Management System</p>
+            <span class="security-badge">🔒 SECURE LOGIN</span>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="attempts-warning" id="attemptsWarning"></div>
+        <div class="lockout-message" id="lockoutMessage">
+            <div>Too many failed attempts. Please wait:</div>
+            <div class="lockout-timer" id="lockoutTimer"></div>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-input" id="username" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" class="form-input" id="password" required autocomplete="current-password">
+                    <button type="button" class="password-toggle" id="passwordToggle">👁️</button>
+                </div>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me for 30 days</label>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                <span id="loginBtnText">Sign In</span>
+            </button>
+        </form>
+
+        <div class="success-check" id="successCheck"></div>
+
+        <div class="login-footer">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Admin credentials (in production, this would be handled server-side)
+        const ADMIN_CREDENTIALS = [
+            {
+                username: 'admin',
+                password: 'CiscoAI2024!', // Default admin password
+                role: 'super-admin'
+            },
+            {
+                username: 'videoadmin',
+                password: 'Video@Admin123', // Video admin password
+                role: 'video-admin'
+            },
+            {
+                username: 'demo',
+                password: 'Demo@2024', // Demo account
+                role: 'demo-admin'
+            }
+        ];
+
+        // Security settings
+        const MAX_ATTEMPTS = 5;
+        const LOCKOUT_DURATION = 300000; // 5 minutes in milliseconds
+        const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
+        const REMEMBER_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+        let failedAttempts = 0;
+        let lockoutTimer = null;
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingSession();
+            setupEventListeners();
+            checkLockout();
+        });
+
+        function checkExistingSession() {
+            const session = getSession();
+            if (session && session.expires > Date.now()) {
+                // Valid session exists, redirect to admin page
+                window.location.href = 'admin-videos.html';
+            }
+        }
+
+        function getSession() {
+            const sessionStr = localStorage.getItem('adminSession');
+            if (sessionStr) {
+                try {
+                    return JSON.parse(sessionStr);
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        function setupEventListeners() {
+            // Form submission
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+            // Password toggle
+            document.getElementById('passwordToggle').addEventListener('click', togglePassword);
+
+            // Clear error on input
+            document.getElementById('username').addEventListener('input', clearErrors);
+            document.getElementById('password').addEventListener('input', clearErrors);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            // Check if locked out
+            if (isLockedOut()) {
+                return;
+            }
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Show loading state
+            showLoading(true);
+
+            // Simulate async authentication (in production, this would be an API call)
+            setTimeout(() => {
+                const user = authenticateUser(username, password);
+
+                if (user) {
+                    // Success
+                    handleLoginSuccess(user, rememberMe);
+                } else {
+                    // Failure
+                    handleLoginFailure();
+                }
+            }, 1000); // Simulate network delay
+        }
+
+        function authenticateUser(username, password) {
+            return ADMIN_CREDENTIALS.find(cred =>
+                cred.username.toLowerCase() === username.toLowerCase() &&
+                cred.password === password
+            );
+        }
+
+        function handleLoginSuccess(user, rememberMe) {
+            // Reset failed attempts
+            failedAttempts = 0;
+            localStorage.removeItem('failedAttempts');
+            localStorage.removeItem('lockoutUntil');
+
+            // Create session
+            const sessionDuration = rememberMe ? REMEMBER_DURATION : SESSION_DURATION;
+            const session = {
+                username: user.username,
+                role: user.role,
+                loginTime: Date.now(),
+                expires: Date.now() + sessionDuration,
+                rememberMe: rememberMe
+            };
+
+            localStorage.setItem('adminSession', JSON.stringify(session));
+
+            // Show success animation
+            showSuccess();
+
+            // Redirect after animation
+            setTimeout(() => {
+                window.location.href = 'admin-videos.html';
+            }, 1500);
+        }
+
+        function handleLoginFailure() {
+            failedAttempts++;
+            localStorage.setItem('failedAttempts', failedAttempts);
+
+            showLoading(false);
+
+            if (failedAttempts >= MAX_ATTEMPTS) {
+                // Lock out the user
+                const lockoutUntil = Date.now() + LOCKOUT_DURATION;
+                localStorage.setItem('lockoutUntil', lockoutUntil);
+                showLockout();
+            } else if (failedAttempts >= MAX_ATTEMPTS - 2) {
+                // Show warning
+                showAttemptsWarning(MAX_ATTEMPTS - failedAttempts);
+            }
+
+            showError('Invalid username or password');
+
+            // Add shake animation to inputs
+            document.getElementById('username').classList.add('error');
+            document.getElementById('password').classList.add('error');
+        }
+
+        function checkLockout() {
+            const storedAttempts = localStorage.getItem('failedAttempts');
+            if (storedAttempts) {
+                failedAttempts = parseInt(storedAttempts);
+            }
+
+            if (isLockedOut()) {
+                showLockout();
+            }
+        }
+
+        function isLockedOut() {
+            const lockoutUntil = localStorage.getItem('lockoutUntil');
+            if (lockoutUntil) {
+                const lockoutTime = parseInt(lockoutUntil);
+                if (Date.now() < lockoutTime) {
+                    return true;
+                } else {
+                    // Lockout expired, clear it
+                    localStorage.removeItem('lockoutUntil');
+                    localStorage.removeItem('failedAttempts');
+                    failedAttempts = 0;
+                }
+            }
+            return false;
+        }
+
+        function showLockout() {
+            const lockoutMessage = document.getElementById('lockoutMessage');
+            const loginForm = document.getElementById('loginForm');
+            const lockoutTimerElem = document.getElementById('lockoutTimer');
+
+            lockoutMessage.classList.add('show');
+            loginForm.style.opacity = '0.5';
+            loginForm.style.pointerEvents = 'none';
+
+            // Start countdown timer
+            if (lockoutTimer) {
+                clearInterval(lockoutTimer);
+            }
+
+            lockoutTimer = setInterval(() => {
+                const lockoutUntil = localStorage.getItem('lockoutUntil');
+                if (lockoutUntil) {
+                    const timeRemaining = parseInt(lockoutUntil) - Date.now();
+                    if (timeRemaining > 0) {
+                        const minutes = Math.floor(timeRemaining / 60000);
+                        const seconds = Math.floor((timeRemaining % 60000) / 1000);
+                        lockoutTimerElem.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    } else {
+                        // Lockout expired
+                        clearInterval(lockoutTimer);
+                        lockoutMessage.classList.remove('show');
+                        loginForm.style.opacity = '1';
+                        loginForm.style.pointerEvents = 'auto';
+                        localStorage.removeItem('lockoutUntil');
+                        localStorage.removeItem('failedAttempts');
+                        failedAttempts = 0;
+                    }
+                }
+            }, 1000);
+        }
+
+        function showAttemptsWarning(remainingAttempts) {
+            const warning = document.getElementById('attemptsWarning');
+            warning.textContent = `Warning: ${remainingAttempts} attempt${remainingAttempts > 1 ? 's' : ''} remaining before account lockout`;
+            warning.classList.add('show');
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        function clearErrors() {
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('attemptsWarning').classList.remove('show');
+            document.getElementById('username').classList.remove('error');
+            document.getElementById('password').classList.remove('error');
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.getElementById('passwordToggle');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '👁️‍🗨️';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        function showLoading(show) {
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+
+            if (show) {
+                loginBtn.classList.add('loading');
+                loginBtnText.textContent = '';
+            } else {
+                loginBtn.classList.remove('loading');
+                loginBtnText.textContent = 'Sign In';
+            }
+        }
+
+        function showSuccess() {
+            const successCheck = document.getElementById('successCheck');
+            const loginForm = document.getElementById('loginForm');
+
+            successCheck.classList.add('show');
+            loginForm.style.opacity = '0';
+        }
+    </script>
+</body>
+</html>

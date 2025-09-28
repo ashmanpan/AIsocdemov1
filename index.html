@@ -372,18 +372,179 @@
             .demo-card:hover {
                 transform: none;
             }
-            
+
             .demo-button:hover {
                 transform: none;
             }
-            
+
             .demo-card {
                 -webkit-tap-highlight-color: transparent;
             }
         }
+
+        /* Navigation Menu Styles */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logo img {
+            height: 40px;
+        }
+
+        .nav-logo span {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #00ff88;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(26, 26, 26, 0.98);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 200px;
+            margin-top: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-header {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s ease;
+                width: 100%;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 0;
+            }
+
+            .container {
+                margin-top: 80px;
+            }
+        }
+
+        body.has-nav {
+            padding-top: 80px;
+        }
     </style>
 </head>
-<body>
+<body class="has-nav">
     <script>
         // Domain-based routing
         window.addEventListener('DOMContentLoaded', function() {
@@ -403,7 +564,35 @@
         });
     </script>
     <div class="bg-animation"></div>
-    
+
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="ciscologo.jpg" alt="Cisco Logo">
+                <span>AI Operations Center</span>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Demos</a>
+                    <div class="dropdown-content">
+                        <a href="Cisco-AI-NoC-Telco-v5.html" class="dropdown-item">AI NOC Demo</a>
+                        <a href="Cisco-AI-SoC-Telco-v2.5.html" class="dropdown-item">AI SOC Demo</a>
+                        <a href="Cisco-AI-DC-v1.0.html" class="dropdown-item">AI Datacenter Demo</a>
+                    </div>
+                </div>
+                <a href="industry-usecases.html" class="nav-link">Vertical Industry</a>
+                <a href="agent-marketplace.html" class="nav-link">Marketplace</a>
+                <a href="demo-videos.html" class="nav-link">Demo Videos</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="team.html" class="nav-link">Team</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                ☰
+            </button>
+        </div>
+    </header>
+
     <div class="container">
         <div class="logo-section">
             <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
@@ -412,95 +601,12 @@
         </div>
         
         <div class="demo-selection">
-            <div class="demo-card marketplace-card" onclick="window.location.href='agent-marketplace.html'">
-                <span class="demo-icon">🏪</span>
-                <h2 class="demo-title">Agent Marketplace</h2>
-                <p class="demo-description">
-                    Browse and subscribe to specialized AI agents for transport, datacenter, 
-                    and security operations with flexible pricing models.
-                </p>
-                <div class="demo-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>50+ Specialized AI Agents</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Bundled Agent Packages</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Flexible Subscription Models</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Try Before You Buy</span>
-                    </div>
-                </div>
-                <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
-            </div>
-            
-            <div class="demo-card industry-card" onclick="window.location.href='industry-usecases.html'">
-                <span class="demo-icon">🏭</span>
-                <h2 class="demo-title">Vertical Industry Use Cases</h2>
-                <p class="demo-description">
-                    Explore AI-powered solutions tailored for specific industries including 
-                    manufacturing, energy, finance, hospitality, and government sectors.
-                </p>
-                <div class="demo-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Industry-specific AI solutions</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Regulatory compliance built-in</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Best practices implementation</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>ROI-focused deployments</span>
-                    </div>
-                </div>
-                <a href="industry-usecases.html" class="demo-button">Explore Industries</a>
-            </div>
-            
-            <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
-                <span class="demo-icon">🛡️</span>
-                <h2 class="demo-title">AI SOC Demo</h2>
-                <p class="demo-description">
-                    Experience AI-driven Security Operations with multi-agent collaboration 
-                    for threat detection, investigation, and response.
-                </p>
-                <div class="demo-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>18 Telco-specific security scenarios</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Real-time threat analysis</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>5G/4G infrastructure protection</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <span>Integrated security tools</span>
-                    </div>
-                </div>
-                <a href="Cisco-AI-SoC-Telco-v2.5.html" class="demo-button">Launch SOC Demo</a>
-            </div>
-            
+            <!-- First Row: NOC, SOC, Datacenter -->
             <div class="demo-card noc-card" onclick="window.location.href='Cisco-AI-NoC-Telco-v5.html'">
                 <span class="demo-icon">🌐</span>
                 <h2 class="demo-title">AI NOC Demo</h2>
                 <p class="demo-description">
-                    Explore AI-powered Network Operations with intelligent agents for 
+                    Explore AI-powered Network Operations with intelligent agents for
                     performance monitoring, troubleshooting, and optimization.
                 </p>
                 <div class="demo-features">
@@ -523,12 +629,40 @@
                 </div>
                 <a href="Cisco-AI-NoC-Telco-v5.html" class="demo-button">Launch NOC Demo</a>
             </div>
-            
+
+            <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
+                <span class="demo-icon">🛡️</span>
+                <h2 class="demo-title">AI SOC Demo</h2>
+                <p class="demo-description">
+                    Experience AI-driven Security Operations with multi-agent collaboration
+                    for threat detection, investigation, and response.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>18 Telco-specific security scenarios</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Real-time threat analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>5G/4G infrastructure protection</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Integrated security tools</span>
+                    </div>
+                </div>
+                <a href="Cisco-AI-SoC-Telco-v2.5.html" class="demo-button">Launch SOC Demo</a>
+            </div>
+
             <div class="demo-card dc-card" onclick="window.location.href='Cisco-AI-DC-v1.0.html'">
                 <span class="demo-icon">🏢</span>
                 <h2 class="demo-title">AI Datacenter Demo</h2>
                 <p class="demo-description">
-                    Discover AI-powered Datacenter Operations with intelligent agents for 
+                    Discover AI-powered Datacenter Operations with intelligent agents for
                     infrastructure management, capacity planning, and service automation.
                 </p>
                 <div class="demo-features">
@@ -551,11 +685,97 @@
                 </div>
                 <a href="Cisco-AI-DC-v1.0.html" class="demo-button">Launch DC Demo</a>
             </div>
+
+            <!-- Second Row: Vertical Industry and Agent Marketplace -->
+            <div class="demo-card industry-card" onclick="window.location.href='industry-usecases.html'">
+                <span class="demo-icon">🏭</span>
+                <h2 class="demo-title">Vertical Industry Use Cases</h2>
+                <p class="demo-description">
+                    Explore AI-powered solutions tailored for specific industries including
+                    manufacturing, energy, finance, hospitality, and government sectors.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Industry-specific AI solutions</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Regulatory compliance built-in</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Best practices implementation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>ROI-focused deployments</span>
+                    </div>
+                </div>
+                <a href="industry-usecases.html" class="demo-button">Explore Industries</a>
+            </div>
+
+            <div class="demo-card marketplace-card" onclick="window.location.href='agent-marketplace.html'">
+                <span class="demo-icon">🏪</span>
+                <h2 class="demo-title">Agent Marketplace</h2>
+                <p class="demo-description">
+                    Browse and subscribe to specialized AI agents for transport, datacenter,
+                    and security operations with flexible pricing models.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>50+ Specialized AI Agents</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Bundled Agent Packages</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Flexible Subscription Models</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Try Before You Buy</span>
+                    </div>
+                </div>
+                <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
+            </div>
         </div>
         
         <div class="footer">
             <p>Powered by Cisco Agentic AI • Multi-Agent Collaboration Platform</p>
+            <p style="margin-top: 1rem;">
+                <a href="admin-login.html" style="color: #666; text-decoration: none; font-size: 0.875rem; transition: color 0.3s ease;"
+                   onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#666'">
+                    🔐 Admin Portal
+                </a>
+            </p>
         </div>
     </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-header')) {
+                navMenu.classList.remove('active');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.textContent = '☰';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
