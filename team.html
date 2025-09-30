@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Cisco AI Operations Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+        }
+
+        .btn-home {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Main Content */
+        .team-container {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Team Leadership Section */
+        .leadership-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .leader-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+        }
+
+        .leader-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .leader-name {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-title {
+            color: #00aaff;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .leader-bio {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Team Members Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+            border: 1px solid #444;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: scale(1.05);
+            border-color: #00aaff;
+            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.2);
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #9b59b6, #00aaff);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-role {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-expertise {
+            color: #00ff88;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-text {
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="logo-container">
+            <div class="logo">AI</div>
+            <div class="nav-title">AI Operations Center</div>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="demo-videos.html" class="nav-link">Demo Videos</a>
+            <a href="contact-us.html" class="nav-link">Contact Us</a>
+            <a href="index.html" class="btn-home">Back to Demos</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="team-container">
+        <h1 class="page-title">Meet Our Team</h1>
+        <p class="subtitle">APJ Service Provider CTO Leadership & Technical Experts</p>
+
+        <!-- Leadership Section -->
+        <section class="leadership-section">
+            <h2 class="section-title">Leadership Team</h2>
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h3 class="leader-name">CTO, APJ Service Provider</h3>
+                    <p class="leader-title">Chief Technology Officer</p>
+                    <p class="leader-bio">
+                        Leading digital transformation initiatives across Asia Pacific & Japan,
+                        driving innovation in 5G, AI-powered networks, and cloud-native architectures.
+                    </p>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h3 class="leader-name">VP Engineering</h3>
+                    <p class="leader-title">Vice President, Engineering</p>
+                    <p class="leader-bio">
+                        Overseeing technical architecture and implementation strategies for
+                        next-generation service provider solutions across the APJ region.
+                    </p>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h3 class="leader-name">Director, AI & Automation</h3>
+                    <p class="leader-title">Director of AI Solutions</p>
+                    <p class="leader-bio">
+                        Pioneering AI-driven network automation and zero-touch operations
+                        for service providers in emerging markets.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Team Section -->
+        <section class="team-section">
+            <h2 class="section-title">Technical Architecture Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">🔧</div>
+                    <h4 class="team-name">Principal Architect</h4>
+                    <p class="team-role">5G & Network Architecture</p>
+                    <span class="team-expertise">5G Core • SRv6 • Network Slicing</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🤖</div>
+                    <h4 class="team-name">AI Solutions Architect</h4>
+                    <p class="team-role">AI/ML Infrastructure</p>
+                    <span class="team-expertise">Agentic AI • ML Ops • Deep Learning</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🔒</div>
+                    <h4 class="team-name">Security Architect</h4>
+                    <p class="team-role">Zero Trust & SASE</p>
+                    <span class="team-expertise">Zero Trust • AI SOC • SASE</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">☁️</div>
+                    <h4 class="team-name">Cloud Architect</h4>
+                    <p class="team-role">Cloud-Native Solutions</p>
+                    <span class="team-expertise">Kubernetes • Cloud Native • DevOps</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">📊</div>
+                    <h4 class="team-name">Data Platform Architect</h4>
+                    <p class="team-role">Observability & Analytics</p>
+                    <span class="team-expertise">Full Stack Observability • Telemetry</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🔄</div>
+                    <h4 class="team-name">Automation Engineer</h4>
+                    <p class="team-role">Network Automation</p>
+                    <span class="team-expertise">Intent-Based • Orchestration</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🌐</div>
+                    <h4 class="team-name">Edge Solutions Architect</h4>
+                    <p class="team-role">Edge Computing</p>
+                    <span class="team-expertise">MEC • IoT • Edge AI</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🚀</div>
+                    <h4 class="team-name">Innovation Lead</h4>
+                    <p class="team-role">Emerging Technologies</p>
+                    <span class="team-expertise">6G Research • Quantum • Web3</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regional Teams Section -->
+        <section class="team-section">
+            <h2 class="section-title">Regional Technical Leads</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">🇸🇬</div>
+                    <h4 class="team-name">Singapore Lead</h4>
+                    <p class="team-role">Southeast Asia</p>
+                    <span class="team-expertise">ASEAN Markets</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🇯🇵</div>
+                    <h4 class="team-name">Japan Lead</h4>
+                    <p class="team-role">Japan & Korea</p>
+                    <span class="team-expertise">Advanced Networks</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🇮🇳</div>
+                    <h4 class="team-name">India Lead</h4>
+                    <p class="team-role">South Asia</p>
+                    <span class="team-expertise">Scale Solutions</span>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">🇦🇺</div>
+                    <h4 class="team-name">ANZ Lead</h4>
+                    <p class="team-role">Australia & NZ</p>
+                    <span class="team-expertise">Enterprise SP</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2024 Cisco Systems, Inc. All rights reserved. | APJ Service Provider CTO Team</p>
+    </footer>
+
+    <script>
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.leader-card, .team-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
