@@ -33,14 +33,14 @@ const amplifyConfig = {
         // OPTIONAL - Manually set the authentication flow type
         authenticationFlowType: 'USER_SRP_AUTH',
 
-        // OPTIONAL - Hosted UI configuration (commented out for now - requires domain setup)
-        // oauth: {
-        //     domain: 'cisco-ai-ops.auth.us-east-1.amazoncognito.com',
-        //     scope: ['email', 'profile', 'openid'],
-        //     redirectSignIn: window.location.origin + '/admin-videos.html',
-        //     redirectSignOut: window.location.origin + '/index.html',
-        //     responseType: 'code',
-        // },
+        // OAuth configuration with Cognito domain
+        oauth: {
+            domain: 'cisco-ai-ops-demo.auth.us-east-1.amazoncognito.com',
+            scope: ['email', 'profile', 'openid'],
+            redirectSignIn: window.location.origin + '/admin-videos.html',
+            redirectSignOut: window.location.origin + '/index.html',
+            responseType: 'code',
+        },
     }
 };
 

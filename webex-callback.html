@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webex Authentication - Cisco AI Operations Center</title>
+
+    <!-- AWS Amplify Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/aws-amplify@5.3.11/dist/aws-amplify.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-container {
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #333;
+            border-top-color: #00ff88;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .loading-subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .error-container {
+            display: none;
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #ff3333;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .error-title {
+            color: #ff3333;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            color: #ccc;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .btn-retry {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-retry:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container" id="loadingContainer">
+        <div class="spinner"></div>
+        <h2 class="loading-title">Authenticating with Webex</h2>
+        <p class="loading-subtitle">Please wait while we complete your sign-in...</p>
+    </div>
+
+    <div class="error-container" id="errorContainer">
+        <h2 class="error-title">Authentication Failed</h2>
+        <p class="error-message" id="errorMessage">
+            We couldn't complete your Webex sign-in. Please try again.
+        </p>
+        <a href="admin-login-amplify.html" class="btn-retry">Back to Login</a>
+    </div>
+
+    <!-- Load Amplify configuration -->
+    <script src="amplify-config.js"></script>
+
+    <script>
+        // Webex OAuth configuration
+        const WEBEX_CONFIG = {
+            clientId: 'YOUR_WEBEX_CLIENT_ID', // Replace with your Webex client ID
+            clientSecret: 'YOUR_WEBEX_CLIENT_SECRET', // In production, this should be server-side
+            redirectUri: window.location.origin + '/webex-callback.html',
+            tokenEndpoint: 'https://webexapis.com/v1/access_token',
+            userInfoEndpoint: 'https://webexapis.com/v1/people/me'
+        };
+
+        // Handle OAuth callback
+        async function handleWebexCallback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+            const error = urlParams.get('error');
+
+            if (error) {
+                showError(`Webex authentication error: ${error}`);
+                return;
+            }
+
+            if (!code) {
+                showError('No authorization code received from Webex');
+                return;
+            }
+
+            try {
+                // In production, this token exchange should happen server-side
+                // For demo purposes, we're showing the client-side flow
+                const tokenData = await exchangeCodeForToken(code);
+
+                if (tokenData.access_token) {
+                    // Get user info from Webex
+                    const userInfo = await getWebexUserInfo(tokenData.access_token);
+
+                    // Create or sign in user in Cognito
+                    await signInWithWebex(userInfo);
+                } else {
+                    showError('Failed to get access token from Webex');
+                }
+            } catch (err) {
+                console.error('Webex authentication error:', err);
+                showError(err.message || 'Authentication failed');
+            }
+        }
+
+        // Exchange authorization code for access token
+        async function exchangeCodeForToken(code) {
+            // NOTE: In production, this should be done server-side to protect client secret
+            try {
+                const response = await fetch('/api/webex-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        client_id: WEBEX_CONFIG.clientId,
+                        redirect_uri: WEBEX_CONFIG.redirectUri
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Token exchange failed');
+                }
+
+                return await response.json();
+            } catch (error) {
+                // Fallback for demo - this should not be done client-side in production
+                console.warn('Server-side token exchange not available, falling back to client-side (not secure for production)');
+
+                // For demo purposes only - shows the flow
+                showError('Webex integration requires server-side implementation for security. Please contact administrator.');
+                throw new Error('Server-side token exchange required');
+            }
+        }
+
+        // Get user information from Webex
+        async function getWebexUserInfo(accessToken) {
+            const response = await fetch(WEBEX_CONFIG.userInfoEndpoint, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to get user info from Webex');
+            }
+
+            return await response.json();
+        }
+
+        // Sign in or create user in Cognito
+        async function signInWithWebex(webexUser) {
+            try {
+                // Check if Amplify is configured
+                if (!window.Amplify || !window.Amplify.Auth) {
+                    throw new Error('Amplify not configured');
+                }
+
+                // For Webex SSO, we need to either:
+                // 1. Use Cognito's federated sign-in if Webex is configured as SAML provider
+                // 2. Create a custom authentication flow with Lambda triggers
+
+                // Store Webex user info temporarily
+                sessionStorage.setItem('webexUser', JSON.stringify({
+                    email: webexUser.emails[0],
+                    name: webexUser.displayName,
+                    firstName: webexUser.firstName,
+                    lastName: webexUser.lastName,
+                    avatar: webexUser.avatar,
+                    orgId: webexUser.orgId
+                }));
+
+                // Redirect to success page
+                window.location.href = '/admin-videos.html?auth=webex';
+
+            } catch (error) {
+                console.error('Cognito sign-in error:', error);
+                showError('Failed to complete sign-in with Cognito');
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('errorContainer').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if this is a callback from Webex
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('code') || urlParams.has('error')) {
+                handleWebexCallback();
+            } else {
+                // If no code or error, redirect to login
+                window.location.href = '/admin-login-amplify.html';
+            }
+        });
+
+        // Webex SSO Initiation Function (to be called from login page)
+        function initiateWebexSSO() {
+            const state = generateRandomString(16);
+            sessionStorage.setItem('webex_oauth_state', state);
+
+            const authUrl = 'https://webexapis.com/v1/authorize?' +
+                `client_id=${WEBEX_CONFIG.clientId}&` +
+                `response_type=code&` +
+                `redirect_uri=${encodeURIComponent(WEBEX_CONFIG.redirectUri)}&` +
+                `scope=${encodeURIComponent('spark:people_read spark:kms')}&` +
+                `state=${state}`;
+
+            window.location.href = authUrl;
+        }
+
+        // Generate random string for state parameter
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
