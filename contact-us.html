@@ -275,6 +275,110 @@
             }
         }
 
+        /* Agentic AI Migration Section */
+        .migration-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 170, 255, 0.05) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-image: linear-gradient(45deg, #00ff88, #00aaff) 1;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .migration-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00aaff, #00ff88);
+            animation: shimmer 3s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .migration-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .migration-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .migration-subtitle {
+            color: #00ff88;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .migration-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .migration-description {
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .migration-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .migration-feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .migration-feature:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 255, 136, 0.05);
+            border-color: #00ff88;
+        }
+
+        .migration-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .migration-feature-title {
+            color: #00aaff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .migration-feature-desc {
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         /* Contact Grid */
         .contact-grid {
             display: grid;
@@ -615,6 +719,74 @@
                         <li>Predictive Performance Management</li>
                         <li>Cross-Domain Correlation</li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- Agentic AI Zero Touch Network Migration Section -->
+            <div class="migration-section">
+                <div class="migration-header">
+                    <h2 class="migration-title">Agentic AI Zero Touch Network Migration</h2>
+                    <p class="migration-subtitle">Revolutionizing Network Transformation with Autonomous Intelligence</p>
+                </div>
+
+                <div class="migration-content">
+                    <p class="migration-description">
+                        Our groundbreaking Agentic AI Zero Touch Network Migration solution represents the future of network transformation.
+                        By leveraging advanced artificial intelligence, machine learning, and autonomous agents, we enable service providers
+                        to migrate complex network infrastructures with unprecedented speed, accuracy, and minimal human intervention.
+                        This revolutionary approach reduces migration time by up to 90%, eliminates human errors, and ensures seamless
+                        transition from legacy systems to next-generation networks including 5G, cloud-native architectures, and beyond.
+                    </p>
+
+                    <div class="migration-features">
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">🤖</div>
+                            <div class="migration-feature-title">Autonomous Agents</div>
+                            <div class="migration-feature-desc">
+                                Self-learning AI agents that understand network topology and automatically execute migration tasks
+                            </div>
+                        </div>
+
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">🔄</div>
+                            <div class="migration-feature-title">Zero Downtime</div>
+                            <div class="migration-feature-desc">
+                                Intelligent traffic steering and seamless cutover ensuring continuous service availability
+                            </div>
+                        </div>
+
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">📊</div>
+                            <div class="migration-feature-title">Real-time Validation</div>
+                            <div class="migration-feature-desc">
+                                Continuous monitoring and validation with automated rollback capabilities
+                            </div>
+                        </div>
+
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">⚡</div>
+                            <div class="migration-feature-title">90% Faster Migration</div>
+                            <div class="migration-feature-desc">
+                                Dramatically reduced migration timelines from months to days
+                            </div>
+                        </div>
+
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">🎯</div>
+                            <div class="migration-feature-title">Predictive Analytics</div>
+                            <div class="migration-feature-desc">
+                                AI-powered prediction of potential issues before they occur
+                            </div>
+                        </div>
+
+                        <div class="migration-feature">
+                            <div class="migration-feature-icon">🔐</div>
+                            <div class="migration-feature-title">Security First</div>
+                            <div class="migration-feature-desc">
+                                Built-in security validation and compliance checks throughout migration
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
