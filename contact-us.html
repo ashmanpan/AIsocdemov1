@@ -198,6 +198,77 @@
             color: #00ff88;
         }
 
+        /* Focus Areas Grid */
+        .focus-areas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .focus-column {
+            background: linear-gradient(135deg, rgba(17, 17, 17, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .focus-column:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+        }
+
+        .focus-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+        }
+
+        .focus-title {
+            color: #00ff88;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+            min-height: 2.5rem;
+        }
+
+        .focus-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .focus-items li {
+            color: #ccc;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .focus-items li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 1200px) {
+            .focus-areas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .focus-areas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Contact Grid */
         .contact-grid {
             display: grid;
@@ -455,16 +526,64 @@
 
             <div class="highlight-box">
                 <h3>Our Focus Areas</h3>
-                <ul>
-                    <li>5G Network Architecture and Deployment Strategies</li>
-                    <li>AI-Powered Network Operations and Automation</li>
-                    <li>Cloud-Native Infrastructure Transformation</li>
-                    <li>Edge Computing and IoT Solutions</li>
-                    <li>Network Security and Zero Trust Architecture</li>
-                    <li>Sustainable Technology and Green Networks</li>
-                    <li>Open RAN and Disaggregated Networks</li>
-                    <li>Service Orchestration and Automation</li>
-                </ul>
+            </div>
+
+            <div class="focus-areas-grid">
+                <div class="focus-column">
+                    <div class="focus-icon">📡</div>
+                    <h4 class="focus-title">Network 5G and SRv6</h4>
+                    <ul class="focus-items">
+                        <li>5G RAN Architecture</li>
+                        <li>5G Core Networks</li>
+                        <li>Network Slicing</li>
+                        <li>SRv6 Implementation</li>
+                        <li>Open RAN Solutions</li>
+                        <li>Edge Computing</li>
+                        <li>Private 5G Networks</li>
+                    </ul>
+                </div>
+
+                <div class="focus-column">
+                    <div class="focus-icon">🤖</div>
+                    <h4 class="focus-title">AI Datacenters and AI-Powered Solutions</h4>
+                    <ul class="focus-items">
+                        <li>AI/ML Infrastructure</li>
+                        <li>GPU Clusters & HPC</li>
+                        <li>AI-Driven Automation</li>
+                        <li>Predictive Analytics</li>
+                        <li>Intelligent Workload Management</li>
+                        <li>AIOps Platforms</li>
+                        <li>Smart Cooling Systems</li>
+                    </ul>
+                </div>
+
+                <div class="focus-column">
+                    <div class="focus-icon">🔐</div>
+                    <h4 class="focus-title">AI-Based Network Security and Zero Trust</h4>
+                    <ul class="focus-items">
+                        <li>Zero Trust Architecture</li>
+                        <li>AI-Powered Threat Detection</li>
+                        <li>SASE Implementation</li>
+                        <li>Behavioral Analytics</li>
+                        <li>Automated Incident Response</li>
+                        <li>Security Orchestration</li>
+                        <li>DDoS Protection</li>
+                    </ul>
+                </div>
+
+                <div class="focus-column">
+                    <div class="focus-icon">🚀</div>
+                    <h4 class="focus-title">NextGen Network Management and Architectures</h4>
+                    <ul class="focus-items">
+                        <li>Intent-Based Networking</li>
+                        <li>Cloud-Native Functions</li>
+                        <li>Service Orchestration</li>
+                        <li>Network Automation</li>
+                        <li>Digital Twin Networks</li>
+                        <li>Telemetry & Observability</li>
+                        <li>SDN/NFV Evolution</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="team-description">
