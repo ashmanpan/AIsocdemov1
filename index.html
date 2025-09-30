@@ -395,6 +395,30 @@
             padding: 1rem 2rem;
         }
 
+        .version-info {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: #666;
+            text-align: right;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .version-info .version {
+            color: #00aaff;
+            font-weight: 600;
+        }
+
+        .version-info .date {
+            color: #888;
+            margin-top: 2px;
+        }
+
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -501,6 +525,12 @@
             .nav-header {
                 padding: 1rem;
             }
+            .version-info {
+                top: 5px;
+                right: 10px;
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
 
             .nav-menu {
                 position: fixed;
@@ -562,8 +592,27 @@
             }
             // allinone.ciscoaidemo.com stays on index.html
         });
+
+        // Set last modified date
+        document.addEventListener('DOMContentLoaded', function() {
+            const lastModified = new Date(document.lastModified);
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('lastModified').textContent = 'Updated: ' + lastModified.toLocaleDateString('en-US', options);
+        });
     </script>
     <div class="bg-animation"></div>
+
+    <!-- Version Info -->
+    <div class="version-info">
+        <div class="version">v2.5.0</div>
+        <div class="date" id="lastModified"></div>
+    </div>
 
     <!-- Navigation Header -->
     <header class="nav-header">
