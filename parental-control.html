@@ -572,8 +572,7 @@
                 <span>AI Family Safety</span>
             </div>
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="contact-us.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-link" onclick="return false;" style="cursor: default; opacity: 0.5;">Cisco AI Family Safety</a>
             </nav>
         </div>
     </header>
@@ -586,7 +585,9 @@
 
         <!-- Login Section -->
         <div class="login-section" id="loginSection">
-            <h2 style="margin-bottom: 1.5rem; color: #fff;">Parent Login</h2>
+            <h2 style="margin-bottom: 1.5rem; color: #fff;" id="authTitle">Parent Login</h2>
+
+            <!-- Login Form -->
             <form id="loginForm">
                 <div class="form-group">
                     <label for="parentEmail">Email Address</label>
@@ -597,7 +598,29 @@
                     <input type="password" id="parentPassword" placeholder="Enter your password" required>
                 </div>
                 <button type="submit" class="btn">Login</button>
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='register.html'">Create Account</button>
+                <button type="button" class="btn btn-secondary" onclick="toggleAuthForm()">Create Account</button>
+            </form>
+
+            <!-- Create Account Form -->
+            <form id="createAccountForm" style="display: none;">
+                <div class="form-group">
+                    <label for="newParentName">Full Name</label>
+                    <input type="text" id="newParentName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="newParentEmail">Email Address</label>
+                    <input type="email" id="newParentEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="newParentPassword">Password</label>
+                    <input type="password" id="newParentPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmParentPassword">Confirm Password</label>
+                    <input type="password" id="confirmParentPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+                <button type="button" class="btn btn-secondary" onclick="toggleAuthForm()">Back to Login</button>
             </form>
         </div>
 
@@ -694,15 +717,82 @@
             }
         }
 
+        // Toggle between login and create account forms
+        function toggleAuthForm() {
+            const loginForm = document.getElementById('loginForm');
+            const createAccountForm = document.getElementById('createAccountForm');
+            const authTitle = document.getElementById('authTitle');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                createAccountForm.style.display = 'none';
+                authTitle.textContent = 'Parent Login';
+            } else {
+                loginForm.style.display = 'none';
+                createAccountForm.style.display = 'block';
+                authTitle.textContent = 'Create Parent Account';
+            }
+        }
+
         // Login form handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate login (in production, verify credentials)
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('childManagement').classList.add('active');
 
-            // Load demo children
-            loadDemoChildren();
+            const email = document.getElementById('parentEmail').value;
+            const password = document.getElementById('parentPassword').value;
+
+            // Get stored accounts
+            const accounts = JSON.parse(localStorage.getItem('parentAccounts') || '[]');
+            const account = accounts.find(acc => acc.email === email && acc.password === password);
+
+            if (account) {
+                // Successful login
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('childManagement').classList.add('active');
+                loadDemoChildren();
+            } else {
+                // Failed login - for demo purposes, allow any login
+                showNotification('Login successful! (Demo mode)');
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('childManagement').classList.add('active');
+                loadDemoChildren();
+            }
+        });
+
+        // Create account form handler
+        document.getElementById('createAccountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('newParentName').value;
+            const email = document.getElementById('newParentEmail').value;
+            const password = document.getElementById('newParentPassword').value;
+            const confirmPassword = document.getElementById('confirmParentPassword').value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!');
+                return;
+            }
+
+            // Check if email already exists
+            const accounts = JSON.parse(localStorage.getItem('parentAccounts') || '[]');
+            if (accounts.some(acc => acc.email === email)) {
+                showNotification('Email already registered!');
+                return;
+            }
+
+            // Create new account
+            accounts.push({ name, email, password, createdAt: new Date().toISOString() });
+            localStorage.setItem('parentAccounts', JSON.stringify(accounts));
+
+            showNotification('Account created successfully!');
+
+            // Switch back to login form
+            setTimeout(() => {
+                toggleAuthForm();
+                // Pre-fill login email
+                document.getElementById('parentEmail').value = email;
+            }, 1500);
         });
 
         // Load demo children
