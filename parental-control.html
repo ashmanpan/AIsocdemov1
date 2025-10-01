@@ -16,9 +16,8 @@
             background-color: #0a0a0a;
             color: #ffffff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .bg-animation {
@@ -131,6 +130,7 @@
             margin: 100px auto 2rem;
             padding: 2rem;
             z-index: 1;
+            overflow-y: visible;
         }
 
         .header {
@@ -428,35 +428,135 @@
         }
 
         @media (max-width: 768px) {
+            html {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            body {
+                min-height: 100vh;
+                height: auto;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
             .nav-header {
-                padding: 1rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-logo img {
+                height: 30px;
+            }
+
+            .nav-logo span {
+                font-size: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
             }
 
             .container {
-                margin-top: 80px;
+                margin-top: 70px;
                 padding: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .header {
+                margin-bottom: 2rem;
             }
 
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 0.95rem;
+            }
+
+            .login-section,
+            .child-list,
+            .app-card {
+                padding: 1.25rem;
             }
 
             .apps-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .form-row {
                 flex-direction: column;
             }
 
+            .form-group input {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .btn {
+                width: 100%;
+                padding: 0.875rem 1.5rem;
+            }
+
             .btn-secondary {
                 margin-left: 0;
-                margin-top: 0.5rem;
+                margin-top: 0.75rem;
+                width: 100%;
+            }
+
+            .btn-small {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .controls-header {
                 flex-direction: column;
                 gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .controls-header .btn-small {
+                width: 100%;
+            }
+
+            .child-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .child-item .btn-small {
+                width: 100%;
+            }
+
+            .app-header {
+                gap: 0.75rem;
+            }
+
+            .app-icon {
+                font-size: 2.5rem;
+            }
+
+            .app-info h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0.75rem;
+            }
+
+            .nav-logo span {
+                display: none;
             }
         }
     </style>
