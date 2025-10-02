@@ -914,26 +914,34 @@
                 'tutorials': 'linear-gradient(135deg, #f39c12, #d68910)'
             };
 
+            // Determine thumbnail display
+            let thumbnailHTML;
+            if (video.thumbnail && video.thumbnail.trim() !== '') {
+                // Use actual thumbnail image
+                thumbnailHTML = `<img class="video-thumbnail" src="${video.thumbnail}" alt="${video.title}" style="object-fit: cover;">`;
+            } else {
+                // Use gradient background placeholder
+                thumbnailHTML = `<div class="video-thumbnail" style="background: ${gradientColors[video.category] || 'linear-gradient(135deg, #333, #555)'}; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">📹</div>`;
+            }
+
             card.innerHTML = `
                 <div class="video-thumbnail-container">
-                    <div class="video-thumbnail" style="background: ${gradientColors[video.category] || 'linear-gradient(135deg, #333, #555)'}; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">
-                        📹
-                    </div>
-                    <div class="video-duration">${video.duration}</div>
+                    ${thumbnailHTML}
+                    <div class="video-duration">${video.duration || 'N/A'}</div>
                     <div class="play-overlay">
                         <div class="play-icon"></div>
                     </div>
                 </div>
                 <div class="video-info">
-                    <div class="channel-avatar">${video.channel}</div>
+                    <div class="channel-avatar">${video.channel || 'AI'}</div>
                     <div class="video-details">
                         <div class="video-title">${video.title}</div>
                         <div class="video-meta">
-                            <div class="video-channel">Cisco AI ${video.channel} Channel</div>
+                            <div class="video-channel">Cisco AI ${video.channel || 'Demo'} Channel</div>
                             <div class="video-stats">
-                                <span>${video.views} views</span>
+                                <span>${video.views || '0'} views</span>
                                 <span>•</span>
-                                <span>${video.age}</span>
+                                <span>${video.age || 'Recently added'}</span>
                             </div>
                         </div>
                     </div>

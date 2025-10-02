@@ -1483,9 +1483,54 @@
             }
         }
 
-        // Auto-fetch Vimeo info (mock implementation)
-        function extractVimeoInfo() {
-            showToast('Auto-fetch feature requires Vimeo API access', 'error');
+        // Auto-fetch Vimeo info using oEmbed API
+        async function extractVimeoInfo() {
+            const vimeoUrl = document.getElementById('vimeoUrl').value;
+            const videoId = document.getElementById('videoId').value;
+
+            if (!videoId) {
+                showToast('Please enter a Vimeo URL first', 'error');
+                return;
+            }
+
+            showToast('Fetching video information...', 'success');
+
+            try {
+                // Use Vimeo's oEmbed API to get video info
+                const response = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${videoId}`);
+
+                if (!response.ok) {
+                    throw new Error('Video not found or is private');
+                }
+
+                const data = await response.json();
+
+                // Auto-fill the form
+                if (data.title && !document.getElementById('videoTitle').value) {
+                    document.getElementById('videoTitle').value = data.title;
+                }
+
+                if (data.description && !document.getElementById('videoDescription').value) {
+                    document.getElementById('videoDescription').value = data.description;
+                }
+
+                if (data.thumbnail_url) {
+                    // Use high-quality thumbnail
+                    const thumbnailUrl = data.thumbnail_url.replace('_295x166', '_640x360');
+                    document.getElementById('thumbnailUrl').value = thumbnailUrl;
+                }
+
+                if (data.duration) {
+                    const minutes = Math.floor(data.duration / 60);
+                    const seconds = data.duration % 60;
+                    document.getElementById('videoDuration').value = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+
+                showToast('Video information fetched successfully!', 'success');
+            } catch (error) {
+                console.error('Error fetching video info:', error);
+                showToast('Could not fetch video info. Make sure the video is public and the URL is correct.', 'error');
+            }
         }
     </script>
 </body>
