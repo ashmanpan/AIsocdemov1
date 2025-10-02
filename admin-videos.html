@@ -846,16 +846,53 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="form-label">Duration</label>
+                        <input type="text" class="form-input" id="editVideoDuration" placeholder="MM:SS (e.g., 12:34)">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Keywords/Tags</label>
+                        <div class="keywords-container" id="editKeywordsContainer">
+                            <input type="text" class="keyword-input" id="editKeywordInput" placeholder="Type and press Enter to add tags">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Thumbnail URL</label>
+                        <input type="text" class="form-input" id="editThumbnailUrl" placeholder="Optional: Custom thumbnail URL">
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-label">Status</label>
                         <select class="form-select" id="editVideoStatus">
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Featured</label>
+                        <select class="form-select" id="editVideoFeatured">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Playlist</label>
+                        <select class="form-select" id="editVideoPlaylist">
+                            <option value="">None</option>
+                            <option value="getting-started">Getting Started</option>
+                            <option value="advanced">Advanced Features</option>
+                            <option value="best-practices">Best Practices</option>
+                            <option value="case-studies">Case Studies</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="btn-group" style="margin-top: 1.5rem;">
                     <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="extractEditVimeoInfo()">Auto-fetch Info</button>
                     <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
                 </div>
             </form>
@@ -1145,6 +1182,8 @@
             switchTab('manage');
         }
 
+        let editKeywords = [];
+
         function editVideo(index) {
             editingVideo = index;
             const video = videos[index];
@@ -1155,9 +1194,53 @@
             document.getElementById('editVideoTitle').value = video.title;
             document.getElementById('editVideoDescription').value = video.description;
             document.getElementById('editVideoCategory').value = video.category;
+            document.getElementById('editVideoDuration').value = video.duration || '';
+            document.getElementById('editThumbnailUrl').value = video.thumbnail || '';
             document.getElementById('editVideoStatus').value = video.status;
+            document.getElementById('editVideoFeatured').value = video.featured || 'no';
+            document.getElementById('editVideoPlaylist').value = video.playlist || '';
+
+            // Load keywords
+            editKeywords = video.keywords ? [...video.keywords] : [];
+            renderEditKeywords();
 
             document.getElementById('editModal').classList.add('active');
+        }
+
+        function renderEditKeywords() {
+            const container = document.getElementById('editKeywordsContainer');
+            container.innerHTML = '';
+
+            editKeywords.forEach((keyword, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'keyword-tag';
+                tag.innerHTML = `
+                    ${keyword}
+                    <span class="remove" onclick="removeEditKeyword(${index})">×</span>
+                `;
+                container.appendChild(tag);
+            });
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'keyword-input';
+            input.id = 'editKeywordInput';
+            input.placeholder = 'Type and press Enter to add tags';
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (e.target.value.trim() && !editKeywords.includes(e.target.value.trim())) {
+                        editKeywords.push(e.target.value.trim());
+                        renderEditKeywords();
+                    }
+                }
+            });
+            container.appendChild(input);
+        }
+
+        function removeEditKeyword(index) {
+            editKeywords.splice(index, 1);
+            renderEditKeywords();
         }
 
         function saveEditedVideo() {
@@ -1170,7 +1253,12 @@
                 title: document.getElementById('editVideoTitle').value,
                 description: document.getElementById('editVideoDescription').value,
                 category: document.getElementById('editVideoCategory').value,
-                status: document.getElementById('editVideoStatus').value
+                duration: document.getElementById('editVideoDuration').value,
+                keywords: [...editKeywords],
+                thumbnail: document.getElementById('editThumbnailUrl').value,
+                status: document.getElementById('editVideoStatus').value,
+                featured: document.getElementById('editVideoFeatured').value,
+                playlist: document.getElementById('editVideoPlaylist').value
             };
 
             saveVideos();
@@ -1524,6 +1612,56 @@
                     const minutes = Math.floor(data.duration / 60);
                     const seconds = data.duration % 60;
                     document.getElementById('videoDuration').value = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+
+                showToast('Video information fetched successfully!', 'success');
+            } catch (error) {
+                console.error('Error fetching video info:', error);
+                showToast('Could not fetch video info. Make sure the video is public and the URL is correct.', 'error');
+            }
+        }
+
+        // Auto-fetch Vimeo info for edit modal
+        async function extractEditVimeoInfo() {
+            const vimeoUrl = document.getElementById('editVimeoUrl').value;
+            const videoId = document.getElementById('editVideoId').value;
+
+            if (!videoId) {
+                showToast('Please enter a Vimeo URL first', 'error');
+                return;
+            }
+
+            showToast('Fetching video information...', 'success');
+
+            try {
+                // Use Vimeo's oEmbed API to get video info
+                const response = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${videoId}`);
+
+                if (!response.ok) {
+                    throw new Error('Video not found or is private');
+                }
+
+                const data = await response.json();
+
+                // Auto-fill the form (don't overwrite if already has value)
+                if (data.title && !document.getElementById('editVideoTitle').value) {
+                    document.getElementById('editVideoTitle').value = data.title;
+                }
+
+                if (data.description && !document.getElementById('editVideoDescription').value) {
+                    document.getElementById('editVideoDescription').value = data.description;
+                }
+
+                if (data.thumbnail_url) {
+                    // Use high-quality thumbnail
+                    const thumbnailUrl = data.thumbnail_url.replace('_295x166', '_640x360');
+                    document.getElementById('editThumbnailUrl').value = thumbnailUrl;
+                }
+
+                if (data.duration) {
+                    const minutes = Math.floor(data.duration / 60);
+                    const seconds = data.duration % 60;
+                    document.getElementById('editVideoDuration').value = `${minutes}:${seconds.toString().padStart(2, '0')}`;
                 }
 
                 showToast('Video information fetched successfully!', 'success');
