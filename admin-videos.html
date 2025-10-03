@@ -1187,7 +1187,7 @@
                 switchTab('manage');
             } catch (error) {
                 console.error('Error adding video:', error);
-                showToast('Failed to add video to database', 'error');
+                showToast(`Failed to add video: ${error.message || error}`, 'error');
             }
         }
 
