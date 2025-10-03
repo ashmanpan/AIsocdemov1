@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Stored Videos</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .video-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        h2 { color: #00ff88; }
+        pre {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .count {
+            color: #00aaff;
+            font-size: 1.5rem;
+        }
+        button {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover {
+            background: #00cc66;
+        }
+    </style>
+</head>
+<body>
+    <h1>📹 Video Storage Inspector</h1>
+    
+    <div class="video-box">
+        <h2>Storage Keys Found:</h2>
+        <div id="storageKeys"></div>
+    </div>
+
+    <div class="video-box">
+        <h2>Demo Videos (demoVideos):</h2>
+        <p class="count">Count: <span id="demoCount">0</span></p>
+        <pre id="demoVideos">No videos found</pre>
+    </div>
+
+    <div class="video-box">
+        <h2>Admin Videos (adminVideos):</h2>
+        <p class="count">Count: <span id="adminCount">0</span></p>
+        <pre id="adminVideos">No videos found</pre>
+    </div>
+
+    <div class="video-box">
+        <h2>Actions:</h2>
+        <button onclick="exportVideos()">📥 Export Videos to JSON</button>
+        <button onclick="showRaw()">🔍 Show Raw Data</button>
+        <button onclick="location.reload()">🔄 Refresh</button>
+    </div>
+
+    <script>
+        // Check all localStorage keys
+        function checkStorage() {
+            const keys = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                keys.push(localStorage.key(i));
+            }
+            
+            document.getElementById('storageKeys').innerHTML = keys.length > 0 
+                ? keys.map(k => `<code style="background:#000;padding:5px;margin:2px;display:inline-block;">${k}</code>`).join(' ')
+                : '<p style="color:#ff6600;">No localStorage keys found</p>';
+        }
+
+        // Display demo videos
+        function displayDemoVideos() {
+            const demoVideos = localStorage.getItem('demoVideos');
+            if (demoVideos) {
+                try {
+                    const videos = JSON.parse(demoVideos);
+                    document.getElementById('demoCount').textContent = videos.length;
+                    document.getElementById('demoVideos').textContent = JSON.stringify(videos, null, 2);
+                } catch (e) {
+                    document.getElementById('demoVideos').textContent = 'Error parsing: ' + e.message;
+                }
+            } else {
+                document.getElementById('demoVideos').textContent = 'No demoVideos found in localStorage';
+            }
+        }
+
+        // Display admin videos
+        function displayAdminVideos() {
+            const adminVideos = localStorage.getItem('adminVideos');
+            if (adminVideos) {
+                try {
+                    const videos = JSON.parse(adminVideos);
+                    document.getElementById('adminCount').textContent = videos.length;
+                    document.getElementById('adminVideos').textContent = JSON.stringify(videos, null, 2);
+                } catch (e) {
+                    document.getElementById('adminVideos').textContent = 'Error parsing: ' + e.message;
+                }
+            } else {
+                document.getElementById('adminVideos').textContent = 'No adminVideos found in localStorage';
+            }
+        }
+
+        // Export videos
+        function exportVideos() {
+            const demoVideos = localStorage.getItem('demoVideos');
+            const adminVideos = localStorage.getItem('adminVideos');
+            
+            const data = {
+                demoVideos: demoVideos ? JSON.parse(demoVideos) : [],
+                adminVideos: adminVideos ? JSON.parse(adminVideos) : [],
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `video-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Show raw data
+        function showRaw() {
+            console.log('=== All localStorage ===');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                console.log(key + ':', localStorage.getItem(key));
+            }
+            alert('Check browser console for raw data (F12)');
+        }
+
+        // Initialize
+        checkStorage();
+        displayDemoVideos();
+        displayAdminVideos();
+    </script>
+</body>
+</html>
