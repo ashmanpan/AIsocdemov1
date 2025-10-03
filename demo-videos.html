@@ -664,28 +664,71 @@
         </div>
     </div>
 
-    <script>
-        // Load videos from localStorage or use default sample data
-        let videos = [];
+    <!-- API Configuration -->
+    <script src="js/api-config.js"></script>
 
-        function loadVideosFromStorage() {
-            // Try to load from localStorage
+    <script>
+        // DynamoDB API-based video loading
+        let videos = [];
+        const API_BASE = 'https://kwbm1mafkf.execute-api.ap-southeast-1.amazonaws.com/prod';
+
+        async function loadVideosFromAPI() {
+            try {
+                console.log('📡 Loading videos from DynamoDB API...');
+                const response = await fetch(`${API_BASE}/videos`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (data.success && Array.isArray(data.videos)) {
+                    videos = data.videos.filter(v => v.status === 'active' || !v.status);
+                    console.log(`✅ Loaded ${videos.length} videos from DynamoDB`);
+
+                    // Cache in localStorage for offline fallback
+                    localStorage.setItem('demoVideos', JSON.stringify(videos));
+                    localStorage.setItem('videosLastSync', Date.now());
+                } else {
+                    throw new Error('Invalid response format');
+                }
+
+                return videos;
+
+            } catch (error) {
+                console.warn('⚠️  Failed to load from API:', error.message);
+                console.log('📦 Trying localStorage fallback...');
+                return loadVideosFromCache();
+            }
+        }
+
+        function loadVideosFromCache() {
+            // Fallback to localStorage cache
             const storedVideos = localStorage.getItem('demoVideos');
             if (storedVideos) {
                 try {
                     videos = JSON.parse(storedVideos);
-                    console.log('Loaded', videos.length, 'videos from storage');
+                    console.log(`📦 Loaded ${videos.length} videos from cache`);
+                    return videos;
                 } catch (e) {
-                    console.error('Error loading videos from storage:', e);
-                    loadDefaultVideos();
+                    console.error('Error loading from cache:', e);
                 }
-            } else {
-                loadDefaultVideos();
             }
+
+            // Last resort: load default sample videos
+            loadDefaultVideos();
+            return videos;
         }
 
         function loadDefaultVideos() {
-            // Default sample videos if no data in localStorage
+            // Default sample videos as last resort
+            console.log('📋 Loading default sample videos');
             videos = [
                 {
                     id: '824804225',
@@ -786,16 +829,20 @@
             ];
         }
 
-        // Load videos on page load
-        loadVideosFromStorage();
-
         let currentCategory = 'all';
         let currentFilter = 'all';
         let searchTerm = '';
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            loadVideosFromStorage();
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Show loading state
+            document.getElementById('loading').style.display = 'block';
+
+            // Load videos from DynamoDB API
+            await loadVideosFromAPI();
+
+            // Hide loading, render videos
+            document.getElementById('loading').style.display = 'none';
             renderVideos();
             setupEventListeners();
         });

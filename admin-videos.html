@@ -917,6 +917,9 @@
         <span id="toastMessage"></span>
     </div>
 
+    <!-- Include Video API Helper -->
+    <script src="js/video-api.js"></script>
+
     <script>
         let videos = [];
         let keywords = [];
@@ -1156,7 +1159,7 @@
             container.appendChild(input);
         }
 
-        function addVideo() {
+        async function addVideo() {
             const video = {
                 id: document.getElementById('videoId').value,
                 url: document.getElementById('vimeoUrl').value,
@@ -1173,13 +1176,19 @@
                 dateAdded: new Date().toISOString()
             };
 
-            videos.push(video);
-            saveVideos();
-            loadVideos();
-            updateStats();
-            resetForm();
-            showToast('Video added successfully!', 'success');
-            switchTab('manage');
+            try {
+                showToast('Adding video to database...', 'success');
+                const createdVideo = await VideoAPI.createVideo(video);
+                videos.push(createdVideo);
+                saveVideos(); // Backup to localStorage
+                await loadVideos(); // Reload from API
+                resetForm();
+                showToast('Video added successfully!', 'success');
+                switchTab('manage');
+            } catch (error) {
+                console.error('Error adding video:', error);
+                showToast('Failed to add video to database', 'error');
+            }
         }
 
         let editKeywords = [];
@@ -1243,11 +1252,11 @@
             renderEditKeywords();
         }
 
-        function saveEditedVideo() {
+        async function saveEditedVideo() {
             const index = document.getElementById('editVideoIndex').value;
+            const videoId = videos[index].id;
 
-            videos[index] = {
-                ...videos[index],
+            const updates = {
                 id: document.getElementById('editVideoId').value,
                 url: document.getElementById('editVimeoUrl').value,
                 title: document.getElementById('editVideoTitle').value,
@@ -1261,10 +1270,18 @@
                 playlist: document.getElementById('editVideoPlaylist').value
             };
 
-            saveVideos();
-            loadVideos();
-            closeEditModal();
-            showToast('Video updated successfully!', 'success');
+            try {
+                showToast('Updating video in database...', 'success');
+                const updatedVideo = await VideoAPI.updateVideo(videoId, updates);
+                videos[index] = updatedVideo;
+                saveVideos(); // Backup to localStorage
+                await loadVideos(); // Reload from API
+                closeEditModal();
+                showToast('Video updated successfully!', 'success');
+            } catch (error) {
+                console.error('Error updating video:', error);
+                showToast('Failed to update video in database', 'error');
+            }
         }
 
         function deleteVideo(index) {
@@ -1278,7 +1295,7 @@
             document.getElementById('deleteModal').classList.add('active');
         }
 
-        function confirmDelete() {
+        async function confirmDelete() {
             // Double-check permissions
             if (currentUser.role === 'demo-admin') {
                 showToast('You do not have permission to delete videos', 'error');
@@ -1287,26 +1304,46 @@
             }
 
             if (deleteIndex !== null) {
-                videos.splice(deleteIndex, 1);
-                saveVideos();
-                loadVideos();
-                updateStats();
-                closeDeleteModal();
-                showToast('Video deleted successfully!', 'success');
+                const videoId = videos[deleteIndex].id;
+
+                try {
+                    showToast('Deleting video from database...', 'success');
+                    await VideoAPI.deleteVideo(videoId);
+                    videos.splice(deleteIndex, 1);
+                    saveVideos(); // Update localStorage backup
+                    await loadVideos(); // Reload from API
+                    closeDeleteModal();
+                    showToast('Video deleted successfully!', 'success');
+                } catch (error) {
+                    console.error('Error deleting video:', error);
+                    showToast('Failed to delete video from database', 'error');
+                    closeDeleteModal();
+                }
             }
         }
 
-        function loadVideos() {
-            const stored = localStorage.getItem('adminVideos');
-            if (stored) {
-                videos = JSON.parse(stored);
+        async function loadVideos() {
+            try {
+                showToast('Loading videos from database...', 'success');
+                videos = await VideoAPI.getAllVideos();
+                renderVideoTable();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                showToast('Failed to load videos from database', 'error');
+                // Fallback to localStorage if API fails
+                const stored = localStorage.getItem('adminVideos');
+                if (stored) {
+                    videos = JSON.parse(stored);
+                    renderVideoTable();
+                }
             }
-            renderVideoTable();
         }
 
         function saveVideos() {
+            // No longer needed - individual operations will call API directly
+            // Keep localStorage as backup for now
             localStorage.setItem('adminVideos', JSON.stringify(videos));
-            // Also save to the public videos storage
             localStorage.setItem('demoVideos', JSON.stringify(videos.filter(v => v.status === 'active')));
         }
 
@@ -1373,12 +1410,20 @@
             return categories[category] || category;
         }
 
-        function toggleStatus(index) {
-            videos[index].status = videos[index].status === 'active' ? 'inactive' : 'active';
-            saveVideos();
-            loadVideos();
-            updateStats();
-            showToast(`Video ${videos[index].status === 'active' ? 'activated' : 'deactivated'}`, 'success');
+        async function toggleStatus(index) {
+            const video = videos[index];
+            const newStatus = video.status === 'active' ? 'inactive' : 'active';
+
+            try {
+                await VideoAPI.updateVideo(video.id, { status: newStatus });
+                videos[index].status = newStatus;
+                saveVideos(); // Backup to localStorage
+                await loadVideos(); // Reload from API
+                showToast(`Video ${newStatus === 'active' ? 'activated' : 'deactivated'}`, 'success');
+            } catch (error) {
+                console.error('Error toggling status:', error);
+                showToast('Failed to update video status', 'error');
+            }
         }
 
         function filterVideos(searchTerm) {
@@ -1474,22 +1519,33 @@
             });
         }
 
-        function handleFile(file) {
+        async function handleFile(file) {
             if (!file || file.type !== 'application/json') {
                 showToast('Please upload a valid JSON file', 'error');
                 return;
             }
 
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    videos = imported;
-                    saveVideos();
-                    loadVideos();
-                    updateStats();
-                    showToast('Videos imported successfully!', 'success');
+                    showToast('Importing videos to database...', 'success');
+
+                    // Import each video to the API
+                    const importPromises = imported.map(video =>
+                        VideoAPI.createVideo(video).catch(err => {
+                            console.error(`Failed to import video ${video.id}:`, err);
+                            return null;
+                        })
+                    );
+
+                    const results = await Promise.all(importPromises);
+                    const successCount = results.filter(r => r !== null).length;
+
+                    await loadVideos(); // Reload from API
+                    showToast(`Videos imported: ${successCount}/${imported.length} successful`, 'success');
                 } catch (error) {
+                    console.error('Error importing file:', error);
                     showToast('Error importing file', 'error');
                 }
             };
@@ -1519,30 +1575,53 @@
             showToast('Active videos exported successfully!', 'success');
         }
 
-        function confirmClearAll() {
+        async function confirmClearAll() {
             if (confirm('Are you sure you want to delete ALL videos? This cannot be undone!')) {
-                videos = [];
-                saveVideos();
-                loadVideos();
-                updateStats();
-                showToast('All videos cleared', 'success');
+                try {
+                    showToast('Deleting all videos from database...', 'success');
+                    const deletePromises = videos.map(video =>
+                        VideoAPI.deleteVideo(video.id)
+                    );
+                    await Promise.all(deletePromises);
+                    videos = [];
+                    saveVideos(); // Clear localStorage backup
+                    await loadVideos(); // Reload from API
+                    showToast('All videos cleared', 'success');
+                } catch (error) {
+                    console.error('Error clearing all videos:', error);
+                    showToast('Failed to clear all videos', 'error');
+                }
             }
         }
 
-        function activateAllVideos() {
-            videos.forEach(v => v.status = 'active');
-            saveVideos();
-            loadVideos();
-            updateStats();
-            showToast('All videos activated', 'success');
+        async function activateAllVideos() {
+            try {
+                showToast('Activating all videos...', 'success');
+                const updatePromises = videos.map(video =>
+                    VideoAPI.updateVideo(video.id, { status: 'active' })
+                );
+                await Promise.all(updatePromises);
+                await loadVideos(); // Reload from API
+                showToast('All videos activated', 'success');
+            } catch (error) {
+                console.error('Error activating videos:', error);
+                showToast('Failed to activate all videos', 'error');
+            }
         }
 
-        function deactivateAllVideos() {
-            videos.forEach(v => v.status = 'inactive');
-            saveVideos();
-            loadVideos();
-            updateStats();
-            showToast('All videos deactivated', 'success');
+        async function deactivateAllVideos() {
+            try {
+                showToast('Deactivating all videos...', 'success');
+                const updatePromises = videos.map(video =>
+                    VideoAPI.updateVideo(video.id, { status: 'inactive' })
+                );
+                await Promise.all(updatePromises);
+                await loadVideos(); // Reload from API
+                showToast('All videos deactivated', 'success');
+            } catch (error) {
+                console.error('Error deactivating videos:', error);
+                showToast('Failed to deactivate all videos', 'error');
+            }
         }
 
         function saveSettings() {
