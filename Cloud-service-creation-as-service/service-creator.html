@@ -857,27 +857,29 @@
         // Multi-select handling
         function enableMultiSelect(options, field, progressId) {
             const selectedOptions = [];
-            const buttons = document.querySelectorAll('.options-container .option-btn');
 
-            buttons.forEach(btn => {
-                btn.onclick = () => {
-                    const value = btn.textContent;
-                    const index = selectedOptions.indexOf(value);
-
-                    if (index > -1) {
-                        selectedOptions.splice(index, 1);
-                        btn.style.background = 'rgba(255, 255, 255, 0.05)';
-                        btn.style.borderColor = '#333';
-                    } else {
-                        selectedOptions.push(value);
-                        btn.style.background = 'rgba(0, 255, 136, 0.2)';
-                        btn.style.borderColor = '#00ff88';
-                    }
-                };
-            });
-
-            // Add confirm button
+            // Wait for DOM to render buttons
             setTimeout(() => {
+                const buttons = document.querySelectorAll('.options-container .option-btn');
+
+                buttons.forEach(btn => {
+                    btn.onclick = () => {
+                        const value = btn.textContent;
+                        const index = selectedOptions.indexOf(value);
+
+                        if (index > -1) {
+                            selectedOptions.splice(index, 1);
+                            btn.style.background = 'rgba(255, 255, 255, 0.05)';
+                            btn.style.borderColor = '#333';
+                        } else {
+                            selectedOptions.push(value);
+                            btn.style.background = 'rgba(0, 255, 136, 0.2)';
+                            btn.style.borderColor = '#00ff88';
+                        }
+                    };
+                });
+
+                // Add confirm button
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'option-btn';
                 confirmBtn.textContent = '✓ Confirm Selection';
@@ -902,7 +904,7 @@
                 if (lastOptions) {
                     lastOptions.appendChild(confirmBtn);
                 }
-            }, 100);
+            }, 200);
         }
 
         // Update progress
