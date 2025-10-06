@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Code - AI Service Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(-50px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        .nav-header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cisco-logo {
+            height: 40px;
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-btn.primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+
+        .nav-btn.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .nav-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .nav-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-container {
+            flex: 1;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            color: #aaa;
+            font-size: 1.125rem;
+        }
+
+        .summary-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.875rem;
+            color: #888;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-size: 1rem;
+            color: #00ff88;
+        }
+
+        .tabs-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #333;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+        }
+
+        .tab-button:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-button.active {
+            color: #00ff88;
+            border-bottom-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #333;
+        }
+
+        .code-title {
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .code-btn:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+        }
+
+        .code-container {
+            background: #0d1117;
+            padding: 1.5rem;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .code-block {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #c9d1d9;
+        }
+
+        .code-line {
+            display: block;
+        }
+
+        .line-number {
+            display: inline-block;
+            width: 50px;
+            color: #6e7681;
+            user-select: none;
+            text-align: right;
+            padding-right: 1rem;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .comment { color: #8b949e; font-style: italic; }
+        .function { color: #d2a8ff; }
+        .variable { color: #ffa657; }
+        .number { color: #79c0ff; }
+
+        .action-section {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-button.primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+
+        .action-button.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .action-button.secondary {
+            background: transparent;
+            color: #00ff88;
+            border: 2px solid #00ff88;
+        }
+
+        .action-button.secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .tabs-header {
+                flex-wrap: nowrap;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-section {
+                flex-direction: column;
+            }
+
+            .action-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="cisco-logo">CISCO</div>
+                <span class="nav-title">Generated Code</span>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-btn secondary" onclick="window.history.back()">← Back</button>
+                <a href="index.html" class="nav-btn secondary">🏠 Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header-section">
+            <h1>✅ Code Generated Successfully!</h1>
+            <p>Your production-ready cloud service code is ready to deploy</p>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <div class="summary-grid" id="summaryGrid">
+                <!-- Summary will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Code Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-button active" onclick="switchTab('backend')">Backend Service</button>
+                <button class="tab-button" onclick="switchTab('api')">REST APIs</button>
+                <button class="tab-button" onclick="switchTab('database')">Database Schema</button>
+                <button class="tab-button" onclick="switchTab('portal')">Portal Integration</button>
+                <button class="tab-button" onclick="switchTab('testing')">Testing Scripts</button>
+                <button class="tab-button" onclick="switchTab('docs')">Documentation</button>
+            </div>
+
+            <div class="tab-content active" id="tab-backend">
+                <div class="code-header">
+                    <div class="code-title">📄 backend_service.py</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('backend')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('backend', 'backend_service.py')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-backend"></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-api">
+                <div class="code-header">
+                    <div class="code-title">📄 api_endpoints.py</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('api')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('api', 'api_endpoints.py')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-api"></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-database">
+                <div class="code-header">
+                    <div class="code-title">📄 database_schema.sql</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('database')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('database', 'database_schema.sql')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-database"></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-portal">
+                <div class="code-header">
+                    <div class="code-title">📄 portal_integration.js</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('portal')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('portal', 'portal_integration.js')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-portal"></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-testing">
+                <div class="code-header">
+                    <div class="code-title">📄 test_suite.py</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('testing')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('testing', 'test_suite.py')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-testing"></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-docs">
+                <div class="code-header">
+                    <div class="code-title">📄 README.md</div>
+                    <div class="code-actions">
+                        <button class="code-btn" onclick="copyCode('docs')">📋 Copy</button>
+                        <button class="code-btn" onclick="downloadCode('docs', 'README.md')">⬇️ Download</button>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <pre class="code-block" id="code-docs"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-section">
+            <button class="action-button secondary" onclick="downloadAll()">📦 Download All Code</button>
+            <a href="testing.html" class="action-button primary">🧪 Run Tests →</a>
+        </div>
+    </div>
+
+    <script>
+        // Load service data from localStorage
+        const serviceData = JSON.parse(localStorage.getItem('serviceData') || '{}');
+
+        // Populate summary
+        function populateSummary() {
+            const summaryGrid = document.getElementById('summaryGrid');
+            summaryGrid.innerHTML = `
+                <div class="summary-item">
+                    <div class="summary-label">Service Type</div>
+                    <div class="summary-value">${serviceData.serviceType || 'N/A'}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Vendor</div>
+                    <div class="summary-value">${serviceData.vendor || 'N/A'}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Pricing Model</div>
+                    <div class="summary-value">${serviceData.pricingModel || 'N/A'}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Features</div>
+                    <div class="summary-value">${Array.isArray(serviceData.features) ? serviceData.features.length + ' features' : 'N/A'}</div>
+                </div>
+            `;
+        }
+
+        // Generate code based on service data
+        function generateCode() {
+            const serviceName = serviceData.serviceType || 'CloudService';
+            const vendor = serviceData.vendor || 'Cisco';
+            const features = Array.isArray(serviceData.features) ? serviceData.features : [];
+
+            // Backend Service Code
+            const backendCode = `<span class="comment"># ${serviceName} Backend Service</span>
+<span class="comment"># Generated by Cisco Cloud Service Creator AI</span>
+<span class="comment"># Vendor: ${vendor}</span>
+
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify
+<span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy
+<span class="keyword">from</span> flask_jwt_extended <span class="keyword">import</span> JWTManager, create_access_token
+<span class="keyword">import</span> requests
+<span class="keyword">import</span> logging
+
+<span class="comment"># Initialize Flask app</span>
+app = Flask(__name__)
+app.config[<span class="string">'SQLALCHEMY_DATABASE_URI'</span>] = <span class="string">'postgresql://localhost/cloud_service_db'</span>
+app.config[<span class="string">'JWT_SECRET_KEY'</span>] = <span class="string">'your-secret-key-here'</span>
+
+db = SQLAlchemy(app)
+jwt = JWTManager(app)
+
+<span class="comment"># Configure logging</span>
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+<span class="keyword">class</span> <span class="function">${serviceName}Instance</span>(db.Model):
+    <span class="string">"""${serviceName} Instance Model"""</span>
+    id = db.Column(db.Integer, primary_key=<span class="keyword">True</span>)
+    customer_id = db.Column(db.String(<span class="number">100</span>), nullable=<span class="keyword">False</span>)
+    instance_name = db.Column(db.String(<span class="number">200</span>), nullable=<span class="keyword">False</span>)
+    vendor = db.Column(db.String(<span class="number">50</span>), default=<span class="string">'${vendor}'</span>)
+    status = db.Column(db.String(<span class="number">50</span>), default=<span class="string">'provisioning'</span>)
+    config = db.Column(db.JSON)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+<span class="keyword">class</span> <span class="function">${serviceName}Manager</span>:
+    <span class="string">"""Manages ${serviceName} lifecycle operations"""</span>
+
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, vendor=<span class="string">'${vendor}'</span>):
+        self.vendor = vendor
+        self.api_base_url = self._get_vendor_api_url()
+
+    <span class="keyword">def</span> <span class="function">_get_vendor_api_url</span>(self):
+        <span class="string">"""Get vendor-specific API URL"""</span>
+        vendor_urls = {
+            <span class="string">'Cisco'</span>: <span class="string">'https://api.cisco.com'</span>,
+            <span class="string">'PaloAlto'</span>: <span class="string">'https://api.paloaltonetworks.com'</span>,
+            <span class="string">'Fortinet'</span>: <span class="string">'https://api.fortinet.com'</span>
+        }
+        <span class="keyword">return</span> vendor_urls.get(self.vendor, <span class="string">'https://api.cisco.com'</span>)
+
+    <span class="keyword">def</span> <span class="function">create_instance</span>(self, customer_id, config):
+        <span class="string">"""Create a new ${serviceName} instance"""</span>
+        logger.info(<span class="string">f"Creating {serviceName} for customer: {customer_id}"</span>)
+
+        <span class="comment"># Create instance in database</span>
+        instance = ${serviceName}Instance(
+            customer_id=customer_id,
+            instance_name=config.get(<span class="string">'name'</span>),
+            vendor=self.vendor,
+            config=config
+        )
+        db.session.add(instance)
+        db.session.commit()
+
+        <span class="comment"># Provision on vendor platform</span>
+        <span class="keyword">try</span>:
+            response = self._provision_on_vendor(instance)
+            instance.status = <span class="string">'active'</span>
+            db.session.commit()
+            logger.info(<span class="string">f"Instance {instance.id} created successfully"</span>)
+            <span class="keyword">return</span> instance
+        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+            logger.error(<span class="string">f"Failed to provision instance: {str(e)}"</span>)
+            instance.status = <span class="string">'failed'</span>
+            db.session.commit()
+            <span class="keyword">raise</span>
+
+    <span class="keyword">def</span> <span class="function">_provision_on_vendor</span>(self, instance):
+        <span class="string">"""Provision instance on vendor platform"""</span>
+        <span class="comment"># Vendor-specific provisioning logic</span>
+        payload = {
+            <span class="string">'instance_id'</span>: instance.id,
+            <span class="string">'config'</span>: instance.config,
+            <span class="string">'features'</span>: ${JSON.stringify(features)}
+        }
+
+        response = requests.post(
+            <span class="string">f"{self.api_base_url}/instances"</span>,
+            json=payload,
+            headers={<span class="string">'Authorization'</span>: <span class="string">'Bearer YOUR_API_TOKEN'</span>}
+        )
+        response.raise_for_status()
+        <span class="keyword">return</span> response.json()
+
+<span class="comment"># Initialize manager</span>
+service_manager = ${serviceName}Manager(vendor=<span class="string">'${vendor}'</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:
+    app.run(host=<span class="string">'0.0.0.0'</span>, port=<span class="number">5000</span>, debug=<span class="keyword">True</span>)`;
+
+            // API Endpoints Code
+            const apiCode = `<span class="comment"># ${serviceName} REST API Endpoints</span>
+
+<span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, request, jsonify
+<span class="keyword">from</span> flask_jwt_extended <span class="keyword">import</span> jwt_required, get_jwt_identity
+<span class="keyword">from</span> backend_service <span class="keyword">import</span> service_manager, ${serviceName}Instance, db
+
+api = Blueprint(<span class="string">'api'</span>, __name__)
+
+<span class="comment"># Create Instance</span>
+@api.route(<span class="string">'/api/v1/${serviceName.toLowerCase()}/create'</span>, methods=[<span class="string">'POST'</span>])
+@jwt_required()
+<span class="keyword">def</span> <span class="function">create_instance</span>():
+    <span class="string">"""Create a new ${serviceName} instance"""</span>
+    customer_id = get_jwt_identity()
+    data = request.get_json()
+
+    <span class="keyword">try</span>:
+        instance = service_manager.create_instance(customer_id, data)
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">True</span>,
+            <span class="string">'instance_id'</span>: instance.id,
+            <span class="string">'status'</span>: instance.status,
+            <span class="string">'message'</span>: <span class="string">'Instance created successfully'</span>
+        }), <span class="number">201</span>
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">False</span>,
+            <span class="string">'error'</span>: str(e)
+        }), <span class="number">500</span>
+
+<span class="comment"># Get Instance Details</span>
+@api.route(<span class="string">'/api/v1/${serviceName.toLowerCase()}/<int:instance_id>'</span>, methods=[<span class="string">'GET'</span>])
+@jwt_required()
+<span class="keyword">def</span> <span class="function">get_instance</span>(instance_id):
+    <span class="string">"""Get instance details"""</span>
+    instance = ${serviceName}Instance.query.get_or_404(instance_id)
+
+    <span class="keyword">return</span> jsonify({
+        <span class="string">'id'</span>: instance.id,
+        <span class="string">'name'</span>: instance.instance_name,
+        <span class="string">'vendor'</span>: instance.vendor,
+        <span class="string">'status'</span>: instance.status,
+        <span class="string">'config'</span>: instance.config,
+        <span class="string">'created_at'</span>: instance.created_at.isoformat()
+    })
+
+<span class="comment"># List All Instances</span>
+@api.route(<span class="string">'/api/v1/${serviceName.toLowerCase()}'</span>, methods=[<span class="string">'GET'</span>])
+@jwt_required()
+<span class="keyword">def</span> <span class="function">list_instances</span>():
+    <span class="string">"""List all instances for customer"""</span>
+    customer_id = get_jwt_identity()
+    instances = ${serviceName}Instance.query.filter_by(customer_id=customer_id).all()
+
+    <span class="keyword">return</span> jsonify({
+        <span class="string">'instances'</span>: [{
+            <span class="string">'id'</span>: i.id,
+            <span class="string">'name'</span>: i.instance_name,
+            <span class="string">'vendor'</span>: i.vendor,
+            <span class="string">'status'</span>: i.status
+        } <span class="keyword">for</span> i <span class="keyword">in</span> instances]
+    })
+
+<span class="comment"># Delete Instance</span>
+@api.route(<span class="string">'/api/v1/${serviceName.toLowerCase()}/<int:instance_id>'</span>, methods=[<span class="string">'DELETE'</span>])
+@jwt_required()
+<span class="keyword">def</span> <span class="function">delete_instance</span>(instance_id):
+    <span class="string">"""Delete an instance"""</span>
+    instance = ${serviceName}Instance.query.get_or_404(instance_id)
+
+    <span class="keyword">try</span>:
+        <span class="comment"># Delete from vendor platform first</span>
+        service_manager.delete_instance(instance)
+
+        <span class="comment"># Then delete from database</span>
+        db.session.delete(instance)
+        db.session.commit()
+
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">True</span>,
+            <span class="string">'message'</span>: <span class="string">'Instance deleted successfully'</span>
+        })
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">False</span>,
+            <span class="string">'error'</span>: str(e)
+        }), <span class="number">500</span>
+
+<span class="comment"># Update Instance Configuration</span>
+@api.route(<span class="string">'/api/v1/${serviceName.toLowerCase()}/<int:instance_id>'</span>, methods=[<span class="string">'PUT'</span>])
+@jwt_required()
+<span class="keyword">def</span> <span class="function">update_instance</span>(instance_id):
+    <span class="string">"""Update instance configuration"""</span>
+    instance = ${serviceName}Instance.query.get_or_404(instance_id)
+    data = request.get_json()
+
+    <span class="keyword">try</span>:
+        service_manager.update_instance(instance, data)
+        instance.config = data
+        db.session.commit()
+
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">True</span>,
+            <span class="string">'message'</span>: <span class="string">'Instance updated successfully'</span>
+        })
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">return</span> jsonify({
+            <span class="string">'success'</span>: <span class="keyword">False</span>,
+            <span class="string">'error'</span>: str(e)
+        }), <span class="number">500</span>`;
+
+            // Database Schema
+            const databaseCode = `<span class="comment">-- ${serviceName} Database Schema</span>
+<span class="comment">-- Generated by Cisco Cloud Service Creator AI</span>
+
+<span class="keyword">CREATE TABLE</span> cloud_service_instances (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    customer_id <span class="keyword">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span>,
+    instance_name <span class="keyword">VARCHAR</span>(<span class="number">200</span>) <span class="keyword">NOT NULL</span>,
+    vendor <span class="keyword">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="string">'${vendor}'</span>,
+    status <span class="keyword">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="string">'provisioning'</span>,
+    config <span class="keyword">JSONB</span>,
+    created_at <span class="keyword">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>,
+    updated_at <span class="keyword">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);
+
+<span class="keyword">CREATE TABLE</span> customer_accounts (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    customer_id <span class="keyword">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">UNIQUE NOT NULL</span>,
+    email <span class="keyword">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">UNIQUE NOT NULL</span>,
+    company_name <span class="keyword">VARCHAR</span>(<span class="number">255</span>),
+    subscription_tier <span class="keyword">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="string">'${serviceData.pricingModel}'</span>,
+    created_at <span class="keyword">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);
+
+<span class="keyword">CREATE TABLE</span> usage_logs (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    instance_id <span class="keyword">INTEGER REFERENCES</span> cloud_service_instances(id),
+    customer_id <span class="keyword">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span>,
+    action <span class="keyword">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span>,
+    details <span class="keyword">JSONB</span>,
+    timestamp <span class="keyword">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);
+
+<span class="keyword">CREATE TABLE</span> billing_records (
+    id <span class="keyword">SERIAL PRIMARY KEY</span>,
+    customer_id <span class="keyword">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span>,
+    instance_id <span class="keyword">INTEGER REFERENCES</span> cloud_service_instances(id),
+    amount <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>) <span class="keyword">NOT NULL</span>,
+    billing_period <span class="keyword">VARCHAR</span>(<span class="number">50</span>),
+    status <span class="keyword">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="string">'pending'</span>,
+    created_at <span class="keyword">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);
+
+<span class="comment">-- Create indexes for performance</span>
+<span class="keyword">CREATE INDEX</span> idx_customer_instances <span class="keyword">ON</span> cloud_service_instances(customer_id);
+<span class="keyword">CREATE INDEX</span> idx_instance_status <span class="keyword">ON</span> cloud_service_instances(status);
+<span class="keyword">CREATE INDEX</span> idx_usage_logs_customer <span class="keyword">ON</span> usage_logs(customer_id);
+<span class="keyword">CREATE INDEX</span> idx_billing_customer <span class="keyword">ON</span> billing_records(customer_id);`;
+
+            // Portal Integration
+            const portalCode = `<span class="comment">// ${serviceName} Portal Integration</span>
+<span class="comment">// Cloud Management Portal Widget</span>
+
+<span class="keyword">class</span> <span class="function">${serviceName}Widget</span> {
+    <span class="keyword">constructor</span>(apiBaseUrl, authToken) {
+        <span class="keyword">this</span>.apiBaseUrl = apiBaseUrl;
+        <span class="keyword">this</span>.authToken = authToken;
+        <span class="keyword">this</span>.instances = [];
+    }
+
+    <span class="comment">// Initialize the widget</span>
+    <span class="keyword">async</span> <span class="function">init</span>() {
+        <span class="keyword">await this</span>.loadInstances();
+        <span class="keyword">this</span>.render();
+        <span class="keyword">this</span>.attachEventListeners();
+    }
+
+    <span class="comment">// Load all instances</span>
+    <span class="keyword">async</span> <span class="function">loadInstances</span>() {
+        <span class="keyword">try</span> {
+            <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiBaseUrl}/api/v1/${serviceName.toLowerCase()}\`, {
+                headers: {
+                    <span class="string">'Authorization'</span>: \`Bearer \${<span class="keyword">this</span>.authToken}\`
+                }
+            });
+            <span class="keyword">const</span> data = <span class="keyword">await</span> response.json();
+            <span class="keyword">this</span>.instances = data.instances;
+        } <span class="keyword">catch</span> (error) {
+            console.error(<span class="string">'Failed to load instances:'</span>, error);
+        }
+    }
+
+    <span class="comment">// Create new instance</span>
+    <span class="keyword">async</span> <span class="function">createInstance</span>(config) {
+        <span class="keyword">try</span> {
+            <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(\`\${<span class="keyword">this</span>.apiBaseUrl}/api/v1/${serviceName.toLowerCase()}/create\`, {
+                method: <span class="string">'POST'</span>,
+                headers: {
+                    <span class="string">'Authorization'</span>: \`Bearer \${<span class="keyword">this</span>.authToken}\`,
+                    <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>
+                },
+                body: JSON.stringify(config)
+            });
+            <span class="keyword">const</span> result = <span class="keyword">await</span> response.json();
+
+            <span class="keyword">if</span> (result.success) {
+                <span class="keyword">await this</span>.loadInstances();
+                <span class="keyword">this</span>.render();
+                <span class="keyword">this</span>.showNotification(<span class="string">'Instance created successfully'</span>, <span class="string">'success'</span>);
+            }
+            <span class="keyword">return</span> result;
+        } <span class="keyword">catch</span> (error) {
+            console.error(<span class="string">'Failed to create instance:'</span>, error);
+            <span class="keyword">this</span>.showNotification(<span class="string">'Failed to create instance'</span>, <span class="string">'error'</span>);
+        }
+    }
+
+    <span class="comment">// Render the widget</span>
+    <span class="function">render</span>() {
+        <span class="keyword">const</span> container = document.getElementById(<span class="string">'${serviceName.toLowerCase()}-widget'</span>);
+        container.innerHTML = \`
+            <span class="keyword">&lt;div</span> class=<span class="string">"cloud-service-widget"</span><span class="keyword">&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"widget-header"</span><span class="keyword">&gt;</span>
+                    <span class="keyword">&lt;h3&gt;</span>${serviceName} Instances<span class="keyword">&lt;/h3&gt;</span>
+                    <span class="keyword">&lt;button</span> onclick=<span class="string">"widget.showCreateDialog()"</span><span class="keyword">&gt;</span>Create New<span class="keyword">&lt;/button&gt;</span>
+                <span class="keyword">&lt;/div&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"instances-list"</span><span class="keyword">&gt;</span>
+                    \${<span class="keyword">this</span>.renderInstances()}
+                <span class="keyword">&lt;/div&gt;</span>
+            <span class="keyword">&lt;/div&gt;</span>
+        \`;
+    }
+
+    <span class="function">renderInstances</span>() {
+        <span class="keyword">return this</span>.instances.map(<span class="variable">instance</span> =&gt; \`
+            <span class="keyword">&lt;div</span> class=<span class="string">"instance-card"</span> data-id=<span class="string">"\${instance.id}"</span><span class="keyword">&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"instance-name"</span><span class="keyword">&gt;</span>\${instance.name}<span class="keyword">&lt;/div&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"instance-status status-\${instance.status}"</span><span class="keyword">&gt;</span>
+                    \${instance.status}
+                <span class="keyword">&lt;/div&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"instance-vendor"</span><span class="keyword">&gt;</span>\${instance.vendor}<span class="keyword">&lt;/div&gt;</span>
+                <span class="keyword">&lt;div</span> class=<span class="string">"instance-actions"</span><span class="keyword">&gt;</span>
+                    <span class="keyword">&lt;button</span> onclick=<span class="string">"widget.viewInstance(\${instance.id})"</span><span class="keyword">&gt;</span>View<span class="keyword">&lt;/button&gt;</span>
+                    <span class="keyword">&lt;button</span> onclick=<span class="string">"widget.deleteInstance(\${instance.id})"</span><span class="keyword">&gt;</span>Delete<span class="keyword">&lt;/button&gt;</span>
+                <span class="keyword">&lt;/div&gt;</span>
+            <span class="keyword">&lt;/div&gt;</span>
+        \`).join(<span class="string">''</span>);
+    }
+}
+
+<span class="comment">// Initialize widget</span>
+<span class="keyword">const</span> widget = <span class="keyword">new</span> ${serviceName}Widget(
+    <span class="string">'https://api.yourcloud.com'</span>,
+    localStorage.getItem(<span class="string">'auth_token'</span>)
+);
+
+widget.init();`;
+
+            // Testing Scripts
+            const testingCode = `<span class="comment"># ${serviceName} Test Suite</span>
+<span class="comment"># Comprehensive testing for all API endpoints</span>
+
+<span class="keyword">import</span> unittest
+<span class="keyword">import</span> requests
+<span class="keyword">import</span> json
+<span class="keyword">from</span> time <span class="keyword">import</span> sleep
+
+<span class="keyword">class</span> <span class="function">Test${serviceName}</span>(unittest.TestCase):
+    <span class="string">"""Test suite for ${serviceName}"""</span>
+
+    @classmethod
+    <span class="keyword">def</span> <span class="function">setUpClass</span>(cls):
+        <span class="string">"""Set up test environment"""</span>
+        cls.base_url = <span class="string">'http://localhost:5000/api/v1'</span>
+        cls.auth_token = cls._get_auth_token()
+        cls.headers = {
+            <span class="string">'Authorization'</span>: <span class="string">f'Bearer {cls.auth_token}'</span>,
+            <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>
+        }
+
+    @staticmethod
+    <span class="keyword">def</span> <span class="function">_get_auth_token</span>():
+        <span class="string">"""Authenticate and get JWT token"""</span>
+        response = requests.post(
+            <span class="string">'http://localhost:5000/api/v1/auth/login'</span>,
+            json={<span class="string">'username'</span>: <span class="string">'test@example.com'</span>, <span class="string">'password'</span>: <span class="string">'testpass'</span>}
+        )
+        <span class="keyword">return</span> response.json()[<span class="string">'access_token'</span>]
+
+    <span class="keyword">def</span> <span class="function">test_01_create_instance</span>(self):
+        <span class="string">"""Test instance creation"""</span>
+        payload = {
+            <span class="string">'name'</span>: <span class="string">'Test ${serviceName} Instance'</span>,
+            <span class="string">'vendor'</span>: <span class="string">'${vendor}'</span>,
+            <span class="string">'config'</span>: {
+                <span class="string">'features'</span>: ${JSON.stringify(features)},
+                <span class="string">'region'</span>: <span class="string">'us-west-2'</span>
+            }
+        }
+
+        response = requests.post(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}/create'</span>,
+            headers=self.headers,
+            json=payload
+        )
+
+        self.assertEqual(response.status_code, <span class="number">201</span>)
+        data = response.json()
+        self.assertTrue(data[<span class="string">'success'</span>])
+        self.assertIn(<span class="string">'instance_id'</span>, data)
+
+        <span class="comment"># Store instance ID for other tests</span>
+        self.__class__.instance_id = data[<span class="string">'instance_id'</span>]
+        print(<span class="string">f'✓ Instance created: {self.instance_id}'</span>)
+
+    <span class="keyword">def</span> <span class="function">test_02_get_instance</span>(self):
+        <span class="string">"""Test getting instance details"""</span>
+        response = requests.get(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}/{self.instance_id}'</span>,
+            headers=self.headers
+        )
+
+        self.assertEqual(response.status_code, <span class="number">200</span>)
+        data = response.json()
+        self.assertEqual(data[<span class="string">'id'</span>], self.instance_id)
+        self.assertEqual(data[<span class="string">'vendor'</span>], <span class="string">'${vendor}'</span>)
+        print(<span class="string">f'✓ Instance retrieved: {data["name"]}'</span>)
+
+    <span class="keyword">def</span> <span class="function">test_03_list_instances</span>(self):
+        <span class="string">"""Test listing all instances"""</span>
+        response = requests.get(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}'</span>,
+            headers=self.headers
+        )
+
+        self.assertEqual(response.status_code, <span class="number">200</span>)
+        data = response.json()
+        self.assertIn(<span class="string">'instances'</span>, data)
+        self.assertGreater(len(data[<span class="string">'instances'</span>]), <span class="number">0</span>)
+        print(<span class="string">f'✓ Found {len(data["instances"])} instances'</span>)
+
+    <span class="keyword">def</span> <span class="function">test_04_update_instance</span>(self):
+        <span class="string">"""Test updating instance configuration"""</span>
+        payload = {
+            <span class="string">'config'</span>: {
+                <span class="string">'features'</span>: ${JSON.stringify(features.slice(0, 2))},
+                <span class="string">'updated'</span>: <span class="keyword">True</span>
+            }
+        }
+
+        response = requests.put(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}/{self.instance_id}'</span>,
+            headers=self.headers,
+            json=payload
+        )
+
+        self.assertEqual(response.status_code, <span class="number">200</span>)
+        data = response.json()
+        self.assertTrue(data[<span class="string">'success'</span>])
+        print(<span class="string">'✓ Instance configuration updated'</span>)
+
+    <span class="keyword">def</span> <span class="function">test_05_performance</span>(self):
+        <span class="string">"""Test API performance"""</span>
+        <span class="keyword">import</span> time
+
+        start = time.time()
+        response = requests.get(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}'</span>,
+            headers=self.headers
+        )
+        elapsed = time.time() - start
+
+        self.assertEqual(response.status_code, <span class="number">200</span>)
+        self.assertLess(elapsed, <span class="number">1.0</span>, <span class="string">'API response too slow'</span>)
+        print(<span class="string">f'✓ API response time: {elapsed:.3f}s'</span>)
+
+    <span class="keyword">def</span> <span class="function">test_06_delete_instance</span>(self):
+        <span class="string">"""Test instance deletion"""</span>
+        response = requests.delete(
+            <span class="string">f'{self.base_url}/${serviceName.toLowerCase()}/{self.instance_id}'</span>,
+            headers=self.headers
+        )
+
+        self.assertEqual(response.status_code, <span class="number">200</span>)
+        data = response.json()
+        self.assertTrue(data[<span class="string">'success'</span>])
+        print(<span class="string">f'✓ Instance deleted: {self.instance_id}'</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:
+    unittest.main(verbosity=<span class="number">2</span>)`;
+
+            // Documentation
+            const docsCode = `# ${serviceName} - API Documentation
+
+Generated by **Cisco Cloud Service Creator AI**
+
+## Overview
+
+${serviceData.intent || 'Cloud service for enterprise customers'}
+
+**Service Type:** ${serviceName}
+**Vendor:** ${vendor}
+**Pricing Model:** ${serviceData.pricingModel}
+
+## Features
+
+${features.map(f => `- ${f}`).join('\n')}
+
+## API Endpoints
+
+### Authentication
+\`\`\`
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "user@example.com",
+  "password": "password"
+}
+\`\`\`
+
+### Create Instance
+\`\`\`
+POST /api/v1/${serviceName.toLowerCase()}/create
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "My ${serviceName} Instance",
+  "vendor": "${vendor}",
+  "config": {
+    "region": "us-west-2",
+    "features": ${JSON.stringify(features, null, 2)}
+  }
+}
+\`\`\`
+
+**Response:**
+\`\`\`json
+{
+  "success": true,
+  "instance_id": 123,
+  "status": "active",
+  "message": "Instance created successfully"
+}
+\`\`\`
+
+### Get Instance
+\`\`\`
+GET /api/v1/${serviceName.toLowerCase()}/:id
+Authorization: Bearer <token>
+\`\`\`
+
+### List Instances
+\`\`\`
+GET /api/v1/${serviceName.toLowerCase()}
+Authorization: Bearer <token>
+\`\`\`
+
+### Update Instance
+\`\`\`
+PUT /api/v1/${serviceName.toLowerCase()}/:id
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "config": {
+    "updated_field": "new_value"
+  }
+}
+\`\`\`
+
+### Delete Instance
+\`\`\`
+DELETE /api/v1/${serviceName.toLowerCase()}/:id
+Authorization: Bearer <token>
+\`\`\`
+
+## Installation
+
+\`\`\`bash
+# Clone repository
+git clone https://github.com/yourorg/${serviceName.toLowerCase()}-service.git
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure database
+export DATABASE_URL="postgresql://localhost/cloud_service_db"
+
+# Run migrations
+flask db upgrade
+
+# Start server
+python backend_service.py
+\`\`\`
+
+## Configuration
+
+Edit \`config.py\` to configure:
+- Database connection
+- API credentials for ${vendor}
+- JWT secret key
+- Logging settings
+
+## Testing
+
+Run the test suite:
+\`\`\`bash
+python test_suite.py
+\`\`\`
+
+## Support
+
+For support and questions:
+- Email: support@yourcompany.com
+- Documentation: https://docs.yourcompany.com
+- ${vendor} Documentation: ${serviceData.apiDocs || 'N/A'}
+
+---
+
+Generated with ❤️ by Cisco Cloud Service Creator AI`;
+
+            // Set code in DOM
+            document.getElementById('code-backend').innerHTML = backendCode;
+            document.getElementById('code-api').innerHTML = apiCode;
+            document.getElementById('code-database').innerHTML = databaseCode;
+            document.getElementById('code-portal').innerHTML = portalCode;
+            document.getElementById('code-testing').innerHTML = testingCode;
+            document.getElementById('code-docs').innerHTML = docsCode;
+
+            // Add line numbers
+            addLineNumbers();
+        }
+
+        function addLineNumbers() {
+            document.querySelectorAll('.code-block').forEach(block => {
+                const lines = block.innerHTML.split('\n');
+                const numberedLines = lines.map((line, index) => {
+                    return `<span class="code-line"><span class="line-number">${index + 1}</span>${line}</span>`;
+                }).join('\n');
+                block.innerHTML = numberedLines;
+            });
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        // Copy code
+        function copyCode(tabName) {
+            const codeElement = document.getElementById(`code-${tabName}`);
+            const text = codeElement.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        // Download code
+        function downloadCode(tabName, filename) {
+            const codeElement = document.getElementById(`code-${tabName}`);
+            const text = codeElement.textContent;
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Download all code
+        function downloadAll() {
+            const files = [
+                { tab: 'backend', filename: 'backend_service.py' },
+                { tab: 'api', filename: 'api_endpoints.py' },
+                { tab: 'database', filename: 'database_schema.sql' },
+                { tab: 'portal', filename: 'portal_integration.js' },
+                { tab: 'testing', filename: 'test_suite.py' },
+                { tab: 'docs', filename: 'README.md' }
+            ];
+
+            files.forEach(file => {
+                setTimeout(() => {
+                    downloadCode(file.tab, file.filename);
+                }, 100);
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            populateSummary();
+            generateCode();
+        });
+    </script>
+</body>
+</html>

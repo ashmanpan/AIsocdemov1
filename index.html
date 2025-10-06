@@ -264,7 +264,20 @@
         .marketplace-card::before {
             background: radial-gradient(circle, rgba(155, 89, 182, 0.1) 0%, transparent 70%);
         }
-        
+
+        .cloudops-card .demo-icon {
+            color: #00bceb;
+        }
+
+        .cloudops-card:hover {
+            border-color: #00bceb;
+            box-shadow: 0 20px 40px rgba(0, 188, 235, 0.3);
+        }
+
+        .cloudops-card::before {
+            background: radial-gradient(circle, rgba(0, 188, 235, 0.1) 0%, transparent 70%);
+        }
+
         .footer {
             margin-top: 60px;
             font-size: 14px;
@@ -632,6 +645,7 @@
                         <a href="Cisco-AI-NoC-Telco-v5.html" class="dropdown-item">AI NOC Demo</a>
                         <a href="Cisco-AI-SoC-Telco-v2.5.html" class="dropdown-item">AI SOC Demo</a>
                         <a href="Cisco-AI-DC-v1.0.html" class="dropdown-item">AI Datacenter Demo</a>
+                        <a href="Cloud-service-creation-as-service/index.html" class="dropdown-item">AI Cloud Ops</a>
                     </div>
                 </div>
                 <a href="industry-usecases.html" class="nav-link">Vertical Industry</a>
@@ -745,6 +759,34 @@
                     </div>
                 </div>
                 <a href="Cisco-AI-DC-v1.0.html" class="demo-button">Launch DC Demo</a>
+            </div>
+
+            <div class="demo-card cloudops-card" onclick="window.location.href='Cloud-service-creation-as-service/index.html'">
+                <span class="demo-icon">☁️</span>
+                <h2 class="demo-title">Agentic AI Cloud Ops</h2>
+                <p class="demo-description">
+                    Build production-ready cloud services in minutes with AI-powered code generation.
+                    Create vFirewall, vRouter, vLoadBalancer services with complete APIs and testing.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>AI conversation-based requirements</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Instant code generation (10K+ lines)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Cisco-first vendor integration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated testing & reports</span>
+                    </div>
+                </div>
+                <a href="Cloud-service-creation-as-service/index.html" class="demo-button">Create Service Now</a>
             </div>
 
             <!-- Second Row: Vertical Industry and Agent Marketplace -->

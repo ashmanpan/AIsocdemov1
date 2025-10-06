@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Service Creator - Chat Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(-50px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        .nav-header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cisco-logo {
+            height: 40px;
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00ff88;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #333;
+            padding: 1.5rem;
+        }
+
+        .chat-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chat-header p {
+            color: #aaa;
+            font-size: 0.875rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.ai {
+            align-self: flex-start;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .message.ai .message-avatar {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(45deg, #9b59b6, #e74c3c);
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            line-height: 1.6;
+        }
+
+        .message.ai .message-content {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .message.user .message-content {
+            background: rgba(155, 89, 182, 0.1);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            text-align: right;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff88;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-10px); opacity: 1; }
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .option-btn {
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .option-btn:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.cisco-badge {
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            border: none;
+            font-weight: 600;
+        }
+
+        .option-btn.cisco-badge:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 188, 235, 0.3);
+        }
+
+        .chat-input-section {
+            border-top: 1px solid #333;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #00ff88;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .send-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+        }
+
+        .progress-sidebar h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            color: #00ff88;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .progress-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .progress-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .progress-icon.completed {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .progress-icon.active {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            animation: pulse 2s infinite;
+        }
+
+        .progress-icon.pending {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #333;
+            color: #666;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .progress-text {
+            flex: 1;
+        }
+
+        .progress-label {
+            font-size: 0.875rem;
+            color: #aaa;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-value {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .progress-value.active {
+            color: #00ff88;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .progress-sidebar {
+                width: 100%;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .nav-header {
+                padding: 1rem;
+            }
+
+            .progress-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="cisco-logo">CISCO</div>
+                <span class="nav-title">Cloud Service Creator AI</span>
+            </div>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>🤖 AI Service Creator Assistant</h2>
+                <p>I'll help you create a production-ready cloud service. Let's start with a conversation!</p>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+
+            <div class="chat-input-section">
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." disabled>
+                    <button class="send-btn" id="sendBtn" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Sidebar -->
+        <div class="progress-sidebar">
+            <h3>Progress Tracker</h3>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-1">1</div>
+                <div class="progress-text">
+                    <div class="progress-label">Service Type</div>
+                    <div class="progress-value" id="value-1">Not selected</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-2">2</div>
+                <div class="progress-text">
+                    <div class="progress-label">Intent & Purpose</div>
+                    <div class="progress-value" id="value-2">Not defined</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-3">3</div>
+                <div class="progress-text">
+                    <div class="progress-label">Features</div>
+                    <div class="progress-value" id="value-3">Not defined</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-4">4</div>
+                <div class="progress-text">
+                    <div class="progress-label">Vendor Selection</div>
+                    <div class="progress-value" id="value-4">Not selected</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-5">5</div>
+                <div class="progress-text">
+                    <div class="progress-label">API Documentation</div>
+                    <div class="progress-value" id="value-5">Not provided</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-6">6</div>
+                <div class="progress-text">
+                    <div class="progress-label">Pricing Model</div>
+                    <div class="progress-value" id="value-6">Not defined</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-icon pending" id="progress-7">7</div>
+                <div class="progress-text">
+                    <div class="progress-label">Logging & Auth</div>
+                    <div class="progress-value" id="value-7">Not configured</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" id="generateCodeBtn" disabled>Generate Code</button>
+            </div>
+            <div class="action-buttons">
+                <a href="code-viewer.html" class="action-btn secondary" id="viewCodeBtn" style="display: none;">View Code</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Conversation state
+        const conversationData = {
+            serviceType: '',
+            intent: '',
+            features: [],
+            vendor: '',
+            apiDocs: '',
+            pricingModel: '',
+            loggingAuth: {},
+            monitoring: ''
+        };
+
+        let currentStep = 0;
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const generateCodeBtn = document.getElementById('generateCodeBtn');
+
+        // Conversation flow
+        const conversationFlow = [
+            {
+                question: "👋 Hi! I'm your AI Service Creator Assistant. I'll help you build a production-ready cloud service in minutes.\n\nLet's start: What type of cloud service would you like to create?",
+                options: [
+                    { text: "🛡️ vFirewall as a Service (Cisco ASA/FTD)", value: "vFirewall", cisco: true },
+                    { text: "🌐 vRouter as a Service (Cisco CSR1000v)", value: "vRouter", cisco: true },
+                    { text: "⚖️ vLoad Balancer as a Service (Cisco ACI)", value: "vLoadBalancer", cisco: true },
+                    { text: "🔒 vVPN as a Service (Cisco AnyConnect)", value: "vVPN", cisco: true },
+                    { text: "🕵️ vIDS/IPS as a Service (Cisco Firepower)", value: "vIDS", cisco: true },
+                    { text: "🌍 SD-WAN as a Service (Cisco Viptela)", value: "vSDWAN", cisco: true }
+                ],
+                field: 'serviceType',
+                progressId: 1
+            },
+            {
+                question: (data) => `Great choice! You've selected ${data.serviceType}.\n\nNow, tell me about the intent and purpose of this service. What problem are you trying to solve? Who are your target customers?`,
+                inputRequired: true,
+                field: 'intent',
+                progressId: 2,
+                placeholder: "E.g., Provide enterprise customers with secure, scalable firewall protection..."
+            },
+            {
+                question: "Perfect! Now let's define the key features. What features do you want to offer?",
+                multiSelect: true,
+                options: (data) => {
+                    const featureMap = {
+                        vFirewall: [
+                            "Traffic Filtering & ACL Management",
+                            "Threat Detection & Prevention",
+                            "VPN Support",
+                            "NAT/PAT Configuration",
+                            "Application-Level Filtering",
+                            "Logging & Reporting",
+                            "High Availability"
+                        ],
+                        vRouter: [
+                            "BGP/OSPF/EIGRP Routing",
+                            "MPLS Support",
+                            "QoS Management",
+                            "VRF Configuration",
+                            "SD-WAN Integration",
+                            "IPSec VPN",
+                            "Traffic Engineering"
+                        ],
+                        vLoadBalancer: [
+                            "Layer 4/7 Load Balancing",
+                            "SSL Offloading",
+                            "Health Checks",
+                            "Auto-Scaling",
+                            "Session Persistence",
+                            "DDoS Protection",
+                            "Content Caching"
+                        ],
+                        vVPN: [
+                            "SSL VPN",
+                            "IPSec VPN",
+                            "Multi-Factor Authentication",
+                            "Split Tunneling",
+                            "User Management",
+                            "Client Auto-Configuration",
+                            "Endpoint Compliance"
+                        ],
+                        vIDS: [
+                            "Real-time Threat Detection",
+                            "Signature-based Detection",
+                            "Anomaly Detection",
+                            "Automated Response",
+                            "Threat Intelligence Integration",
+                            "PCAP Analysis",
+                            "Alert Management"
+                        ],
+                        vSDWAN: [
+                            "Application-Aware Routing",
+                            "Multi-Cloud Connectivity",
+                            "WAN Optimization",
+                            "Centralized Management",
+                            "Security Integration",
+                            "SLA Monitoring",
+                            "Zero-Touch Provisioning"
+                        ]
+                    };
+                    return featureMap[data.serviceType] || [];
+                },
+                field: 'features',
+                progressId: 3
+            },
+            {
+                question: "Excellent feature selection! Now, which vendor products do you want to integrate?",
+                options: [
+                    { text: "🥇 Cisco (ASA, FTD, CSR1000v, Meraki)", value: "Cisco", cisco: true },
+                    { text: "Palo Alto Networks", value: "PaloAlto" },
+                    { text: "Fortinet FortiGate", value: "Fortinet" },
+                    { text: "F5 Networks", value: "F5" },
+                    { text: "Juniper Networks", value: "Juniper" },
+                    { text: "Multiple Vendors", value: "Multi-Vendor" }
+                ],
+                field: 'vendor',
+                progressId: 4
+            },
+            {
+                question: "Great! Please provide the API documentation links or describe the APIs you'll be using.",
+                inputRequired: true,
+                field: 'apiDocs',
+                progressId: 5,
+                placeholder: "E.g., https://developer.cisco.com/docs/firepower-apis/ or describe the REST APIs..."
+            },
+            {
+                question: "Now let's define the pricing model. How do you want to charge your customers?",
+                options: [
+                    { text: "Pay-as-you-go (Hourly)", value: "hourly" },
+                    { text: "Monthly Subscription", value: "monthly" },
+                    { text: "Annual Subscription", value: "annual" },
+                    { text: "Tiered Pricing (Basic/Pro/Enterprise)", value: "tiered" },
+                    { text: "Usage-based (Bandwidth/Transactions)", value: "usage-based" },
+                    { text: "Freemium Model", value: "freemium" }
+                ],
+                field: 'pricingModel',
+                progressId: 6
+            },
+            {
+                question: "Almost done! Let's configure logging and authentication. What do you need?",
+                multiSelect: true,
+                options: [
+                    "Centralized Logging (ELK/Splunk)",
+                    "OAuth 2.0 / OpenID Connect",
+                    "SAML Authentication",
+                    "Multi-Factor Authentication (MFA)",
+                    "API Key Management",
+                    "Role-Based Access Control (RBAC)",
+                    "Audit Trail",
+                    "Real-time Monitoring Dashboard"
+                ],
+                field: 'loggingAuth',
+                progressId: 7
+            }
+        ];
+
+        // Initialize conversation
+        function initConversation() {
+            setTimeout(() => {
+                askQuestion(0);
+            }, 500);
+        }
+
+        // Add message to chat
+        function addMessage(content, isUser = false, options = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = isUser ? '👤' : '🤖';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = content.replace(/\n/g, '<br>');
+
+            if (options && !isUser) {
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+
+                options.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = option.cisco ? 'option-btn cisco-badge' : 'option-btn';
+                    btn.textContent = option.text || option;
+                    btn.onclick = () => handleOptionClick(option.value || option, option.text || option);
+                    optionsContainer.appendChild(btn);
+                });
+
+                messageContent.appendChild(optionsContainer);
+            }
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Ask question
+        function askQuestion(stepIndex) {
+            if (stepIndex >= conversationFlow.length) {
+                completeConversation();
+                return;
+            }
+
+            const step = conversationFlow[stepIndex];
+            const question = typeof step.question === 'function'
+                ? step.question(conversationData)
+                : step.question;
+
+            // Update progress indicator
+            updateProgress(step.progressId, 'active');
+
+            // Show typing indicator
+            showTyping();
+
+            setTimeout(() => {
+                hideTyping();
+
+                const options = typeof step.options === 'function'
+                    ? step.options(conversationData)
+                    : step.options;
+
+                addMessage(question, false, options);
+
+                if (step.inputRequired) {
+                    chatInput.disabled = false;
+                    chatInput.placeholder = step.placeholder || "Type your answer...";
+                    chatInput.focus();
+                    sendBtn.disabled = false;
+                } else if (step.multiSelect) {
+                    enableMultiSelect(options, step.field, step.progressId);
+                }
+
+                currentStep = stepIndex;
+            }, 1500);
+        }
+
+        // Handle option click
+        function handleOptionClick(value, text) {
+            const step = conversationFlow[currentStep];
+            conversationData[step.field] = value;
+
+            addMessage(text, true);
+            updateProgress(step.progressId, 'completed', text);
+
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+
+            setTimeout(() => {
+                askQuestion(currentStep + 1);
+            }, 500);
+        }
+
+        // Handle input submission
+        sendBtn.addEventListener('click', submitInput);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitInput();
+        });
+
+        function submitInput() {
+            const value = chatInput.value.trim();
+            if (!value) return;
+
+            const step = conversationFlow[currentStep];
+            conversationData[step.field] = value;
+
+            addMessage(value, true);
+            updateProgress(step.progressId, 'completed', value.substring(0, 30) + '...');
+
+            chatInput.value = '';
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+
+            setTimeout(() => {
+                askQuestion(currentStep + 1);
+            }, 500);
+        }
+
+        // Multi-select handling
+        function enableMultiSelect(options, field, progressId) {
+            const selectedOptions = [];
+            const buttons = document.querySelectorAll('.options-container .option-btn');
+
+            buttons.forEach(btn => {
+                btn.onclick = () => {
+                    const value = btn.textContent;
+                    const index = selectedOptions.indexOf(value);
+
+                    if (index > -1) {
+                        selectedOptions.splice(index, 1);
+                        btn.style.background = 'rgba(255, 255, 255, 0.05)';
+                        btn.style.borderColor = '#333';
+                    } else {
+                        selectedOptions.push(value);
+                        btn.style.background = 'rgba(0, 255, 136, 0.2)';
+                        btn.style.borderColor = '#00ff88';
+                    }
+                };
+            });
+
+            // Add confirm button
+            setTimeout(() => {
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'option-btn';
+                confirmBtn.textContent = '✓ Confirm Selection';
+                confirmBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
+                confirmBtn.style.color = '#000';
+                confirmBtn.style.fontWeight = '600';
+                confirmBtn.onclick = () => {
+                    if (selectedOptions.length === 0) {
+                        alert('Please select at least one option');
+                        return;
+                    }
+                    conversationData[field] = selectedOptions;
+                    addMessage(selectedOptions.join(', '), true);
+                    updateProgress(progressId, 'completed', `${selectedOptions.length} selected`);
+
+                    setTimeout(() => {
+                        askQuestion(currentStep + 1);
+                    }, 500);
+                };
+
+                const lastOptions = document.querySelector('.options-container');
+                if (lastOptions) {
+                    lastOptions.appendChild(confirmBtn);
+                }
+            }, 100);
+        }
+
+        // Update progress
+        function updateProgress(stepId, status, value = null) {
+            const icon = document.getElementById(`progress-${stepId}`);
+            const valueElement = document.getElementById(`value-${stepId}`);
+
+            icon.className = `progress-icon ${status}`;
+            if (status === 'completed') {
+                icon.textContent = '✓';
+            }
+
+            if (value && valueElement) {
+                valueElement.textContent = value;
+                valueElement.className = status === 'active' ? 'progress-value active' : 'progress-value';
+            }
+        }
+
+        // Show/hide typing indicator
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.className = 'typing-indicator';
+            typing.id = 'typingIndicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typing);
+            typing.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        // Complete conversation
+        function completeConversation() {
+            addMessage("🎉 Perfect! I have all the information I need.\n\nI'm now ready to generate your complete cloud service code including:\n\n✅ Backend service code\n✅ REST APIs\n✅ Database schemas\n✅ Cloud management portal integration\n✅ Testing scripts\n✅ Documentation\n\nClick 'Generate Code' to start!", false);
+
+            generateCodeBtn.disabled = false;
+            generateCodeBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
+        }
+
+        // Generate code
+        generateCodeBtn.addEventListener('click', () => {
+            // Store conversation data in localStorage
+            localStorage.setItem('serviceData', JSON.stringify(conversationData));
+
+            addMessage("Generating code... This will take a moment.", false);
+            generateCodeBtn.disabled = true;
+            generateCodeBtn.textContent = 'Generating...';
+
+            setTimeout(() => {
+                generateCodeBtn.textContent = 'Code Generated ✓';
+                generateCodeBtn.style.background = '#00ff88';
+                document.getElementById('viewCodeBtn').style.display = 'block';
+                addMessage("✅ Code generation complete! Click 'View Code' to see your generated service.", false);
+            }, 3000);
+        });
+
+        // Start conversation on page load
+        window.addEventListener('load', initConversation);
+    </script>
+</body>
+</html>

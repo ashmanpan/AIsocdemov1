@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Cloud Service Creator AI - Automate Service Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: min(600px, 80vw);
+            height: min(600px, 80vw);
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: min(800px, 90vw);
+            height: min(800px, 90vw);
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+            75% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cisco-logo {
+            height: 40px;
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #00ff88;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .start-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            z-index: 1;
+            margin-top: 100px;
+        }
+
+        .hero-section {
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: #aaa;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #888;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-primary {
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
+        }
+
+        .cta-secondary {
+            padding: 1rem 3rem;
+            background: transparent;
+            color: #00ff88;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 2px solid #00ff88;
+            font-weight: 600;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: scale(1.05);
+        }
+
+        .features-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .feature-description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .services-section {
+            margin-bottom: 60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #00aaff;
+            box-shadow: 0 10px 30px rgba(0, 170, 255, 0.2);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .service-vendor {
+            font-size: 0.875rem;
+            color: #00aaff;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-description {
+            font-size: 0.875rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .cisco-badge {
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-section {
+            margin-bottom: 60px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-width: 60px;
+        }
+
+        .step-content {
+            text-align: left;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .step-description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 3rem;
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 20px;
+            border: 1px solid #00ff88;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-header {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .container {
+                padding: 1.5rem;
+                margin-top: 80px;
+            }
+
+            .workflow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-content {
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="cisco-logo">CISCO</div>
+                <span class="nav-title">Cloud Service Creator AI</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#workflow" class="nav-link">How It Works</a>
+                <a href="service-creator.html" class="start-btn">Start Creating →</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>AI-Powered Cloud Service Creator</h1>
+            <p class="subtitle">Build Production-Ready Cloud Services in Minutes, Not Months</p>
+            <p class="hero-description">
+                Our AI Agent converses with you to understand your requirements, then automatically generates
+                complete production-ready code, APIs, integrations, and tests for cloud services like vFirewall,
+                vRouter, vLoadBalancer, and more. Powered by Cisco technology.
+            </p>
+            <div class="cta-buttons">
+                <a href="service-creator.html" class="cta-primary">
+                    🚀 Create Service Now
+                </a>
+                <a href="#workflow" class="cta-secondary">
+                    Learn How It Works
+                </a>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">90%</div>
+                <div class="stat-label">Time Saved</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Lines of Code Generated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">AI Assistance</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Cisco Compatible</div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2 class="section-title">Why Use Our AI Service Creator?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">Intelligent Conversation</h3>
+                    <p class="feature-description">
+                        AI Agent asks detailed questions about your service intent, features, API requirements,
+                        pricing models, logging mechanisms, and more to understand your exact needs.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Code Generation</h3>
+                    <p class="feature-description">
+                        Automatically generates complete backend code, REST APIs, database schemas, and cloud
+                        management portal integrations based on your requirements.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3 class="feature-title">Cisco-First Integration</h3>
+                    <p class="feature-description">
+                        Prioritizes Cisco products (ASA, FTD, Meraki, NSO) with seamless integration to other
+                        vendors like Palo Alto, Fortinet, F5, and more.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3 class="feature-title">Automated Testing</h3>
+                    <p class="feature-description">
+                        Generates comprehensive test scripts, runs automated tests, and provides detailed
+                        reports on service functionality and performance.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">API Documentation</h3>
+                    <p class="feature-description">
+                        Creates complete API documentation with Swagger/OpenAPI specs, examples, and
+                        integration guides for your cloud service.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">☁️</div>
+                    <h3 class="feature-title">Multi-Cloud Ready</h3>
+                    <p class="feature-description">
+                        Generated code works with AWS, Azure, GCP, and private clouds. Includes orchestration
+                        with Kubernetes, Terraform, and Ansible.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <h2 class="section-title">Cloud Services You Can Build</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">🛡️</div>
+                    <h3 class="service-name">vFirewall as a Service</h3>
+                    <p class="service-vendor">Cisco ASA, FTD, Meraki MX</p>
+                    <p class="service-description">
+                        Deploy virtual firewalls with automated policy management, threat detection, and compliance reporting.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">🌐</div>
+                    <h3 class="service-name">vRouter as a Service</h3>
+                    <p class="service-vendor">Cisco CSR1000v, IOS-XE</p>
+                    <p class="service-description">
+                        Virtual routing with BGP, OSPF, MPLS support, and SD-WAN integration for enterprise networks.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">⚖️</div>
+                    <h3 class="service-name">vLoad Balancer as a Service</h3>
+                    <p class="service-vendor">Cisco ACI, Nginx Plus</p>
+                    <p class="service-description">
+                        Application load balancing with SSL offload, health checks, and auto-scaling capabilities.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">🔒</div>
+                    <h3 class="service-name">vVPN as a Service</h3>
+                    <p class="service-vendor">Cisco AnyConnect, IKEv2</p>
+                    <p class="service-description">
+                        Secure VPN connectivity with user management, MFA, and centralized policy control.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">🕵️</div>
+                    <h3 class="service-name">vIDS/IPS as a Service</h3>
+                    <p class="service-vendor">Cisco Firepower, Snort</p>
+                    <p class="service-description">
+                        Intrusion detection and prevention with real-time threat intelligence and automated response.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <span class="cisco-badge">CISCO FIRST</span>
+                    <div class="service-icon">🌍</div>
+                    <h3 class="service-name">SD-WAN as a Service</h3>
+                    <p class="service-vendor">Cisco Viptela, Meraki SD-WAN</p>
+                    <p class="service-description">
+                        Software-defined WAN with application-aware routing, security, and cloud integration.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section id="workflow" class="workflow-section">
+            <h2 class="section-title">How It Works</h2>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Tell Us What You Want to Build</h3>
+                        <p class="step-description">
+                            Our AI Agent starts a conversation asking about the cloud service you want to create.
+                            It asks about your service intent, target use cases, and business requirements.
+                        </p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Define Features & Requirements</h3>
+                        <p class="step-description">
+                            The AI asks detailed questions about features, vendor products (Cisco first), API documentation,
+                            pricing models, logging mechanisms, authentication, monitoring, and compliance needs.
+                        </p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">AI Generates Complete Code</h3>
+                        <p class="step-description">
+                            Based on your answers, the AI generates production-ready code including backend services,
+                            REST APIs, database schemas, cloud management portal integration, and deployment scripts.
+                        </p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Review & Customize</h3>
+                        <p class="step-description">
+                            Review the generated code with syntax highlighting, make any customizations you need,
+                            and download or deploy directly to your repository.
+                        </p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Automated Testing</h3>
+                        <p class="step-description">
+                            The AI generates test scripts and runs comprehensive tests. Review the test report
+                            with pass/fail status, performance metrics, and recommendations.
+                        </p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Deploy & Monitor</h3>
+                        <p class="step-description">
+                            Deploy your service to production with confidence. Get monitoring dashboards, logging
+                            integration, and ongoing AI assistance for maintenance and updates.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="hero-section">
+            <h2 class="section-title">Ready to Save Weeks of Development Time?</h2>
+            <p class="hero-description">
+                Start building your cloud service now. No credit card required.
+            </p>
+            <div class="cta-buttons">
+                <a href="service-creator.html" class="cta-primary">
+                    🚀 Start Building Now
+                </a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

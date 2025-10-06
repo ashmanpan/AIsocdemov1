@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Testing - AI Service Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(-50px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        .nav-header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cisco-logo {
+            height: 40px;
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-container {
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            color: #aaa;
+            font-size: 1.125rem;
+        }
+
+        .test-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .control-btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn.primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+
+        .control-btn.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .control-btn.primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .control-btn.secondary {
+            background: transparent;
+            color: #00ff88;
+            border: 2px solid #00ff88;
+        }
+
+        .control-btn.secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .progress-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-passed { color: #00ff88; }
+        .stat-failed { color: #ff4444; }
+        .stat-running { color: #00aaff; }
+
+        .progress-bar-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            height: 40px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .test-results {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .results-header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .results-header h3 {
+            font-size: 1.25rem;
+            color: #00ff88;
+        }
+
+        .test-list {
+            padding: 1.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .test-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .test-status {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .test-status.passed {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .test-status.failed {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .test-status.running {
+            background: #00aaff;
+            color: #fff;
+            animation: pulse 1.5s infinite;
+        }
+
+        .test-status.pending {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #333;
+            color: #666;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .test-info {
+            flex: 1;
+        }
+
+        .test-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .test-description {
+            font-size: 0.875rem;
+            color: #888;
+        }
+
+        .test-duration {
+            font-size: 0.875rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .test-message {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border-left: 3px solid;
+        }
+
+        .test-message.passed {
+            border-left-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .test-message.failed {
+            border-left-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .report-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .report-section.visible {
+            display: block;
+        }
+
+        .report-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-value.passed { color: #00ff88; }
+        .summary-value.failed { color: #ff4444; }
+        .summary-value.duration { color: #00aaff; }
+
+        .summary-label {
+            color: #888;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+
+        .recommendations {
+            margin-top: 2rem;
+        }
+
+        .recommendations h4 {
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .recommendation-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid #00aaff;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+
+        .action-btn.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            color: #00ff88;
+            border: 2px solid #00ff88;
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .test-controls {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+
+            .progress-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .report-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="cisco-logo">CISCO</div>
+                <span class="nav-title">Service Testing</span>
+            </div>
+            <div>
+                <a href="code-viewer.html" class="nav-btn">← Back to Code</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header-section">
+            <h1>🧪 Automated Service Testing</h1>
+            <p>Run comprehensive tests to validate your cloud service</p>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="test-controls">
+            <button class="control-btn primary" id="startTestBtn" onclick="startTesting()">
+                ▶️ Start Testing
+            </button>
+            <button class="control-btn secondary" id="stopTestBtn" onclick="stopTesting()" style="display: none;">
+                ⏹️ Stop Testing
+            </button>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-header">
+                <div class="progress-title">Test Execution Progress</div>
+                <div class="progress-stats">
+                    <div class="stat-item stat-passed">
+                        ✓ Passed: <span id="passedCount">0</span>
+                    </div>
+                    <div class="stat-item stat-failed">
+                        ✗ Failed: <span id="failedCount">0</span>
+                    </div>
+                    <div class="stat-item stat-running">
+                        ⟳ Running: <span id="runningCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="test-results" id="testResults" style="display: none;">
+            <div class="results-header">
+                <h3>Test Results</h3>
+            </div>
+            <div class="test-list" id="testList">
+                <!-- Test items will be added here -->
+            </div>
+        </div>
+
+        <!-- Test Report -->
+        <div class="report-section" id="reportSection">
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">📊 Test Report</h3>
+
+            <div class="report-summary">
+                <div class="summary-card">
+                    <div class="summary-value passed" id="totalPassed">0</div>
+                    <div class="summary-label">Tests Passed</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value failed" id="totalFailed">0</div>
+                    <div class="summary-label">Tests Failed</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value duration" id="totalDuration">0s</div>
+                    <div class="summary-label">Total Duration</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" style="color: #fff;" id="successRate">0%</div>
+                    <div class="summary-label">Success Rate</div>
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h4>Recommendations & Next Steps</h4>
+                <div id="recommendationsList">
+                    <!-- Recommendations will be added here -->
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn secondary" onclick="downloadReport()">📄 Download Report</button>
+                <a href="index.html" class="action-btn primary">🎉 Complete & Go Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const serviceData = JSON.parse(localStorage.getItem('serviceData') || '{}');
+
+        const tests = [
+            { name: 'Authentication Test', description: 'Verify JWT token generation and validation', duration: 1200 },
+            { name: 'Create Instance Test', description: 'Test instance creation API endpoint', duration: 2500 },
+            { name: 'Get Instance Test', description: 'Validate instance retrieval functionality', duration: 800 },
+            { name: 'List Instances Test', description: 'Test listing all customer instances', duration: 900 },
+            { name: 'Update Instance Test', description: 'Verify instance configuration updates', duration: 1800 },
+            { name: 'Database Schema Test', description: 'Validate database schema and relationships', duration: 1500 },
+            { name: 'API Performance Test', description: 'Measure API response times', duration: 3000 },
+            { name: 'Security Test', description: 'Test authorization and access control', duration: 2000 },
+            { name: 'Vendor Integration Test', description: `Test ${serviceData.vendor || 'Cisco'} API integration`, duration: 3500 },
+            { name: 'Load Test', description: 'Test service under concurrent requests', duration: 4000 },
+            { name: 'Error Handling Test', description: 'Verify error responses and edge cases', duration: 1600 },
+            { name: 'Delete Instance Test', description: 'Test instance deletion and cleanup', duration: 2200 }
+        ];
+
+        let currentTestIndex = 0;
+        let testingInProgress = false;
+        let passedTests = 0;
+        let failedTests = 0;
+        let totalDuration = 0;
+        let testInterval;
+
+        function startTesting() {
+            if (testingInProgress) return;
+
+            testingInProgress = true;
+            currentTestIndex = 0;
+            passedTests = 0;
+            failedTests = 0;
+            totalDuration = 0;
+
+            document.getElementById('startTestBtn').style.display = 'none';
+            document.getElementById('stopTestBtn').style.display = 'inline-block';
+            document.getElementById('progressSection').style.display = 'block';
+            document.getElementById('testResults').style.display = 'block';
+            document.getElementById('reportSection').classList.remove('visible');
+
+            initializeTestList();
+            runNextTest();
+        }
+
+        function stopTesting() {
+            testingInProgress = false;
+            clearTimeout(testInterval);
+            document.getElementById('startTestBtn').style.display = 'inline-block';
+            document.getElementById('stopTestBtn').style.display = 'none';
+            document.getElementById('runningCount').textContent = '0';
+        }
+
+        function initializeTestList() {
+            const testList = document.getElementById('testList');
+            testList.innerHTML = tests.map((test, index) => `
+                <div class="test-item" id="test-${index}">
+                    <div class="test-status pending" id="status-${index}">⏳</div>
+                    <div class="test-info">
+                        <div class="test-name">${test.name}</div>
+                        <div class="test-description">${test.description}</div>
+                        <div class="test-message" id="message-${index}" style="display: none;"></div>
+                    </div>
+                    <div class="test-duration" id="duration-${index}">-</div>
+                </div>
+            `).join('');
+        }
+
+        function runNextTest() {
+            if (!testingInProgress || currentTestIndex >= tests.length) {
+                if (currentTestIndex >= tests.length) {
+                    completeTesting();
+                }
+                return;
+            }
+
+            const test = tests[currentTestIndex];
+            const testId = currentTestIndex;
+
+            // Update status to running
+            document.getElementById(`status-${testId}`).className = 'test-status running';
+            document.getElementById(`status-${testId}`).textContent = '⟳';
+            document.getElementById('runningCount').textContent = '1';
+
+            // Simulate test execution
+            const startTime = Date.now();
+            testInterval = setTimeout(() => {
+                const duration = Date.now() - startTime;
+                const passed = Math.random() > 0.1; // 90% pass rate
+
+                // Update test status
+                const statusElement = document.getElementById(`status-${testId}`);
+                const messageElement = document.getElementById(`message-${testId}`);
+
+                statusElement.className = `test-status ${passed ? 'passed' : 'failed'}`;
+                statusElement.textContent = passed ? '✓' : '✗';
+
+                document.getElementById(`duration-${testId}`).textContent = `${duration}ms`;
+
+                messageElement.style.display = 'block';
+                messageElement.className = `test-message ${passed ? 'passed' : 'failed'}`;
+                messageElement.textContent = passed
+                    ? '✓ Test passed successfully'
+                    : '✗ Test failed: Expected response did not match';
+
+                // Update counters
+                if (passed) {
+                    passedTests++;
+                } else {
+                    failedTests++;
+                }
+                totalDuration += duration;
+
+                document.getElementById('passedCount').textContent = passedTests;
+                document.getElementById('failedCount').textContent = failedTests;
+                document.getElementById('runningCount').textContent = '0';
+
+                // Update progress bar
+                const progress = ((currentTestIndex + 1) / tests.length) * 100;
+                document.getElementById('progressBar').style.width = `${progress}%`;
+                document.getElementById('progressBar').textContent = `${Math.round(progress)}%`;
+
+                // Move to next test
+                currentTestIndex++;
+
+                if (currentTestIndex < tests.length) {
+                    setTimeout(() => runNextTest(), 500);
+                } else {
+                    completeTesting();
+                }
+            }, test.duration);
+        }
+
+        function completeTesting() {
+            testingInProgress = false;
+            document.getElementById('startTestBtn').style.display = 'inline-block';
+            document.getElementById('stopTestBtn').style.display = 'none';
+            document.getElementById('runningCount').textContent = '0';
+
+            // Show report
+            generateReport();
+        }
+
+        function generateReport() {
+            const successRate = ((passedTests / tests.length) * 100).toFixed(1);
+
+            document.getElementById('totalPassed').textContent = passedTests;
+            document.getElementById('totalFailed').textContent = failedTests;
+            document.getElementById('totalDuration').textContent = `${(totalDuration / 1000).toFixed(2)}s`;
+            document.getElementById('successRate').textContent = `${successRate}%`;
+
+            // Generate recommendations
+            const recommendations = [];
+
+            if (successRate >= 95) {
+                recommendations.push({
+                    type: 'success',
+                    text: '✅ Excellent! Your service passed all critical tests. Ready for production deployment.'
+                });
+                recommendations.push({
+                    type: 'info',
+                    text: '📝 Consider adding integration tests with your cloud management portal.'
+                });
+            } else if (successRate >= 80) {
+                recommendations.push({
+                    type: 'warning',
+                    text: '⚠️ Good progress, but some tests failed. Review failed tests before deployment.'
+                });
+                recommendations.push({
+                    type: 'info',
+                    text: '🔍 Focus on fixing security and error handling issues.'
+                });
+            } else {
+                recommendations.push({
+                    type: 'error',
+                    text: '❌ Multiple tests failed. Service needs significant fixes before deployment.'
+                });
+                recommendations.push({
+                    type: 'info',
+                    text: '🛠️ Review the generated code and fix critical issues.'
+                });
+            }
+
+            recommendations.push({
+                type: 'info',
+                text: `📊 Performance: Average response time was ${(totalDuration / tests.length).toFixed(0)}ms - ${(totalDuration / tests.length) < 1000 ? 'Excellent' : 'Needs Optimization'}`
+            });
+
+            recommendations.push({
+                type: 'info',
+                text: `🔧 Next Steps: Deploy to staging environment, configure monitoring for ${serviceData.vendor || 'Cisco'} integration, and set up alerting.`
+            });
+
+            const recommendationsList = document.getElementById('recommendationsList');
+            recommendationsList.innerHTML = recommendations.map(rec => `
+                <div class="recommendation-item">
+                    ${rec.text}
+                </div>
+            `).join('');
+
+            document.getElementById('reportSection').classList.add('visible');
+
+            // Scroll to report
+            document.getElementById('reportSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadReport() {
+            const successRate = ((passedTests / tests.length) * 100).toFixed(1);
+            const report = `
+# ${serviceData.serviceType || 'Cloud Service'} - Test Report
+
+**Generated by Cisco Cloud Service Creator AI**
+
+## Summary
+
+- **Total Tests:** ${tests.length}
+- **Passed:** ${passedTests}
+- **Failed:** ${failedTests}
+- **Success Rate:** ${successRate}%
+- **Total Duration:** ${(totalDuration / 1000).toFixed(2)}s
+- **Average Response Time:** ${(totalDuration / tests.length).toFixed(0)}ms
+
+## Service Details
+
+- **Service Type:** ${serviceData.serviceType || 'N/A'}
+- **Vendor:** ${serviceData.vendor || 'N/A'}
+- **Pricing Model:** ${serviceData.pricingModel || 'N/A'}
+- **Features:** ${Array.isArray(serviceData.features) ? serviceData.features.length : 0}
+
+## Test Results
+
+${tests.map((test, index) => {
+    const status = document.getElementById(`status-${index}`).textContent;
+    const duration = document.getElementById(`duration-${index}`).textContent;
+    const passed = status === '✓';
+    return `### ${test.name}
+- **Status:** ${passed ? 'PASSED ✓' : 'FAILED ✗'}
+- **Duration:** ${duration}
+- **Description:** ${test.description}
+`;
+}).join('\n')}
+
+## Recommendations
+
+${successRate >= 95
+    ? '✅ Service is ready for production deployment. All tests passed successfully.'
+    : successRate >= 80
+    ? '⚠️ Service has minor issues. Review failed tests before production deployment.'
+    : '❌ Service needs significant fixes. Do not deploy to production yet.'}
+
+## Next Steps
+
+1. Review any failed tests and fix issues
+2. Deploy to staging environment
+3. Configure monitoring and alerting
+4. Set up ${serviceData.vendor || 'Cisco'} API credentials
+5. Test with real traffic in staging
+6. Prepare production deployment plan
+
+---
+
+**Report Generated:** ${new Date().toLocaleString()}
+**AI Service Creator:** Cisco Cloud Service Creator AI
+`;
+
+            const blob = new Blob([report], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test-report-${Date.now()}.md`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
