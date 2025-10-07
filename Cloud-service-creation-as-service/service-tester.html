@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Service Tester - Multi-Agent Testing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: 600px;
+            height: 600px;
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: 800px;
+            height: 800px;
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(-50px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        .nav-header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cisco-logo {
+            height: 40px;
+            background: linear-gradient(45deg, #00bceb, #0099cc);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.2) 0%, rgba(0, 255, 136, 0.2) 100%);
+            color: #00ff88;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid #00bceb;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 0 20px rgba(0, 188, 235, 0.3);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 188, 235, 0.3) 0%, rgba(0, 255, 136, 0.3) 100%);
+            border-color: #00ff88;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #333;
+            padding: 1.5rem;
+        }
+
+        .chat-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chat-header p {
+            color: #aaa;
+            font-size: 0.875rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.ai {
+            align-self: flex-start;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .message-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 15px;
+            max-width: 70%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message.user .message-content {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .agent-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-tag.discovery {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .agent-tag.deployment {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .agent-tag.modification {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .agent-tag.deletion {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .agent-tag.orchestrator {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9c27b0;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+
+        .typing-indicator {
+            display: none;
+            gap: 0.25rem;
+            padding: 1rem;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff88;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-10px); }
+        }
+
+        /* Agent Status Panel */
+        .agent-status-panel {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .agent-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .agent-card h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .agent-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .agent-item.active {
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+
+        .agent-item.completed {
+            border-color: #4caf50;
+            opacity: 0.7;
+        }
+
+        .agent-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .agent-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .agent-status.idle {
+            background: rgba(158, 158, 158, 0.2);
+            color: #9e9e9e;
+        }
+
+        .agent-status.running {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            animation: pulse 1.5s infinite;
+        }
+
+        .agent-status.completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .agent-status.failed {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Test Controls */
+        .test-controls {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .test-controls h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #00aaff;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.875rem;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .test-type-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .test-type-btn {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .test-type-btn:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .test-type-btn.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.2);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 255, 136, 0.4);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Test Results */
+        .results-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .results-summary h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #ffc107;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #aaa;
+            font-size: 0.875rem;
+        }
+
+        .result-value {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .result-value.success {
+            color: #4caf50;
+        }
+
+        .result-value.failed {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="cisco-logo">CISCO</div>
+                <span class="nav-title">🤖 Cloud Service Tester</span>
+            </div>
+            <a href="index.html" class="back-btn">
+                ← Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>Multi-Agent Service Testing</h2>
+                <p>Automated testing of cloud services through their complete lifecycle</p>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be added here -->
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Agent Status Panel -->
+        <div class="agent-status-panel">
+            <!-- Test Controls -->
+            <div class="test-controls">
+                <h3>🎯 Test Configuration</h3>
+
+                <div class="control-group">
+                    <label>Service to Test</label>
+                    <select id="serviceSelect">
+                        <option value="all">Test All Services</option>
+                        <option value="specific">Select Specific Service...</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Test Type</label>
+                    <div class="test-type-buttons">
+                        <button class="test-type-btn active" data-type="full_cycle">Full Cycle</button>
+                        <button class="test-type-btn" data-type="deploy">Deploy Only</button>
+                        <button class="test-type-btn" data-type="modify">Modify Only</button>
+                        <button class="test-type-btn" data-type="delete">Delete Only</button>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="startTestBtn">
+                    ▶ Start Testing
+                </button>
+            </div>
+
+            <!-- Agent Status -->
+            <div class="agent-card">
+                <h3>🤖 Agent Status</h3>
+
+                <div class="agent-item" id="agent-orchestrator">
+                    <div class="agent-name">
+                        🎯 <span>Orchestrator</span>
+                    </div>
+                    <div class="agent-status idle">Idle</div>
+                </div>
+
+                <div class="agent-item" id="agent-discovery">
+                    <div class="agent-name">
+                        🔍 <span>Discovery</span>
+                    </div>
+                    <div class="agent-status idle">Idle</div>
+                </div>
+
+                <div class="agent-item" id="agent-deployment">
+                    <div class="agent-name">
+                        🚀 <span>Deployment</span>
+                    </div>
+                    <div class="agent-status idle">Idle</div>
+                </div>
+
+                <div class="agent-item" id="agent-modification">
+                    <div class="agent-name">
+                        ⚙️ <span>Modification</span>
+                    </div>
+                    <div class="agent-status idle">Idle</div>
+                </div>
+
+                <div class="agent-item" id="agent-deletion">
+                    <div class="agent-name">
+                        🗑️ <span>Deletion</span>
+                    </div>
+                    <div class="agent-status idle">Idle</div>
+                </div>
+            </div>
+
+            <!-- Results Summary -->
+            <div class="results-summary" id="resultsSummary" style="display: none;">
+                <h3>📊 Test Results</h3>
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_ENDPOINT = 'https://bhq3kn2ms0.execute-api.ap-south-1.amazonaws.com/prod/conversation';
+
+        // State
+        let currentTestType = 'full_cycle';
+        let testInProgress = false;
+
+        // Elements
+        const chatMessages = document.getElementById('chatMessages');
+        const startTestBtn = document.getElementById('startTestBtn');
+        const resultsSummary = document.getElementById('resultsSummary');
+        const resultsContent = document.getElementById('resultsContent');
+
+        // Test type selection
+        document.querySelectorAll('.test-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.test-type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTestType = btn.dataset.type;
+            });
+        });
+
+        // Add message to chat
+        function addMessage(content, agentType = 'orchestrator', isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+
+            const avatarMap = {
+                'orchestrator': '🎯',
+                'discovery': '🔍',
+                'deployment': '🚀',
+                'modification': '⚙️',
+                'deletion': '🗑️',
+                'user': '👤'
+            };
+            avatar.textContent = isUser ? avatarMap.user : avatarMap[agentType];
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+
+            if (!isUser && agentType !== 'orchestrator') {
+                const tag = document.createElement('div');
+                tag.className = `agent-tag ${agentType}`;
+                tag.textContent = agentType.charAt(0).toUpperCase() + agentType.slice(1) + ' Agent';
+                messageContent.appendChild(tag);
+            }
+
+            const text = document.createElement('div');
+            text.innerHTML = content.replace(/\n/g, '<br>');
+            messageContent.appendChild(text);
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Update agent status
+        function updateAgentStatus(agent, status) {
+            const agentItem = document.getElementById(`agent-${agent}`);
+            const statusElement = agentItem.querySelector('.agent-status');
+
+            statusElement.className = `agent-status ${status}`;
+            statusElement.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+
+            if (status === 'running') {
+                agentItem.classList.add('active');
+            } else if (status === 'completed') {
+                agentItem.classList.remove('active');
+                agentItem.classList.add('completed');
+            } else {
+                agentItem.classList.remove('active', 'completed');
+            }
+        }
+
+        // Show/hide typing indicator
+        function showTyping() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        // Show results summary
+        function showResults(results) {
+            resultsSummary.style.display = 'block';
+            resultsContent.innerHTML = '';
+
+            Object.entries(results).forEach(([key, value]) => {
+                const item = document.createElement('div');
+                item.className = 'result-item';
+
+                const label = document.createElement('div');
+                label.className = 'result-label';
+                label.textContent = key.replace(/_/g, ' ').toUpperCase();
+
+                const val = document.createElement('div');
+                val.className = `result-value ${value.includes('success') || value.includes('passed') ? 'success' : ''}`;
+                val.textContent = value;
+
+                item.appendChild(label);
+                item.appendChild(val);
+                resultsContent.appendChild(item);
+            });
+        }
+
+        // Real API testing workflow
+        async function runTests() {
+            if (testInProgress) return;
+
+            testInProgress = true;
+            startTestBtn.disabled = true;
+            startTestBtn.textContent = '⏳ Testing...';
+            resultsSummary.style.display = 'none';
+
+            // Reset agent statuses
+            ['orchestrator', 'discovery', 'deployment', 'modification', 'deletion'].forEach(agent => {
+                updateAgentStatus(agent, 'idle');
+            });
+
+            try {
+                const serviceSelect = document.getElementById('serviceSelect').value;
+
+                // Call real Lambda API
+                updateAgentStatus('orchestrator', 'running');
+                showTyping();
+
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'test',
+                        test_type: currentTestType,
+                        service_id: serviceSelect
+                    })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                if (!data.results) {
+                    throw new Error('No results returned from API');
+                }
+
+                // Process and display results with streaming effect
+                for (const result of data.results) {
+                    const agent = result.agent || 'orchestrator';
+
+                    // Update agent status
+                    if (result.status) {
+                        updateAgentStatus(agent, result.status);
+                    }
+
+                    // Show message with delay for streaming effect
+                    if (result.message) {
+                        await sleep(500);
+                        addMessage(result.message, agent);
+                    }
+
+                    // Show typing between messages
+                    if (result.status === 'running' || agent !== 'orchestrator') {
+                        showTyping();
+                        await sleep(800);
+                        hideTyping();
+                    }
+                }
+
+                // Find summary
+                const summary = data.results.find(r => r.summary);
+                if (summary) {
+                    showResults({
+                        'Services Tested': summary.summary.services_tested,
+                        'Total Tests': summary.summary.total_tests,
+                        'Passed': summary.summary.passed,
+                        'Failed': summary.summary.failed,
+                        'Success Rate': summary.summary.success_rate
+                    });
+                }
+
+            } catch (error) {
+                hideTyping();
+                console.error('Test error:', error);
+                addMessage('❌ Testing failed: ' + error.message, 'orchestrator');
+            } finally {
+                testInProgress = false;
+                startTestBtn.disabled = false;
+                startTestBtn.textContent = '▶ Start Testing';
+                updateAgentStatus('orchestrator', 'idle');
+            }
+        }
+
+        // Helper function
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Event listeners
+        startTestBtn.addEventListener('click', runTests);
+
+        // Welcome message
+        window.addEventListener('load', () => {
+            addMessage('👋 Welcome to the Multi-Agent Service Testing System!\n\nThis system uses coordinated AI agents to automatically test your cloud services through their complete lifecycle:\n\n🔍 Discovery Agent - Finds services\n🚀 Deployment Agent - Tests deployment\n⚙️ Modification Agent - Tests changes\n🗑️ Deletion Agent - Tests cleanup\n\nConfigure your test and click "Start Testing" to begin!', 'orchestrator');
+        });
+    </script>
+</body>
+</html>
