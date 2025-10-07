@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Configuration - Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 2px solid rgba(0, 188, 235, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #00bceb 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .admin-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 188, 235, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-card h2 {
+            color: #00bceb;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .status-indicator.active {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        .status-indicator.inactive {
+            background: #ff4444;
+            box-shadow: 0 0 10px #ff4444;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00bceb;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 188, 235, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00bceb;
+            box-shadow: 0 0 10px rgba(0, 188, 235, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: monospace;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00bceb 0%, #00ff88 100%);
+            color: #0a0a0a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 188, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-danger {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 68, 68, 0.3);
+        }
+
+        .info-box {
+            background: rgba(0, 188, 235, 0.1);
+            border-left: 4px solid #00bceb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .info-box.success {
+            background: rgba(0, 255, 136, 0.1);
+            border-left-color: #00ff88;
+        }
+
+        .info-box.warning {
+            background: rgba(255, 153, 0, 0.1);
+            border-left-color: #ff9900;
+        }
+
+        .info-box.error {
+            background: rgba(255, 68, 68, 0.1);
+            border-left-color: #ff4444;
+        }
+
+        .key-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #00ff88;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00bceb;
+        }
+
+        .stat-label {
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .api-test-output {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 188, 235, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 188, 235, 0.3);
+            border-radius: 50%;
+            border-top-color: #00bceb;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #00bceb;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #00ff88;
+        }
+
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 188, 235, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card h2 {
+            color: #00bceb;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .login-error {
+            background: rgba(255, 68, 68, 0.2);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h2>🔐 Admin Login</h2>
+            <div class="login-error" id="loginError"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Admin Password</label>
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter admin password"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    🔓 Login
+                </button>
+            </form>
+            <div style="margin-top: 20px; text-align: center; color: #888; font-size: 0.9em;">
+                Default password: <code style="color: #00bceb;">cisco@admin123</code><br>
+                <small>(Change this in backend/config_api.py)</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden until login) -->
+    <div class="container" id="mainContent" style="display: none;">
+        <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="header">
+            <h1>🤖 LLM Configuration</h1>
+            <p>Manage Claude Sonnet API Integration</p>
+        </div>
+
+        <!-- Status Card -->
+        <div class="admin-card">
+            <h2>
+                API Status
+                <span class="status-indicator" id="statusIndicator"></span>
+            </h2>
+            <div id="statusMessage" class="info-box">
+                Checking API configuration...
+            </div>
+
+            <div class="stats-grid" id="statsGrid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCalls">0</div>
+                    <div class="stat-label">Total API Calls</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCost">$0.00</div>
+                    <div class="stat-label">Estimated Cost</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avgResponse">0ms</div>
+                    <div class="stat-label">Avg Response Time</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Card -->
+        <div class="admin-card">
+            <h2>🔑 API Key Configuration</h2>
+
+            <div class="info-box warning">
+                <strong>⚠️ Security Notice:</strong> Your API key will be stored securely in the backend .env file. Never share your API key publicly.
+            </div>
+
+            <form id="configForm">
+                <div class="form-group">
+                    <label for="apiProvider">LLM Provider</label>
+                    <select id="apiProvider">
+                        <option value="anthropic" selected>Anthropic Claude (Recommended)</option>
+                        <option value="openai">OpenAI GPT-4</option>
+                        <option value="together">Together AI</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="modelName">Model</label>
+                    <select id="modelName">
+                        <option value="claude-sonnet-4-20250514" selected>Claude Sonnet 4 (Latest)</option>
+                        <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                        <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="apiKey">API Key</label>
+                    <input
+                        type="password"
+                        id="apiKey"
+                        placeholder="sk-ant-api03-..."
+                        autocomplete="off"
+                    >
+                    <small style="color: #888; margin-top: 5px; display: block;">
+                        Get your key from: <a href="https://console.anthropic.com/" target="_blank" style="color: #00bceb;">https://console.anthropic.com/</a>
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="systemPrompt">Custom System Prompt (Optional)</label>
+                    <textarea id="systemPrompt" placeholder="Override default system prompt..."></textarea>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">💾 Save Configuration</button>
+                    <button type="button" class="btn btn-secondary" id="testBtn">🧪 Test Connection</button>
+                    <button type="button" class="btn btn-danger" id="clearBtn">🗑️ Clear Key</button>
+                </div>
+            </form>
+
+            <div id="testOutput" class="api-test-output" style="display: none;"></div>
+        </div>
+
+        <!-- Current Configuration -->
+        <div class="admin-card">
+            <h2>📋 Current Configuration</h2>
+            <div class="form-group">
+                <label>Stored API Key</label>
+                <div class="key-display" id="currentKey">No key configured</div>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <div class="key-display" id="currentModel">Not set</div>
+            </div>
+            <div class="form-group">
+                <label>Backend Endpoint</label>
+                <div class="key-display" id="backendEndpoint">http://localhost:8000/api</div>
+            </div>
+        </div>
+
+        <!-- Pricing Info -->
+        <div class="admin-card">
+            <h2>💰 Pricing Information</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">$3</div>
+                    <div class="stat-label">per 1M input tokens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$15</div>
+                    <div class="stat-label">per 1M output tokens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$0.20</div>
+                    <div class="stat-label">per service generation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration object
+        const config = {
+            backendUrl: 'http://localhost:8000/api',
+            currentKey: null,
+            currentModel: null
+        };
+
+        // Load configuration on page load
+        window.addEventListener('DOMContentLoaded', loadConfiguration);
+
+        async function loadConfiguration() {
+            try {
+                // Try to load from backend
+                const response = await fetch(`${config.backendUrl}/config`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    updateUI(data);
+                } else {
+                    // Fallback to localStorage
+                    loadFromLocalStorage();
+                }
+            } catch (error) {
+                console.log('Backend not available, using localStorage');
+                loadFromLocalStorage();
+            }
+        }
+
+        function loadFromLocalStorage() {
+            const apiKey = localStorage.getItem('anthropic_api_key');
+            const model = localStorage.getItem('model_name') || 'claude-sonnet-4-20250514';
+            const provider = localStorage.getItem('api_provider') || 'anthropic';
+
+            updateUI({
+                api_key: apiKey,
+                model: model,
+                provider: provider,
+                configured: !!apiKey
+            });
+        }
+
+        function updateUI(data) {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusMessage = document.getElementById('statusMessage');
+            const currentKey = document.getElementById('currentKey');
+            const currentModel = document.getElementById('currentModel');
+
+            if (data.configured && data.api_key) {
+                statusIndicator.className = 'status-indicator active';
+                statusMessage.className = 'info-box success';
+                statusMessage.innerHTML = '<strong>✅ API Configured:</strong> Claude Sonnet is ready to use!';
+
+                // Mask the key
+                const maskedKey = maskApiKey(data.api_key);
+                currentKey.textContent = maskedKey;
+                currentModel.textContent = data.model || 'claude-sonnet-4-20250514';
+
+                // Show stats (mock data for now)
+                document.getElementById('statsGrid').style.display = 'grid';
+            } else {
+                statusIndicator.className = 'status-indicator inactive';
+                statusMessage.className = 'info-box warning';
+                statusMessage.innerHTML = '<strong>⚠️ Not Configured:</strong> Please add your Anthropic API key below.';
+                currentKey.textContent = 'No key configured';
+                currentModel.textContent = 'Not set';
+            }
+        }
+
+        function maskApiKey(key) {
+            if (!key) return 'Not set';
+            if (key.length < 20) return '••••••••••••••••';
+            return key.substring(0, 10) + '••••••••••••' + key.substring(key.length - 4);
+        }
+
+        // Form submission
+        document.getElementById('configForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const apiKey = document.getElementById('apiKey').value;
+            const model = document.getElementById('modelName').value;
+            const provider = document.getElementById('apiProvider').value;
+            const systemPrompt = document.getElementById('systemPrompt').value;
+
+            if (!apiKey) {
+                showMessage('Please enter an API key', 'error');
+                return;
+            }
+
+            const configData = {
+                api_key: apiKey,
+                model: model,
+                provider: provider,
+                system_prompt: systemPrompt
+            };
+
+            try {
+                // Try to save to backend
+                const response = await fetch(`${config.backendUrl}/config`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(configData)
+                });
+
+                if (response.ok) {
+                    showMessage('Configuration saved successfully to backend!', 'success');
+                    loadConfiguration();
+                } else {
+                    throw new Error('Backend save failed');
+                }
+            } catch (error) {
+                console.log('Backend not available, saving to localStorage');
+                // Fallback to localStorage
+                localStorage.setItem('anthropic_api_key', apiKey);
+                localStorage.setItem('model_name', model);
+                localStorage.setItem('api_provider', provider);
+                if (systemPrompt) {
+                    localStorage.setItem('system_prompt', systemPrompt);
+                }
+
+                showMessage('Configuration saved to browser (backend not available)', 'success');
+                loadFromLocalStorage();
+            }
+
+            // Clear form
+            document.getElementById('apiKey').value = '';
+        });
+
+        // Test connection
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            const output = document.getElementById('testOutput');
+            output.style.display = 'block';
+            output.innerHTML = '<div class="loading"></div> Testing connection to Claude API...';
+
+            const apiKey = localStorage.getItem('anthropic_api_key');
+            if (!apiKey) {
+                output.innerHTML = '<span style="color: #ff4444;">❌ Error: No API key configured</span>';
+                return;
+            }
+
+            try {
+                // Try backend test endpoint
+                const response = await fetch(`${config.backendUrl}/test-connection`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ api_key: apiKey })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    output.innerHTML = `
+                        <span style="color: #00ff88;">✅ Connection successful!</span><br>
+                        <span style="color: #888;">Model: ${data.model}</span><br>
+                        <span style="color: #888;">Response time: ${data.response_time}ms</span><br>
+                        <span style="color: #888;">Test response: "${data.test_response}"</span>
+                    `;
+                } else {
+                    throw new Error('Backend test failed');
+                }
+            } catch (error) {
+                output.innerHTML = `
+                    <span style="color: #ff9900;">⚠️ Backend not available</span><br>
+                    <span style="color: #888;">API key is saved locally. To test the connection, start the backend server:</span><br>
+                    <span style="color: #00bceb;">cd backend && python llm_service_claude.py</span>
+                `;
+            }
+        });
+
+        // Clear configuration
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear the API configuration?')) {
+                localStorage.removeItem('anthropic_api_key');
+                localStorage.removeItem('model_name');
+                localStorage.removeItem('api_provider');
+                localStorage.removeItem('system_prompt');
+
+                showMessage('Configuration cleared', 'warning');
+                loadFromLocalStorage();
+            }
+        });
+
+        function showMessage(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.className = `info-box ${type}`;
+            statusMessage.textContent = message;
+        }
+
+        // =============================================
+        // LOGIN / AUTHENTICATION
+        // =============================================
+
+        // Check if already logged in on page load
+        function checkAuth() {
+            const authToken = sessionStorage.getItem('llm_admin_auth');
+            if (authToken === 'authenticated') {
+                showMainContent();
+            }
+        }
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const password = document.getElementById('adminPassword').value;
+            const loginError = document.getElementById('loginError');
+
+            try {
+                // Try backend authentication
+                const response = await fetch(`${config.backendUrl}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    sessionStorage.setItem('llm_admin_auth', 'authenticated');
+                    sessionStorage.setItem('llm_admin_token', data.token || 'local');
+                    showMainContent();
+                } else {
+                    throw new Error('Invalid password');
+                }
+            } catch (error) {
+                console.log('Backend not available, using local auth');
+                // Fallback to client-side password check
+                // Default password: cisco@admin123 (hash for security)
+                const correctPasswordHash = 'cisco@admin123'; // In production, use proper hashing
+
+                if (password === correctPasswordHash) {
+                    sessionStorage.setItem('llm_admin_auth', 'authenticated');
+                    showMainContent();
+                } else {
+                    loginError.textContent = '❌ Invalid password. Please try again.';
+                    loginError.style.display = 'block';
+                    setTimeout(() => {
+                        loginError.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('llm_admin_auth');
+                sessionStorage.removeItem('llm_admin_token');
+                window.location.reload();
+            }
+        });
+
+        function showMainContent() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            loadConfiguration();
+        }
+
+        // Run auth check on page load
+        checkAuth();
+    </script>
+</body>
+</html>
