@@ -496,7 +496,7 @@
                 <div class="cisco-logo">CISCO</div>
                 <span class="nav-title">Cloud Service Creator AI</span>
             </div>
-            <a href="index.html" class="back-btn">🏠 Back to Home</a>
+            <a href="cloud-operations.html" class="back-btn">← Back to Cloud Operations</a>
         </div>
     </header>
 
@@ -583,8 +583,12 @@
     </div>
 
     <script>
+        // API Configuration
+        const API_ENDPOINT = 'https://bhq3kn2ms0.execute-api.ap-south-1.amazonaws.com/prod/conversation';
+
         // Conversation state
         const conversationData = {
+            conversation_id: null,
             serviceType: '',
             intent: '',
             features: [],
@@ -739,11 +743,37 @@
             }
         ];
 
-        // Initialize conversation
-        function initConversation() {
-            setTimeout(() => {
-                askQuestion(0);
-            }, 500);
+        // Initialize conversation with real API
+        async function initConversation() {
+            try {
+                showTyping();
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'start' })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                // Store conversation ID
+                conversationData.conversation_id = data.conversation_id;
+
+                // Show first question
+                addMessage(data.question, false, data.options, data.multi_select);
+
+                if (data.multi_select) {
+                    enableMultiSelect(data.options, data.field, 1);
+                }
+
+                updateProgress(1, 'active');
+            } catch (error) {
+                hideTyping();
+                console.error('Error starting conversation:', error);
+                addMessage('Error connecting to API. Using demo mode...', false);
+                // Fallback to original hardcoded flow
+                setTimeout(() => askQuestion(0), 500);
+            }
         }
 
         // Add message to chat
@@ -844,13 +874,9 @@
             }, 1500);
         }
 
-        // Handle option click
-        function handleOptionClick(value, text) {
-            const step = conversationFlow[currentStep];
-            conversationData[step.field] = value;
-
+        // Handle option click - Updated to call real API
+        async function handleOptionClick(value, text) {
             addMessage(text, true);
-            updateProgress(step.progressId, 'completed', text);
 
             // Disable all option buttons from the current question to prevent re-clicks
             const allContainers = document.querySelectorAll('.options-container');
@@ -866,9 +892,50 @@
             chatInput.disabled = true;
             sendBtn.disabled = true;
 
-            setTimeout(() => {
-                askQuestion(currentStep + 1);
-            }, 500);
+            try {
+                showTyping();
+                currentStep++;
+
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'message',
+                        conversation_id: conversationData.conversation_id,
+                        message: value,
+                        step: currentStep
+                    })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                if (data.status === 'completed') {
+                    // All questions answered
+                    addMessage(data.message, false);
+                    generateCodeBtn.disabled = false;
+                    generateCodeBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
+                } else {
+                    // Next question
+                    updateProgress(currentStep, 'completed', text);
+                    updateProgress(currentStep + 1, 'active');
+
+                    addMessage(data.question, false, data.options, data.multi_select);
+
+                    if (data.multi_select) {
+                        enableMultiSelect(data.options, data.field, currentStep + 1);
+                    }
+
+                    chatInput.disabled = false;
+                    sendBtn.disabled = false;
+                }
+            } catch (error) {
+                hideTyping();
+                console.error('Error sending message:', error);
+                addMessage('Error connecting to API. Please try again.', false);
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
+            }
         }
 
         // Handle input submission
@@ -962,7 +1029,7 @@
                 confirmBtn.style.color = '#000';
                 confirmBtn.style.fontWeight = '600';
                 confirmBtn.style.marginTop = '10px';
-                confirmBtn.onclick = () => {
+                confirmBtn.onclick = async () => {
                     console.log('Confirm button clicked. Selected options:', selectedOptions);
                     if (selectedOptions.length === 0) {
                         alert('Please select at least one option');
@@ -976,14 +1043,45 @@
                         b.style.cursor = 'not-allowed';
                     });
 
-                    conversationData[field] = selectedOptions;
                     addMessage(selectedOptions.join(', '), true);
                     updateProgress(progressId, 'completed', `${selectedOptions.length} selected`);
 
-                    console.log('Moving to next question...');
-                    setTimeout(() => {
-                        askQuestion(currentStep + 1);
-                    }, 500);
+                    // Call API with multi-select answer
+                    try {
+                        showTyping();
+                        currentStep++;
+
+                        const response = await fetch(API_ENDPOINT, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                action: 'message',
+                                conversation_id: conversationData.conversation_id,
+                                message: selectedOptions,
+                                step: currentStep
+                            })
+                        });
+
+                        const data = await response.json();
+                        hideTyping();
+
+                        if (data.status === 'completed') {
+                            addMessage(data.message, false);
+                            generateCodeBtn.disabled = false;
+                            generateCodeBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
+                        } else {
+                            updateProgress(currentStep + 1, 'active');
+                            addMessage(data.question, false, data.options, data.multi_select);
+
+                            if (data.multi_select) {
+                                enableMultiSelect(data.options, data.field, currentStep + 1);
+                            }
+                        }
+                    } catch (error) {
+                        hideTyping();
+                        console.error('Error sending message:', error);
+                        addMessage('Error connecting to API. Please try again.', false);
+                    }
                 };
 
                 lastOptions.appendChild(confirmBtn);
@@ -1030,21 +1128,51 @@
             generateCodeBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
         }
 
-        // Generate code
-        generateCodeBtn.addEventListener('click', () => {
+        // Generate code with real Claude API
+        generateCodeBtn.addEventListener('click', async () => {
             // Store conversation data in localStorage
             localStorage.setItem('serviceData', JSON.stringify(conversationData));
 
-            addMessage("Generating code... This will take a moment.", false);
+            addMessage("🤖 Generating code with Claude AI... This will take 30-60 seconds.", false);
             generateCodeBtn.disabled = true;
             generateCodeBtn.textContent = 'Generating...';
+            showTyping();
 
-            setTimeout(() => {
-                generateCodeBtn.textContent = 'Code Generated ✓';
-                generateCodeBtn.style.background = '#00ff88';
-                document.getElementById('viewCodeBtn').style.display = 'block';
-                addMessage("✅ Code generation complete! Click 'View Code' to see your generated service.", false);
-            }, 3000);
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'generate',
+                        conversation_id: conversationData.conversation_id,
+                        service_data: conversationData
+                    })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                if (data.files && Object.keys(data.files).length > 0) {
+                    // Success!
+                    generateCodeBtn.textContent = 'Code Generated ✓';
+                    generateCodeBtn.style.background = '#00ff88';
+                    document.getElementById('viewCodeBtn').style.display = 'block';
+
+                    // Store generated code
+                    localStorage.setItem('generatedCode', JSON.stringify(data.files));
+                    localStorage.setItem('codeId', data.code_id);
+
+                    addMessage(`✅ Code generation complete!\n\nGenerated ${data.file_count || Object.keys(data.files).length} files:\n${Object.keys(data.files).map(f => '• ' + f).join('\n')}\n\nClick 'View Code' to see your generated service.`, false);
+                } else {
+                    throw new Error('No files generated');
+                }
+            } catch (error) {
+                hideTyping();
+                console.error('Error generating code:', error);
+                addMessage("❌ Error generating code. Please try again or check the logs.", false);
+                generateCodeBtn.disabled = false;
+                generateCodeBtn.textContent = 'Generate Code';
+            }
         });
 
         // Start conversation on page load
