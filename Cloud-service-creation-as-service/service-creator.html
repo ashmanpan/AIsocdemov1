@@ -740,7 +740,7 @@
         }
 
         // Add message to chat
-        function addMessage(content, isUser = false, options = null) {
+        function addMessage(content, isUser = false, options = null, isMultiSelect = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
 
@@ -760,7 +760,21 @@
                     const btn = document.createElement('button');
                     btn.className = option.cisco ? 'option-btn cisco-badge' : 'option-btn';
                     btn.textContent = option.text || option;
-                    btn.onclick = () => handleOptionClick(option.value || option, option.text || option);
+
+                    // Only add click handler for non-multiSelect options
+                    // multiSelect will be handled by enableMultiSelect()
+                    if (!isMultiSelect) {
+                        btn.onclick = () => {
+                            console.log('Button clicked:', option.text || option);
+                            handleOptionClick(option.value || option, option.text || option);
+                        };
+                        // Add hover effect to show it's clickable
+                        btn.style.cursor = 'pointer';
+                    } else {
+                        // For multiSelect, show it's selectable
+                        btn.style.cursor = 'pointer';
+                    }
+
                     optionsContainer.appendChild(btn);
                 });
 
@@ -798,7 +812,8 @@
                     ? step.options(conversationData)
                     : step.options;
 
-                addMessage(question, false, options);
+                // Pass multiSelect flag to addMessage
+                addMessage(question, false, options, step.multiSelect || false);
 
                 if (step.inputRequired) {
                     chatInput.disabled = false;
@@ -856,11 +871,13 @@
 
         // Multi-select handling
         function enableMultiSelect(options, field, progressId) {
+            console.log('enableMultiSelect called for field:', field);
             const selectedOptions = [];
 
             // Wait for DOM to render buttons
             setTimeout(() => {
                 const buttons = document.querySelectorAll('.options-container .option-btn');
+                console.log('Found buttons for multi-select:', buttons.length);
 
                 buttons.forEach(btn => {
                     btn.onclick = () => {
@@ -871,10 +888,12 @@
                             selectedOptions.splice(index, 1);
                             btn.style.background = 'rgba(255, 255, 255, 0.05)';
                             btn.style.borderColor = '#333';
+                            console.log('Deselected:', value, '| Total selected:', selectedOptions.length);
                         } else {
                             selectedOptions.push(value);
                             btn.style.background = 'rgba(0, 255, 136, 0.2)';
                             btn.style.borderColor = '#00ff88';
+                            console.log('Selected:', value, '| Total selected:', selectedOptions.length);
                         }
                     };
                 });
@@ -887,6 +906,7 @@
                 confirmBtn.style.color = '#000';
                 confirmBtn.style.fontWeight = '600';
                 confirmBtn.onclick = () => {
+                    console.log('Confirm button clicked. Selected options:', selectedOptions);
                     if (selectedOptions.length === 0) {
                         alert('Please select at least one option');
                         return;
@@ -895,6 +915,7 @@
                     addMessage(selectedOptions.join(', '), true);
                     updateProgress(progressId, 'completed', `${selectedOptions.length} selected`);
 
+                    console.log('Moving to next question...');
                     setTimeout(() => {
                         askQuestion(currentStep + 1);
                     }, 500);
