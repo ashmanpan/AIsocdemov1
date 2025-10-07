@@ -822,6 +822,15 @@
                     sendBtn.disabled = false;
                 } else if (step.multiSelect) {
                     enableMultiSelect(options, step.field, step.progressId);
+                    // Keep input enabled as fallback
+                    chatInput.disabled = false;
+                    chatInput.placeholder = "Or type your selections separated by commas...";
+                    sendBtn.disabled = false;
+                } else {
+                    // For single select with buttons, keep input as fallback
+                    chatInput.disabled = false;
+                    chatInput.placeholder = "Or type your choice...";
+                    sendBtn.disabled = false;
                 }
 
                 currentStep = stepIndex;
@@ -835,6 +844,17 @@
 
             addMessage(text, true);
             updateProgress(step.progressId, 'completed', text);
+
+            // Disable all option buttons from the current question to prevent re-clicks
+            const allContainers = document.querySelectorAll('.options-container');
+            const lastOptions = allContainers[allContainers.length - 1];
+            if (lastOptions) {
+                lastOptions.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                });
+            }
 
             chatInput.disabled = true;
             sendBtn.disabled = true;
@@ -855,10 +875,29 @@
             if (!value) return;
 
             const step = conversationFlow[currentStep];
-            conversationData[step.field] = value;
 
-            addMessage(value, true);
-            updateProgress(step.progressId, 'completed', value.substring(0, 30) + '...');
+            // Handle multi-select via text input (comma-separated values)
+            if (step.multiSelect) {
+                const selections = value.split(',').map(s => s.trim()).filter(s => s);
+                conversationData[step.field] = selections;
+                addMessage(selections.join(', '), true);
+                updateProgress(step.progressId, 'completed', `${selections.length} selected`);
+            } else {
+                conversationData[step.field] = value;
+                addMessage(value, true);
+                updateProgress(step.progressId, 'completed', value.substring(0, 30) + '...');
+            }
+
+            // Disable all option buttons from previous question
+            const allContainers = document.querySelectorAll('.options-container');
+            const lastOptions = allContainers[allContainers.length - 1];
+            if (lastOptions) {
+                lastOptions.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                });
+            }
 
             chatInput.value = '';
             chatInput.disabled = true;
@@ -876,7 +915,17 @@
 
             // Wait for DOM to render buttons
             setTimeout(() => {
-                const buttons = document.querySelectorAll('.options-container .option-btn');
+                // Get only the LAST options container (current question)
+                const allContainers = document.querySelectorAll('.options-container');
+                const lastOptions = allContainers[allContainers.length - 1];
+
+                if (!lastOptions) {
+                    console.error('No options container found');
+                    return;
+                }
+
+                // Get buttons only from the current question
+                const buttons = lastOptions.querySelectorAll('.option-btn');
                 console.log('Found buttons for multi-select:', buttons.length);
 
                 buttons.forEach(btn => {
@@ -900,17 +949,26 @@
 
                 // Add confirm button
                 const confirmBtn = document.createElement('button');
-                confirmBtn.className = 'option-btn';
+                confirmBtn.className = 'option-btn confirm-btn';
                 confirmBtn.textContent = '✓ Confirm Selection';
                 confirmBtn.style.background = 'linear-gradient(45deg, #00ff88, #00aaff)';
                 confirmBtn.style.color = '#000';
                 confirmBtn.style.fontWeight = '600';
+                confirmBtn.style.marginTop = '10px';
                 confirmBtn.onclick = () => {
                     console.log('Confirm button clicked. Selected options:', selectedOptions);
                     if (selectedOptions.length === 0) {
                         alert('Please select at least one option');
                         return;
                     }
+
+                    // Disable all buttons in this container to prevent re-clicks
+                    lastOptions.querySelectorAll('.option-btn').forEach(b => {
+                        b.disabled = true;
+                        b.style.opacity = '0.5';
+                        b.style.cursor = 'not-allowed';
+                    });
+
                     conversationData[field] = selectedOptions;
                     addMessage(selectedOptions.join(', '), true);
                     updateProgress(progressId, 'completed', `${selectedOptions.length} selected`);
@@ -921,10 +979,7 @@
                     }, 500);
                 };
 
-                const lastOptions = document.querySelector('.options-container');
-                if (lastOptions) {
-                    lastOptions.appendChild(confirmBtn);
-                }
+                lastOptions.appendChild(confirmBtn);
             }, 200);
         }
 
