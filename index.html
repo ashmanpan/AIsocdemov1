@@ -278,6 +278,19 @@
             background: radial-gradient(circle, rgba(0, 188, 235, 0.1) 0%, transparent 70%);
         }
 
+        .security-mgmt-card .demo-icon {
+            color: #e74c3c;
+        }
+
+        .security-mgmt-card:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .security-mgmt-card::before {
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
+        }
+
         .footer {
             margin-top: 60px;
             font-size: 14px;
@@ -606,6 +619,8 @@
                 window.location.href = '/parental-control.html';
             } else if (hostname === 'ciscotube.ciscoaidemo.com') {
                 window.location.href = '/demo-videos.html';
+            } else if (hostname === 'ai-firewall-mgmt.ciscoaidemo.com') {
+                // External link - no redirect needed, page should load independently
             }
             // allinone.ciscoaidemo.com stays on index.html
         });
@@ -787,6 +802,34 @@
                     </div>
                 </div>
                 <a href="Cloud-service-creation-as-service/cloud-operations.html" class="demo-button">Launch Cloud Ops</a>
+            </div>
+
+            <div class="demo-card security-mgmt-card" onclick="window.location.href='https://ai-firewall-mgmt.ciscoaidemo.com/'">
+                <span class="demo-icon">🔐</span>
+                <h2 class="demo-title">Cisco Security AI powered Management Center</h2>
+                <p class="demo-description">
+                    AI-powered security management platform for Cisco firewalls. Intelligent policy management,
+                    threat analysis, and automated compliance across your security infrastructure.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>AI-driven policy optimization</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated threat response</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Multi-device management</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Compliance automation</span>
+                    </div>
+                </div>
+                <a href="https://ai-firewall-mgmt.ciscoaidemo.com/" class="demo-button">Launch Security Mgmt</a>
             </div>
 
             <!-- Second Row: Vertical Industry and Agent Marketplace -->
