@@ -825,7 +825,7 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <h2 class="sidebar-title">Telco AI NOC Scenarios</h2>
-                <p class="sidebar-subtitle">5G/4G • Network Operations • Performance Analysis</p>
+                <p class="sidebar-subtitle">13 Scenarios • 5G/4G • Network Operations • Performance Analysis</p>
             </div>
             <ul class="scenario-list">
                 <li class="scenario-item" data-scenario="packet-loss">
@@ -867,6 +867,18 @@
                 <li class="scenario-item" data-scenario="slow-response">
                     <span class="scenario-icon">🛤️</span>
                     <span class="scenario-text">Intermittent Slow Response</span>
+                </li>
+                <li class="scenario-item" data-scenario="config-audit">
+                    <span class="scenario-icon">🔍</span>
+                    <span class="scenario-text">Config Audit & Resiliency Assessment</span>
+                </li>
+                <li class="scenario-item" data-scenario="recommendations-mitigation">
+                    <span class="scenario-icon">💡</span>
+                    <span class="scenario-text">AI-Driven Recommendations & Mitigation</span>
+                </li>
+                <li class="scenario-item" data-scenario="scheduled-migration">
+                    <span class="scenario-icon">📅</span>
+                    <span class="scenario-text">Scheduled Migration & Change Management</span>
                 </li>
             </ul>
         </div>
@@ -3995,6 +4007,853 @@ segment-routing traffic-eng
       font-weight: bold;
     }
   </style>
+</div>`
+                ]
+            },
+            'config-audit': {
+                title: 'AI-Driven Config Audit & Resiliency Assessment',
+                icon: '🔍',
+                description: 'Comprehensive audit of network configurations with resiliency assessment',
+                initialQuery: 'Perform configuration audit and resiliency assessment',
+                responses: [
+                    `<div class="root-container">
+  <h3>Agentic AI - Configuration Audit & Resiliency Assessment</h3>
+  <p><strong>Comprehensive Network Audit for Enterprise Corp (Audit Request #AU-5521)</strong></p>
+
+  <div class="agent-workflow">
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Audit request received for complete network infrastructure: 45 routers, 120 switches, 18 firewalls across 12 data centers. Quarterly compliance and resiliency assessment required.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Initiating multi-phase audit strategy. Need to assess configuration compliance, security posture, and resiliency across all network devices.</p>
+        <div class="multi-transfer">
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting config collection from <strong>CONFIG_AUDIT_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting topology mapping from <strong>TOPOLOGY_AGENT</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">CONFIG_AUDIT_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Configuration scanning complete across all 183 devices:</p>
+        <div class="detection-grid">
+          <div class="detection-card">
+            <div class="detection-title">Devices Scanned</div>
+            <div class="detection-value">183</div>
+            <div class="detection-details">100% coverage</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Config Deviations</div>
+            <div class="detection-value">47</div>
+            <div class="detection-details">25.7% non-compliant</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Critical Issues</div>
+            <div class="detection-value">12</div>
+            <div class="detection-details">Immediate action required</div>
+          </div>
+        </div>
+        <p><strong>Critical Findings:</strong></p>
+        <ul class="compact-list">
+          <li>23 devices running outdated IOS versions with known CVEs</li>
+          <li>8 routers with weak SNMP community strings (public/private)</li>
+          <li>15 switches without proper logging configuration</li>
+          <li>5 firewalls with overly permissive any-any rules</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🛡️</span>
+        <span class="agent-name">COMPLIANCE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Compliance assessment against industry standards (CIS, NIST, PCI-DSS):</p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Standard</th>
+                <th>Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CIS Cisco Benchmark</td>
+                <td>72%</td>
+                <td><span class="status-tag status-warning">Needs Improvement</span></td>
+              </tr>
+              <tr>
+                <td>NIST 800-53</td>
+                <td>68%</td>
+                <td><span class="status-tag status-warning">Non-Compliant</span></td>
+              </tr>
+              <tr>
+                <td>PCI-DSS v4.0</td>
+                <td>81%</td>
+                <td><span class="status-tag status-success">Compliant</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Key Compliance Gaps:</strong></p>
+        <ul class="compact-list">
+          <li>Missing AAA configuration on 34 devices</li>
+          <li>Insufficient password complexity policies</li>
+          <li>Incomplete audit logging configuration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">RESILIENCY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Resiliency Assessment Results:</strong></p>
+        <div class="change-details">
+          <p><strong>High Availability Status:</strong></p>
+          <ul class="metric-list">
+            <li>Core Layer: <span class="success">Excellent</span> - Full HSRP/VRRP redundancy</li>
+            <li>Distribution Layer: <span class="warning">Fair</span> - 3 sites with single uplinks</li>
+            <li>Access Layer: <span class="problem-value">Poor</span> - 12 single points of failure</li>
+            <li>WAN Links: <span class="success">Good</span> - Dual-homed except 2 sites</li>
+          </ul>
+          <p><strong>Failover Testing:</strong></p>
+          <ul class="compact-list">
+            <li>HSRP preemption delay misconfigured on 8 pairs</li>
+            <li>STP root bridge priorities need optimization</li>
+            <li>4 distribution switches lack port-channel config</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">12 Single Points of Failure</span>
+          <span class="finding-tag finding-warning">8 HA Misconfigurations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Comprehensive remediation roadmap generated:</p>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">IMMEDIATE</span> (24 hours)</h5>
+          <ul class="compact-list">
+            <li>Update SNMP community strings on 8 critical routers</li>
+            <li>Enable logging on 15 switches (syslog server: 10.1.1.100)</li>
+            <li>Review and restrict firewall any-any rules</li>
+          </ul>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">SHORT-TERM</span> (1 week)</h5>
+          <ul class="compact-list">
+            <li>Deploy IOS updates to 23 devices with known CVEs</li>
+            <li>Implement AAA (TACACS+) on non-compliant devices</li>
+            <li>Configure port-channels on 4 distribution switches</li>
+            <li>Correct HSRP preemption delay timers</li>
+          </ul>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">LONG-TERM</span> (1 month)</h5>
+          <ul class="compact-list">
+            <li>Address 12 single points of failure with redundancy</li>
+            <li>Implement dual uplinks for 3 distribution sites</li>
+            <li>Standardize configurations using NetDevOps templates</li>
+            <li>Achieve 95%+ CIS compliance score</li>
+          </ul>
+        </div>
+        <p><strong>Estimated Impact:</strong></p>
+        <ul class="compact-list">
+          <li>Network Availability: 99.5% → 99.95%</li>
+          <li>MTTR: 45 minutes → 15 minutes</li>
+          <li>Compliance Score: 72% → 95%</li>
+          <li>Security Posture: Medium → High</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .detection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .detection-card {
+      background: rgba(0, 170, 255, 0.1);
+      border: 1px solid rgba(0, 170, 255, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .detection-title {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .detection-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #00aaff;
+      margin-bottom: 5px;
+    }
+
+    .detection-details {
+      font-size: 11px;
+      color: #666;
+    }
+  </style>
+</div>`
+                ]
+            },
+            'recommendations-mitigation': {
+                title: 'AI-Driven Recommendations & Mitigation',
+                icon: '💡',
+                description: 'Proactive recommendations for performance, security, reliability, cost, and resiliency',
+                initialQuery: 'Generate comprehensive network recommendations',
+                responses: [
+                    `<div class="root-container">
+  <h3>Agentic AI - Comprehensive Network Recommendations & Mitigation</h3>
+  <p><strong>Proactive Network Assessment for TechCorp Global (Assessment ID: REC-9847)</strong></p>
+
+  <div class="agent-workflow">
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Proactive assessment request received. Analyzing network for optimization opportunities across performance, security, reliability, cost, and resiliency domains.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Orchestrating multi-domain analysis. Deploying specialized agents for comprehensive assessment:</p>
+        <div class="multi-transfer">
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Dispatching <strong>PERFORMANCE_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Dispatching <strong>SECURITY_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Dispatching <strong>RELIABILITY_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Dispatching <strong>COST_OPTIMIZATION_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Dispatching <strong>RESILIENCY_AGENT</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚡</span>
+        <span class="agent-name">PERFORMANCE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Performance Analysis Complete:</strong></p>
+        <div class="detection-grid">
+          <div class="detection-card">
+            <div class="detection-title">QoS Issues</div>
+            <div class="detection-value">7</div>
+            <div class="detection-details">Misconfigurations found</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Bandwidth Hotspots</div>
+            <div class="detection-value">4</div>
+            <div class="detection-details">Links >85% util</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Latency Spikes</div>
+            <div class="detection-value">3</div>
+            <div class="detection-details">Paths affected</div>
+          </div>
+        </div>
+        <p><strong>Key Findings:</strong></p>
+        <ul class="compact-list">
+          <li><strong>QoS:</strong> Voice traffic not prioritized on 7 WAN links - causing jitter</li>
+          <li><strong>Bandwidth:</strong> 4 inter-DC links consistently above 85% utilization</li>
+          <li><strong>Traffic Engineering:</strong> Suboptimal ECMP distribution detected</li>
+          <li><strong>Recommendation:</strong> Implement hierarchical QoS policies + upgrade 4 links to 10G</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔒</span>
+        <span class="agent-name">SECURITY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Security Posture Assessment:</strong></p>
+        <ul class="metric-list">
+          <li>ACL Coverage: <span class="warning">73%</span> of interfaces (target: 95%)</li>
+          <li>Encryption: <span class="problem-value">21 unencrypted management sessions</span> detected</li>
+          <li>Authentication: <span class="warning">34 devices</span> without TACACS+ AAA</li>
+          <li>Certificates: <span class="problem-value">18 expired SSL certificates</span> on management interfaces</li>
+        </ul>
+        <p><strong>Security Recommendations:</strong></p>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">HIGH PRIORITY</span></h5>
+          <ul class="compact-list">
+            <li>Deploy ACLs on 27% uncovered interfaces (ingress filtering)</li>
+            <li>Disable Telnet, enforce SSH v2 only (21 devices)</li>
+            <li>Renew 18 expired SSL certificates for HTTPS management</li>
+            <li>Implement control plane policing (CoPP) on edge routers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">RELIABILITY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Reliability & Redundancy Analysis:</strong></p>
+        <ul class="compact-list">
+          <li><strong>STP Issues:</strong> Root bridge suboptimal on 3 VLANs - may cause traffic tromboning</li>
+          <li><strong>Link Aggregation:</strong> 6 critical uplinks not bundled (no EtherChannel)</li>
+          <li><strong>Failover Testing:</strong> 40% of HSRP/VRRP pairs never tested in last 6 months</li>
+          <li><strong>BFD:</strong> Not enabled on any BGP/OSPF neighbors (slow convergence)</li>
+        </ul>
+        <p><strong>Mitigation Plan:</strong></p>
+        <ul class="compact-list">
+          <li>Reconfigure STP root bridge priorities for optimal traffic flow</li>
+          <li>Implement LACP on 6 critical uplinks for bandwidth + redundancy</li>
+          <li>Enable BFD on all IGP/EGP neighbors (sub-second convergence)</li>
+          <li>Schedule quarterly failover testing for all HA pairs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💰</span>
+        <span class="agent-name">COST_OPTIMIZATION_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Cost Optimization Opportunities:</strong></p>
+        <div class="detection-grid">
+          <div class="detection-card">
+            <div class="detection-title">Annual Savings</div>
+            <div class="detection-value">$147K</div>
+            <div class="detection-details">Potential reduction</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Underutilized Links</div>
+            <div class="detection-value">8</div>
+            <div class="detection-details">< 15% average util</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">License Waste</div>
+            <div class="detection-value">23</div>
+            <div class="detection-details">Unused licenses</div>
+          </div>
+        </div>
+        <p><strong>Cost Reduction Recommendations:</strong></p>
+        <ul class="compact-list">
+          <li><strong>Right-sizing:</strong> Downgrade 8 underutilized circuits (< 15% util) - Save $89K/year</li>
+          <li><strong>License Optimization:</strong> Reclaim 23 unused feature licenses - Save $31K/year</li>
+          <li><strong>Traffic Consolidation:</strong> Merge 4 low-traffic MPLS circuits onto SD-WAN - Save $27K/year</li>
+          <li><strong>ROI:</strong> Estimated 18-month payback on recommendations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🛡️</span>
+        <span class="agent-name">RESILIENCY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Resiliency & Disaster Recovery Assessment:</strong></p>
+        <div class="change-details">
+          <ul class="metric-list">
+            <li>Backup Strategy: <span class="success">Daily config backups</span> to central repository</li>
+            <li>DR Readiness: <span class="warning">Manual failover process</span> - needs automation</li>
+            <li>Multi-Site Redundancy: <span class="problem-value">2 sites with single DC dependency</span></li>
+            <li>Recovery Testing: <span class="problem-value">Last DR test: 14 months ago</span></li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">DR Automation Required</span>
+          <span class="finding-tag finding-warning">Quarterly DR Testing Overdue</span>
+        </div>
+        <p><strong>Resiliency Improvements:</strong></p>
+        <ul class="compact-list">
+          <li>Automate DC failover procedures using orchestration (Ansible/NSO)</li>
+          <li>Establish dual-DC connectivity for 2 dependent sites</li>
+          <li>Implement quarterly DR drills with documented runbooks</li>
+          <li>Target RTO: 30 minutes, RPO: 5 minutes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Prioritized Action Plan:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Domain</th>
+                <th>Action</th>
+                <th>Impact</th>
+                <th>Timeline</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status-tag status-critical">P0</span></td>
+                <td>Security</td>
+                <td>Disable Telnet, renew SSL certs</td>
+                <td>High</td>
+                <td>1 week</td>
+              </tr>
+              <tr>
+                <td><span class="status-tag status-critical">P1</span></td>
+                <td>Performance</td>
+                <td>Deploy QoS on 7 WAN links</td>
+                <td>High</td>
+                <td>2 weeks</td>
+              </tr>
+              <tr>
+                <td><span class="status-tag status-warning">P2</span></td>
+                <td>Cost</td>
+                <td>Rightsize 8 underutilized circuits</td>
+                <td>$89K/year</td>
+                <td>1 month</td>
+              </tr>
+              <tr>
+                <td><span class="status-tag status-warning">P2</span></td>
+                <td>Reliability</td>
+                <td>Enable BFD on IGP/BGP neighbors</td>
+                <td>Medium</td>
+                <td>2 weeks</td>
+              </tr>
+              <tr>
+                <td><span class="status-tag status-success">P3</span></td>
+                <td>Resiliency</td>
+                <td>Automate DR failover procedures</td>
+                <td>Medium</td>
+                <td>6 weeks</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Expected Outcomes:</strong></p>
+        <ul class="compact-list">
+          <li>Network Performance: +35% improvement in QoS-sensitive traffic</li>
+          <li>Security Posture: Medium → High (95% ACL coverage)</li>
+          <li>Reliability: 99.5% → 99.9% uptime (BFD + redundancy)</li>
+          <li>Cost Savings: $147K annually (11% OpEx reduction)</li>
+          <li>Resiliency: RTO reduced from 4 hours to 30 minutes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>`
+                ]
+            },
+            'scheduled-migration': {
+                title: 'AI-Driven Scheduled Migration & Change Management',
+                icon: '📅',
+                description: 'Automated scheduling for network migrations and maintenance windows',
+                initialQuery: 'Plan and schedule network migration',
+                responses: [
+                    `<div class="root-container">
+  <h3>Agentic AI - Scheduled Migration & Change Management</h3>
+  <p><strong>MPLS to SD-WAN Migration for RetailCorp (Project ID: MIG-7723)</strong></p>
+
+  <div class="agent-workflow">
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Migration request received: Transition 67 retail sites from MPLS to Cisco SD-WAN. Requirements: Zero customer impact, phased rollout, automated rollback capability.</p>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Transferring to <strong>MASTER_REASONING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p>Analyzing migration complexity and dependencies. Developing phased migration strategy with automated scheduling and rollback procedures.</p>
+        <div class="multi-transfer">
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting topology analysis from <strong>TOPOLOGY_AGENT</strong>
+          </div>
+          <div class="agent-transfer">
+            <span class="arrow">→</span> Requesting impact assessment from <strong>IMPACT_ANALYSIS_AGENT</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Current vs. Target Architecture Mapping:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Current (MPLS)</th>
+                <th>Target (SD-WAN)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sites</td>
+                <td>67 retail locations</td>
+                <td>67 sites with dual-transport</td>
+              </tr>
+              <tr>
+                <td>Connectivity</td>
+                <td>Single MPLS (10-50 Mbps)</td>
+                <td>MPLS + Internet (100-200 Mbps)</td>
+              </tr>
+              <tr>
+                <td>Devices</td>
+                <td>Cisco ISR 4321</td>
+                <td>Cisco Catalyst 8000v / vEdge</td>
+              </tr>
+              <tr>
+                <td>Controllers</td>
+                <td>Centralized NOC</td>
+                <td>vManage + vSmart + vBond</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Site Classification:</strong></p>
+        <ul class="compact-list">
+          <li>Tier 1 (High Traffic): 12 flagship stores - migrate during maintenance windows</li>
+          <li>Tier 2 (Medium Traffic): 38 standard stores - weekend migrations</li>
+          <li>Tier 3 (Low Traffic): 17 small outlets - business hours migration acceptable</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">IMPACT_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Migration Impact Assessment:</strong></p>
+        <div class="detection-grid">
+          <div class="detection-card">
+            <div class="detection-title">Critical Services</div>
+            <div class="detection-value">4</div>
+            <div class="detection-details">POS, Inventory, VoIP, Security</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Traffic Volume</div>
+            <div class="detection-value">2.1 TB</div>
+            <div class="detection-details">Daily aggregate</div>
+          </div>
+          <div class="detection-card">
+            <div class="detection-title">Dependencies</div>
+            <div class="detection-value">23</div>
+            <div class="detection-details">App/Service deps</div>
+          </div>
+        </div>
+        <p><strong>Risk Analysis:</strong></p>
+        <ul class="metric-list">
+          <li>POS Systems: <span class="problem-value">Zero downtime requirement</span> - dual-transport mandatory</li>
+          <li>VoIP Traffic: <span class="warning">Latency sensitive</span> - QoS policies must be pre-configured</li>
+          <li>Video Surveillance: <span class="normal-value">Can tolerate brief interruption</span> - buffering acceptable</li>
+          <li>Guest WiFi: <span class="success">Non-critical</span> - flexible migration timing</li>
+        </ul>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Forwarding to <strong>SCHEDULING_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">📅</span>
+        <span class="agent-name">SCHEDULING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Optimal Maintenance Window Analysis:</strong></p>
+        <div class="change-details">
+          <p>Based on historical traffic patterns and business operations:</p>
+          <ul class="compact-list">
+            <li><strong>Tier 1 Sites:</strong> Sunday 2:00 AM - 6:00 AM (lowest POS transaction volume)</li>
+            <li><strong>Tier 2 Sites:</strong> Saturday 11:00 PM - 4:00 AM (acceptable for standard stores)</li>
+            <li><strong>Tier 3 Sites:</strong> Weekday 10:00 AM - 2:00 PM (low-impact hours for small outlets)</li>
+          </ul>
+        </div>
+        <p><strong>Phased Migration Schedule (8 weeks):</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Phase</th>
+                <th>Sites</th>
+                <th>Window</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Week 1</td>
+                <td>Pilot</td>
+                <td>3 Tier 3 sites</td>
+                <td>Weekday daytime</td>
+              </tr>
+              <tr>
+                <td>Week 2-3</td>
+                <td>Phase 1</td>
+                <td>14 Tier 3 sites</td>
+                <td>Weekday daytime</td>
+              </tr>
+              <tr>
+                <td>Week 4-6</td>
+                <td>Phase 2</td>
+                <td>38 Tier 2 sites</td>
+                <td>Saturday nights</td>
+              </tr>
+              <tr>
+                <td>Week 7-8</td>
+                <td>Phase 3</td>
+                <td>12 Tier 1 sites</td>
+                <td>Sunday early AM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">67 Sites in 8 Weeks</span>
+          <span class="finding-tag finding-success">Zero Business Impact</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔄</span>
+        <span class="agent-name">MIGRATION_PLANNING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Per-Site Migration Playbook:</strong></p>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">PRE-MIGRATION</span> (T-7 days)</h5>
+          <ul class="compact-list">
+            <li>Provision Internet circuit and validate connectivity</li>
+            <li>Deploy SD-WAN edge device alongside existing router</li>
+            <li>Configure vManage templates and attach device</li>
+            <li>Pre-stage routing, QoS, and security policies</li>
+            <li>Validate dual-transport health check</li>
+          </ul>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">MIGRATION</span> (T-Day, 4-hour window)</h5>
+          <ul class="compact-list">
+            <li><strong>T+0:</strong> Take backup of existing router config</li>
+            <li><strong>T+30min:</strong> Activate SD-WAN edge and verify control plane</li>
+            <li><strong>T+60min:</strong> Shift 10% traffic to SD-WAN (canary testing)</li>
+            <li><strong>T+90min:</strong> If successful, gradually increase to 50%</li>
+            <li><strong>T+120min:</strong> Full cutover to SD-WAN with MPLS as backup</li>
+            <li><strong>T+180min:</strong> Comprehensive service validation</li>
+            <li><strong>T+210min:</strong> Monitor for 30 minutes, confirm success</li>
+          </ul>
+        </div>
+        <div class="remediation-phase">
+          <h5><span class="phase-tag">POST-MIGRATION</span> (T+24 hours)</h5>
+          <ul class="compact-list">
+            <li>24-hour monitoring period with automated health checks</li>
+            <li>Retain MPLS circuit for 30 days as fallback</li>
+            <li>Weekly performance reports vs. MPLS baseline</li>
+            <li>Decommission MPLS after 30-day burn-in period</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔙</span>
+        <span class="agent-name">ROLLBACK_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Automated Rollback Procedures:</strong></p>
+        <div class="change-details">
+          <p><strong>Rollback Triggers (automated):</strong></p>
+          <ul class="compact-list">
+            <li>POS transaction failure rate > 1%</li>
+            <li>VoIP jitter exceeds 30ms or packet loss > 1%</li>
+            <li>Control plane connectivity to vManage lost for > 2 minutes</li>
+            <li>Data plane connectivity failure on both transports</li>
+          </ul>
+          <p><strong>Rollback Actions (5-minute procedure):</strong></p>
+          <ul class="compact-list">
+            <li>Automated failback to MPLS primary path</li>
+            <li>Restore original router configuration from backup</li>
+            <li>Notify NOC team with detailed diagnostics</li>
+            <li>Generate incident report with root cause analysis</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">5-Minute RTO</span>
+          <span class="finding-tag finding-success">Zero Data Loss</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">RECOMMENDATIONS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Migration Success Criteria & KPIs:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Baseline (MPLS)</th>
+                <th>Target (SD-WAN)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Average Latency</td>
+                <td>45ms</td>
+                <td>< 50ms</td>
+              </tr>
+              <tr>
+                <td>Packet Loss</td>
+                <td>0.2%</td>
+                <td>< 0.5%</td>
+              </tr>
+              <tr>
+                <td>Jitter</td>
+                <td>8ms</td>
+                <td>< 15ms</td>
+              </tr>
+              <tr>
+                <td>Availability</td>
+                <td>99.5%</td>
+                <td>> 99.9%</td>
+              </tr>
+              <tr>
+                <td>Bandwidth</td>
+                <td>10-50 Mbps</td>
+                <td>100-200 Mbps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Project Timeline & Milestones:</strong></p>
+        <ul class="compact-list">
+          <li><strong>Week 0:</strong> Finalize design, approve budget ($847K total)</li>
+          <li><strong>Week 1:</strong> Pilot migration (3 sites) + validation</li>
+          <li><strong>Week 2-6:</strong> Phase 1-2 rollout (52 sites)</li>
+          <li><strong>Week 7-8:</strong> Phase 3 critical sites (12 sites)</li>
+          <li><strong>Week 9-12:</strong> Burn-in period and MPLS decommission</li>
+        </ul>
+        <p><strong>Expected Benefits:</strong></p>
+        <ul class="compact-list">
+          <li>Bandwidth increase: 3-4x capacity with dual-transport</li>
+          <li>Cost savings: $215K/year (25% WAN cost reduction)</li>
+          <li>Availability improvement: 99.5% → 99.9% uptime</li>
+          <li>Application performance: 40% faster with intelligent path selection</li>
+          <li>Operational agility: Zero-touch provisioning for new sites</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>`
                 ]
             }
