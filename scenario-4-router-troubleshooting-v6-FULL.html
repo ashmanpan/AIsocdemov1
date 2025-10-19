@@ -1,0 +1,1755 @@
+<!-- SCENARIO 4: ROUTER TROUBLESHOOTING - BGP FLAPPING - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Router Troubleshooting: BGP Flapping v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from Network Monitoring:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Alert Time: 2025-10-19 06:45:17 AM</li>
+          <li>🔍 Alert Source: Cisco DNA Center</li>
+          <li>⚠️ Alert Type: BGP Neighbor Down</li>
+          <li>🔴 Severity: CRITICAL</li>
+          <li>📍 Affected Device: RTR-BRANCH-05 (Austin, TX Branch)</li>
+          <li>🔗 BGP Peer: RTR-HQ-01 (10.200.1.1) - Session flapping</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#RTR-5512</span></li>
+            <li>Category: Routing Protocol</li>
+            <li>Subcategory: BGP Session Instability</li>
+            <li>Priority: P1 - Critical</li>
+            <li>Auto-assigned to: Network Engineering Team</li>
+            <li>Users Impacted: 120 users (Austin Branch Office)</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #RTR-5512 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> Mike Rodriguez - IT Infrastructure Team (Automated Alert + User Report)</p>
+          <p><strong>Affected Entity:</strong> Austin Branch Office</p>
+          <p><strong>Department:</strong> IT Infrastructure - WAN Team</p>
+          <p><strong>Users Impacted:</strong> 120 users at Austin, TX branch</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Router RTR-BRANCH-05 experiencing BGP session instability. BGP neighbor sessions to RTR-HQ-01 and ISP-PE-01 are flapping every 5-10 minutes. Started this morning at 6:45 AM. Users reporting intermittent internet connectivity loss, VPN tunnels resetting, and application timeouts. Business operations severely impacted."</p>
+          <p><strong>Additional Context:</strong></p>
+          <ul class="compact-list">
+            <li>Frequency: BGP sessions dropping and re-establishing every 5-10 minutes</li>
+            <li>Impact: Internet outages during flaps, VPN tunnels reset, routing table instability</li>
+            <li>Business Impact: Customer service operations affected, sales team cannot access CRM</li>
+          </ul>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which router is experiencing the issue and which specific BGP peers are affected?</strong></p>
+            <p class="answer">A1: RTR-BRANCH-05 (10.50.1.1) - BGP sessions to RTR-HQ-01 (AS 65001, 10.200.1.1) and ISP-PE-01 (AS 65500, 203.0.113.1) both flapping</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is the exact timing pattern of the BGP session flaps?</strong></p>
+            <p class="answer">A2: Sessions drop every 5-10 minutes, stay down for 15-30 seconds, then re-establish. Pattern has been consistent since 6:45 AM (3.5 hours ago)</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Are you seeing any error messages on the router console or in syslog?</strong></p>
+            <p class="answer">A3: Yes - seeing "CRC errors" and "input errors" on interface GigabitEthernet0/0/1, also BGP keepalive timeout messages in logs</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Have there been any recent changes to the router configuration, cabling, or equipment?</strong></p>
+            <p class="answer">A4: No configuration changes. Last change was 2 weeks ago (unrelated SNMP community update). No physical work in telecom closet.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: What is the current business impact and urgency level?</strong></p>
+            <p class="answer">A5: CRITICAL - Customer service cannot process orders, sales team offline, 120 users affected. Need resolution ASAP - every flap causes 30-second outage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>Routing Protocol Instability</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>BGP Session Flapping</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Single Device (RTR-BRANCH-05)</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Recurring (5-10 min intervals)</td>
+              </tr>
+              <tr>
+                <td>Symptoms</td>
+                <td>CRC errors + BGP timeouts</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P1 - Critical</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ BGP flapping with regular intervals suggests physical layer or resource exhaustion issues</li>
+            <li>✓ CRC errors on GigE0/0/1 indicate potential hardware problem (cable, SFP, interface)</li>
+            <li>✓ Multiple BGP peers affected suggests common component (interface, not peer-specific)</li>
+            <li>✓ Sudden onset at 6:45 AM suggests environmental trigger or hardware failure</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for router topology and BGP configuration</li>
+            <li>2. Search RAG system for similar BGP flapping incidents</li>
+            <li>3. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>4. Deploy specialized agents for interface health, BGP protocol, and log analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Device Information</strong></p>
+          <ul class="compact-list">
+            <li>✓ Device: RTR-BRANCH-05 (Cisco ISR 4451-X)</li>
+            <li>✓ Location: Austin, TX Branch Office (120 users)</li>
+            <li>✓ OS: IOS-XE 17.9.3a</li>
+            <li>✓ Management IP: 10.50.1.1</li>
+            <li>✓ Last Reboot: 45 days ago (normal)</li>
+          </ul>
+          <p><strong>Query 2: BGP Configuration</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>BGP Peer</th>
+                  <th>Peer IP</th>
+                  <th>AS Number</th>
+                  <th>Interface</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>RTR-HQ-01 (MPLS)</td>
+                  <td>10.200.1.1</td>
+                  <td>AS 65001 (iBGP)</td>
+                  <td>GigE0/0/1</td>
+                  <td><span class="problem-value">FLAPPING</span></td>
+                </tr>
+                <tr>
+                  <td>ISP-PE-01 (Internet)</td>
+                  <td>203.0.113.1</td>
+                  <td>AS 65500 (eBGP)</td>
+                  <td>GigE0/0/1</td>
+                  <td><span class="problem-value">FLAPPING</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: Interface Configuration</strong></p>
+          <ul class="compact-list">
+            <li>✓ GigE0/0/1: Primary WAN interface (1 Gbps)</li>
+            <li>✓ Connected to: Branch WAN switch</li>
+            <li>✓ SFP Module: GLC-LH-SMD (1000BASE-LX/LH)</li>
+            <li>✓ Fiber: Single-mode, installed 2 years ago</li>
+          </ul>
+          <p><strong>Query 4: Historical Interface Statistics (Past 24 Hours)</strong></p>
+          <ul class="metric-list">
+            <li>Input Errors (0-6:44 AM): <span class="success">0</span></li>
+            <li>Input Errors (6:45 AM - now): <span class="problem-value">8,247</span></li>
+            <li>CRC Errors: <span class="problem-value">8,247</span> (same as input errors)</li>
+            <li>Interface Resets: <span class="problem-value">23</span></li>
+            <li>Link Status: <span class="warning">UP/DOWN transitions: 47</span></li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-critical">CRC Errors Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "BGP flapping + interface errors + CRC errors + SFP"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TKT-78934</td>
+                  <td><span class="success">94%</span></td>
+                  <td>BGP flapping + CRC errors</td>
+                  <td>Replaced faulty SFP module</td>
+                </tr>
+                <tr>
+                  <td>TKT-67123</td>
+                  <td><span class="success">87%</span></td>
+                  <td>Interface errors + BGP resets</td>
+                  <td>SFP transceiver failure</td>
+                </tr>
+                <tr>
+                  <td>TKT-54892</td>
+                  <td><span class="success">82%</span></td>
+                  <td>Intermittent CRC errors</td>
+                  <td>Dirty fiber connector - cleaned</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Troubleshooting Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>BGP_Troubleshooting_Guide.pdf</strong> (Cisco Doc ID: 26634)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ CRC errors indicate physical layer issues - check cables, SFP, fiber connectors</li>
+            <li>📄 <strong>Interface_Error_Analysis.pdf</strong> (Cisco TAC KB-9912)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ CRC errors = input errors usually means faulty SFP transceiver or dirty fiber</li>
+            <li>📄 <strong>SFP_Module_Diagnostics.pdf</strong> (Internal KB-4421)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Check SFP DOM (Digital Optical Monitoring): RX power, TX power, temperature</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 94% similarity to TKT-78934: Identical symptoms resolved with SFP replacement</li>
+            <li>✓ Common root cause: Faulty SFP transceiver causing intermittent signal loss</li>
+            <li>✓ CRC errors = physical layer problem, not BGP configuration issue</li>
+            <li>✓ Recommended first action: Check SFP diagnostics (show interface transceiver)</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>BGP sessions flapping every 5-10 minutes</li>
+              <li>Both iBGP (RTR-HQ-01) and eBGP (ISP-PE-01) peers affected</li>
+              <li>CRC errors and input errors on GigE0/0/1</li>
+              <li>Started suddenly at 6:45 AM this morning</li>
+              <li>No recent configuration changes</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>RTR-BRANCH-05: Cisco ISR 4451-X, IOS-XE 17.9.3a</li>
+              <li>GigE0/0/1: Primary WAN interface, 1 Gbps, SFP module GLC-LH-SMD</li>
+              <li>Interface errors: 8,247 CRC errors since 6:45 AM (was 0 before)</li>
+              <li>Interface resets: 23 occurrences (abnormal)</li>
+              <li>Both BGP peers use same physical interface (GigE0/0/1)</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>94% similarity to TKT-78934 (BGP flapping + CRC errors = SFP failure)</li>
+              <li>87% similarity to TKT-67123 (Interface errors = SFP transceiver)</li>
+              <li>Historical resolution: Replace faulty SFP module</li>
+              <li>Best practice: Check SFP diagnostics (RX/TX power, temperature)</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> Faulty SFP transceiver module on GigE0/0/1 causing intermittent signal loss, resulting in CRC errors and BGP keepalive packet loss. Need to verify with interface health and BGP protocol agents.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">🔌</div>
+            <div class="deployment-name">INTERFACE_HEALTH_AGENT</div>
+            <div class="deployment-task">Check interface stats & SFP</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔀</div>
+            <div class="deployment-name">BGP_PROTOCOL_AGENT</div>
+            <div class="deployment-task">Analyze BGP sessions</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💻</div>
+            <div class="deployment-name">SYSTEM_RESOURCES_AGENT</div>
+            <div class="deployment-task">Check CPU/memory</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📝</div>
+            <div class="deployment-name">LOG_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Parse syslog messages</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate remediation plan</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: INTERFACE_HEALTH_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">INTERFACE_HEALTH_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Interface Health Check via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show interface GigabitEthernet0/0/1</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show interface GigabitEthernet0/0/1 transceiver</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Live interface statistics</li>
+          </ul>
+          <p><strong>Interface Status (GigE0/0/1):</strong></p>
+          <div class="code-block">
+GigabitEthernet0/0/1 is up, line protocol is up (flapping)
+  Hardware is ISR4451-X Gigabit Ethernet, address is 0050.56a1.2234
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec
+  Last input 00:00:02, output 00:00:01
+  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+  5 minute input rate 25000 bits/sec, 30 packets/sec
+  5 minute output rate 28000 bits/sec, 35 packets/sec
+     245678 packets input, 89234567 bytes, 0 no buffer
+     Received 1234 broadcasts (456 IP multicasts)
+     8247 runts, 0 giants, 0 throttles
+     8247 input errors, 8247 CRC, 0 frame, 0 overrun, 0 ignored
+     0 watchdog, 0 multicast, 0 pause input
+     187654 packets output, 67892345 bytes, 0 underruns
+     0 output errors, 0 collisions, 23 interface resets
+     0 unknown protocol drops
+     0 babbles, 0 late collision, 0 deferred
+     0 lost carrier, 0 no carrier, 0 pause output
+     0 output buffer failures, 0 output buffers swapped out
+          </div>
+          <p><strong>SFP Transceiver Diagnostics:</strong></p>
+          <div class="code-block">
+GigabitEthernet0/0/1 transceiver information:
+  Transceiver Type: SFP-1000BASE-LX
+  Part Number: GLC-LH-SMD
+  Serial Number: FNS19274KL8
+  Temperature: 68.5 C (ALARM - High temp threshold: 70 C)
+  Voltage: 3.28 V
+  Current: 45.2 mA
+  Optical TX Power: -2.1 dBm
+  Optical RX Power: -22.8 dBm (ALARM - Low threshold: -19 dBm)
+  TX Fault Count: 247
+  RX Loss of Signal: 23 occurrences
+          </div>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Interface administratively up</li>
+          <li>✅ No bandwidth issues (low utilization)</li>
+          <li>✅ No buffer overruns</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ 8,247 CRC errors (100% of input errors)</li>
+          <li>❌ RX Optical Power: -22.8 dBm (CRITICAL - below -19 dBm threshold)</li>
+          <li>❌ SFP Temperature: 68.5°C (ALARM - near failure threshold)</li>
+          <li>❌ TX Fault Count: 247 (indicates SFP hardware failure)</li>
+          <li>❌ 23 interface resets (abnormal)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">SFP Module Failure Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 11: BGP_PROTOCOL_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔀</span>
+        <span class="agent-name">BGP_PROTOCOL_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>BGP Protocol Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show ip bgp summary</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show ip bgp neighbors 10.200.1.1</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show ip bgp neighbors 203.0.113.1</li>
+          </ul>
+          <p><strong>BGP Summary:</strong></p>
+          <div class="code-block">
+BGP router identifier 10.50.1.1, local AS number 65001
+BGP table version is 4892, main routing table version 4892
+234 network entries using 56234 bytes of memory
+468 path entries using 89123 bytes of memory
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.200.1.1      4 65001   12847   12893     4892    0    0 00:04:23      156
+203.0.113.1     4 65500    8234    8267     4892    0    0 00:03:45       78
+
+Last flap times:
+10.200.1.1: 00:04:23 (flapped 23 times in last 3.5 hours)
+203.0.113.1: 00:03:45 (flapped 23 times in last 3.5 hours)
+          </div>
+          <p><strong>BGP Neighbor Details (RTR-HQ-01 - 10.200.1.1):</strong></p>
+          <div class="code-block">
+BGP neighbor is 10.200.1.1, remote AS 65001, internal link
+  BGP version 4, remote router ID 10.200.1.1
+  BGP state = Established, up for 00:04:23
+  Last read 00:00:15, last write 00:00:12
+  Hold time is 180, keepalive interval is 60 seconds
+  Configured hold time is 180, keepalive interval is 60 seconds
+
+  Message statistics:
+    InQ depth is 0, OutQ depth is 0
+    Sent: Opens: 24, Notifications: 0, Updates: 234, Keepalives: 12635, Route Refresh: 0
+    Received: Opens: 24, Notifications: 23, Updates: 189, Keepalives: 12610
+
+  Notification History (last 5):
+    10:15:23 - Hold Timer Expired (keepalive not received)
+    10:07:12 - Hold Timer Expired (keepalive not received)
+    09:58:45 - Hold Timer Expired (keepalive not received)
+    09:50:33 - Hold Timer Expired (keepalive not received)
+    09:42:18 - Hold Timer Expired (keepalive not received)
+
+  Connection state is ESTAB, I/O status: 1, unread input bytes: 0
+  Local host: 10.50.1.1, Local port: 179
+  Foreign host: 10.200.1.1, Foreign port: 42387
+          </div>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ BGP configuration correct (AS numbers, timers)</li>
+          <li>✅ BGP sessions currently established</li>
+          <li>✅ Route prefixes being received correctly</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ 23 BGP session resets (both peers) in 3.5 hours</li>
+          <li>❌ Root cause: Hold Timer Expired (BGP keepalives not received)</li>
+          <li>❌ Pattern: Sessions reset every 5-10 minutes (matches interface flaps)</li>
+          <li>❌ BGP flaps correlate exactly with interface errors on GigE0/0/1</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-warning">BGP Flapping Due to Interface Issues</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: SYSTEM_RESOURCES_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💻</span>
+        <span class="agent-name">SYSTEM_RESOURCES_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>System Resource Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show processes cpu sorted</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show processes memory sorted</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show version</li>
+          </ul>
+          <p><strong>CPU Utilization:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Time Period</th>
+                  <th>CPU %</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5 seconds</td>
+                  <td>12%</td>
+                  <td><span class="success">Normal</span></td>
+                </tr>
+                <tr>
+                  <td>1 minute</td>
+                  <td>15%</td>
+                  <td><span class="success">Normal</span></td>
+                </tr>
+                <tr>
+                  <td>5 minutes</td>
+                  <td>18%</td>
+                  <td><span class="success">Normal</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Memory Utilization:</strong></p>
+          <ul class="metric-list">
+            <li>Total Memory: <span class="normal-value">4,194,304 KB (4 GB)</span></li>
+            <li>Used Memory: <span class="normal-value">1,892,456 KB (45%)</span></li>
+            <li>Free Memory: <span class="success">2,301,848 KB (55%)</span></li>
+            <li>Largest Free Block: <span class="success">1,845,234 KB</span></li>
+          </ul>
+          <p><strong>System Information:</strong></p>
+          <ul class="compact-list">
+            <li>Uptime: 45 days, 12 hours, 34 minutes</li>
+            <li>IOS-XE Version: 17.9.3a (stable release)</li>
+            <li>No crash dumps or reload history</li>
+            <li>BGP process: 3.2% CPU, 128 MB memory (normal)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ CPU utilization normal (12-18%)</li>
+          <li>✅ Memory utilization healthy (45% used, 55% free)</li>
+          <li>✅ No resource exhaustion</li>
+          <li>✅ Router stable (45 days uptime)</li>
+          <li>✅ BGP process resource usage normal</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ No system resource issues identified</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">System Resources Normal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: LOG_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📝</span>
+        <span class="agent-name">LOG_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Syslog Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show logging | include GigabitEthernet0/0/1</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show logging | include BGP</li>
+            <li>🔌 <strong>MCP Syslog Server:</strong> Last 500 messages from RTR-BRANCH-05</li>
+          </ul>
+          <p><strong>Critical Log Messages (Last 3.5 Hours):</strong></p>
+          <div class="code-block">
+Oct 19 06:45:17: %LINK-3-UPDOWN: Interface GigabitEthernet0/0/1, changed state to down
+Oct 19 06:45:19: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigE0/0/1, changed state to down
+Oct 19 06:45:21: %BGP-5-ADJCHANGE: neighbor 10.200.1.1 Down Interface flap
+Oct 19 06:45:21: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Down Interface flap
+Oct 19 06:45:32: %LINK-3-UPDOWN: Interface GigabitEthernet0/0/1, changed state to up
+Oct 19 06:45:34: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigE0/0/1, changed state to up
+Oct 19 06:45:56: %BGP-5-ADJCHANGE: neighbor 10.200.1.1 Up
+Oct 19 06:45:58: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
+
+Oct 19 06:52:34: %PHY-4-SFP_RX_LOS: GigabitEthernet0/0/1: SFP receive signal loss detected
+Oct 19 06:52:36: %LINK-3-UPDOWN: Interface GigabitEthernet0/0/1, changed state to down
+Oct 19 06:52:38: %BGP-5-ADJCHANGE: neighbor 10.200.1.1 Down Hold Timer Expired
+Oct 19 06:52:38: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Down Hold Timer Expired
+Oct 19 06:52:45: %PHY-4-SFP_RX_RESTORED: GigabitEthernet0/0/1: SFP receive signal restored
+Oct 19 06:52:47: %LINK-3-UPDOWN: Interface GigabitEthernet0/0/1, changed state to up
+
+Oct 19 06:58:12: %PHY-4-SFP_TEMP_HIGH: GigabitEthernet0/0/1: SFP temperature high (68.2 C)
+Oct 19 07:05:23: %PHY-4-SFP_RX_LOS: GigabitEthernet0/0/1: SFP receive signal loss detected
+Oct 19 07:13:45: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault detected
+Oct 19 07:21:12: %PHY-4-SFP_RX_LOS: GigabitEthernet0/0/1: SFP receive signal loss detected
+Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault detected
+
+[Pattern repeats 23 times with 5-10 minute intervals]
+          </div>
+          <p><strong>Log Pattern Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 First occurrence: 06:45:17 (exact match to user-reported start time)</li>
+            <li>🔴 Sequence: SFP RX Loss → Interface Down → BGP Down → Signal Restored → Interface Up → BGP Up</li>
+            <li>🔴 Root cause indicators: SFP_RX_LOS, SFP_TX_FAULT, SFP_TEMP_HIGH</li>
+            <li>🔴 Pattern: 23 occurrences in 3.5 hours (every 5-10 minutes)</li>
+            <li>🔴 BGP down reason: "Hold Timer Expired" (keepalives lost during interface down)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Complete log history captured</li>
+          <li>✅ Clear timeline and event sequence established</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ SFP_RX_LOS: 23 occurrences (receive signal loss)</li>
+          <li>❌ SFP_TX_FAULT: 15 occurrences (transmit fault)</li>
+          <li>❌ SFP_TEMP_HIGH: 8 occurrences (overheating)</li>
+          <li>❌ All errors point to failing SFP transceiver module</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">SFP Hardware Failure Confirmed by Logs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🤝</span>
+        <span class="agent-name">INTER-AGENT COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Agents Sharing Findings and Cross-Validating:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p class="collab-from">INTERFACE_HEALTH_AGENT → BGP_PROTOCOL_AGENT:</p>
+            <p class="collab-message">"I've detected 8,247 CRC errors on GigE0/0/1 with failing SFP diagnostics (RX power -22.8 dBm, temp 68.5°C). Are your BGP flaps timing with my interface resets?"</p>
+            <p class="collab-response"><strong>BGP_PROTOCOL_AGENT:</strong> "Confirmed! All 23 BGP session resets correlate perfectly with your interface down events. BGP hold timer expires when keepalives are lost during interface flaps."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p class="collab-from">LOG_ANALYSIS_AGENT → INTERFACE_HEALTH_AGENT:</p>
+            <p class="collab-message">"Syslog shows clear sequence: SFP_RX_LOS → Interface Down → BGP Down. Also seeing SFP_TX_FAULT and SFP_TEMP_HIGH alarms. Can you confirm SFP health status?"</p>
+            <p class="collab-response"><strong>INTERFACE_HEALTH_AGENT:</strong> "Confirmed! SFP diagnostics show RX power -22.8 dBm (below -19 dBm threshold), TX fault count 247, and temperature 68.5°C (near 70°C alarm threshold). SFP module is definitely failing."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p class="collab-from">SYSTEM_RESOURCES_AGENT → ALL AGENTS:</p>
+            <p class="collab-message">"System resources are completely normal - CPU 12-18%, memory 45% used. This rules out software/resource issues. Problem is definitely hardware-related."</p>
+            <p class="collab-response"><strong>ALL AGENTS:</strong> "Acknowledged. Focusing on physical layer - SFP module is the confirmed culprit."</p>
+          </div>
+        </div>
+        <p><strong>Consensus Reached:</strong></p>
+        <div class="success-box">
+          <p>All agents agree: <strong>Faulty SFP module on GigabitEthernet0/0/1 is the root cause.</strong></p>
+          <ul class="compact-list">
+            <li>✓ INTERFACE_HEALTH_AGENT: SFP diagnostics show hardware failure</li>
+            <li>✓ BGP_PROTOCOL_AGENT: BGP flaps match interface down events</li>
+            <li>✓ LOG_ANALYSIS_AGENT: Syslog confirms SFP RX loss and TX faults</li>
+            <li>✓ SYSTEM_RESOURCES_AGENT: Software and resources are healthy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ INTERFACE_HEALTH_AGENT: RX power -22.8 dBm (CRITICAL, below -19 dBm threshold)</li>
+            <li>✓ INTERFACE_HEALTH_AGENT: SFP temperature 68.5°C (ALARM, near 70°C threshold)</li>
+            <li>✓ INTERFACE_HEALTH_AGENT: 8,247 CRC errors, 247 TX faults, 23 interface resets</li>
+            <li>✓ BGP_PROTOCOL_AGENT: 23 BGP session resets, all due to "Hold Timer Expired"</li>
+            <li>✓ LOG_ANALYSIS_AGENT: SFP_RX_LOS and SFP_TX_FAULT alarms (23 occurrences)</li>
+            <li>✓ SYSTEM_RESOURCES_AGENT: CPU/memory normal, no software issues</li>
+            <li>✓ RAG Historical Data: 94% similarity to TKT-78934 (SFP failure)</li>
+          </ul>
+          <p><strong>Timeline Correlation:</strong></p>
+          <ul class="metric-list">
+            <li>06:45:17 AM: First SFP_RX_LOS alarm → Interface down</li>
+            <li>06:45:21 AM: BGP sessions to both peers go down</li>
+            <li>06:45:32 AM: Interface recovers, BGP re-establishes</li>
+            <li>Pattern repeats: Every 5-10 minutes for 3.5 hours (23 times)</li>
+            <li>Impact: 30-second outage per flap, routing instability</li>
+          </ul>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>Faulty SFP transceiver module (GLC-LH-SMD, Serial: FNS19274KL8) on interface GigabitEthernet0/0/1 experiencing hardware failure characterized by:</p>
+          <ul class="compact-list">
+            <li>• Degraded optical receive power (-22.8 dBm, below -19 dBm threshold)</li>
+            <li>• Elevated operating temperature (68.5°C, near 70°C failure threshold)</li>
+            <li>• Intermittent signal loss causing CRC errors and interface resets</li>
+          </ul>
+          <p>This results in BGP keepalive packet loss, triggering hold timer expiration and session resets every 5-10 minutes.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. SFP module age: 2 years old (approaching typical 3-year lifespan)</li>
+            <li>2. Both BGP peers (iBGP and eBGP) use same physical interface (single point of failure)</li>
+            <li>3. No redundant WAN path configured for automatic failover</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting internet outages</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Critical</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>VPN tunnels resetting</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Critical</td>
+                  <td>Routing instability impact</td>
+                </tr>
+                <tr>
+                  <td>BGP sessions flapping</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Critical</td>
+                  <td>Protocol-level symptom</td>
+                </tr>
+                <tr>
+                  <td>BGP hold timer expired</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Keepalives not received</td>
+                </tr>
+                <tr>
+                  <td>8,247 CRC errors</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Critical</td>
+                  <td>Physical layer symptom</td>
+                </tr>
+                <tr>
+                  <td>23 interface resets</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Interface instability</td>
+                </tr>
+                <tr>
+                  <td>SFP RX power -22.8 dBm</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Critical</td>
+                  <td>Below operational threshold</td>
+                </tr>
+                <tr>
+                  <td>SFP temperature 68.5°C</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>Near failure threshold</td>
+                </tr>
+                <tr>
+                  <td>247 SFP TX faults</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Critical</td>
+                  <td>Transmitter hardware failure</td>
+                </tr>
+                <tr>
+                  <td>Faulty SFP transceiver</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Hardware component failure</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur simultaneously with SFP_RX_LOS alarms</li>
+            <li>✓ All interface errors are CRC errors (physical layer issue)</li>
+            <li>✓ BGP flaps correlate 100% with interface down events</li>
+            <li>✓ Pattern is 100% repeatable every 5-10 minutes</li>
+            <li>✓ No software, configuration, or resource issues found</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed - hardware failure. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: Faulty SFP transceiver module (hardware failure)</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive and correlated across all data sources</p>
+          <p>✓ SFP diagnostics provide definitive hardware failure evidence</p>
+          <p>✓ Historical RAG data (94% similarity) confirms diagnosis</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">The BGP session flapping on RTR-BRANCH-05 is caused by a <strong>failing SFP transceiver module (GLC-LH-SMD, Serial: FNS19274KL8)</strong> on interface GigabitEthernet0/0/1. The SFP is experiencing hardware degradation with critically low optical receive power (-22.8 dBm, below -19 dBm threshold), elevated temperature (68.5°C, near 70°C alarm threshold), and intermittent signal loss.</p>
+
+          <p><strong>Technical Details:</strong></p>
+          <ul class="compact-list">
+            <li>• Affected Interface: GigabitEthernet0/0/1 (primary WAN interface)</li>
+            <li>• SFP Model: GLC-LH-SMD (1000BASE-LX/LH)</li>
+            <li>• SFP Serial: FNS19274KL8 (2 years old)</li>
+            <li>• RX Optical Power: -22.8 dBm (CRITICAL - threshold: -19 dBm)</li>
+            <li>• Temperature: 68.5°C (ALARM - threshold: 70°C)</li>
+            <li>• TX Fault Count: 247 occurrences</li>
+          </ul>
+
+          <p><strong>Impact Chain:</strong></p>
+          <ul class="compact-list">
+            <li>1. SFP hardware degradation → Intermittent optical signal loss</li>
+            <li>2. Signal loss → CRC errors (8,247) and interface resets (23)</li>
+            <li>3. Interface down → BGP keepalive packets lost</li>
+            <li>4. Keepalive loss → BGP hold timer expires (180 seconds)</li>
+            <li>5. BGP session reset → Routing table instability</li>
+            <li>6. Routing instability → Internet outages and VPN tunnel resets</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ SFP diagnostics show RX power below operational threshold (-22.8 dBm vs. -19 dBm)</li>
+            <li>✓ Syslog shows 23 SFP_RX_LOS and 15 SFP_TX_FAULT alarms</li>
+            <li>✓ 8,247 CRC errors (100% correlation with input errors)</li>
+            <li>✓ BGP sessions reset exactly when interface goes down (23 times)</li>
+            <li>✓ System resources normal (rules out software/CPU/memory issues)</li>
+            <li>✓ Historical ticket TKT-78934 (94% similarity) resolved with SFP replacement</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: 120 users at Austin branch experiencing intermittent internet outages</li>
+            <li>🔴 Critical: Customer service operations disrupted (cannot process orders)</li>
+            <li>🔴 Critical: Sales team unable to access CRM system</li>
+            <li>🔴 Critical: VPN tunnels resetting (remote access impacted)</li>
+            <li>⏱️ Duration: 30-second outage every 5-10 minutes since 6:45 AM (3.5 hours)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved SFP replacement procedures for ISR 4451-X</li>
+          <li>📚 RAG Query: Retrieved 3 successful SFP replacement playbooks (TKT-78934, TKT-67123, TKT-54892)</li>
+          <li>🔧 MCP Server: Retrieved spare SFP inventory (2 available GLC-LH-SMD modules)</li>
+          <li>📚 KG Query: Retrieved redundancy best practices for branch routers</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 2 hours) - CRITICAL</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Emergency SFP Module Replacement</strong></p>
+            <ul class="compact-list">
+              <li>✓ Dispatch field technician to Austin branch with replacement SFP (GLC-LH-SMD)</li>
+              <li>✓ Coordinate 15-minute maintenance window with Mike Rodriguez</li>
+              <li>✓ Steps: Power down interface → Replace SFP → Power up → Verify diagnostics</li>
+              <li>✓ Verify RX power within normal range (-3 dBm to -19 dBm)</li>
+              <li>✓ Verify BGP sessions establish and remain stable for 30 minutes</li>
+              <li>⏱️ Replacement time: 15 minutes (interface down)</li>
+              <li>⏱️ Verification time: 30 minutes (BGP stability test)</li>
+              <li>📊 Expected impact: Complete resolution of BGP flapping</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Post-Replacement Verification Tests</strong></p>
+            <ul class="compact-list">
+              <li>✓ show interface GigE0/0/1 transceiver (verify RX/TX power, temperature)</li>
+              <li>✓ show interface GigE0/0/1 (verify 0 CRC errors, 0 input errors)</li>
+              <li>✓ show ip bgp summary (verify both peers Established)</li>
+              <li>✓ Monitor for 2 hours to ensure no flaps occur</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 1 week)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Implement Redundant WAN Path</strong></p>
+            <ul class="compact-list">
+              <li>✓ Configure secondary WAN interface (GigE0/0/2) with backup ISP connection</li>
+              <li>✓ Implement BGP load balancing and automatic failover</li>
+              <li>✓ Configure IP SLA tracking for primary path monitoring</li>
+              <li>⏱️ Implementation: 2-hour change window</li>
+              <li>📊 Expected impact: Eliminate single point of failure</li>
+            </ul>
+
+            <p><strong>Action 2.2 - SFP Inventory Management</strong></p>
+            <ul class="compact-list">
+              <li>✓ Stock 2 spare SFP modules at Austin branch (on-site spares)</li>
+              <li>✓ Implement SFP lifecycle tracking (replace every 3 years proactively)</li>
+              <li>✓ Add SFP modules to quarterly hardware audit process</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Enhanced SFP Monitoring</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement automated SFP diagnostics monitoring (RX/TX power, temperature)</li>
+              <li>✓ Configure SNMP traps for SFP_RX_LOS and SFP_TX_FAULT alarms</li>
+              <li>✓ Set proactive alerts for RX power degradation (-15 dBm warning threshold)</li>
+              <li>✓ Create dashboard for SFP health across all branch routers</li>
+              <li>⏱️ Rollout: Phased deployment across 25 branch locations</li>
+            </ul>
+
+            <p><strong>Action 3.2 - BGP Resilience Improvements</strong></p>
+            <ul class="compact-list">
+              <li>✓ Tune BGP timers for faster convergence (keepalive: 20s, hold: 60s)</li>
+              <li>✓ Implement BFD (Bidirectional Forwarding Detection) for sub-second failure detection</li>
+              <li>✓ Configure BGP graceful restart for hitless failover</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Preventive Maintenance Program</strong></p>
+            <ul class="compact-list">
+              <li>✓ Quarterly SFP diagnostics review across all sites</li>
+              <li>✓ Proactive SFP replacement at 3-year lifecycle mark</li>
+              <li>✓ Fiber optic cable inspection and cleaning annually</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SFP module replacement</td>
+              <td><span class="success">LOW</span></td>
+              <td>Hot-swappable, 15-min downtime</td>
+              <td>5 minutes</td>
+            </tr>
+            <tr>
+              <td>Redundant WAN path</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Test in lab first, deploy off-hours</td>
+              <td>10 minutes</td>
+            </tr>
+            <tr>
+              <td>BGP timer tuning</td>
+              <td><span class="success">LOW</span></td>
+              <td>Non-disruptive configuration change</td>
+              <td>2 minutes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ BGP sessions remain stable for 48 hours with 0 flaps</li>
+          <li>✓ Interface CRC errors remain at 0</li>
+          <li>✓ SFP RX power within normal range (-3 dBm to -15 dBm)</li>
+          <li>✓ SFP temperature within normal range (0-60°C)</li>
+          <li>✓ No user complaints or outage reports</li>
+          <li>✓ VPN tunnels remain stable</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings (faulty SFP transceiver), KG spare inventory data, and RAG historical resolutions. I recommend immediate SFP replacement (PHASE 1) within 2 hours to restore service. Field technician dispatch required."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 SFP replacement procedure (step-by-step guide)</li>
+            <li>📄 Verification test checklist</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Field technician dispatch instructions</li>
+            <li>📄 Spare SFP inventory confirmation (2 GLC-LH-SMD available)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (Mike Rodriguez):</strong></p>
+          <p>"Mike, our AI agents have completed the investigation of ticket #RTR-5512 (BGP flapping on RTR-BRANCH-05)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: Faulty SFP transceiver module (hardware failure)</li>
+            <li>📊 Impact: BGP sessions flapping every 5-10 minutes, 120 users affected</li>
+            <li>⏱️ Device: RTR-BRANCH-05, Interface GigE0/0/1</li>
+            <li>🔧 Solution: Replace SFP module (GLC-LH-SMD)</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Dispatch field technician to Austin branch with replacement SFP</li>
+            <li>2️⃣ Schedule 15-minute maintenance window for SFP replacement</li>
+            <li>3️⃣ Verify BGP stability for 30 minutes post-replacement</li>
+            <li>⏱️ Total resolution time: ~2 hours (including travel + replacement + verification)</li>
+            <li>📉 Expected result: Complete resolution of BGP flapping</li>
+            <li>🔄 Rollback time: 5 minutes (reinstall old SFP if needed)</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the immediate SFP replacement (PHASE 1)?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. This is critical - please dispatch technician immediately.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is your preferred maintenance window? (15 minutes required)</strong></p>
+            <p class="answer">✅ A2: As soon as technician arrives (estimated 11:30 AM). Users are already experiencing outages every 5-10 minutes, so a planned 15-minute outage is acceptable.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (redundant WAN path) within 1 week?</strong></p>
+            <p class="answer">✅ A3: Yes, approved. Please schedule for next Tuesday evening (8:00 PM maintenance window).</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Notification preferences - who should be informed of the maintenance?</strong></p>
+            <p class="answer">✅ A4: Notify Austin branch manager (sarah.johnson@company.com) and IT infrastructure team (it-infra-team@company.com) 30 minutes before maintenance.</p>
+          </div>
+        </div>
+        <div class="success-box">
+          <p><strong>✅ USER APPROVAL RECEIVED</strong></p>
+          <p>Mike Rodriguez has approved PHASE 1 immediate deployment. Proceeding with field technician dispatch and SFP replacement.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Executing Remediation</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Executing PHASE 1:</strong></p>
+        <div class="deployment-box">
+          <p><strong>Step 1: Field Technician Dispatch</strong></p>
+          <ul class="compact-list">
+            <li>⏰ 10:35 AM: Technician John Martinez dispatched to Austin branch</li>
+            <li>📍 ETA: 11:30 AM (55 minutes travel time)</li>
+            <li>📦 Equipment: Replacement SFP module (GLC-LH-SMD, Serial: FNS20891MK3)</li>
+            <li>📋 Procedure: SFP_Replacement_ISR4451X_v2.3.pdf</li>
+            <li>✅ Status: Technician en route</li>
+          </ul>
+
+          <p><strong>Step 2: Pre-Maintenance Notifications</strong></p>
+          <ul class="compact-list">
+            <li>⏰ 11:00 AM: Notification sent to Austin branch manager</li>
+            <li>⏰ 11:00 AM: Notification sent to IT infrastructure team</li>
+            <li>📧 Subject: "Planned 15-minute network maintenance - RTR-BRANCH-05 - 11:30 AM"</li>
+            <li>✅ Status: Notifications delivered</li>
+          </ul>
+
+          <p><strong>Step 3: SFP Replacement Execution</strong></p>
+          <ul class="compact-list">
+            <li>⏰ 11:32 AM: Technician on-site, beginning replacement</li>
+            <li>⏰ 11:33 AM: interface GigabitEthernet0/0/1 shutdown</li>
+            <li>⏰ 11:35 AM: Old SFP removed (Serial: FNS19274KL8 - FAILED)</li>
+            <li>⏰ 11:36 AM: New SFP installed (Serial: FNS20891MK3)</li>
+            <li>⏰ 11:37 AM: no shutdown GigabitEthernet0/0/1</li>
+            <li>⏰ 11:38 AM: Interface up, line protocol up</li>
+            <li>⏰ 11:39 AM: BGP session to RTR-HQ-01 established</li>
+            <li>⏰ 11:39 AM: BGP session to ISP-PE-01 established</li>
+            <li>✅ Status: Replacement complete (7 minutes total downtime)</li>
+          </ul>
+
+          <p><strong>Step 4: Post-Replacement Diagnostics</strong></p>
+          <div class="code-block">
+RTR-BRANCH-05# show interface GigabitEthernet0/0/1 transceiver
+GigabitEthernet0/0/1 transceiver information:
+  Transceiver Type: SFP-1000BASE-LX
+  Part Number: GLC-LH-SMD
+  Serial Number: FNS20891MK3
+  Temperature: 42.3 C (Normal - threshold: 70 C)
+  Voltage: 3.31 V
+  Current: 38.7 mA
+  Optical TX Power: -2.8 dBm (Normal)
+  Optical RX Power: -8.4 dBm (Normal - threshold: -19 dBm)
+  TX Fault Count: 0
+  RX Loss of Signal: 0 occurrences
+          </div>
+
+          <div class="code-block">
+RTR-BRANCH-05# show interface GigabitEthernet0/0/1 | include errors
+  0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+  0 output errors, 0 collisions, 0 interface resets
+          </div>
+
+          <div class="code-block">
+RTR-BRANCH-05# show ip bgp summary
+BGP router identifier 10.50.1.1, local AS number 65001
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.200.1.1      4 65001      45      47     4892    0    0 00:08:23      156
+203.0.113.1     4 65500      32      34     4892    0    0 00:08:21       78
+          </div>
+        </div>
+
+        <div class="success-box">
+          <p><strong>✅ PHASE 1 DEPLOYMENT COMPLETE</strong></p>
+          <ul class="compact-list">
+            <li>✅ New SFP installed and verified healthy</li>
+            <li>✅ Interface errors cleared (0 CRC errors)</li>
+            <li>✅ BGP sessions established and stable</li>
+            <li>✅ SFP diagnostics normal (RX power -8.4 dBm, temp 42.3°C)</li>
+            <li>⏱️ Total downtime: 7 minutes (better than planned 15 minutes)</li>
+            <li>⏱️ Deployment time: 11:32 AM - 11:39 AM</li>
+          </ul>
+        </div>
+
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Handoff to <strong>VERIFICATION_AGENT</strong> for stability monitoring
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Monitoring</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Monitoring Post-Deployment Health:</strong></p>
+        <div class="verification-box">
+          <p><strong>Continuous Monitoring (2-hour observation period):</strong></p>
+          <ul class="compact-list">
+            <li>📊 Monitoring via MCP servers (NETCONF + CLI polling every 5 minutes)</li>
+            <li>📊 Syslog monitoring for any SFP-related alarms</li>
+            <li>📊 BGP session state tracking</li>
+            <li>📊 Interface error counter monitoring</li>
+          </ul>
+
+          <p><strong>Verification Results (11:39 AM - 1:39 PM):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Before (Faulty SFP)</th>
+                  <th>After (New SFP)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BGP Session Stability</td>
+                  <td>23 flaps in 3.5 hours</td>
+                  <td>0 flaps in 2 hours</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>CRC Errors</td>
+                  <td>8,247</td>
+                  <td>0</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>Interface Resets</td>
+                  <td>23</td>
+                  <td>0</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>SFP RX Power</td>
+                  <td>-22.8 dBm (CRITICAL)</td>
+                  <td>-8.4 dBm (Normal)</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>SFP Temperature</td>
+                  <td>68.5°C (ALARM)</td>
+                  <td>42.3°C (Normal)</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>SFP TX Faults</td>
+                  <td>247</td>
+                  <td>0</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+                <tr>
+                  <td>BGP Routes Received</td>
+                  <td>156 + 78 (unstable)</td>
+                  <td>156 + 78 (stable)</td>
+                  <td><span class="success">✅ PASS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>User Verification:</strong></p>
+          <ul class="compact-list">
+            <li>✅ 1:15 PM: Mike Rodriguez confirms no outages since 11:39 AM</li>
+            <li>✅ 1:20 PM: Austin branch users report stable internet connectivity</li>
+            <li>✅ 1:25 PM: Customer service team confirms CRM access stable</li>
+            <li>✅ 1:30 PM: VPN tunnels stable - no resets observed</li>
+          </ul>
+
+          <p><strong>Syslog Analysis (Past 2 Hours):</strong></p>
+          <div class="code-block">
+Oct 19 11:39:12: %BGP-5-ADJCHANGE: neighbor 10.200.1.1 Up
+Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
+[No SFP-related alarms or errors for 2 hours - ALL CLEAR]
+          </div>
+        </div>
+
+        <div class="success-box">
+          <p><strong>✅ VERIFICATION COMPLETE - ALL TESTS PASSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ BGP sessions stable for 2 hours (0 flaps)</li>
+            <li>✅ Interface health metrics normal (0 errors)</li>
+            <li>✅ SFP diagnostics within normal range</li>
+            <li>✅ No syslog alarms or warnings</li>
+            <li>✅ User confirmation: Service fully restored</li>
+            <li>⏱️ <strong>Resolution validated at 1:39 PM</strong></li>
+          </ul>
+        </div>
+
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Sending final report to <strong>IO_AGENT</strong> for user notification
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: FINAL REPORT GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">STEP 24: MRA → IO_AGENT - Final Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Final Incident Report Generated:</strong></p>
+        <div class="final-report-box">
+          <h3>📋 INCIDENT REPORT - TICKET #RTR-5512</h3>
+
+          <p><strong>Executive Summary:</strong></p>
+          <p>BGP session instability on RTR-BRANCH-05 affecting 120 users at Austin branch office has been successfully resolved by replacing a faulty SFP transceiver module. Root cause was hardware failure (degraded optical receive power and elevated temperature). Resolution time: 5 hours 4 minutes from initial alert to verified fix.</p>
+
+          <p><strong>Timeline:</strong></p>
+          <ul class="compact-list">
+            <li>06:45 AM: First SFP failure detected, BGP sessions begin flapping</li>
+            <li>06:45 AM: Automated alert generated, ticket #RTR-5512 created</li>
+            <li>10:15 AM: AI agent investigation complete, root cause identified</li>
+            <li>10:35 AM: User approval received, technician dispatched</li>
+            <li>11:32 AM: SFP replacement begins</li>
+            <li>11:39 AM: Replacement complete, BGP sessions stable</li>
+            <li>1:39 PM: 2-hour verification complete, issue resolved</li>
+          </ul>
+
+          <p><strong>Root Cause:</strong></p>
+          <p>Faulty SFP transceiver module (GLC-LH-SMD, Serial: FNS19274KL8) on interface GigabitEthernet0/0/1 experiencing hardware degradation with RX optical power -22.8 dBm (below -19 dBm threshold), temperature 68.5°C (near failure threshold), and 247 TX faults. This caused intermittent signal loss, resulting in CRC errors and BGP keepalive packet loss.</p>
+
+          <p><strong>Resolution:</strong></p>
+          <p>Replaced faulty SFP module with new GLC-LH-SMD (Serial: FNS20891MK3). Post-replacement diagnostics show RX power -8.4 dBm (normal), temperature 42.3°C (normal), and 0 errors. BGP sessions stable for 2 hours with 0 flaps.</p>
+
+          <p><strong>AI Agent Performance:</strong></p>
+          <ul class="compact-list">
+            <li>🤖 6 specialized agents deployed (INTERFACE_HEALTH, BGP_PROTOCOL, SYSTEM_RESOURCES, LOG_ANALYSIS, ROOT_CAUSE, RECOMMENDATIONS)</li>
+            <li>📊 Data sources: Knowledge Graph (topology, configs) + RAG (historical tickets) + MCP (live diagnostics)</li>
+            <li>🎯 Diagnostic accuracy: 100% (root cause confirmed by post-fix resolution)</li>
+            <li>⏱️ Investigation time: 3.5 hours (automated analysis)</li>
+            <li>✅ Historical pattern match: 94% similarity to TKT-78934 (successful SFP replacement)</li>
+          </ul>
+
+          <p><strong>Preventive Measures (Scheduled):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Phase 2 (Next Tuesday 8:00 PM): Implement redundant WAN path</li>
+            <li>📅 Phase 3 (Within 30 days): Deploy automated SFP diagnostics monitoring</li>
+            <li>📅 Ongoing: Quarterly SFP health reviews, proactive replacement at 3-year lifecycle</li>
+          </ul>
+        </div>
+
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Report ready for user notification
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: USER NOTIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Final Resolution Email Sent to User:</strong></p>
+        <div class="notification-box">
+          <p><strong>From:</strong> AI Operations Center &lt;aiops-noreply@company.com&gt;</p>
+          <p><strong>To:</strong> Mike Rodriguez &lt;mike.rodriguez@company.com&gt;</p>
+          <p><strong>CC:</strong> IT Infrastructure Team &lt;it-infra-team@company.com&gt;</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED - Ticket #RTR-5512 - BGP Flapping on RTR-BRANCH-05</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi Mike,</p>
+            <p>Great news! Your ticket <strong>#RTR-5512</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>Router RTR-BRANCH-05 experiencing BGP session flapping every 5-10 minutes, affecting 120 users at Austin branch office. Root cause was a faulty SFP transceiver module on interface GigabitEthernet0/0/1 with degraded optical receive power and elevated temperature.</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center identified the failing SFP module and dispatched field technician John Martinez to replace it. The replacement was completed at 11:39 AM and has been verified stable for 2 hours with 0 BGP flaps.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ BGP sessions stable for 2 hours (0 flaps, previously 23 flaps in 3.5 hours)</li>
+              <li>✅ Interface errors eliminated (0 CRC errors, previously 8,247)</li>
+              <li>✅ SFP diagnostics normal (RX power -8.4 dBm, temperature 42.3°C)</li>
+              <li>✅ Internet connectivity restored, VPN tunnels stable</li>
+              <li>✅ All 120 users at Austin branch back online</li>
+            </ul>
+
+            <p><strong>Technical Details:</strong></p>
+            <ul>
+              <li>• Old SFP: GLC-LH-SMD (Serial: FNS19274KL8) - FAILED</li>
+              <li>• New SFP: GLC-LH-SMD (Serial: FNS20891MK3) - HEALTHY</li>
+              <li>• Downtime: 7 minutes (11:32 AM - 11:39 AM)</li>
+              <li>• Verification: 2 hours stability monitoring (11:39 AM - 1:39 PM)</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Tuesday 8:00 PM: Phase 2 deployment - Implement redundant WAN path (approved)</li>
+              <li>📅 Within 30 days: Phase 3 - Deploy automated SFP diagnostics monitoring</li>
+              <li>📦 On-site spares: 2 GLC-LH-SMD modules stocked at Austin branch</li>
+              <li>📄 Full incident report attached (PDF)</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 5 hours 4 minutes (from initial alert to verified fix)</p>
+
+            <p>The issue is now fully resolved and your network should be performing optimally. BGP sessions have been stable for 2 hours with no errors. If you experience any further issues, please open a new ticket or reply to this email.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@company.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_RTR-5512.pdf (2.8 MB)</li>
+            <li>📎 SFP_Diagnostics_Before_After.xlsx (124 KB)</li>
+            <li>📎 BGP_Session_Stability_Report.pdf (456 KB)</li>
+            <li>📎 Phase_2_3_Implementation_Plan.pdf (892 KB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #RTR-5512 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated with SFP failure pattern</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 5 hours 4 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Investigation: 3.5 hours (automated diagnosis)</strong></li>
+            <li>👨‍🔧 <strong>Field Technician Dispatch + Replacement: 1 hour 4 minutes</strong></li>
+            <li>✅ <strong>Verification: 2 hours (BGP stability monitoring)</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 4 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-14: 6 Specialized Agents with KG/RAG/MCP queries + Inter-Agent Collaboration</li>
+            <li>✅ Steps 15-17: ROOT_CAUSE_AGENT → MRA Correlation → Task Evaluation</li>
+            <li>✅ Steps 18-20: RCA Statement → RECOMMENDATIONS_AGENT → IO_AGENT</li>
+            <li>✅ Steps 21-23: User Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #00ff88;
+    margin-bottom: 5px;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #aaa;
+  }
+
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+</style>
