@@ -1,0 +1,1926 @@
+<!-- SCENARIO 7: SD-WAN OPTIMIZATION - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - SD-WAN Path Optimization v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from Network Monitoring:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Alert Time: 2025-10-17 09:15:23 AM</li>
+          <li>🔍 Alert Source: SD-WAN Analytics Dashboard</li>
+          <li>⚠️ Alert Type: Suboptimal Path Selection Detected</li>
+          <li>🔴 Severity: HIGH</li>
+          <li>📍 Affected: SD-WAN fabric - All branch offices routing via MPLS</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#SDWAN-7234</span></li>
+            <li>Category: SD-WAN Optimization</li>
+            <li>Subcategory: Path Selection / Cost Optimization</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: WAN Operations Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #SDWAN-7234 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> Robert Chen, WAN Operations Manager</p>
+          <p><strong>Affected Entity:</strong> XYZ Corporation</p>
+          <p><strong>Department:</strong> WAN Operations - SD-WAN Fabric (12 Branch Offices)</p>
+          <p><strong>Business Impact:</strong> Excessive WAN costs, underutilized Internet circuits</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Our SD-WAN deployment is routing nearly all traffic over expensive MPLS circuits instead of utilizing our Internet links. Cost analysis shows we're spending $78K/month on MPLS bandwidth while our Internet circuits (which cost $12K/month) are only 15% utilized. SD-WAN policies appear to be prioritizing MPLS for all application traffic regardless of criticality."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which applications should be eligible for Internet path routing?</strong></p>
+            <p class="answer">A1: Non-critical applications: General web browsing, software updates, cloud backup, non-production traffic, guest WiFi</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Which applications must remain on MPLS for compliance/performance?</strong></p>
+            <p class="answer">A2: Critical apps requiring guaranteed performance: VoIP/UC, SAP ERP, financial applications, real-time collaboration tools, production databases</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: What is the current traffic distribution across paths?</strong></p>
+            <p class="answer">A3: MPLS: 92% of traffic (850 Mbps average), Internet: 8% of traffic (35 Mbps average). Internet circuits have 400 Mbps total capacity available.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: What is the target cost reduction goal?</strong></p>
+            <p class="answer">A4: Target: Reduce MPLS costs by 50-60% ($40-45K/month savings) by shifting non-critical traffic to Internet paths while maintaining critical app performance SLAs</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: Are there existing SD-WAN policies configured? When was the last policy review?</strong></p>
+            <p class="answer">A5: Initial policies from SD-WAN deployment 18 months ago. Default policy: "Prefer MPLS for all business traffic". No policy review or optimization performed since deployment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>SD-WAN Path Selection / Cost Optimization</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Suboptimal WAN Utilization</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>SD-WAN Fabric - All Branch Offices</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Continuous suboptimal routing (MPLS overutilization)</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ SD-WAN path selection favoring expensive MPLS over cost-effective Internet links</li>
+            <li>✓ Significant cost inefficiency: $78K/month MPLS vs $12K/month Internet (15% utilized)</li>
+            <li>✓ Policy issue suspected: Default "prefer MPLS" policy from initial deployment 18 months ago</li>
+            <li>✓ Opportunity for application-aware routing to optimize cost while maintaining SLAs</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for SD-WAN topology, current policies, and application profiles</li>
+            <li>2. Search RAG system for SD-WAN optimization best practices and similar scenarios</li>
+            <li>3. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>4. Deploy specialized agents: SDWAN_POLICY_AGENT, PATH_SELECTION_AGENT, COST_ANALYSIS_AGENT</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for SD-WAN Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: SD-WAN Topology</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: XYZ Corp SD-WAN fabric architecture</li>
+            <li>✓ 12 Branch offices with dual WAN links: MPLS (primary) + Internet (secondary)</li>
+            <li>✓ SD-WAN Controllers: vManage cluster (3 nodes) managing Cisco vEdge routers</li>
+            <li>✓ DC hubs: DC-HUB-01 (10.1.1.1), DC-HUB-02 (10.1.1.2) - Active/Active</li>
+            <li>✓ Branch devices: vEdge 1000 series routers (IOS-XE SD-WAN 17.9.3)</li>
+          </ul>
+          <p><strong>Query 2: Current SD-WAN Policies</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Policy Name</th>
+                  <th>Application Type</th>
+                  <th>Path Preference</th>
+                  <th>Last Modified</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DEFAULT_POLICY</td>
+                  <td>All Business Traffic</td>
+                  <td>MPLS (Primary), Internet (Backup only)</td>
+                  <td>2024-04-15 (18 months ago)</td>
+                </tr>
+                <tr>
+                  <td>GUEST_WIFI</td>
+                  <td>Guest Network</td>
+                  <td>Internet (Direct breakout)</td>
+                  <td>2024-04-15</td>
+                </tr>
+                <tr>
+                  <td>No application-aware policies configured</td>
+                  <td colspan="3">All production traffic using DEFAULT_POLICY</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: WAN Link Utilization (Past 30 Days)</strong></p>
+          <ul class="compact-list">
+            <li>✓ MPLS Links: 850 Mbps average (92% of total traffic), 920 Mbps capacity (92% utilized)</li>
+            <li>✓ Internet Links: 35 Mbps average (8% of total traffic), 450 Mbps capacity (8% utilized)</li>
+            <li>✓ Internet link idle capacity: 415 Mbps available (92% unused)</li>
+            <li>✓ Traffic pattern: Continuous, not time-based</li>
+          </ul>
+          <p><strong>Query 4: Application Traffic Breakdown</strong></p>
+          <ul class="metric-list">
+            <li>Critical apps (VoIP, SAP, Financial): <span class="normal-value">280 Mbps (32%)</span></li>
+            <li>Standard business apps (Email, CRM): <span class="normal-value">195 Mbps (22%)</span></li>
+            <li>Non-critical (Web, Updates, Backup): <span class="problem-value">410 Mbps (46%)</span> - On MPLS!</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-warning">Suboptimal Path Selection Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "SD-WAN path optimization + MPLS cost reduction + application-aware routing"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SDWAN-5912</td>
+                  <td><span class="success">91%</span></td>
+                  <td>MPLS overutilization, Internet underused</td>
+                  <td>Application-aware policy implementation</td>
+                </tr>
+                <tr>
+                  <td>SDWAN-4203</td>
+                  <td><span class="success">84%</span></td>
+                  <td>Default policy sending all traffic via MPLS</td>
+                  <td>Policy redesign: Critical apps MPLS, others Internet</td>
+                </tr>
+                <tr>
+                  <td>SDWAN-3187</td>
+                  <td><span class="success">78%</span></td>
+                  <td>WAN cost optimization opportunity</td>
+                  <td>Application classification + path steering</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Best Practice Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>SD-WAN_Application_Aware_Routing_Design_Guide.pdf</strong> (Cisco Guide CVD-2024)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Recommends classifying apps by criticality: Critical (MPLS), Standard (Hybrid), Non-critical (Internet)</li>
+            <li>📄 <strong>SD-WAN_Cost_Optimization_Strategies.pdf</strong> (Gartner 2024)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Target: 40-60% cost reduction by shifting 50-70% traffic to Internet paths</li>
+            <li>📄 <strong>Application_Classification_Methodology.pdf</strong> (Internal KB-9432)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Step-by-step: Identify apps → Classify by SLA → Configure policies → Validate</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 3 similar SD-WAN optimizations achieved 45-55% cost savings</li>
+            <li>✓ Common root cause: Default "prefer MPLS" policy never optimized post-deployment</li>
+            <li>✓ Recommended approach: Application-aware routing with path selection by app criticality</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>92% of traffic routed via expensive MPLS links</li>
+              <li>Internet links only 8% utilized (415 Mbps idle capacity)</li>
+              <li>Cost inefficiency: $78K MPLS vs $12K Internet monthly</li>
+              <li>46% of traffic is non-critical but using MPLS</li>
+              <li>Default policy from 18 months ago never optimized</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>SD-WAN fabric: 12 branches with dual WAN (MPLS + Internet)</li>
+              <li>Current policy: "Prefer MPLS for all business traffic"</li>
+              <li>MPLS: 850 Mbps avg (92% utilized), Internet: 35 Mbps (8% utilized)</li>
+              <li>App breakdown: 280 Mbps critical, 195 Mbps standard, 410 Mbps non-critical</li>
+              <li>No application-aware routing policies configured</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>91% similarity to SDWAN-5912 (MPLS overutilization)</li>
+              <li>Historical resolution: Application-aware policy implementation</li>
+              <li>Common pattern: Default policies never optimized post-deployment</li>
+              <li>Best practice: Critical apps on MPLS, non-critical on Internet (45-55% savings)</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> SD-WAN deployment using suboptimal default policy routing all traffic via MPLS. Opportunity to implement application-aware routing: Keep critical apps (280 Mbps) on MPLS, shift non-critical traffic (410 Mbps) to Internet paths. Estimated savings: $45K/month. Need specialized agents to validate and design optimized policies.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">📡</div>
+            <div class="deployment-name">SDWAN_POLICY_AGENT</div>
+            <div class="deployment-task">Analyze current SD-WAN policies</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🛣️</div>
+            <div class="deployment-name">PATH_SELECTION_AGENT</div>
+            <div class="deployment-task">Evaluate path selection logic</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📊</div>
+            <div class="deployment-name">PERFORMANCE_METRICS_AGENT</div>
+            <div class="deployment-task">Measure path performance/SLA</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💰</div>
+            <div class="deployment-name">COST_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Calculate cost optimization potential</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Design optimized policies</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: SDWAN_POLICY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📡</span>
+        <span class="agent-name">SDWAN_POLICY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>SD-WAN Policy Analysis via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved SD-WAN policy database (last updated: 2024-04-15)</li>
+            <li>🔌 <strong>MCP RESTCONF:</strong> Live policy config from vManage controllers</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show sdwan policy from vEdge routers</li>
+          </ul>
+          <p><strong>Current Policy Configuration:</strong></p>
+          <ul class="compact-list">
+            <li>Policy Name: DEFAULT_POLICY (Created: 2024-04-15, 18 months ago)</li>
+            <li>Application Awareness: DISABLED (All traffic treated equally)</li>
+            <li>Path Selection Logic: Prefer MPLS (primary), Internet (backup only on MPLS failure)</li>
+            <li><strong>Issue Identified:</strong> No application-aware routing - all business traffic forced to MPLS</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ GUEST_WIFI policy correctly routes to Internet (direct breakout)</li>
+          <li>✅ Path failover working (Internet backup activates on MPLS failure)</li>
+          <li>✅ Policy syntax valid, no configuration errors</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ No application classification - all apps treated as critical</li>
+          <li>❌ Static "prefer MPLS" policy ignores app criticality</li>
+          <li>❌ Internet paths only used during MPLS failures (not for active load distribution)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-warning">Suboptimal Policy: No App-Aware Routing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue with remaining steps in next part due to length... -->
+    <!-- This file demonstrates the structure. Full implementation continues similarly -->
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+</style>
+
+    <!-- STEP 11: PATH_SELECTION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🛣️</span>
+        <span class="agent-name">PATH_SELECTION_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>WAN Path Selection Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved 30-day path utilization from telemetry database</li>
+            <li>🔌 <strong>MCP RESTCONF:</strong> Real-time path selection decisions from vManage</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show sdwan policy app-route-statistics from vEdge</li>
+          </ul>
+          <p><strong>Path Selection Analysis:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>WAN Path</th>
+                  <th>Capacity</th>
+                  <th>Current Utilization</th>
+                  <th>Traffic %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>MPLS Links</td>
+                  <td>920 Mbps</td>
+                  <td>850 Mbps avg</td>
+                  <td><span class="problem-value">92% of all traffic</span></td>
+                </tr>
+                <tr>
+                  <td>Internet Links</td>
+                  <td>450 Mbps</td>
+                  <td>35 Mbps avg</td>
+                  <td><span class="success">8% of all traffic</span></td>
+                </tr>
+                <tr>
+                  <td>Internet Idle Capacity</td>
+                  <td>415 Mbps</td>
+                  <td>Unused (92%)</td>
+                  <td><span class="warning">Available for optimization</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Key Finding:</strong> DEFAULT_POLICY forcing 92% traffic via MPLS regardless of application criticality.</p>
+          <p><strong>Application Path Distribution:</strong></p>
+          <ul class="compact-list">
+            <li>Critical apps (VoIP, SAP, Financial): 280 Mbps → MPLS (appropriate)</li>
+            <li>Standard apps (Email, CRM): 195 Mbps → MPLS (could use hybrid)</li>
+            <li>Non-critical (Web, Updates, Backup): 410 Mbps → MPLS (should use Internet!)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Critical apps correctly routed via MPLS (280 Mbps)</li>
+          <li>✅ Internet path available and operational</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ 410 Mbps non-critical traffic wastefully using MPLS</li>
+          <li>❌ Internet links 92% idle while MPLS saturated</li>
+          <li>❌ Path selection ignores application SLA requirements</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Suboptimal Path Distribution Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: PERFORMANCE_METRICS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">PERFORMANCE_METRICS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>WAN Path Performance & SLA Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP RESTCONF:</strong> SD-WAN application performance SLA from vManage</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show sdwan app-route sla-class from vEdge</li>
+            <li>🔌 <strong>KG Query:</strong> 30-day latency, jitter, packet loss trends</li>
+          </ul>
+          <p><strong>Path Performance Comparison (30-day average):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>MPLS Path</th>
+                  <th>Internet Path</th>
+                  <th>SLA Requirement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Latency (avg)</td>
+                  <td>12 ms</td>
+                  <td>28 ms</td>
+                  <td><span class="status-tag status-success">Both OK (< 50 ms)</span></td>
+                </tr>
+                <tr>
+                  <td>Jitter (avg)</td>
+                  <td>2 ms</td>
+                  <td>6 ms</td>
+                  <td><span class="status-tag status-success">Both OK (< 10 ms)</span></td>
+                </tr>
+                <tr>
+                  <td>Packet Loss</td>
+                  <td>0.02%</td>
+                  <td>0.08%</td>
+                  <td><span class="status-tag status-success">Both OK (< 1%)</span></td>
+                </tr>
+                <tr>
+                  <td>Availability</td>
+                  <td>99.97%</td>
+                  <td>99.89%</td>
+                  <td><span class="status-tag status-success">Both OK (> 99.5%)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Key Finding:</strong> Internet paths meet SLA for non-critical apps (latency < 50ms, loss < 1%).</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ MPLS paths: Excellent performance (12ms latency, 0.02% loss)</li>
+          <li>✅ Internet paths: Good performance, suitable for non-critical apps</li>
+          <li>✅ Both paths meet availability SLAs (> 99.5%)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Internet performance wasted - underutilized despite meeting SLAs</li>
+          <li>❌ No SLA-based routing - critical and non-critical apps treated equally</li>
+          <li>❌ Missing opportunity: Internet paths adequate for 60% of current traffic</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Internet Paths Meet SLA for Non-Critical Apps</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: COST_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💰</span>
+        <span class="agent-name">COST_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>WAN Cost Optimization Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved WAN circuit costs from finance database</li>
+            <li>🔌 <strong>MCP RESTCONF:</strong> Traffic volumes per path from vManage analytics</li>
+            <li>🔌 <strong>RAG Query:</strong> "SD-WAN cost optimization + MPLS vs Internet pricing"</li>
+          </ul>
+          <p><strong>Current WAN Cost Breakdown:</strong></p>
+          <ul class="metric-list">
+            <li>MPLS Circuits: <span class="problem-value">$78,000/month</span> (920 Mbps @ $85/Mbps)</li>
+            <li>Internet Circuits: <span class="success">$12,000/month</span> (450 Mbps @ $27/Mbps)</li>
+            <li>Total WAN Spend: <span class="warning">$90,000/month</span></li>
+            <li>Cost per Mbps (blended): <span class="warning">$65/Mbps</span></li>
+          </ul>
+          <p><strong>Optimization Opportunity Calculation:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Traffic Category</th>
+                  <th>Current (MPLS)</th>
+                  <th>Optimized Target</th>
+                  <th>Monthly Savings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Critical Apps</td>
+                  <td>280 Mbps → MPLS</td>
+                  <td>280 Mbps → MPLS (Keep)</td>
+                  <td>$0</td>
+                </tr>
+                <tr>
+                  <td>Standard Apps</td>
+                  <td>195 Mbps → MPLS</td>
+                  <td>95 Mbps → MPLS, 100 Mbps → Internet</td>
+                  <td>$5,800</td>
+                </tr>
+                <tr>
+                  <td>Non-Critical Apps</td>
+                  <td>410 Mbps → MPLS</td>
+                  <td>10 Mbps → MPLS, 400 Mbps → Internet</td>
+                  <td>$39,200</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Projected Savings:</strong> $45,000/month (50% reduction in MPLS costs)</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Internet circuits significantly cheaper ($27/Mbps vs $85/Mbps)</li>
+          <li>✅ 415 Mbps idle Internet capacity available</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Paying $85/Mbps for MPLS to carry non-critical traffic</li>
+          <li>❌ Missing $45K/month savings opportunity</li>
+          <li>❌ 68% cost inefficiency (could use $27/Mbps Internet instead)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">$45K/Month Cost Optimization Opportunity</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">📡 SDWAN_POLICY_AGENT → 🛣️ PATH_SELECTION_AGENT:</p>
+            <p class="collab-message">"I've found DEFAULT_POLICY treats all apps equally with 'prefer MPLS'. Can you analyze actual traffic distribution across MPLS vs Internet paths?"</p>
+            <p class="collab-response">🛣️ Response: "Confirmed. Querying vManage for path utilization. Will break down by application category."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">🛣️ PATH_SELECTION_AGENT → 📊 PERFORMANCE_METRICS_AGENT:</p>
+            <p class="collab-message">"Seeing 410 Mbps non-critical traffic on MPLS while Internet 92% idle. Can you validate if Internet paths meet SLA for these applications?"</p>
+            <p class="collab-response">📊 Response: "Will check latency, jitter, packet loss on Internet paths. Comparing against non-critical app SLA requirements."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">📊 PERFORMANCE_METRICS_AGENT → 💰 COST_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"Confirmed Internet paths meet SLA for non-critical apps (28ms latency, 0.08% loss). Can you calculate cost savings if we shift 400 Mbps from MPLS to Internet?"</p>
+            <p class="collab-response">💰 Response: "Running cost model. Will calculate MPLS vs Internet cost differential for 400 Mbps traffic shift."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">💰 COST_ANALYSIS_AGENT → 🔧 ROOT_CAUSE_AGENT:</p>
+            <p class="collab-message">"Calculated $45K/month savings by shifting 400 Mbps non-critical traffic to Internet paths. Internet SLA confirmed adequate by PERFORMANCE_METRICS_AGENT. Ready for policy design."</p>
+            <p class="collab-response">🔧 Response: "Acknowledged. Collecting all findings for root cause and optimization recommendation."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ SDWAN_POLICY_AGENT identified suboptimal default policy, triggering path analysis</li>
+              <li>✓ PATH_SELECTION_AGENT quantified traffic misallocation, requesting SLA validation</li>
+              <li>✓ PERFORMANCE_METRICS_AGENT confirmed Internet viability, enabling cost analysis</li>
+              <li>✓ COST_ANALYSIS_AGENT calculated $45K savings, providing business case</li>
+              <li>✓ All agents converged on application-aware routing opportunity</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ SDWAN_POLICY_AGENT: DEFAULT_POLICY routes all traffic via MPLS (no app awareness)</li>
+            <li>✓ PATH_SELECTION_AGENT: 410 Mbps non-critical traffic wastefully using MPLS</li>
+            <li>✓ PERFORMANCE_METRICS_AGENT: Internet paths meet SLA for non-critical apps</li>
+            <li>✓ COST_ANALYSIS_AGENT: $45K/month savings opportunity identified</li>
+            <li>✓ RAG Historical Data: 91% similarity to SDWAN-5912 (MPLS overutilization)</li>
+          </ul>
+          <p><strong>Timeline Analysis:</strong></p>
+          <ul class="metric-list">
+            <li>April 2024: SD-WAN deployed with default "prefer MPLS" policy</li>
+            <li>18 months: No policy optimization or application classification performed</li>
+            <li>Current state: 92% traffic on MPLS, 8% on Internet (Internet 92% idle)</li>
+            <li>Cost impact: Continuous $45K/month overspend on WAN circuits</li>
+          </ul>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>SD-WAN deployment configured with suboptimal default policy "Prefer MPLS for all business traffic" that has never been optimized post-deployment. This policy lacks application-aware routing, forcing ALL traffic (including 410 Mbps of non-critical applications like web browsing, software updates, and backups) onto expensive MPLS links ($85/Mbps) while underutilizing Internet links ($27/Mbps) that remain 92% idle, resulting in $45K/month unnecessary WAN costs.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. No application classification - all apps treated as equally critical</li>
+            <li>2. Static path preference ignoring cost and performance tradeoffs</li>
+            <li>3. Internet paths configured for failover only (not active load distribution)</li>
+            <li>4. Lack of post-deployment policy review and optimization process</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting slow applications</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>VoIP calls dropping</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Time-sensitive traffic affected</td>
+                </tr>
+                <tr>
+                  <td>5-8% packet loss</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Network-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 buffer overruns</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Device-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 output drops</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Direct result of buffer exhaustion</td>
+                </tr>
+                <tr>
+                  <td>95% interface utilization</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Causes buffer pressure</td>
+                </tr>
+                <tr>
+                  <td>620 Mbps backup traffic</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>Major bandwidth consumer</td>
+                </tr>
+                <tr>
+                  <td>64 KB buffer (insufficient)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Cannot absorb bursts</td>
+                </tr>
+                <tr>
+                  <td>Backup during business hours</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Triggers the issue</td>
+                </tr>
+                <tr>
+                  <td>No traffic shaping policy</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Allows uncontrolled traffic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with backup traffic schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with backup traffic schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: Backup traffic during business hours without traffic shaping</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive and correlated</p>
+          <p>✓ Sufficient data collected from KG, RAG, and MCP servers</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">SD-WAN path selection is suboptimal due to <strong>unoptimized default policy routing 92% of traffic (including 410 Mbps non-critical apps) via expensive MPLS circuits ($85/Mbps)</strong> while <strong>Internet links ($27/Mbps) remain 92% idle</strong>. Lack of application-aware routing results in $45K/month unnecessary WAN costs.</p>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>• No application classification configured (all apps treated equally critical)</li>
+            <li>• Static "prefer MPLS" policy never optimized since deployment 18 months ago</li>
+            <li>• Internet paths configured for failover only, not active load distribution</li>
+            <li>• Lack of post-deployment review process for SD-WAN policy optimization</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ vManage analytics show 850 Mbps MPLS (92% utilized), 35 Mbps Internet (8% utilized)</li>
+            <li>✓ Application traffic breakdown: 410 Mbps non-critical apps using expensive MPLS</li>
+            <li>✓ Internet path SLA meets requirements: 28ms latency, 0.08% loss (< 1% threshold)</li>
+            <li>✓ Historical tickets (SDWAN-5912, SDWAN-4203) show identical pattern and 50% cost savings</li>
+            <li>✓ Cost analysis confirms $45K/month savings opportunity via path optimization</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: $45K/month WAN overspend ($540K/year waste)</li>
+            <li>🟡 Medium: Underutilized Internet circuits (92% idle capacity)</li>
+            <li>🟡 Medium: Risk of MPLS circuit saturation as business grows</li>
+            <li>⏱️ Duration: Continuous since deployment (18 months = $810K wasted to date)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved best practice QoS templates for Cisco routers</li>
+          <li>📚 RAG Query: Retrieved 3 successful resolution playbooks from similar tickets</li>
+          <li>🔧 MCP Server: Retrieved current QoS configuration (none configured)</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 SD-WAN OPTIMIZATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 2 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Implement Application-Aware Routing Policies</strong></p>
+            <ul class="compact-list">
+              <li>✓ Configure application classification: Critical, Standard, Non-Critical</li>
+              <li>✓ Route critical apps (VoIP, SAP, Financial) via MPLS (280 Mbps)</li>
+              <li>✓ Route non-critical apps (Web, Updates, Backup) via Internet (400 Mbps)</li>
+              <li>⏱️ Deployment time: 45 minutes via vManage GUI/API</li>
+              <li>📊 Expected impact: Shift 400 Mbps to Internet, save $39K/month immediately</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Enable Active Load Distribution</strong></p>
+            <ul class="compact-list">
+              <li>✓ Change Internet path from "failover only" to "active"</li>
+              <li>✓ Configure hybrid routing for standard apps (Email, CRM)</li>
+              <li>⏱️ Deployment time: 15 minutes via vManage</li>
+              <li>📊 Expected impact: Additional $5.8K/month savings</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 7 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Right-Size MPLS Circuits</strong></p>
+            <ul class="compact-list">
+              <li>✓ Reduce MPLS capacity from 920 Mbps to 500 Mbps (critical apps only)</li>
+              <li>✓ Coordinate with carrier for circuit downgrade</li>
+              <li>⏱️ Implementation: 5-7 business days (carrier lead time)</li>
+              <li>📊 Expected impact: Additional $35K/month savings (total: $80K/month)</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Implement SLA-Based Path Selection</strong></p>
+            <ul class="compact-list">
+              <li>✓ Configure dynamic path selection based on real-time SLA metrics</li>
+              <li>✓ Automatic failover if Internet latency >50ms or loss >1%</li>
+              <li>✓ Implement active monitoring with BFD (Bidirectional Forwarding Detection)</li>
+              <li>⏱️ Rollout: Phased deployment over 2 weeks</li>
+            </ul>
+
+            <p><strong>Action 3.2 - Quarterly Policy Review Process</strong></p>
+            <ul class="compact-list">
+              <li>✓ Establish quarterly SD-WAN policy optimization reviews</li>
+              <li>✓ Review application traffic patterns and adjust classifications</li>
+              <li>⏱️ Timeline: Implement governance process within 30 days</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Enhanced Cost Analytics Dashboard</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement real-time WAN cost-per-application dashboard</li>
+              <li>✓ Track monthly savings and optimization opportunities</li>
+              <li>✓ Alert on policy drift or suboptimal routing patterns</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Application-aware policies</td>
+              <td><span class="success">LOW</span></td>
+              <td>Non-disruptive policy change via vManage</td>
+              <td>5 minutes</td>
+            </tr>
+            <tr>
+              <td>Active load distribution</td>
+              <td><span class="success">LOW</span></td>
+              <td>Gradual traffic shift, monitor SLA compliance</td>
+              <td>5 minutes</td>
+            </tr>
+            <tr>
+              <td>MPLS circuit downgrade</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Validate traffic patterns for 7 days first</td>
+              <td>5-7 days (carrier)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ Traffic distribution: 60% Internet, 40% MPLS (target achieved)</li>
+          <li>✓ Internet path utilization increased from 8% to 60%</li>
+          <li>✓ Critical apps maintain <12ms latency, <0.05% loss on MPLS</li>
+          <li>✓ Non-critical apps perform adequately on Internet (<50ms latency)</li>
+          <li>✓ Monthly WAN costs reduced by $45K (50% MPLS cost reduction)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the SD-WAN optimization analysis based on RCA findings, KG policy data, and RAG best practices. I recommend proceeding with PHASE 1 immediate actions (application-aware routing policies) to realize $45K/month savings within 2 hours."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase SD-WAN optimization plan</li>
+            <li>📄 vManage policy configuration templates for deployment</li>
+            <li>📄 Cost-benefit analysis ($45K/month savings)</li>
+            <li>📄 Success criteria and verification tests (traffic distribution targets)</li>
+            <li>📄 Rollback procedures (5-minute policy revert)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (Robert Chen, WAN Operations Manager):</strong></p>
+          <p>"Robert, our AI agents have completed the analysis of ticket #SDWAN-7234 (SD-WAN path optimization)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: Suboptimal default SD-WAN policy routing 92% traffic via expensive MPLS</li>
+            <li>📊 Impact: $45K/month unnecessary WAN costs ($540K/year)</li>
+            <li>⏱️ Affecting: All 12 branch offices in SD-WAN fabric</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Deploy application-aware routing policies via vManage</li>
+            <li>2️⃣ Route non-critical apps (400 Mbps) to Internet paths, keep critical apps on MPLS</li>
+            <li>⏱️ Total deployment time: ~60 minutes (non-disruptive)</li>
+            <li>📉 Expected result: $45K/month savings, traffic distribution: 60% Internet / 40% MPLS</li>
+            <li>🔄 Rollback time: 5 minutes if any issues occur</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the deployment of PHASE 1 SD-WAN policy optimization?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. This aligns with our cost reduction goals.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is your preferred maintenance window for deployment?</strong></p>
+            <p class="answer">✅ A2: Deploy now (10:45 AM) - policy changes are non-disruptive, no impact to users expected.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (MPLS circuit right-sizing) after 7-day validation?</strong></p>
+            <p class="answer">✅ A3: Yes, pending successful validation of traffic distribution. I'll coordinate with the carrier.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the cost savings report?</strong></p>
+            <p class="answer">✅ A4: Send to me (robert.chen@xyzcorp.com) and CC wan-ops@xyzcorp.com, finance@xyzcorp.com</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target System: vManage SD-WAN Controllers (vmanage-cluster-01)</li>
+          <li>🔧 Deployment Method: RESTCONF API (HTTPS Port 443)</li>
+          <li>⏱️ Start Time: 2025-10-17 10:47:15 AM</li>
+          <li>👤 Authorized By: Robert Chen (robert.chen@xyzcorp.com)</li>
+          <li>🎫 Change Ticket: CHG-SDWAN-2025-1017-001</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Deploy Application-Aware Routing Policies</strong></p>
+          <p><strong>vManage RESTCONF API Configuration:</strong></p>
+          <pre class="code-block">POST https://vmanage-cluster-01.xyzcorp.com/dataservice/template/policy/vedge/
+{
+  "policyName": "APP_AWARE_ROUTING_OPTIMIZED",
+  "policyDescription": "Application-aware routing for cost optimization",
+  "policyDefinition": {
+    "assembly": [
+      {
+        "definitionId": "app-route-001",
+        "type": "appRoute",
+        "entries": [
+          {
+            "appList": ["voip", "sap-erp", "financial-apps"],
+            "slaClass": "CRITICAL",
+            "preferredColor": "mpls",  // Route via MPLS
+            "fallbackSequence": ["mpls", "biz-internet"]
+          },
+          {
+            "appList": ["email", "crm", "collaboration"],
+            "slaClass": "STANDARD",
+            "preferredColor": "hybrid",  // Load balance MPLS + Internet
+            "fallbackSequence": ["mpls", "biz-internet"]
+          },
+          {
+            "appList": ["web-browsing", "software-updates", "backup", "guest-wifi"],
+            "slaClass": "NON-CRITICAL",
+            "preferredColor": "biz-internet",  // Route via Internet
+            "fallbackSequence": ["biz-internet", "mpls"]
+          }
+        ]
+      }
+    ]
+  }
+}</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:18 - RESTCONF API session established to vManage</li>
+            <li>⏱️ 10:47:22 - Policy template validated (no syntax errors)</li>
+            <li>⏱️ 10:47:25 - Application classification lists created: CRITICAL, STANDARD, NON-CRITICAL</li>
+            <li>⏱️ 10:47:35 - Policy APP_AWARE_ROUTING_OPTIMIZED deployed to all 12 vEdge routers</li>
+            <li>⏱️ 10:47:45 - vEdge routers acknowledging policy activation</li>
+            <li>✅ 10:47:52 - <strong>ACTION 1 COMPLETED SUCCESSFULLY - All branches activated</strong></li>
+          </ul>
+        </div>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 2: Enable Active Load Distribution for Internet Paths</strong></p>
+          <p><strong>vManage RESTCONF API Configuration:</strong></p>
+          <pre class="code-block">PATCH https://vmanage-cluster-01.xyzcorp.com/dataservice/template/policy/vedge/
+{
+  "policyUpdate": {
+    "pathPreference": {
+      "internet-path-mode": "active",  // Change from "backup-only" to "active"
+      "load-balance": {
+        "enabled": true,
+        "algorithm": "per-flow",
+        "criteria": ["sla-class", "cost"]
+      }
+    },
+    "internetCircuitSettings": {
+      "enableActiveRouting": true,
+      "maxUtilizationPercent": 80,
+      "healthCheck": {
+        "probeFrequency": 60,  // seconds
+        "failureThreshold": 3
+      }
+    }
+  }
+}</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:54 - Updating Internet path mode from backup-only to active</li>
+            <li>⏱️ 10:47:57 - Enabling per-flow load balancing across MPLS + Internet</li>
+            <li>⏱️ 10:48:01 - Configuring health-check probes for Internet paths</li>
+            <li>⏱️ 10:48:05 - All 12 vEdge routers acknowledging path mode change</li>
+            <li>✅ 10:48:08 - <strong>ACTION 2 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Verification:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Policy templates activated across all 12 vEdge branch routers</li>
+          <li>✅ Configuration automatically backed up to vManage repository</li>
+          <li>✅ RESTCONF API session closed gracefully</li>
+          <li>⏱️ Total Deployment Time: 53 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - All branches reporting successful policy activation</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-17 10:48:00 AM (15 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Verify Application-Aware Routing Policy Active</strong></p>
+          <p><strong>MCP Server Query (vManage RESTCONF API):</strong></p>
+          <pre class="code-block">GET https://vmanage-cluster-01/dataservice/statistics/approute
+
+{
+  "policyName": "APP_AWARE_ROUTING_OPTIMIZED",
+  "status": "active",
+  "branchesActive": 12,
+  "trafficClassification": {
+    "critical": {
+      "applications": ["voip", "sap-erp", "financial-apps"],
+      "path": "mpls",
+      "bandwidth": "280 Mbps",
+      "percentage": "32%"
+    },
+    "standard": {
+      "applications": ["email", "crm", "collaboration"],
+      "path": "hybrid (mpls+internet)",
+      "bandwidth": "195 Mbps",
+      "percentage": "22%"
+    },
+    "non-critical": {
+      "applications": ["web", "updates", "backup"],
+      "path": "biz-internet",
+      "bandwidth": "410 Mbps",
+      "percentage": "46%"
+    }
+  }
+}</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Application-aware routing active across all branches</p>
+          <ul class="compact-list">
+            <li>✓ 410 Mbps non-critical traffic successfully routed via Internet paths</li>
+            <li>✓ 280 Mbps critical apps protected on MPLS paths</li>
+            <li>✓ All 12 branch routers reporting policy compliance</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Verify Internet Path Activation</strong></p>
+          <p><strong>MCP Server Query (vManage CLI via SSH):</strong></p>
+          <pre class="code-block">vmanage# show sdwan policy app-route statistics
+
+Path Utilization Summary:
+  MPLS Links:
+    - Current: 375 Mbps (41% of total traffic)
+    - Status: Active, SLA met
+    - Applications: Critical (280M) + Standard (95M)
+
+  Internet Links:
+    - Current: 535 Mbps (59% of total traffic)
+    - Status: Active, SLA met
+    - Applications: Non-Critical (410M) + Standard (125M)
+
+Path Health:
+  ✓ Internet latency: 26ms (SLA: <50ms)
+  ✓ Internet packet loss: 0.06% (SLA: <1%)
+  ✓ All paths green</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Internet paths actively carrying production traffic</p>
+          <ul class="compact-list">
+            <li>✓ Internet utilization increased from 8% to 59%</li>
+            <li>✓ MPLS utilization reduced from 92% to 41%</li>
+            <li>✓ Target distribution achieved: 60% Internet, 40% MPLS</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: Verify Traffic Distribution and Cost Savings</strong></p>
+          <p><strong>Cost Analysis & Bandwidth Redistribution:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before Optimization</th>
+                <th>After Optimization</th>
+                <th>Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MPLS Traffic</td>
+                <td><span class="error">850 Mbps (92%)</span></td>
+                <td><span class="success">375 Mbps (41%)</span></td>
+                <td>✅ -56% reduction</td>
+              </tr>
+              <tr>
+                <td>Internet Traffic</td>
+                <td><span class="warning">35 Mbps (8%)</span></td>
+                <td><span class="success">535 Mbps (59%)</span></td>
+                <td>✅ +1428% increase</td>
+              </tr>
+              <tr>
+                <td>Monthly MPLS Cost</td>
+                <td><span class="error">$78,000</span></td>
+                <td><span class="success">$33,000</span></td>
+                <td>✅ $45K saved</td>
+              </tr>
+              <tr>
+                <td>Total WAN Cost</td>
+                <td><span class="warning">$90,000/mo</span></td>
+                <td><span class="success">$45,000/mo</span></td>
+                <td>✅ 50% reduction</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Cost optimization target exceeded</p>
+          <ul class="compact-list">
+            <li>✓ Monthly savings: $45,000 (target: $40-45K)</li>
+            <li>✓ Annual savings: $540,000</li>
+            <li>✓ Traffic distribution: 60% Internet / 40% MPLS (target achieved)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: Verify Critical Application SLA Compliance</strong></p>
+          <p><strong>Query: Application Performance Monitoring (vManage Analytics)</strong></p>
+          <ul class="compact-list">
+            <li>📞 VoIP (MPLS path): Latency 11ms, Jitter 2ms, MOS 4.4 - ✅ Excellent</li>
+            <li>💼 SAP ERP (MPLS path): Latency 12ms, 0.01% loss - ✅ Within SLA</li>
+            <li>💰 Financial Apps (MPLS path): Latency 10ms, 0.02% loss - ✅ Within SLA</li>
+            <li>📧 Email (Hybrid paths): Latency 22ms avg - ✅ Acceptable</li>
+            <li>🌐 Web browsing (Internet): Latency 28ms - ✅ Good performance</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - All applications meeting SLA requirements</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Verify No Negative Side Effects</strong></p>
+          <ul class="compact-list">
+            <li>✅ No tunnel flaps detected across SD-WAN fabric</li>
+            <li>✅ All OMP (Overlay Management Protocol) sessions stable</li>
+            <li>✅ CPU utilization normal: 12% (no spike from QoS processing)</li>
+            <li>✅ Memory utilization: 45% (no increase)</li>
+            <li>✅ All remote sites reachable via ping</li>
+            <li>✅ No user complaints received (monitoring helpdesk queue)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No adverse impacts detected</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ Application-aware routing policies active across all 12 branches</li>
+            <li>✅ Internet paths activated: 59% traffic (target: 60%)</li>
+            <li>✅ Cost savings achieved: $45K/month ($540K/year)</li>
+            <li>✅ All critical applications maintaining SLA compliance on MPLS</li>
+            <li>✅ Zero negative impacts to user experience or service quality</li>
+          </ul>
+          <p><strong>⏱️ Time to Optimization: 61 minutes from ticket assignment to verified deployment</strong></p>
+          <p><strong>✅ SD-WAN optimization validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 SD-WAN OPTIMIZATION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #SDWAN-7234</li>
+            <li>📋 Title: SD-WAN Path Selection Optimization / Cost Reduction</li>
+            <li>👤 Reported By: Robert Chen, WAN Operations Manager (robert.chen@xyzcorp.com)</li>
+            <li>⏱️ Opened: 2025-10-17 09:15:23 AM</li>
+            <li>⏱️ Resolved: 2025-10-17 10:48:45 AM</li>
+            <li>⌛ Optimization Time: <strong>1 hour 33 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>SD-WAN fabric across 12 branch offices routing 92% of traffic (850 Mbps) via expensive MPLS circuits while Internet links remained 92% idle. Analysis revealed default "prefer MPLS" policy never optimized since deployment 18 months ago, resulting in $45K/month unnecessary WAN costs ($540K/year waste).</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p class="highlight">SD-WAN deployment configured with suboptimal default policy lacking application-aware routing. All traffic (including 410 Mbps of non-critical applications) forced onto expensive MPLS links ($85/Mbps) while cost-effective Internet links ($27/Mbps) remained underutilized, causing continuous $45K/month WAN cost overspend.</p>
+
+          <hr>
+
+          <p><strong>Investigation Timeline:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Agent/System</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:15 AM</td>
+                <td>MONITORING_SYSTEM</td>
+                <td>Alert generated, ticket #67891 created</td>
+              </tr>
+              <tr>
+                <td>09:16 AM</td>
+                <td>IO_AGENT</td>
+                <td>Engaged user, asked 5 clarifying questions</td>
+              </tr>
+              <tr>
+                <td>09:22 AM</td>
+                <td>MRA</td>
+                <td>Deployed 6 specialized agents</td>
+              </tr>
+              <tr>
+                <td>09:23 AM</td>
+                <td>TOPOLOGY_AGENT</td>
+                <td>Identified GigE 0/1/0 convergence point</td>
+              </tr>
+              <tr>
+                <td>09:25 AM</td>
+                <td>TRAFFIC_ANALYSIS_AGENT</td>
+                <td>Discovered 620 Mbps backup traffic (NetFlow)</td>
+              </tr>
+              <tr>
+                <td>09:27 AM</td>
+                <td>INTERFACE_STATS_AGENT</td>
+                <td>Found 1,247 buffer overruns</td>
+              </tr>
+              <tr>
+                <td>09:29 AM</td>
+                <td>BUFFER_ANALYSIS_AGENT</td>
+                <td>Confirmed 64 KB buffer insufficient</td>
+              </tr>
+              <tr>
+                <td>09:35 AM</td>
+                <td>ROOT_CAUSE_AGENT</td>
+                <td>Correlated findings, confirmed root cause</td>
+              </tr>
+              <tr>
+                <td>09:38 AM</td>
+                <td>RECOMMENDATIONS_AGENT</td>
+                <td>Created 3-phase remediation plan</td>
+              </tr>
+              <tr>
+                <td>09:42 AM</td>
+                <td>IO_AGENT</td>
+                <td>Obtained user approval for deployment</td>
+              </tr>
+              <tr>
+                <td>10:47 AM</td>
+                <td>DEPLOYMENT_AGENT</td>
+                <td>Deployed traffic shaping + buffer config</td>
+              </tr>
+              <tr>
+                <td>10:48 AM</td>
+                <td>VERIFICATION_AGENT</td>
+                <td>Verified fix, all tests passed</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Resolution Actions Taken:</strong></p>
+          <p><strong>PHASE 1 (Completed - 2025-10-17 10:47 AM):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Deployed traffic shaping policy limiting backup traffic to 260 Mbps (40%)</li>
+            <li>✅ Reserved 325 Mbps (50%) for business-critical applications</li>
+            <li>✅ Reserved 65 Mbps (10%) for network management</li>
+            <li>✅ Increased interface buffer from 64 KB to 256 KB</li>
+            <li>✅ Enabled Weighted Fair Queuing (WFQ)</li>
+          </ul>
+
+          <p><strong>PHASE 2 (Scheduled - Tonight 8:00 PM):</strong></p>
+          <ul class="compact-list">
+            <li>⏳ Reschedule backup window from 09:00-11:00 AM to 01:00-03:00 AM</li>
+            <li>⏳ Coordinate with backup team (change request CHG-2025-1017-002)</li>
+          </ul>
+
+          <p><strong>PHASE 3 (Planned - 30-day roadmap):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Implement comprehensive class-based QoS across all WAN interfaces</li>
+            <li>📅 Evaluate WAN capacity upgrade (650 Mbps → 1 Gbps)</li>
+            <li>📅 Deploy enhanced monitoring with real-time alerts</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Results and Metrics:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Packet Loss (avg)</td>
+                <td><span class="error">6.6%</span></td>
+                <td><span class="success">0.04%</span></td>
+                <td><span class="success">99.4% ↓</span></td>
+              </tr>
+              <tr>
+                <td>VoIP MOS Score</td>
+                <td><span class="error">2.8</span></td>
+                <td><span class="success">4.3</span></td>
+                <td><span class="success">54% ↑</span></td>
+              </tr>
+              <tr>
+                <td>Buffer Overruns</td>
+                <td><span class="error">1,247/hour</span></td>
+                <td><span class="success">0/hour</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+              <tr>
+                <td>User Complaints</td>
+                <td><span class="error">15+ calls</span></td>
+                <td><span class="success">0 calls</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Knowledge Sources Utilized:</strong></p>
+          <ul class="compact-list">
+            <li>📚 <strong>Knowledge Graph:</strong> 8 queries (topology, configs, protocols, interfaces)</li>
+            <li>📚 <strong>RAG System:</strong> Retrieved 3 similar historical tickets + 3 troubleshooting documents</li>
+            <li>🔧 <strong>MCP Servers:</strong> 15+ real-time queries (NETCONF, SNMP, CLI, NetFlow)</li>
+            <li>🤖 <strong>AI Agents:</strong> 6 specialized agents deployed with inter-agent collaboration</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned & Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>💡 Implement proactive bandwidth monitoring with alerting (>80% utilization threshold)</li>
+            <li>💡 Establish change management process for backup schedules to avoid business hours</li>
+            <li>💡 Deploy baseline QoS policies on all WAN interfaces as standard practice</li>
+            <li>💡 Enable NetFlow collection permanently for traffic visibility</li>
+            <li>💡 Document buffer sizing standards based on interface speed and traffic patterns</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Documentation & Artifacts:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete configuration backups (before/after) saved to repository</li>
+            <li>📄 NETCONF deployment scripts archived for reuse</li>
+            <li>📄 Agent investigation logs stored for knowledge base</li>
+            <li>📄 Updated runbook: "WAN Packet Loss Investigation Procedure"</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>✅ TICKET STATUS: RESOLVED</strong></p>
+          <p><strong>Resolution Category:</strong> Network Performance - WAN Optimization</p>
+          <p><strong>Resolved By:</strong> AI Operations Center (MRA + 6 Specialized Agents)</p>
+          <p><strong>Verified By:</strong> VERIFICATION_AGENT (all 5 tests passed)</p>
+          <p><strong>User Satisfaction:</strong> ⭐⭐⭐⭐⭐ (Awaiting user feedback)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: User Notification -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="notification-box">
+          <p><strong>📧 Email Notification Sent:</strong></p>
+          <hr>
+          <p><strong>To:</strong> john.smith@xyzcorp.com</p>
+          <p><strong>CC:</strong> network-ops@xyzcorp.com</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED: Ticket #67891 - Packet Loss Across All Remote Sites</p>
+          <p><strong>Sent:</strong> 2025-10-17 10:50:15 AM</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi John,</p>
+            <p>Great news! Your ticket <strong>#67891</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>5-8% packet loss across all remote sites (Chicago, Dallas, Seattle, Denver, Boston) during 09:00-11:00 AM daily, caused by uncontrolled backup traffic consuming 95% of WAN link capacity without traffic shaping policies.</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center deployed traffic shaping policies and optimized buffer configurations on your core router (RTR-CORE-01). The fix was deployed at 10:47 AM and verified successful by 10:48 AM.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ Packet loss reduced from 6.6% average to 0.04% (99.4% improvement)</li>
+              <li>✅ VoIP call quality improved from 2.8 to 4.3 MOS (Excellent)</li>
+              <li>✅ Zero buffer overruns detected</li>
+              <li>✅ All remote sites now performing normally</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Tonight 8:00 PM: Backup schedule will be moved to 01:00-03:00 AM (off-peak hours)</li>
+              <li>📄 Full incident report attached (PDF)</li>
+              <li>📞 Network Operations team will contact you to review long-term recommendations</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 1 hour 33 minutes (from ticket creation to verified fix)</p>
+
+            <p>The issue is now fully resolved and your network should be performing optimally. If you experience any further issues, please open a new ticket or reply to this email.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@xyzcorp.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_67891.pdf (3.2 MB)</li>
+            <li>📎 Configuration_Changes_Log.txt (18 KB)</li>
+            <li>📎 Verification_Test_Results.xlsx (245 KB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #67891 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 1 hour 33 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Efficiency: 18 minutes investigation + deployment</strong></li>
+            <li>👥 <strong>Human Approval Time: 1 hour 15 minutes (waiting for user response)</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 1 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-13: Specialized Agents with KG/RAG/MCP queries + Inter-Agent Collaboration</li>
+            <li>✅ Steps 14-16: Feedback → MRA Correlation → Additional Tasks</li>
+            <li>✅ Steps 17-19: RCA Statement → RECOMMENDATIONS_AGENT → Solutions</li>
+            <li>✅ Steps 20-23: IO_AGENT Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+  
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+</style>
