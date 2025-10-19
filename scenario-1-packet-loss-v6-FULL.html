@@ -1,0 +1,1929 @@
+<!-- SCENARIO 1: PACKET LOSS INVESTIGATION - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Packet Loss Investigation v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from Network Monitoring:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Alert Time: 2025-10-17 09:15:23 AM</li>
+          <li>🔍 Alert Source: SolarWinds NPM</li>
+          <li>⚠️ Alert Type: Packet Loss Threshold Exceeded</li>
+          <li>🔴 Severity: HIGH</li>
+          <li>📍 Affected Devices: 5 remote sites → DC-CORE-SW-01</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#67891</span></li>
+            <li>Category: Network Performance</li>
+            <li>Subcategory: Packet Loss</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: Network Operations Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #67891 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> XYZ Corp NOC (Automated Alert + User Report)</p>
+          <p><strong>Affected Entity:</strong> XYZ Corporation</p>
+          <p><strong>Department:</strong> IT Operations - 5 Remote Sites</p>
+          <p><strong>Users Impacted:</strong> ~200 users across remote sites</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Multiple users reporting intermittent slowness and application timeouts. Monitoring shows 5-8% packet loss occurring every 30-45 minutes across all remote sites connecting to primary data center. Issue started at 09:15 AM today."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which specific sites are experiencing packet loss?</strong></p>
+            <p class="answer">A1: All 5 remote sites: Chicago, Dallas, Seattle, Denver, Boston</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Are all applications affected or specific ones?</strong></p>
+            <p class="answer">A2: All applications affected - CRM (Salesforce), Email (Office 365), File sharing (SMB), VoIP calls</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: When exactly did the packet loss symptoms begin? Is this the first occurrence?</strong></p>
+            <p class="answer">A3: Started at 09:15 AM today. Pattern repeats every 30-45 minutes. This has been happening for the past 3 hours.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: What is the business impact? Any critical services down?</strong></p>
+            <p class="answer">A4: High business impact - VoIP calls dropping (customer service affected), CRM response times 3-5 seconds (normal: <1 sec), file transfers timing out</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: Have there been any recent network changes or maintenance?</strong></p>
+            <p class="answer">A5: No scheduled changes. Last maintenance was 2 weeks ago (unrelated router firmware update)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>Network Performance Degradation</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Intermittent Packet Loss</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Multiple Sites (WAN)</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Recurring (30-45 min intervals)</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Intermittent packet loss with regular intervals suggests scheduled processes or capacity issues</li>
+            <li>✓ Affecting all remote sites indicates common path or centralized component</li>
+            <li>✓ All applications impacted rules out application-specific issues</li>
+            <li>✓ Recent start time (09:15 AM) suggests correlation with business hours activity</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for network topology and device configurations</li>
+            <li>2. Search RAG system for similar historical incidents</li>
+            <li>3. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>4. Deploy specialized agents for targeted investigation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Network Topology</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: XYZ Corp network diagram</li>
+            <li>✓ 5 Remote sites: CHI-SITE-01, DAL-SITE-01, SEA-SITE-01, DEN-SITE-01, BOS-SITE-01</li>
+            <li>✓ MPLS WAN connecting to primary DC (10.1.0.0/16)</li>
+            <li>✓ DC routers: DC-RTR-01 (10.1.1.1), DC-RTR-02 (10.1.1.2) - HSRP active</li>
+            <li>✓ Core switches: CORE-SW-01 (10.1.2.1 - ACTIVE), CORE-SW-02 (10.1.2.2 - STANDBY)</li>
+          </ul>
+          <p><strong>Query 2: Device Configurations</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Model</th>
+                  <th>OS Version</th>
+                  <th>Key Config</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CORE-SW-01</td>
+                  <td>Cisco Catalyst 9500</td>
+                  <td>IOS-XE 17.6.3</td>
+                  <td>HSRP Priority: 110 (Active)</td>
+                </tr>
+                <tr>
+                  <td>GigE 0/1/0</td>
+                  <td>Uplink Interface</td>
+                  <td>1 Gbps</td>
+                  <td>Buffer: 64KB (default)</td>
+                </tr>
+                <tr>
+                  <td>GigE 0/1/1-2</td>
+                  <td>Access Interfaces</td>
+                  <td>1 Gbps each</td>
+                  <td>No QoS policies</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: Protocol States</strong></p>
+          <ul class="compact-list">
+            <li>✓ OSPF: All adjacencies UP (Area 0)</li>
+            <li>✓ BGP: All peers established</li>
+            <li>✓ HSRP: CORE-SW-01 active, CORE-SW-02 standby (normal)</li>
+            <li>✓ MPLS: All LSPs operational</li>
+          </ul>
+          <p><strong>Query 4: Historical Interface Statistics (Past 7 Days)</strong></p>
+          <ul class="metric-list">
+            <li>Avg Utilization: <span class="normal-value">35-45%</span> (normal hours)</li>
+            <li>Peak Utilization: <span class="warning">85-95%</span> (daily 09:00-11:00)</li>
+            <li>Input Errors: <span class="success">0</span></li>
+            <li>Output Drops: <span class="problem-value">Spikes to 1,200-1,500</span> during peak</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-warning">High Utilization Pattern Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "intermittent packet loss + buffer exhaustion + recurring pattern"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TKT-45621</td>
+                  <td><span class="success">89%</span></td>
+                  <td>Packet loss during backup window</td>
+                  <td>Buffer tuning + traffic shaping</td>
+                </tr>
+                <tr>
+                  <td>TKT-39012</td>
+                  <td><span class="success">76%</span></td>
+                  <td>Recurring drops every 30 min</td>
+                  <td>Traffic shaping policy applied</td>
+                </tr>
+                <tr>
+                  <td>TKT-29834</td>
+                  <td><span class="warning">68%</span></td>
+                  <td>WAN congestion 09:00-11:00</td>
+                  <td>Backup schedule changed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Troubleshooting Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>Buffer_Tuning_Best_Practices.pdf</strong> (Cisco Doc ID: 118632)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Recommends 128KB-256KB buffers for bursty traffic on 1G interfaces</li>
+            <li>📄 <strong>QoS_Design_Guide_Enterprise.pdf</strong> (Cisco Press 2024)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Traffic shaping policies for backup traffic: Limit to 60-70% of link capacity</li>
+            <li>📄 <strong>Packet_Loss_Troubleshooting_Flowchart.pdf</strong> (Internal KB-8821)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Step-by-step guide: Check buffers → QoS → scheduling</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 3 similar incidents resolved with traffic shaping + buffer tuning</li>
+            <li>✓ Common root cause: Uncontrolled backup traffic during business hours</li>
+            <li>✓ Recommended fix: Immediate traffic shaping, long-term schedule change</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>Intermittent 5-8% packet loss</li>
+              <li>Recurring every 30-45 minutes</li>
+              <li>Affecting all 5 remote sites</li>
+              <li>Started 09:15 AM, during business hours</li>
+              <li>All applications impacted (CRM, Email, VoIP, File sharing)</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>Traffic flows through CORE-SW-01 (active HSRP)</li>
+              <li>GigE 0/1/0: 64KB buffers (default)</li>
+              <li>Historical data: 85-95% utilization 09:00-11:00 daily</li>
+              <li>Output drops spike to 1,200-1,500 during peak</li>
+              <li>No QoS policies configured</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>89% similarity to TKT-45621 (backup traffic issue)</li>
+              <li>Historical resolution: Traffic shaping + buffer tuning</li>
+              <li>Common pattern: Uncontrolled backup traffic</li>
+              <li>Best practice: Limit backup to 60-70% link capacity</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> Scheduled backup operations consuming excessive bandwidth on CORE-SW-01 GigE 0/1/0, causing buffer exhaustion and packet drops. Need to verify with specialized agents.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">🗺️</div>
+            <div class="deployment-name">TOPOLOGY_AGENT</div>
+            <div class="deployment-task">Verify traffic paths</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📊</div>
+            <div class="deployment-name">TRAFFIC_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Analyze traffic patterns</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔌</div>
+            <div class="deployment-name">INTERFACE_STATS_AGENT</div>
+            <div class="deployment-task">Check interface health</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💾</div>
+            <div class="deployment-name">BUFFER_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Analyze buffer configs</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate remediation plan</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: TOPOLOGY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Topology Verification via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved stored topology (last updated: 2025-10-15)</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Live routing tables from DC-RTR-01, DC-RTR-02</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show cdp neighbors from CORE-SW-01</li>
+          </ul>
+          <p><strong>Traffic Path Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>Remote Sites → MPLS Cloud → DC-RTR-01 (10.1.1.1)</li>
+            <li>DC-RTR-01 → CORE-SW-01 GigE 0/1/0 (1 Gbps uplink)</li>
+            <li>CORE-SW-01 → Internal servers via GigE 0/1/1-2</li>
+            <li><strong>Bottleneck Identified:</strong> All 5 sites converge on single GigE 0/1/0 interface</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ All routing paths established correctly</li>
+          <li>✅ HSRP failover ready (CORE-SW-02 standby)</li>
+          <li>✅ No routing loops detected</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>⚠️ Single point of convergence (GigE 0/1/0) - potential bottleneck</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-warning">Potential Bottleneck: GigE 0/1/0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue with remaining steps in next part due to length... -->
+    <!-- This file demonstrates the structure. Full implementation continues similarly -->
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+</style>
+
+    <!-- STEP 11: TRAFFIC_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Traffic Pattern Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved 7-day traffic baseline from data warehouse</li>
+            <li>🔌 <strong>MCP IPFIX/NetFlow:</strong> Real-time flow data from CORE-SW-01</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Interface utilization counters (5-min granularity)</li>
+          </ul>
+          <p><strong>Traffic Analysis Results:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Time Window</th>
+                  <th>Traffic Volume</th>
+                  <th>Top Protocol</th>
+                  <th>Utilization</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>00:00-08:00</td>
+                  <td>150-200 Mbps</td>
+                  <td>HTTPS (40%)</td>
+                  <td><span class="success">15-20%</span></td>
+                </tr>
+                <tr>
+                  <td>08:00-09:00</td>
+                  <td>400-500 Mbps</td>
+                  <td>HTTPS (50%)</td>
+                  <td><span class="success">40-50%</span></td>
+                </tr>
+                <tr>
+                  <td>09:00-11:00</td>
+                  <td>920-950 Mbps</td>
+                  <td>SMB/CIFS (65%)</td>
+                  <td><span class="problem-value">92-95%</span></td>
+                </tr>
+                <tr>
+                  <td>11:00-17:00</td>
+                  <td>450-550 Mbps</td>
+                  <td>HTTPS (55%)</td>
+                  <td><span class="success">45-55%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Key Finding:</strong> SMB/CIFS (file sharing protocol) traffic spikes to 65% of total during 09:00-11:00 window.</p>
+          <p><strong>Source IP Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>Top talker: 10.100.50.10 (Backup Server) → 620 Mbps</li>
+            <li>Destinations: All 5 remote sites (120-130 Mbps each)</li>
+            <li>Pattern: Scheduled backup operations</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Normal business hours traffic: 400-550 Mbps</li>
+          <li>✅ Application mix appropriate outside backup window</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Backup traffic: 620 Mbps during business hours</li>
+          <li>❌ Total traffic 950 Mbps on 1G interface (95% utilization)</li>
+          <li>❌ Correlation confirmed: Backup window = packet loss window</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Backup Traffic Correlation Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: INTERFACE_STATS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">INTERFACE_STATS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Interface Health Check via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP NETCONF:</strong> ietf-interfaces module from CORE-SW-01</li>
+            <li>🔌 <strong>MCP SNMP:</strong> IF-MIB interface statistics</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show interface GigabitEthernet 0/1/0</li>
+          </ul>
+          <p><strong>Interface GigE 0/1/0 Statistics:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Current Value</th>
+                  <th>Threshold</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Input Errors</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>CRC Errors</td>
+                  <td>0</td>
+                  <td>< 5</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Drops</td>
+                  <td>1,247 (past hour)</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-critical">CRITICAL</span></td>
+                </tr>
+                <tr>
+                  <td>Buffer Overruns</td>
+                  <td>1,247</td>
+                  <td>< 5</td>
+                  <td><span class="status-tag status-critical">CRITICAL</span></td>
+                </tr>
+                <tr>
+                  <td>Collisions</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Physical Layer:</strong> Link up, Full-duplex, 1000 Mbps, Copper</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ GigE 0/1/1: Clean (0 errors, 0 drops)</li>
+          <li>✅ GigE 0/1/2: Clean (0 errors, 0 drops)</li>
+          <li>✅ Physical layer healthy on GigE 0/1/0</li>
+          <li>✅ No input errors (excludes upstream issues)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ GigE 0/1/0: Output drops = 1,247 (past hour)</li>
+          <li>❌ Buffer overruns = 1,247 (exactly matching drops)</li>
+          <li>❌ Drop rate: 8.2% during peak periods</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Buffer Overruns Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: BUFFER_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💾</span>
+        <span class="agent-name">BUFFER_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Buffer Configuration & Utilization Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved buffer config from device inventory</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show controllers GigabitEthernet 0/1/0</li>
+            <li>🔌 <strong>RAG Query:</strong> "buffer sizing + 1G interface + bursty traffic"</li>
+          </ul>
+          <p><strong>Current Buffer Configuration:</strong></p>
+          <ul class="metric-list">
+            <li>Buffer Size: <span class="problem-value">64 KB</span> (default)</li>
+            <li>Buffer Type: FIFO (no priority queuing)</li>
+            <li>Queue Depth: 512 packets</li>
+            <li>Current Utilization: <span class="problem-value">98-100%</span> during peak</li>
+          </ul>
+          <p><strong>RAG Best Practices Comparison:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Current</th>
+                  <th>Recommended</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Buffer Size</td>
+                  <td><span class="problem-value">64 KB</span></td>
+                  <td><span class="success">128-256 KB</span></td>
+                  <td>Bursty traffic absorption</td>
+                </tr>
+                <tr>
+                  <td>Queue Type</td>
+                  <td><span class="problem-value">FIFO</span></td>
+                  <td><span class="success">WFQ/CBWFQ</span></td>
+                  <td>Traffic prioritization</td>
+                </tr>
+                <tr>
+                  <td>Traffic Shaping</td>
+                  <td><span class="problem-value">None</span></td>
+                  <td><span class="success">Enabled</span></td>
+                  <td>Rate limiting backup traffic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Calculation:</strong> At 950 Mbps on 1G interface, with 950ms bursts, minimum buffer = 118 KB needed (current: 64 KB = insufficient)</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Buffer size adequate for normal traffic (400-550 Mbps)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Buffer size insufficient for burst traffic (950 Mbps)</li>
+          <li>❌ No traffic shaping to control bursts</li>
+          <li>❌ FIFO queuing cannot prioritize critical traffic</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Buffer Exhaustion Root Cause</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">🗺️ TOPOLOGY_AGENT → 📊 TRAFFIC_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"I've identified GigE 0/1/0 as the convergence point. Can you analyze traffic patterns specifically on this interface during 09:00-11:00 window?"</p>
+            <p class="collab-response">📊 Response: "Confirmed. Focusing NetFlow analysis on GigE 0/1/0. Will correlate with packet loss timing."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">📊 TRAFFIC_ANALYSIS_AGENT → 🔌 INTERFACE_STATS_AGENT:</p>
+            <p class="collab-message">"Seeing 950 Mbps on GigE 0/1/0 during 09:00-11:00. Suspect buffer issues. Can you check output drops and buffer overruns on this specific interface?"</p>
+            <p class="collab-response">🔌 Response: "Will prioritize GigE 0/1/0. Querying SNMP counters now."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">🔌 INTERFACE_STATS_AGENT → 💾 BUFFER_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"Confirmed 1,247 buffer overruns on GigE 0/1/0. Output drops match exactly. Need buffer config analysis. What's the current buffer size and is it adequate for 950 Mbps bursts?"</p>
+            <p class="collab-response">💾 Response: "Checking buffer config now. Will compare against best practices for bursty traffic."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">💾 BUFFER_ANALYSIS_AGENT → 📊 TRAFFIC_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"Buffer size is 64 KB (default). Calculation shows need for 118 KB at 950 Mbps. Can you identify what traffic is causing the 950 Mbps burst?"</p>
+            <p class="collab-response">📊 Response: "Identified: 620 Mbps from backup server (10.100.50.10) using SMB/CIFS protocol to all 5 remote sites."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 5:</strong></p>
+            <p class="collab-from">📊 TRAFFIC_ANALYSIS_AGENT → 🔧 ROOT_CAUSE_AGENT:</p>
+            <p class="collab-message">"All evidence points to scheduled backup traffic. Buffer exhaustion confirmed by BUFFER_ANALYSIS_AGENT. Ready for correlation."</p>
+            <p class="collab-response">🔧 Response: "Acknowledged. Collecting all findings for root cause determination."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ TOPOLOGY_AGENT narrowed focus to GigE 0/1/0 based on traffic data</li>
+              <li>✓ INTERFACE_STATS_AGENT prioritized buffer counters based on traffic analysis</li>
+              <li>✓ BUFFER_ANALYSIS_AGENT added burst calculation based on traffic volume</li>
+              <li>✓ All agents converged on backup traffic hypothesis</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ TOPOLOGY_AGENT: All traffic converges on GigE 0/1/0</li>
+            <li>✓ TRAFFIC_ANALYSIS_AGENT: 620 Mbps backup traffic 09:00-11:00</li>
+            <li>✓ INTERFACE_STATS_AGENT: 1,247 output drops = buffer overruns</li>
+            <li>✓ BUFFER_ANALYSIS_AGENT: 64 KB buffers insufficient for 950 Mbps</li>
+            <li>✓ RAG Historical Data: 89% similarity to TKT-45621 (backup issue)</li>
+          </ul>
+          <p><strong>Timeline Correlation:</strong></p>
+          <ul class="metric-list">
+            <li>09:15 AM: Backup starts → Traffic spikes to 950 Mbps</li>
+            <li>09:16 AM: Buffer exhaustion → Packet drops begin (8.2%)</li>
+            <li>09:17 AM: User reports → VoIP calls drop, apps slow</li>
+            <li>Pattern repeats: Every 30-45 minutes for 3 hours</li>
+          </ul>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>Scheduled backup operations from backup server (10.100.50.10) to 5 remote sites consuming 620 Mbps of 1 Gbps link capacity on CORE-SW-01 interface GigE 0/1/0, combined with normal business traffic (330 Mbps), results in 95% utilization and buffer exhaustion on default 64 KB buffers, causing 8.2% packet loss.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. No traffic shaping policy to limit backup traffic</li>
+            <li>2. Backup scheduled during business hours (09:00-11:00)</li>
+            <li>3. Default buffer size (64 KB) inadequate for burst traffic</li>
+            <li>4. FIFO queuing cannot prioritize critical traffic (VoIP, CRM)</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting slow applications</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>VoIP calls dropping</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Time-sensitive traffic affected</td>
+                </tr>
+                <tr>
+                  <td>5-8% packet loss</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Network-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 buffer overruns</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Device-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 output drops</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Direct result of buffer exhaustion</td>
+                </tr>
+                <tr>
+                  <td>95% interface utilization</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Causes buffer pressure</td>
+                </tr>
+                <tr>
+                  <td>620 Mbps backup traffic</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>Major bandwidth consumer</td>
+                </tr>
+                <tr>
+                  <td>64 KB buffer (insufficient)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Cannot absorb bursts</td>
+                </tr>
+                <tr>
+                  <td>Backup during business hours</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Triggers the issue</td>
+                </tr>
+                <tr>
+                  <td>No traffic shaping policy</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Allows uncontrolled traffic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with backup traffic schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with backup traffic schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: Backup traffic during business hours without traffic shaping</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive and correlated</p>
+          <p>✓ Sufficient data collected from KG, RAG, and MCP servers</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">The 5-8% packet loss across all remote sites is caused by <strong>uncontrolled backup traffic (620 Mbps) consuming 95% of the 650 Mbps WAN link capacity during business hours (09:00-11:00 AM)</strong>, combined with <strong>absence of traffic shaping/QoS policies</strong> to prioritize business-critical traffic.</p>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>• Insufficient buffer size (64 KB) on interface GigE 0/1/0 cannot absorb traffic bursts</li>
+            <li>• No bandwidth reservation for business-critical applications</li>
+            <li>• Backup schedule overlaps with peak business hours</li>
+            <li>• Single point of convergence (GigE 0/1/0) for all remote site traffic</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ NetFlow data shows 620 Mbps backup traffic (95% utilization) during packet loss window</li>
+            <li>✓ Interface statistics show 1,247 buffer overruns correlating with packet loss</li>
+            <li>✓ Packet loss (5-8%) occurs ONLY during 09:00-11:00 backup window</li>
+            <li>✓ Historical tickets (TKT-45621, TKT-38904) show identical pattern and resolution</li>
+            <li>✓ 100% repeatable pattern - issue resolves when backup completes at 11:00 AM</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: VoIP call quality degraded (5-8% packet loss exceeds 1% threshold)</li>
+            <li>🟡 Medium: Video conferencing disruptions reported by users</li>
+            <li>🟡 Medium: Database synchronization delays affecting applications</li>
+            <li>⏱️ Duration: 2 hours daily (09:00-11:00 AM) - 10 hours/week productivity impact</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved best practice QoS templates for Cisco routers</li>
+          <li>📚 RAG Query: Retrieved 3 successful resolution playbooks from similar tickets</li>
+          <li>🔧 MCP Server: Retrieved current QoS configuration (none configured)</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 30 minutes)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Implement Traffic Shaping Policy on GigE 0/1/0</strong></p>
+            <ul class="compact-list">
+              <li>✓ Limit backup traffic to 40% of link capacity (260 Mbps)</li>
+              <li>✓ Reserve 50% for business-critical traffic (325 Mbps)</li>
+              <li>✓ Reserve 10% for network management (65 Mbps)</li>
+              <li>⏱️ Deployment time: 5 minutes via NETCONF</li>
+              <li>📊 Expected impact: Reduce packet loss from 8% to <0.5%</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Increase Interface Buffer Size</strong></p>
+            <ul class="compact-list">
+              <li>✓ Increase GigE 0/1/0 buffer from 64 KB to 256 KB</li>
+              <li>✓ Enable weighted fair queueing (WFQ)</li>
+              <li>⏱️ Deployment time: 3 minutes via NETCONF</li>
+              <li>📊 Expected impact: Eliminate buffer overruns</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 24 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Reschedule Backup Window</strong></p>
+            <ul class="compact-list">
+              <li>✓ Move backup from 09:00-11:00 AM to 01:00-03:00 AM (off-peak)</li>
+              <li>✓ Coordinate with backup team and change management</li>
+              <li>⏱️ Implementation: Tonight 8:00 PM</li>
+              <li>📊 Expected impact: Eliminate daytime congestion entirely</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Comprehensive QoS Implementation</strong></p>
+            <ul class="compact-list">
+              <li>✓ Deploy class-based QoS across all WAN interfaces</li>
+              <li>✓ Implement priority queuing for VoIP (guaranteed bandwidth)</li>
+              <li>✓ Implement DSCP marking for application prioritization</li>
+              <li>⏱️ Rollout: Phased deployment over 2 weeks</li>
+            </ul>
+
+            <p><strong>Action 3.2 - WAN Link Capacity Upgrade</strong></p>
+            <ul class="compact-list">
+              <li>✓ Evaluate upgrade from 650 Mbps to 1 Gbps MPLS link</li>
+              <li>✓ Cost-benefit analysis vs. SD-WAN implementation</li>
+              <li>⏱️ Timeline: 30-day evaluation period</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Enhanced Monitoring</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement real-time bandwidth utilization alerts (>80% threshold)</li>
+              <li>✓ Enable NetFlow collection on all WAN interfaces</li>
+              <li>✓ Create dashboard for QoS queue statistics</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Traffic shaping policy</td>
+              <td><span class="success">LOW</span></td>
+              <td>Non-disruptive, can adjust limits</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Buffer size increase</td>
+              <td><span class="success">LOW</span></td>
+              <td>No downtime required</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Backup rescheduling</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Test backup completion before production</td>
+              <td>N/A (schedule change)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ Packet loss reduced to <0.1% on all remote site links</li>
+          <li>✓ Zero buffer overruns on GigE 0/1/0</li>
+          <li>✓ VoIP call quality score >4.0 (MOS)</li>
+          <li>✓ Business-critical traffic receives guaranteed bandwidth</li>
+          <li>✓ No user complaints during backup window</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings, KG best practices, and RAG historical resolutions. I recommend proceeding with PHASE 1 immediate actions (traffic shaping + buffer increase) to provide rapid relief within 30 minutes."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 NETCONF configuration snippets for deployment</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Success criteria and verification tests</li>
+            <li>📄 Rollback procedures</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (John Smith):</strong></p>
+          <p>"John, our AI agents have completed the investigation of ticket #67891 (packet loss issue)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: Backup traffic consuming 95% of WAN link without traffic control</li>
+            <li>📊 Impact: 5-8% packet loss during 09:00-11:00 AM daily</li>
+            <li>⏱️ Affecting: All 5 remote sites (Chicago, Dallas, Seattle, Denver, Boston)</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Deploy traffic shaping policy to limit backup traffic to 260 Mbps (40%)</li>
+            <li>2️⃣ Increase buffer size from 64 KB to 256 KB on interface GigE 0/1/0</li>
+            <li>⏱️ Total deployment time: ~8 minutes</li>
+            <li>📉 Expected result: Packet loss reduced from 8% to <0.5%</li>
+            <li>🔄 Rollback time: 2 minutes if any issues occur</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the deployment of PHASE 1 immediate actions?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. Please proceed immediately.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is your preferred maintenance window for deployment?</strong></p>
+            <p class="answer">✅ A2: Deploy now (10:45 AM) - users are already experiencing issues, so minimal additional risk.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (backup rescheduling) tonight at 8:00 PM?</strong></p>
+            <p class="answer">✅ A3: Yes, coordinate with backup team. I'll approve the change request.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the final resolution report?</strong></p>
+            <p class="answer">✅ A4: Send to me (john.smith@xyzcorp.com) and CC network-ops@xyzcorp.com</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target Device: RTR-CORE-01 (Interface GigE 0/1/0)</li>
+          <li>🔧 Deployment Method: NETCONF over SSH (Port 830)</li>
+          <li>⏱️ Start Time: 2025-10-17 10:47:15 AM</li>
+          <li>👤 Authorized By: John Smith (john.smith@xyzcorp.com)</li>
+          <li>🎫 Change Ticket: CHG-2025-1017-001</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Deploy Traffic Shaping Policy</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;policy&gt;
+      &lt;policy-map&gt;
+        &lt;name&gt;WAN-TRAFFIC-SHAPING&lt;/name&gt;
+        &lt;class&gt;
+          &lt;name&gt;BACKUP-TRAFFIC&lt;/name&gt;
+          &lt;police&gt;
+            &lt;rate&gt;260000000&lt;/rate&gt;  &lt;!-- 260 Mbps --&gt;
+            &lt;burst&gt;8000000&lt;/burst&gt;
+            &lt;conform-action&gt;transmit&lt;/conform-action&gt;
+            &lt;exceed-action&gt;drop&lt;/exceed-action&gt;
+          &lt;/police&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;BUSINESS-CRITICAL&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;50&lt;/percent&gt;  &lt;!-- 325 Mbps reserved --&gt;
+          &lt;/bandwidth&gt;
+          &lt;priority&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;NETWORK-MGMT&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;10&lt;/percent&gt;  &lt;!-- 65 Mbps reserved --&gt;
+          &lt;/bandwidth&gt;
+        &lt;/class&gt;
+      &lt;/policy-map&gt;
+    &lt;/policy&gt;
+    &lt;interface&gt;
+      &lt;GigabitEthernet&gt;
+        &lt;name&gt;0/1/0&lt;/name&gt;
+        &lt;service-policy&gt;
+          &lt;output&gt;WAN-TRAFFIC-SHAPING&lt;/output&gt;
+        &lt;/service-policy&gt;
+      &lt;/GigabitEthernet&gt;
+    &lt;/interface&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:18 - NETCONF session established to RTR-CORE-01</li>
+            <li>⏱️ 10:47:22 - Configuration validated (no syntax errors)</li>
+            <li>⏱️ 10:47:25 - Policy-map WAN-TRAFFIC-SHAPING created</li>
+            <li>⏱️ 10:47:28 - Classes configured: BACKUP-TRAFFIC, BUSINESS-CRITICAL, NETWORK-MGMT</li>
+            <li>⏱️ 10:47:31 - Service policy applied to GigE 0/1/0 output</li>
+            <li>✅ 10:47:33 - <strong>ACTION 1 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 2: Increase Interface Buffer Size</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;interface&gt;
+      &lt;GigabitEthernet&gt;
+        &lt;name&gt;0/1/0&lt;/name&gt;
+        &lt;hold-queue&gt;256&lt;/hold-queue&gt;  &lt;!-- 256 KB buffer --&gt;
+        &lt;tx-ring-limit&gt;512&lt;/tx-ring-limit&gt;
+        &lt;fair-queue&gt;
+          &lt;weight&gt;true&lt;/weight&gt;  &lt;!-- Enable WFQ --&gt;
+        &lt;/fair-queue&gt;
+      &lt;/GigabitEthernet&gt;
+    &lt;/interface&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:35 - Applying buffer configuration to GigE 0/1/0</li>
+            <li>⏱️ 10:47:38 - Hold-queue increased from 64 to 256 packets</li>
+            <li>⏱️ 10:47:41 - TX ring limit set to 512</li>
+            <li>⏱️ 10:47:43 - Weighted Fair Queuing (WFQ) enabled</li>
+            <li>✅ 10:47:45 - <strong>ACTION 2 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Verification:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Configuration committed to device running-config</li>
+          <li>✅ Configuration saved to startup-config (automatic backup)</li>
+          <li>✅ NETCONF session closed gracefully</li>
+          <li>⏱️ Total Deployment Time: 30 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - No errors encountered</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-17 10:48:00 AM (15 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Verify Traffic Shaping Policy Active</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">RTR-CORE-01# show policy-map interface GigE 0/1/0
+
+GigabitEthernet0/1/0
+  Service-policy output: WAN-TRAFFIC-SHAPING
+    Class-map: BACKUP-TRAFFIC (match-any)
+      Police: 260000000 bps, 8000000 byte burst
+        Conformed: 245321 packets, 253.4 Mbps
+        Exceeded: 8932 packets (dropped)
+        Conform rate: 95.2% | Exceed rate: 4.8%
+
+    Class-map: BUSINESS-CRITICAL (match-any)
+      Bandwidth: 50% (325 Mbps guaranteed)
+        Packets: 182934 packets, 298.7 Mbps
+        Priority queue: Active
+
+    Class-map: NETWORK-MGMT (match-any)
+      Bandwidth: 10% (65 Mbps guaranteed)
+        Packets: 15432 packets, 18.3 Mbps</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Traffic shaping policy actively policing traffic</p>
+          <ul class="compact-list">
+            <li>✓ Backup traffic limited to 253.4 Mbps (target: 260 Mbps)</li>
+            <li>✓ Business-critical traffic receiving guaranteed bandwidth</li>
+            <li>✓ Policy already dropping excess backup packets (8,932 dropped)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Verify Buffer Configuration</strong></p>
+          <p><strong>MCP Server Query (NETCONF):</strong></p>
+          <pre class="code-block">RTR-CORE-01# show interfaces GigE 0/1/0 | include queue
+  Output queue: 0/256 (size/max)
+  TX ring: 512
+  Queueing strategy: weighted fair
+  Output drops: 0 (in last 60 seconds)</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Buffer configuration applied correctly</p>
+          <ul class="compact-list">
+            <li>✓ Hold-queue size increased to 256 (previously 64)</li>
+            <li>✓ TX ring limit set to 512</li>
+            <li>✓ Weighted Fair Queuing active</li>
+            <li>✓ Zero output drops in last 60 seconds</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: Verify Packet Loss Reduction</strong></p>
+          <p><strong>MCP Server Query (SNMP + NetFlow):</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Site</th>
+                <th>Packet Loss (Before)</th>
+                <th>Packet Loss (After)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chicago</td>
+                <td><span class="error">8.2%</span></td>
+                <td><span class="success">0.08%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Dallas</td>
+                <td><span class="error">7.5%</span></td>
+                <td><span class="success">0.05%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Seattle</td>
+                <td><span class="error">6.8%</span></td>
+                <td><span class="success">0.03%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Denver</td>
+                <td><span class="error">5.4%</span></td>
+                <td><span class="success">0.01%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Boston</td>
+                <td><span class="error">5.1%</span></td>
+                <td><span class="success">0.02%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Packet loss reduced by 99% across all sites</p>
+          <ul class="compact-list">
+            <li>✓ Average packet loss: 6.6% → 0.04% (164x improvement)</li>
+            <li>✓ All sites now below 0.1% threshold (target: <0.5%)</li>
+            <li>✓ Exceeds success criteria</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: Verify VoIP Call Quality</strong></p>
+          <p><strong>Query: Voice Quality Monitoring System</strong></p>
+          <ul class="compact-list">
+            <li>📞 Active calls monitored: 23 concurrent VoIP sessions</li>
+            <li>📊 Mean Opinion Score (MOS): <strong>4.3</strong> (target: >4.0)</li>
+            <li>🎵 Jitter: 8ms (acceptable: <30ms)</li>
+            <li>⏱️ Latency: 45ms (acceptable: <150ms)</li>
+            <li>📉 Packet loss: 0.02% (acceptable: <1%)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - VoIP quality restored to excellent</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Verify No Negative Side Effects</strong></p>
+          <ul class="compact-list">
+            <li>✅ No interface flaps detected</li>
+            <li>✅ BGP sessions stable (no routing changes)</li>
+            <li>✅ CPU utilization normal: 12% (no spike from QoS processing)</li>
+            <li>✅ Memory utilization: 45% (no increase)</li>
+            <li>✅ All remote sites reachable via ping</li>
+            <li>✅ No user complaints received (monitoring helpdesk queue)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No adverse impacts detected</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ Traffic shaping policy operational and effective</li>
+            <li>✅ Buffer configuration applied successfully</li>
+            <li>✅ Packet loss reduced from 6.6% average to 0.04% (99% improvement)</li>
+            <li>✅ VoIP call quality excellent (MOS 4.3/5.0)</li>
+            <li>✅ Zero negative side effects observed</li>
+          </ul>
+          <p><strong>⏱️ Time to Resolution: 18 minutes from ticket assignment to verified fix</strong></p>
+          <p><strong>✅ Solution validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 INCIDENT RESOLUTION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #67891</li>
+            <li>📋 Title: Packet Loss Across All Remote Sites</li>
+            <li>👤 Reported By: John Smith (john.smith@xyzcorp.com)</li>
+            <li>⏱️ Opened: 2025-10-17 09:15:23 AM</li>
+            <li>⏱️ Resolved: 2025-10-17 10:48:45 AM</li>
+            <li>⌛ Resolution Time: <strong>1 hour 33 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>Users across all 5 remote sites (Chicago, Dallas, Seattle, Denver, Boston) reported degraded network performance during 09:00-11:00 AM daily, including poor VoIP quality, video conferencing issues, and slow application response times. Investigation revealed 5-8% packet loss on WAN connections during this time window.</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p class="highlight">Uncontrolled backup traffic consuming 620 Mbps (95% of 650 Mbps WAN link capacity) during business hours without traffic shaping or QoS policies. Insufficient buffer size (64 KB) on convergence interface GigE 0/1/0 resulted in 1,247 buffer overruns and packet drops.</p>
+
+          <hr>
+
+          <p><strong>Investigation Timeline:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Agent/System</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:15 AM</td>
+                <td>MONITORING_SYSTEM</td>
+                <td>Alert generated, ticket #67891 created</td>
+              </tr>
+              <tr>
+                <td>09:16 AM</td>
+                <td>IO_AGENT</td>
+                <td>Engaged user, asked 5 clarifying questions</td>
+              </tr>
+              <tr>
+                <td>09:22 AM</td>
+                <td>MRA</td>
+                <td>Deployed 6 specialized agents</td>
+              </tr>
+              <tr>
+                <td>09:23 AM</td>
+                <td>TOPOLOGY_AGENT</td>
+                <td>Identified GigE 0/1/0 convergence point</td>
+              </tr>
+              <tr>
+                <td>09:25 AM</td>
+                <td>TRAFFIC_ANALYSIS_AGENT</td>
+                <td>Discovered 620 Mbps backup traffic (NetFlow)</td>
+              </tr>
+              <tr>
+                <td>09:27 AM</td>
+                <td>INTERFACE_STATS_AGENT</td>
+                <td>Found 1,247 buffer overruns</td>
+              </tr>
+              <tr>
+                <td>09:29 AM</td>
+                <td>BUFFER_ANALYSIS_AGENT</td>
+                <td>Confirmed 64 KB buffer insufficient</td>
+              </tr>
+              <tr>
+                <td>09:35 AM</td>
+                <td>ROOT_CAUSE_AGENT</td>
+                <td>Correlated findings, confirmed root cause</td>
+              </tr>
+              <tr>
+                <td>09:38 AM</td>
+                <td>RECOMMENDATIONS_AGENT</td>
+                <td>Created 3-phase remediation plan</td>
+              </tr>
+              <tr>
+                <td>09:42 AM</td>
+                <td>IO_AGENT</td>
+                <td>Obtained user approval for deployment</td>
+              </tr>
+              <tr>
+                <td>10:47 AM</td>
+                <td>DEPLOYMENT_AGENT</td>
+                <td>Deployed traffic shaping + buffer config</td>
+              </tr>
+              <tr>
+                <td>10:48 AM</td>
+                <td>VERIFICATION_AGENT</td>
+                <td>Verified fix, all tests passed</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Resolution Actions Taken:</strong></p>
+          <p><strong>PHASE 1 (Completed - 2025-10-17 10:47 AM):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Deployed traffic shaping policy limiting backup traffic to 260 Mbps (40%)</li>
+            <li>✅ Reserved 325 Mbps (50%) for business-critical applications</li>
+            <li>✅ Reserved 65 Mbps (10%) for network management</li>
+            <li>✅ Increased interface buffer from 64 KB to 256 KB</li>
+            <li>✅ Enabled Weighted Fair Queuing (WFQ)</li>
+          </ul>
+
+          <p><strong>PHASE 2 (Scheduled - Tonight 8:00 PM):</strong></p>
+          <ul class="compact-list">
+            <li>⏳ Reschedule backup window from 09:00-11:00 AM to 01:00-03:00 AM</li>
+            <li>⏳ Coordinate with backup team (change request CHG-2025-1017-002)</li>
+          </ul>
+
+          <p><strong>PHASE 3 (Planned - 30-day roadmap):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Implement comprehensive class-based QoS across all WAN interfaces</li>
+            <li>📅 Evaluate WAN capacity upgrade (650 Mbps → 1 Gbps)</li>
+            <li>📅 Deploy enhanced monitoring with real-time alerts</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Results and Metrics:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Packet Loss (avg)</td>
+                <td><span class="error">6.6%</span></td>
+                <td><span class="success">0.04%</span></td>
+                <td><span class="success">99.4% ↓</span></td>
+              </tr>
+              <tr>
+                <td>VoIP MOS Score</td>
+                <td><span class="error">2.8</span></td>
+                <td><span class="success">4.3</span></td>
+                <td><span class="success">54% ↑</span></td>
+              </tr>
+              <tr>
+                <td>Buffer Overruns</td>
+                <td><span class="error">1,247/hour</span></td>
+                <td><span class="success">0/hour</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+              <tr>
+                <td>User Complaints</td>
+                <td><span class="error">15+ calls</span></td>
+                <td><span class="success">0 calls</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Knowledge Sources Utilized:</strong></p>
+          <ul class="compact-list">
+            <li>📚 <strong>Knowledge Graph:</strong> 8 queries (topology, configs, protocols, interfaces)</li>
+            <li>📚 <strong>RAG System:</strong> Retrieved 3 similar historical tickets + 3 troubleshooting documents</li>
+            <li>🔧 <strong>MCP Servers:</strong> 15+ real-time queries (NETCONF, SNMP, CLI, NetFlow)</li>
+            <li>🤖 <strong>AI Agents:</strong> 6 specialized agents deployed with inter-agent collaboration</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned & Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>💡 Implement proactive bandwidth monitoring with alerting (>80% utilization threshold)</li>
+            <li>💡 Establish change management process for backup schedules to avoid business hours</li>
+            <li>💡 Deploy baseline QoS policies on all WAN interfaces as standard practice</li>
+            <li>💡 Enable NetFlow collection permanently for traffic visibility</li>
+            <li>💡 Document buffer sizing standards based on interface speed and traffic patterns</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Documentation & Artifacts:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete configuration backups (before/after) saved to repository</li>
+            <li>📄 NETCONF deployment scripts archived for reuse</li>
+            <li>📄 Agent investigation logs stored for knowledge base</li>
+            <li>📄 Updated runbook: "WAN Packet Loss Investigation Procedure"</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>✅ TICKET STATUS: RESOLVED</strong></p>
+          <p><strong>Resolution Category:</strong> Network Performance - WAN Optimization</p>
+          <p><strong>Resolved By:</strong> AI Operations Center (MRA + 6 Specialized Agents)</p>
+          <p><strong>Verified By:</strong> VERIFICATION_AGENT (all 5 tests passed)</p>
+          <p><strong>User Satisfaction:</strong> ⭐⭐⭐⭐⭐ (Awaiting user feedback)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: User Notification -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="notification-box">
+          <p><strong>📧 Email Notification Sent:</strong></p>
+          <hr>
+          <p><strong>To:</strong> john.smith@xyzcorp.com</p>
+          <p><strong>CC:</strong> network-ops@xyzcorp.com</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED: Ticket #67891 - Packet Loss Across All Remote Sites</p>
+          <p><strong>Sent:</strong> 2025-10-17 10:50:15 AM</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi John,</p>
+            <p>Great news! Your ticket <strong>#67891</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>5-8% packet loss across all remote sites (Chicago, Dallas, Seattle, Denver, Boston) during 09:00-11:00 AM daily, caused by uncontrolled backup traffic consuming 95% of WAN link capacity without traffic shaping policies.</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center deployed traffic shaping policies and optimized buffer configurations on your core router (RTR-CORE-01). The fix was deployed at 10:47 AM and verified successful by 10:48 AM.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ Packet loss reduced from 6.6% average to 0.04% (99.4% improvement)</li>
+              <li>✅ VoIP call quality improved from 2.8 to 4.3 MOS (Excellent)</li>
+              <li>✅ Zero buffer overruns detected</li>
+              <li>✅ All remote sites now performing normally</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Tonight 8:00 PM: Backup schedule will be moved to 01:00-03:00 AM (off-peak hours)</li>
+              <li>📄 Full incident report attached (PDF)</li>
+              <li>📞 Network Operations team will contact you to review long-term recommendations</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 1 hour 33 minutes (from ticket creation to verified fix)</p>
+
+            <p>The issue is now fully resolved and your network should be performing optimally. If you experience any further issues, please open a new ticket or reply to this email.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@xyzcorp.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_67891.pdf (3.2 MB)</li>
+            <li>📎 Configuration_Changes_Log.txt (18 KB)</li>
+            <li>📎 Verification_Test_Results.xlsx (245 KB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #67891 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 1 hour 33 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Efficiency: 18 minutes investigation + deployment</strong></li>
+            <li>👥 <strong>Human Approval Time: 1 hour 15 minutes (waiting for user response)</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 1 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-13: Specialized Agents with KG/RAG/MCP queries + Inter-Agent Collaboration</li>
+            <li>✅ Steps 14-16: Feedback → MRA Correlation → Additional Tasks</li>
+            <li>✅ Steps 17-19: RCA Statement → RECOMMENDATIONS_AGENT → Solutions</li>
+            <li>✅ Steps 20-23: IO_AGENT Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+  
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+</style>
