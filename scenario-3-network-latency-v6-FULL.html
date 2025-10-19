@@ -1,0 +1,2046 @@
+<!-- SCENARIO 3: NETWORK LATENCY ANALYSIS - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Network Latency Investigation v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from User Report:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Report Time: 2025-10-18 02:35:00 PM</li>
+          <li>🔍 Report Source: User Complaint (Sarah Chen, Customer Support Team)</li>
+          <li>⚠️ Issue Type: Network Latency Degradation</li>
+          <li>🔴 Severity: HIGH</li>
+          <li>📍 Affected Area: Customer Support Department (50 users)</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#LAT-6734</span></li>
+            <li>Category: Network Performance</li>
+            <li>Subcategory: High Latency</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: Network Operations Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #LAT-6734 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> Sarah Chen (sarah.chen@company.com)</p>
+          <p><strong>Department:</strong> Customer Support Team</p>
+          <p><strong>Users Impacted:</strong> ~50 users in customer support department</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Our entire customer support team is experiencing severe network latency issues. VoIP calls have significant delay making conversations difficult. Our CRM application (Salesforce) is extremely slow to respond - taking 15-20 seconds to load customer records that normally load instantly. This started yesterday afternoon around 2:30 PM, right after the scheduled network maintenance window. Normal latency is 10-20ms but we're seeing 250-400ms consistently."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which specific sites or network segments are experiencing high latency?</strong></p>
+            <p class="answer">A1: Primarily our headquarters office connecting to our data center. All 50 customer support team members are affected.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Are all applications affected or specific ones?</strong></p>
+            <p class="answer">A2: Mainly VoIP (Cisco Unified Communications) and CRM (Salesforce cloud). Web browsing seems slightly slower but not as bad. Email (Office 365) appears mostly normal.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: When exactly did the latency issues begin? What changed?</strong></p>
+            <p class="answer">A3: Started yesterday (Oct 17) at approximately 2:30 PM, immediately after network maintenance ended. The maintenance was QoS policy updates on our WAN routers. Issue persists today.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: What is the business impact?</strong></p>
+            <p class="answer">A4: Critical impact - Customer support team can't efficiently handle customer calls. VoIP delay causes customers to repeat themselves. CRM slowness means agents can't quickly access customer information during calls. Customer satisfaction at risk.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: Have you performed any troubleshooting? What were the normal latency values before the issue?</strong></p>
+            <p class="answer">A5: Normal latency to data center was 10-20ms. Currently seeing 250-400ms. Basic ping tests confirm high latency. No troubleshooting beyond that - escalating to you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>Network Performance Degradation</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>High Latency / Delay</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Single Site → Data Center WAN</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Persistent (since maintenance)</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Latency increased from 10-20ms to 250-400ms (12-20x degradation)</li>
+            <li>✓ Issue started immediately after QoS policy maintenance - strong correlation</li>
+            <li>✓ VoIP and CRM most affected - time-sensitive applications</li>
+            <li>✓ Issue persistent for 24+ hours - not intermittent</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for network topology, WAN links, and QoS configurations</li>
+            <li>2. Search RAG system for similar latency issues post-maintenance</li>
+            <li>3. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>4. Deploy specialized agents for targeted investigation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Network Topology</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: Customer Support Office → WAN connection to Data Center</li>
+            <li>✓ HQ Office: 10.50.0.0/16 (50 users)</li>
+            <li>✓ Data Center: 10.1.0.0/16</li>
+            <li>✓ WAN Routers: WAN-RTR-01 (HQ), WAN-RTR-02 (DC), MPLS-PE-01 (Provider Edge)</li>
+            <li>✓ WAN Link: MPLS 100 Mbps connection</li>
+          </ul>
+          <p><strong>Query 2: WAN Router Configurations</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Model</th>
+                  <th>OS Version</th>
+                  <th>Key Config</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>WAN-RTR-01</td>
+                  <td>Cisco ISR 4451</td>
+                  <td>IOS-XE 17.6.5</td>
+                  <td>HQ WAN Router</td>
+                </tr>
+                <tr>
+                  <td>WAN-RTR-02</td>
+                  <td>Cisco ISR 4451</td>
+                  <td>IOS-XE 17.6.5</td>
+                  <td>DC WAN Router</td>
+                </tr>
+                <tr>
+                  <td>MPLS-PE-01</td>
+                  <td>Cisco ASR 1002</td>
+                  <td>IOS-XE 17.9.2</td>
+                  <td>Provider Edge Router</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: QoS Policy Configurations</strong></p>
+          <ul class="compact-list">
+            <li>✓ QoS Policy Name: "WAN-QOS-POLICY"</li>
+            <li>✓ Last Modified: 2025-10-17 14:30 (during maintenance window)</li>
+            <li>✓ Policy Classes: VOICE, BUSINESS-CRITICAL, BEST-EFFORT</li>
+            <li>✓ Historical baseline: VoIP latency 10-15ms, CRM response <1s</li>
+          </ul>
+          <p><strong>Query 4: Recent Change History</strong></p>
+          <ul class="metric-list">
+            <li>Change Ticket: <span class="highlight">CHG-2025-1017-QOS</span></li>
+            <li>Change Type: <span class="warning">QoS Policy Update</span></li>
+            <li>Implementation Time: <span class="problem-value">Oct 17, 2:00-2:30 PM</span></li>
+            <li>Change Description: "Updated QoS policies to add new traffic classes"</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-warning">Recent QoS Change Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "high latency + WAN + QoS policy + maintenance"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TKT-52134</td>
+                  <td><span class="success">92%</span></td>
+                  <td>Latency spike after QoS change</td>
+                  <td>Priority queue misconfiguration - removed LLQ</td>
+                </tr>
+                <tr>
+                  <td>TKT-48723</td>
+                  <td><span class="success">85%</span></td>
+                  <td>VoIP delay post-maintenance</td>
+                  <td>QoS priority queue accidentally disabled</td>
+                </tr>
+                <tr>
+                  <td>TKT-41298</td>
+                  <td><span class="warning">71%</span></td>
+                  <td>WAN latency increase</td>
+                  <td>Traffic shaping rate too restrictive</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Troubleshooting Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>QoS_Priority_Queue_Best_Practices.pdf</strong> (Cisco Doc ID: 125489)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ VoIP requires Low Latency Queuing (LLQ) with priority queue</li>
+            <li>📄 <strong>Latency_Troubleshooting_Guide.pdf</strong> (Cisco Press 2024)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Common cause: QoS priority queue missing causes VoIP to use FIFO queue</li>
+            <li>📄 <strong>WAN_QoS_Configuration_Checklist.pdf</strong> (Internal KB-9245)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Always verify "priority" keyword in voice class after changes</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 2 highly similar incidents (92%, 85%) - both caused by missing priority queue</li>
+            <li>✓ Common pattern: QoS policy changes accidentally remove Low Latency Queuing</li>
+            <li>✓ Resolution: Restore "priority" keyword to VoIP traffic class</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>Latency increased from 10-20ms to 250-400ms (20x degradation)</li>
+              <li>Started immediately after QoS maintenance (Oct 17, 2:30 PM)</li>
+              <li>VoIP and CRM most severely affected</li>
+              <li>Persistent issue - not intermittent</li>
+              <li>50 users in customer support team impacted</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>QoS policy "WAN-QOS-POLICY" modified during maintenance</li>
+              <li>Change ticket CHG-2025-1017-QOS implemented Oct 17, 2:00-2:30 PM</li>
+              <li>WAN routers: WAN-RTR-01, WAN-RTR-02, MPLS-PE-01</li>
+              <li>MPLS 100 Mbps WAN link between HQ and DC</li>
+              <li>Timing matches perfectly: issue started when maintenance ended</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>92% similarity to TKT-52134 (QoS priority queue removed)</li>
+              <li>85% similarity to TKT-48723 (VoIP priority queue disabled)</li>
+              <li>Both historical issues: QoS changes removed Low Latency Queuing</li>
+              <li>Standard resolution: Restore "priority" keyword to voice class</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> QoS policy update during maintenance accidentally removed or misconfigured the priority queue for VoIP traffic, causing voice packets to queue behind bulk traffic instead of receiving expedited forwarding. Need to verify QoS configuration with specialized agents.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">🗺️</div>
+            <div class="deployment-name">TOPOLOGY_AGENT</div>
+            <div class="deployment-task">Map traffic paths</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">⏱️</div>
+            <div class="deployment-name">LATENCY_MEASUREMENT_AGENT</div>
+            <div class="deployment-task">Measure hop-by-hop latency</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔗</div>
+            <div class="deployment-name">WAN_LINK_AGENT</div>
+            <div class="deployment-task">Verify WAN link health</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📋</div>
+            <div class="deployment-name">QOS_POLICY_AGENT</div>
+            <div class="deployment-task">Analyze QoS configs</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate remediation plan</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: TOPOLOGY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Network Path Mapping via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved stored topology (last updated: 2025-10-15)</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Live routing tables from WAN-RTR-01, WAN-RTR-02</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show ip route, show cdp neighbors</li>
+          </ul>
+          <p><strong>Traffic Path Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>Customer Support Users (10.50.10.0/24) → HQ LAN Switch</li>
+            <li>HQ LAN Switch → WAN-RTR-01 (10.50.1.1) GigE 0/0/0</li>
+            <li>WAN-RTR-01 GigE 0/0/1 → MPLS-PE-01 (Provider Network)</li>
+            <li>MPLS Cloud → WAN-RTR-02 GigE 0/0/1 (DC WAN Router)</li>
+            <li>WAN-RTR-02 GigE 0/0/0 → DC Core Switches → Application Servers</li>
+          </ul>
+          <p><strong>Routing Verification:</strong></p>
+          <ul class="compact-list">
+            <li>✅ All routing adjacencies UP (OSPF + BGP)</li>
+            <li>✅ No routing loops detected</li>
+            <li>✅ Symmetric paths confirmed (HQ ↔ DC)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Network topology correctly mapped</li>
+          <li>✅ All routing protocols operational</li>
+          <li>✅ No path changes since maintenance</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>⚠️ No topology issues identified - latency must be caused by queuing/QoS</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Topology Verified - No Issues</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 11: LATENCY_MEASUREMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⏱️</span>
+        <span class="agent-name">LATENCY_MEASUREMENT_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Hop-by-Hop Latency Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> Extended ping with record-route option</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Interface latency statistics</li>
+            <li>🔌 <strong>MCP IP SLA:</strong> Real-time latency measurements</li>
+          </ul>
+          <p><strong>Ping Tests - HQ to DC (10.50.10.5 → 10.1.20.10):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Hop</th>
+                  <th>Device</th>
+                  <th>IP Address</th>
+                  <th>Latency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>HQ LAN Switch</td>
+                  <td>10.50.1.254</td>
+                  <td><span class="success">0.5ms</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>WAN-RTR-01</td>
+                  <td>10.50.1.1</td>
+                  <td><span class="success">1.2ms</span></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>MPLS-PE-01</td>
+                  <td>192.168.100.1</td>
+                  <td><span class="success">8.5ms</span></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>WAN-RTR-02</td>
+                  <td>10.1.1.1</td>
+                  <td><span class="problem-value">285ms</span></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>DC Server</td>
+                  <td>10.1.20.10</td>
+                  <td><span class="problem-value">287ms</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Key Finding:</strong> Major latency spike (276ms increase) occurs at hop 4 (WAN-RTR-02), indicating queuing delay on DC WAN router.</p>
+          <p><strong>Traceroute Analysis:</strong></p>
+          <pre class="code-block">Tracing route to 10.1.20.10 over a maximum of 30 hops:
+  1    <1 ms    <1 ms    <1 ms  10.50.1.254 (HQ-LAN-SW)
+  2     1 ms     1 ms     1 ms  10.50.1.1 (WAN-RTR-01)
+  3     8 ms     9 ms     8 ms  192.168.100.1 (MPLS-PE-01)
+  4   285 ms   290 ms   283 ms  10.1.1.1 (WAN-RTR-02)  ⚠️ HIGH LATENCY
+  5   287 ms   292 ms   285 ms  10.1.20.10 (DC-SERVER)
+
+Trace complete.</pre>
+          <p><strong>IP SLA Results (Real-time monitoring):</strong></p>
+          <ul class="metric-list">
+            <li>Average Latency: <span class="problem-value">288ms</span> (Baseline: 12ms)</li>
+            <li>Jitter: <span class="problem-value">45ms</span> (Baseline: 2ms)</li>
+            <li>Packet Loss: <span class="success">0%</span></li>
+            <li>Max Latency: <span class="problem-value">412ms</span></li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ MPLS network latency normal (8-9ms)</li>
+          <li>✅ No packet loss detected</li>
+          <li>✅ Hops 1-3 showing normal latency</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ WAN-RTR-02 adding 276ms latency (should be <2ms)</li>
+          <li>❌ Indicates queuing/processing delay on WAN-RTR-02</li>
+          <li>❌ High jitter (45ms) suggests inconsistent queue servicing</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Latency Spike Isolated to WAN-RTR-02</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: WAN_LINK_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔗</span>
+        <span class="agent-name">WAN_LINK_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>WAN Link Health Verification via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP NETCONF:</strong> Interface statistics from WAN routers</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Link utilization and error counters</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show interface GigabitEthernet 0/0/1</li>
+          </ul>
+          <p><strong>WAN-RTR-01 (HQ) - Interface GigE 0/0/1 (WAN uplink):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Link Status</td>
+                  <td>Up/Up</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Bandwidth</td>
+                  <td>100 Mbps</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Utilization</td>
+                  <td>32% (avg)</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Input Errors</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Errors</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>CRC Errors</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>WAN-RTR-02 (DC) - Interface GigE 0/0/1 (WAN uplink):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Link Status</td>
+                  <td>Up/Up</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Bandwidth</td>
+                  <td>100 Mbps</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Utilization</td>
+                  <td>28% (avg)</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Input Errors</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Errors</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Queue Drops</td>
+                  <td><span class="warning">18,432</span></td>
+                  <td><span class="status-tag status-warning">CHECK</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Queue Statistics - WAN-RTR-02 GigE 0/0/1:</strong></p>
+          <ul class="metric-list">
+            <li>Queue Depth: <span class="problem-value">512/512 packets (100% full)</span></li>
+            <li>Queue Drops (24h): <span class="problem-value">18,432 packets</span></li>
+            <li>Average Queue Delay: <span class="problem-value">278ms</span></li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ WAN links physically healthy (Up/Up)</li>
+          <li>✅ Bandwidth adequate (32% utilization - not congested)</li>
+          <li>✅ No physical layer errors</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ WAN-RTR-02 output queue constantly full (512/512)</li>
+          <li>❌ 18,432 queue drops in past 24 hours</li>
+          <li>❌ Average queue delay 278ms (matches observed latency)</li>
+          <li>❌ Queuing issue despite low link utilization (28%)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Queue Saturation on WAN-RTR-02</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: QOS_POLICY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">QOS_POLICY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>QoS Policy Configuration Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved QoS config history</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show policy-map WAN-QOS-POLICY</li>
+            <li>🔌 <strong>RAG Query:</strong> "QoS priority queue configuration VoIP"</li>
+          </ul>
+          <p><strong>Current QoS Policy on WAN-RTR-02 (Post-Maintenance):</strong></p>
+          <pre class="code-block">WAN-RTR-02# show policy-map WAN-QOS-POLICY
+
+Policy Map WAN-QOS-POLICY
+  Class VOICE
+    bandwidth percent 30
+    set dscp ef
+  Class BUSINESS-CRITICAL
+    bandwidth percent 40
+    set dscp af31
+  Class VIDEO-CONF
+    bandwidth percent 15
+    set dscp af41
+  Class class-default
+    fair-queue
+    bandwidth percent 15</pre>
+          <p><strong>Previous QoS Policy (Pre-Maintenance):</strong></p>
+          <pre class="code-block">WAN-RTR-02# show archive config differences
+
+Policy Map WAN-QOS-POLICY
+  Class VOICE
+    <span class="problem-value">priority percent 30</span>  ⬅️ REMOVED!
+    set dscp ef
+  Class BUSINESS-CRITICAL
+    bandwidth percent 40
+    set dscp af31
+  Class class-default
+    fair-queue
+    bandwidth percent 30</pre>
+          <p><strong>Critical Difference Identified:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Before (Working)</th>
+                  <th>After (Broken)</th>
+                  <th>Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>VOICE Class</td>
+                  <td><span class="success">priority percent 30</span></td>
+                  <td><span class="problem-value">bandwidth percent 30</span></td>
+                  <td>No Low Latency Queue!</td>
+                </tr>
+                <tr>
+                  <td>Queue Type</td>
+                  <td><span class="success">Priority Queue (LLQ)</span></td>
+                  <td><span class="problem-value">Standard CBWFQ</span></td>
+                  <td>VoIP queued, not expedited</td>
+                </tr>
+                <tr>
+                  <td>VIDEO-CONF Class</td>
+                  <td><span class="success">N/A</span></td>
+                  <td><span class="warning">New class added</span></td>
+                  <td>Reduced class-default BW</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>RAG Best Practices Comparison:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Cisco Doc: "VoIP MUST use 'priority' keyword for Low Latency Queue"</li>
+            <li>📄 Best Practice: "Never use 'bandwidth' for time-sensitive traffic"</li>
+            <li>📄 RFC 4594: "Voice traffic requires expedited forwarding (priority queue)"</li>
+          </ul>
+          <p><strong>Root Cause Identified:</strong></p>
+          <p class="highlight">During QoS policy maintenance, the "priority" keyword was changed to "bandwidth" for the VOICE class. This removed Low Latency Queuing (LLQ), forcing VoIP packets into a standard Class-Based Weighted Fair Queue (CBWFQ). Voice packets now wait in queue behind other traffic instead of receiving immediate forwarding, adding ~280ms queuing delay.</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ QoS policy correctly applied to interface</li>
+          <li>✅ DSCP markings configured correctly</li>
+          <li>✅ Bandwidth percentages add up to 100%</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ VOICE class using "bandwidth" instead of "priority"</li>
+          <li>❌ No Low Latency Queue (LLQ) for VoIP traffic</li>
+          <li>❌ VoIP packets queuing instead of immediate forwarding</li>
+          <li>❌ Configuration change occurred during Oct 17 maintenance</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">QoS Misconfiguration - Priority Queue Removed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">🗺️ TOPOLOGY_AGENT → ⏱️ LATENCY_MEASUREMENT_AGENT:</p>
+            <p class="collab-message">"I've mapped the path: HQ → WAN-RTR-01 → MPLS → WAN-RTR-02 → DC. Can you perform hop-by-hop latency measurements to isolate where the delay is occurring?"</p>
+            <p class="collab-response">⏱️ Response: "Acknowledged. Running traceroute and IP SLA tests now. Will report latency per hop."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">⏱️ LATENCY_MEASUREMENT_AGENT → 🔗 WAN_LINK_AGENT:</p>
+            <p class="collab-message">"Isolated latency spike to WAN-RTR-02 (276ms added). This suggests queuing delay, not propagation delay. Can you check queue statistics and interface health on WAN-RTR-02?"</p>
+            <p class="collab-response">🔗 Response: "Will prioritize WAN-RTR-02 interface analysis. Checking queue depth and drops now."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">🔗 WAN_LINK_AGENT → 📋 QOS_POLICY_AGENT:</p>
+            <p class="collab-message">"Confirmed: WAN-RTR-02 output queue saturated (512/512 packets) with 278ms average delay. Link utilization only 28%, so not congestion. Suspect QoS misconfiguration. Can you analyze the QoS policy on WAN-RTR-02?"</p>
+            <p class="collab-response">📋 Response: "Checking QoS policy now. Will compare current config against baseline and best practices."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">📋 QOS_POLICY_AGENT → 🔗 WAN_LINK_AGENT:</p>
+            <p class="collab-message">"Found root cause! VOICE class changed from 'priority' to 'bandwidth' during maintenance. This removed Low Latency Queue, forcing VoIP into standard queue. Explains your 278ms queue delay observation."</p>
+            <p class="collab-response">🔗 Response: "Perfect correlation! Queue delay (278ms) matches VoIP class queuing time. This confirms your finding."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 5:</strong></p>
+            <p class="collab-from">📋 QOS_POLICY_AGENT → 🔧 ROOT_CAUSE_AGENT:</p>
+            <p class="collab-message">"Root cause confirmed: QoS policy change removed priority queue for voice. All evidence correlates. Ready for final RCA."</p>
+            <p class="collab-response">🔧 Response: "Acknowledged. Collecting all findings for comprehensive root cause analysis."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ LATENCY_AGENT narrowed focus to WAN-RTR-02 based on traceroute</li>
+              <li>✓ WAN_LINK_AGENT prioritized queue analysis based on latency data</li>
+              <li>✓ QOS_POLICY_AGENT focused on WAN-RTR-02 policy based on queue findings</li>
+              <li>✓ All agents converged on QoS priority queue hypothesis</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ TOPOLOGY_AGENT: Traffic path correctly mapped, no topology changes</li>
+            <li>✓ LATENCY_MEASUREMENT_AGENT: 276ms latency added at WAN-RTR-02 hop</li>
+            <li>✓ WAN_LINK_AGENT: WAN-RTR-02 queue saturated with 278ms average delay</li>
+            <li>✓ QOS_POLICY_AGENT: VOICE class "priority" changed to "bandwidth"</li>
+            <li>✓ RAG Historical Data: 92% similarity to TKT-52134 (same root cause)</li>
+          </ul>
+          <p><strong>Timeline Correlation:</strong></p>
+          <ul class="metric-list">
+            <li>Oct 17, 2:00 PM: QoS maintenance begins</li>
+            <li>Oct 17, 2:30 PM: QoS policy updated, maintenance ends</li>
+            <li>Oct 17, 2:30 PM: Latency issues begin (reported by users)</li>
+            <li>Oct 18, 2:35 PM: Ticket created after 24 hours of issues</li>
+          </ul>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>During QoS policy maintenance on October 17 at 2:00-2:30 PM, the VOICE traffic class on WAN-RTR-02 was incorrectly changed from "priority percent 30" (Low Latency Queue) to "bandwidth percent 30" (standard CBWFQ). This configuration error removed expedited forwarding for VoIP packets, forcing them to wait in the standard output queue behind other traffic classes. The resulting queuing delay averages 278ms, causing the observed 250-400ms latency increase.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. QoS policy template error - "priority" keyword missing in new config</li>
+            <li>2. Insufficient post-maintenance verification - latency tests not performed</li>
+            <li>3. Change control process did not catch the configuration regression</li>
+            <li>4. No automated QoS policy validation before deployment</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting VoIP call delays</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>CRM slowness (15-20s load times)</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Application-level symptom</td>
+                </tr>
+                <tr>
+                  <td>250-400ms latency (was 10-20ms)</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Network-level symptom</td>
+                </tr>
+                <tr>
+                  <td>276ms delay at WAN-RTR-02</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Hop-specific symptom</td>
+                </tr>
+                <tr>
+                  <td>278ms average queue delay</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Queue-level symptom</td>
+                </tr>
+                <tr>
+                  <td>Output queue saturated (512/512)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Causes queuing delay</td>
+                </tr>
+                <tr>
+                  <td>18,432 queue drops</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Result of queue saturation</td>
+                </tr>
+                <tr>
+                  <td>VOICE class using CBWFQ not LLQ</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>VoIP not expedited</td>
+                </tr>
+                <tr>
+                  <td>"priority" changed to "bandwidth"</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Configuration error</td>
+                </tr>
+                <tr>
+                  <td>QoS maintenance Oct 17 2:30 PM</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>When error introduced</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms started at exact time of QoS maintenance completion</li>
+            <li>✓ Latency values (276ms, 278ms, 250-400ms) all correlate</li>
+            <li>✓ Issue affects time-sensitive apps (VoIP, CRM) most severely</li>
+            <li>✓ Historical tickets show identical pattern and resolution</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed with 100% confidence. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: QoS priority queue removed during maintenance</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive and perfectly correlated</p>
+          <p>✓ Sufficient data collected from KG, RAG, and MCP servers</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">The 250-400ms network latency affecting VoIP and CRM applications is caused by a <strong>QoS policy misconfiguration introduced during maintenance on October 17 at 2:30 PM</strong>. The VOICE traffic class on WAN-RTR-02 was incorrectly changed from "priority percent 30" (Low Latency Queue) to "bandwidth percent 30" (standard CBWFQ), eliminating expedited forwarding for VoIP packets and adding ~278ms of queuing delay.</p>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>• Configuration template error - "priority" keyword omitted from VOICE class</li>
+            <li>• Insufficient post-change verification - no latency testing performed</li>
+            <li>• Change control process did not detect QoS regression</li>
+            <li>• Lack of automated QoS policy validation tools</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Traceroute shows 276ms latency added specifically at WAN-RTR-02 hop</li>
+            <li>✓ Queue statistics show 278ms average queuing delay on WAN-RTR-02</li>
+            <li>✓ QoS policy analysis confirms "priority" keyword removed from VOICE class</li>
+            <li>✓ Issue timing matches exactly with QoS maintenance completion (Oct 17, 2:30 PM)</li>
+            <li>✓ Historical tickets (TKT-52134, TKT-48723) show identical pattern and resolution</li>
+            <li>✓ RAG best practices confirm VoIP requires "priority" keyword for LLQ</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: Customer support team unable to handle calls efficiently (50 users)</li>
+            <li>🔴 Critical: VoIP call delay causing customer frustration and repeat questions</li>
+            <li>🟡 Medium: CRM application slowness (15-20s load times vs. <1s normal)</li>
+            <li>⏱️ Duration: 24+ hours of degraded service (Oct 17 2:30 PM - Present)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved baseline QoS configuration (pre-maintenance)</li>
+          <li>📚 RAG Query: Retrieved resolution procedures from similar tickets</li>
+          <li>🔧 MCP Server: Retrieved current and archived QoS configurations</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 15 minutes)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Restore Priority Queue for VOICE Class</strong></p>
+            <ul class="compact-list">
+              <li>✓ Change "bandwidth percent 30" to "priority percent 30" in VOICE class</li>
+              <li>✓ Deploy to WAN-RTR-02 via NETCONF</li>
+              <li>⏱️ Deployment time: 2 minutes</li>
+              <li>📊 Expected impact: Reduce latency from 280ms to <15ms immediately</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Verify QoS Policy on WAN-RTR-01</strong></p>
+            <ul class="compact-list">
+              <li>✓ Ensure WAN-RTR-01 also has correct priority queue configuration</li>
+              <li>✓ Verify symmetric QoS policies on both WAN routers</li>
+              <li>⏱️ Verification time: 3 minutes</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 24 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Update QoS Configuration Templates</strong></p>
+            <ul class="compact-list">
+              <li>✓ Review and fix all QoS policy templates in repository</li>
+              <li>✓ Ensure VOICE class always uses "priority" keyword</li>
+              <li>✓ Add inline comments documenting critical QoS requirements</li>
+              <li>⏱️ Implementation: Within 4 hours</li>
+            </ul>
+
+            <p><strong>Action 2.2 - Implement Post-Change Verification Checklist</strong></p>
+            <ul class="compact-list">
+              <li>✓ Add mandatory latency tests after QoS changes</li>
+              <li>✓ Verify "show policy-map" output includes "priority" for voice</li>
+              <li>✓ Document in change control procedure</li>
+              <li>⏱️ Implementation: Within 24 hours</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Automated QoS Policy Validation</strong></p>
+            <ul class="compact-list">
+              <li>✓ Develop automated test script to validate QoS configs</li>
+              <li>✓ Check for presence of "priority" keyword in VOICE class</li>
+              <li>✓ Integrate into CI/CD pipeline for config deployments</li>
+              <li>⏱️ Timeline: 2-week development sprint</li>
+            </ul>
+
+            <p><strong>Action 3.2 - Enhanced Monitoring and Alerting</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement continuous latency monitoring (IP SLA)</li>
+              <li>✓ Alert on latency >50ms threshold (baseline: 10-20ms)</li>
+              <li>✓ Monitor QoS queue statistics for saturation</li>
+              <li>⏱️ Timeline: 2 weeks for full deployment</li>
+            </ul>
+
+            <p><strong>Action 3.3 - QoS Configuration Audit</strong></p>
+            <ul class="compact-list">
+              <li>✓ Audit all WAN routers for consistent QoS policies</li>
+              <li>✓ Standardize QoS configurations across all sites</li>
+              <li>✓ Create QoS policy compliance dashboard</li>
+              <li>⏱️ Timeline: 30-day rollout across all sites</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Restore priority queue</td>
+              <td><span class="success">LOW</span></td>
+              <td>Reverting to known-good config</td>
+              <td>1 minute</td>
+            </tr>
+            <tr>
+              <td>QoS template updates</td>
+              <td><span class="success">LOW</span></td>
+              <td>Template-only, no device impact</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <td>Automated validation</td>
+              <td><span class="success">LOW</span></td>
+              <td>Read-only monitoring tool</td>
+              <td>N/A</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ Latency reduced from 250-400ms to 10-20ms (baseline)</li>
+          <li>✓ VoIP call quality restored (delay <150ms)</li>
+          <li>✓ CRM load times back to <1 second</li>
+          <li>✓ Zero queue saturation on WAN-RTR-02</li>
+          <li>✓ No user complaints after deployment</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings, KG config history, and RAG historical resolutions. I recommend proceeding with PHASE 1 immediate action (restore priority queue) to provide instant relief within 15 minutes. This is a simple config revert to known-good state."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 NETCONF configuration snippet for deployment</li>
+            <li>📄 Before/After QoS policy comparison</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Success criteria and verification tests</li>
+            <li>📄 Rollback procedures (if needed)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (Sarah Chen):</strong></p>
+          <p>"Sarah, our AI agents have completed the investigation of ticket #LAT-6734 (high latency issue)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: QoS priority queue removed during Oct 17 maintenance</li>
+            <li>📊 Impact: 250-400ms latency (normal: 10-20ms) affecting VoIP and CRM</li>
+            <li>⏱️ Affecting: Customer support team (50 users)</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Restore "priority percent 30" configuration to VOICE class on WAN-RTR-02</li>
+            <li>2️⃣ Verify symmetric QoS policy on WAN-RTR-01</li>
+            <li>⏱️ Total deployment time: ~5 minutes</li>
+            <li>📉 Expected result: Latency reduced from 280ms to <15ms immediately</li>
+            <li>🔄 Rollback time: 1 minute if any issues occur (simple config revert)</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the deployment of PHASE 1 immediate action?</strong></p>
+            <p class="answer">✅ A1: Yes, absolutely! Our customer support team is severely impacted. Please proceed immediately.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Can we deploy this change now, or do you require a maintenance window?</strong></p>
+            <p class="answer">✅ A2: Deploy now - this is critical. The change is simply reverting the mistake from yesterday's maintenance.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (template updates and process improvements) within 24 hours?</strong></p>
+            <p class="answer">✅ A3: Yes, please. We need to prevent this from happening again. I'll coordinate with the network team.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the final resolution report?</strong></p>
+            <p class="answer">✅ A4: Send to me (sarah.chen@company.com) and CC network-ops@company.com and my manager (mike.johnson@company.com)</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target Device: WAN-RTR-02 (Data Center WAN Router)</li>
+          <li>🔧 Deployment Method: NETCONF over SSH (Port 830)</li>
+          <li>⏱️ Start Time: 2025-10-18 03:15:30 PM</li>
+          <li>👤 Authorized By: Sarah Chen (sarah.chen@company.com)</li>
+          <li>🎫 Emergency Change Ticket: ECHG-2025-1018-001</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Restore Priority Queue for VOICE Class on WAN-RTR-02</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;policy&gt;
+      &lt;policy-map&gt;
+        &lt;name&gt;WAN-QOS-POLICY&lt;/name&gt;
+        &lt;class&gt;
+          &lt;name&gt;VOICE&lt;/name&gt;
+          &lt;!-- CHANGE: bandwidth → priority --&gt;
+          &lt;priority&gt;
+            &lt;percent&gt;30&lt;/percent&gt;  &lt;!-- Restore LLQ for VoIP --&gt;
+          &lt;/priority&gt;
+          &lt;set&gt;
+            &lt;dscp&gt;ef&lt;/dscp&gt;
+          &lt;/set&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;BUSINESS-CRITICAL&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;40&lt;/percent&gt;
+          &lt;/bandwidth&gt;
+          &lt;set&gt;
+            &lt;dscp&gt;af31&lt;/dscp&gt;
+          &lt;/set&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;VIDEO-CONF&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;15&lt;/percent&gt;
+          &lt;/bandwidth&gt;
+          &lt;set&gt;
+            &lt;dscp&gt;af41&lt;/dscp&gt;
+          &lt;/set&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;class-default&lt;/name&gt;
+          &lt;fair-queue&gt;true&lt;/fair-queue&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;15&lt;/percent&gt;
+          &lt;/bandwidth&gt;
+        &lt;/class&gt;
+      &lt;/policy-map&gt;
+    &lt;/policy&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 03:15:32 - NETCONF session established to WAN-RTR-02</li>
+            <li>⏱️ 03:15:35 - Configuration validated (no syntax errors)</li>
+            <li>⏱️ 03:15:38 - Removing "bandwidth percent 30" from VOICE class</li>
+            <li>⏱️ 03:15:41 - Adding "priority percent 30" to VOICE class</li>
+            <li>⏱️ 03:15:43 - Priority queue (LLQ) enabled for VOICE class</li>
+            <li>✅ 03:15:45 - <strong>ACTION 1 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 2: Verify QoS Policy on WAN-RTR-01 (HQ Router)</strong></p>
+          <p><strong>MCP CLI Query:</strong></p>
+          <pre class="code-block">WAN-RTR-01# show policy-map WAN-QOS-POLICY
+
+Policy Map WAN-QOS-POLICY
+  Class VOICE
+    priority percent 30  ✅ CORRECT
+    set dscp ef
+  Class BUSINESS-CRITICAL
+    bandwidth percent 40
+    set dscp af31
+  Class class-default
+    fair-queue
+    bandwidth percent 30</pre>
+          <p><strong>Verification Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 03:15:47 - Querying WAN-RTR-01 QoS policy</li>
+            <li>⏱️ 03:15:50 - VOICE class already configured with "priority percent 30"</li>
+            <li>✅ 03:15:52 - WAN-RTR-01 QoS policy correct - no changes needed</li>
+            <li>✅ 03:15:54 - <strong>ACTION 2 COMPLETED - Symmetric QoS confirmed</strong></li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Verification:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Configuration committed to WAN-RTR-02 running-config</li>
+          <li>✅ Configuration saved to startup-config (automatic backup)</li>
+          <li>✅ NETCONF session closed gracefully</li>
+          <li>⏱️ Total Deployment Time: 24 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - No errors encountered</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-18 03:16:00 PM (15 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Verify Priority Queue Configuration</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">WAN-RTR-02# show policy-map WAN-QOS-POLICY
+
+Policy Map WAN-QOS-POLICY
+  Class VOICE
+    priority percent 30  ✅ RESTORED
+    set dscp ef
+  Class BUSINESS-CRITICAL
+    bandwidth percent 40
+    set dscp af31
+  Class VIDEO-CONF
+    bandwidth percent 15
+    set dscp af41
+  Class class-default
+    fair-queue
+    bandwidth percent 15</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Priority queue successfully restored</p>
+          <ul class="compact-list">
+            <li>✓ VOICE class now uses "priority percent 30" (Low Latency Queue)</li>
+            <li>✓ DSCP marking (ef) still correctly configured</li>
+            <li>✓ Policy matches pre-maintenance baseline</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Verify Queue Statistics</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">WAN-RTR-02# show policy-map interface GigE 0/0/1
+
+GigabitEthernet0/0/1
+  Service-policy output: WAN-QOS-POLICY
+    Class-map: VOICE (match-any)
+      Priority Queue: ENABLED  ✅
+      Priority Level: 1
+      Packets queued: 0
+      Packets transmitted: 45,234
+      Average queue delay: 2ms  ✅ (was 278ms)
+
+    Class-map: BUSINESS-CRITICAL (match-any)
+      Bandwidth: 40% (40 Mbps)
+      Packets: 89,432
+      Queue depth: 12/512
+
+    Class-map: VIDEO-CONF (match-any)
+      Bandwidth: 15% (15 Mbps)
+      Packets: 23,112
+      Queue depth: 3/512</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Priority queue operational</p>
+          <ul class="compact-list">
+            <li>✓ Priority queue enabled and active for VOICE class</li>
+            <li>✓ Average queue delay reduced from 278ms to 2ms</li>
+            <li>✓ Zero packets queued (immediate forwarding)</li>
+            <li>✓ Other classes using standard CBWFQ (as designed)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: Verify End-to-End Latency Reduction</strong></p>
+          <p><strong>MCP Server Query (IP SLA):</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before Fix</th>
+                <th>After Fix</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Average Latency</td>
+                <td><span class="error">288ms</span></td>
+                <td><span class="success">12ms</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Jitter</td>
+                <td><span class="error">45ms</span></td>
+                <td><span class="success">2ms</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Packet Loss</td>
+                <td><span class="success">0%</span></td>
+                <td><span class="success">0%</span></td>
+                <td>✅ OK</td>
+              </tr>
+              <tr>
+                <td>Max Latency</td>
+                <td><span class="error">412ms</span></td>
+                <td><span class="success">18ms</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Traceroute Verification:</strong></p>
+          <pre class="code-block">Tracing route to 10.1.20.10 over a maximum of 30 hops:
+  1    <1 ms    <1 ms    <1 ms  10.50.1.254 (HQ-LAN-SW)
+  2     1 ms     1 ms     1 ms  10.50.1.1 (WAN-RTR-01)
+  3     8 ms     9 ms     8 ms  192.168.100.1 (MPLS-PE-01)
+  4    11 ms    12 ms    11 ms  10.1.1.1 (WAN-RTR-02)  ✅ FIXED!
+  5    12 ms    13 ms    12 ms  10.1.20.10 (DC-SERVER)
+
+Trace complete.</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Latency restored to baseline</p>
+          <ul class="compact-list">
+            <li>✓ Average latency: 288ms → 12ms (96% improvement)</li>
+            <li>✓ WAN-RTR-02 hop: 285ms → 11ms (normal)</li>
+            <li>✓ Jitter reduced from 45ms to 2ms</li>
+            <li>✓ All hops showing normal latency values</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: Verify Application Performance</strong></p>
+          <p><strong>VoIP Quality Metrics:</strong></p>
+          <ul class="compact-list">
+            <li>📞 Active calls monitored: 18 concurrent VoIP sessions</li>
+            <li>📊 Mean Opinion Score (MOS): <strong>4.4</strong> (was: 2.1) ✅</li>
+            <li>🎵 Jitter: 2ms (was: 45ms) ✅</li>
+            <li>⏱️ One-way delay: 12ms (was: 288ms) ✅</li>
+            <li>📉 Packet loss: 0% ✅</li>
+          </ul>
+          <p><strong>CRM Application Response Time:</strong></p>
+          <ul class="compact-list">
+            <li>🖥️ Salesforce record load time: <strong>0.8 seconds</strong> (was: 15-20s) ✅</li>
+            <li>🖥️ Dashboard refresh time: <strong>1.2 seconds</strong> (was: 12s) ✅</li>
+            <li>🖥️ Report generation time: <strong>3.4 seconds</strong> (was: 25s) ✅</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Application performance fully restored</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Verify No Negative Side Effects</strong></p>
+          <ul class="compact-list">
+            <li>✅ No interface flaps detected on WAN-RTR-02</li>
+            <li>✅ BGP sessions stable (no routing changes)</li>
+            <li>✅ CPU utilization normal: 18% (no spike from QoS processing)</li>
+            <li>✅ Memory utilization: 42% (no change)</li>
+            <li>✅ All sites reachable (HQ ↔ DC connectivity verified)</li>
+            <li>✅ No new user complaints in helpdesk queue</li>
+            <li>✅ 3 positive user confirmations received (VoIP quality restored)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No adverse impacts detected</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ Priority queue configuration successfully restored</li>
+            <li>✅ Queue delay reduced from 278ms to 2ms</li>
+            <li>✅ End-to-end latency reduced from 288ms to 12ms (96% improvement)</li>
+            <li>✅ VoIP quality excellent (MOS 4.4/5.0, was 2.1)</li>
+            <li>✅ CRM load times back to normal (<1s, was 15-20s)</li>
+            <li>✅ Zero negative side effects observed</li>
+          </ul>
+          <p><strong>⏱️ Time to Resolution: 41 minutes from ticket creation to verified fix</strong></p>
+          <p><strong>✅ Solution validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 INCIDENT RESOLUTION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #LAT-6734</li>
+            <li>📋 Title: High Network Latency Affecting VoIP and CRM</li>
+            <li>👤 Reported By: Sarah Chen (sarah.chen@company.com)</li>
+            <li>⏱️ Opened: 2025-10-18 02:35:00 PM</li>
+            <li>⏱️ Resolved: 2025-10-18 03:16:45 PM</li>
+            <li>⌛ Resolution Time: <strong>41 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>Customer support team (50 users) experienced severe network latency issues starting October 17 at 2:30 PM, immediately after QoS policy maintenance. VoIP calls had significant delay causing communication difficulties. CRM application (Salesforce) response times increased from <1 second to 15-20 seconds. Network latency increased from normal 10-20ms to 250-400ms.</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p class="highlight">During QoS policy maintenance on October 17 at 2:00-2:30 PM, the VOICE traffic class on WAN-RTR-02 was incorrectly changed from "priority percent 30" (Low Latency Queue) to "bandwidth percent 30" (standard CBWFQ). This configuration error removed expedited forwarding for VoIP packets, forcing them to wait in the standard output queue behind other traffic, adding ~278ms of queuing delay.</p>
+
+          <hr>
+
+          <p><strong>Investigation Timeline:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Agent/System</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>02:35 PM</td>
+                <td>TICKET_SYSTEM</td>
+                <td>Ticket #LAT-6734 created by Sarah Chen</td>
+              </tr>
+              <tr>
+                <td>02:36 PM</td>
+                <td>IO_AGENT</td>
+                <td>Engaged user, asked 5 clarifying questions</td>
+              </tr>
+              <tr>
+                <td>02:42 PM</td>
+                <td>MRA</td>
+                <td>Deployed 6 specialized agents</td>
+              </tr>
+              <tr>
+                <td>02:43 PM</td>
+                <td>TOPOLOGY_AGENT</td>
+                <td>Mapped traffic paths (HQ → WAN → DC)</td>
+              </tr>
+              <tr>
+                <td>02:45 PM</td>
+                <td>LATENCY_MEASUREMENT_AGENT</td>
+                <td>Isolated 276ms latency spike to WAN-RTR-02</td>
+              </tr>
+              <tr>
+                <td>02:47 PM</td>
+                <td>WAN_LINK_AGENT</td>
+                <td>Found queue saturation (278ms avg delay)</td>
+              </tr>
+              <tr>
+                <td>02:49 PM</td>
+                <td>QOS_POLICY_AGENT</td>
+                <td>Identified priority queue removed from config</td>
+              </tr>
+              <tr>
+                <td>02:55 PM</td>
+                <td>ROOT_CAUSE_AGENT</td>
+                <td>Correlated findings, confirmed root cause</td>
+              </tr>
+              <tr>
+                <td>02:58 PM</td>
+                <td>RECOMMENDATIONS_AGENT</td>
+                <td>Created 3-phase remediation plan</td>
+              </tr>
+              <tr>
+                <td>03:02 PM</td>
+                <td>IO_AGENT</td>
+                <td>Obtained user approval for deployment</td>
+              </tr>
+              <tr>
+                <td>03:15 PM</td>
+                <td>DEPLOYMENT_AGENT</td>
+                <td>Restored priority queue configuration</td>
+              </tr>
+              <tr>
+                <td>03:16 PM</td>
+                <td>VERIFICATION_AGENT</td>
+                <td>Verified fix, all tests passed</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Resolution Actions Taken:</strong></p>
+          <p><strong>PHASE 1 (Completed - 2025-10-18 03:15 PM):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Restored "priority percent 30" to VOICE class on WAN-RTR-02</li>
+            <li>✅ Re-enabled Low Latency Queue (LLQ) for VoIP traffic</li>
+            <li>✅ Verified symmetric QoS policies on WAN-RTR-01 and WAN-RTR-02</li>
+            <li>✅ Configuration saved to startup-config (persistent)</li>
+          </ul>
+
+          <p><strong>PHASE 2 (Scheduled - Within 24 hours):</strong></p>
+          <ul class="compact-list">
+            <li>⏳ Update QoS configuration templates to prevent recurrence</li>
+            <li>⏳ Implement post-change verification checklist for QoS changes</li>
+            <li>⏳ Add mandatory latency testing after QoS modifications</li>
+          </ul>
+
+          <p><strong>PHASE 3 (Planned - 30-day roadmap):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Develop automated QoS policy validation script</li>
+            <li>📅 Implement continuous latency monitoring with IP SLA</li>
+            <li>📅 Audit all WAN routers for QoS policy compliance</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Results and Metrics:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Average Latency</td>
+                <td><span class="error">288ms</span></td>
+                <td><span class="success">12ms</span></td>
+                <td><span class="success">96% ↓</span></td>
+              </tr>
+              <tr>
+                <td>VoIP MOS Score</td>
+                <td><span class="error">2.1</span></td>
+                <td><span class="success">4.4</span></td>
+                <td><span class="success">109% ↑</span></td>
+              </tr>
+              <tr>
+                <td>CRM Load Time</td>
+                <td><span class="error">15-20s</span></td>
+                <td><span class="success">0.8s</span></td>
+                <td><span class="success">95% ↓</span></td>
+              </tr>
+              <tr>
+                <td>Queue Delay</td>
+                <td><span class="error">278ms</span></td>
+                <td><span class="success">2ms</span></td>
+                <td><span class="success">99% ↓</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Knowledge Sources Utilized:</strong></p>
+          <ul class="compact-list">
+            <li>📚 <strong>Knowledge Graph:</strong> 7 queries (topology, configs, routing, QoS history)</li>
+            <li>📚 <strong>RAG System:</strong> Retrieved 2 highly similar tickets (92%, 85% match) + 3 best practice documents</li>
+            <li>🔧 <strong>MCP Servers:</strong> 12+ real-time queries (NETCONF, CLI, IP SLA, traceroute)</li>
+            <li>🤖 <strong>AI Agents:</strong> 6 specialized agents deployed with inter-agent collaboration</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned & Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>💡 Implement automated QoS policy validation before deployment</li>
+            <li>💡 Add mandatory post-change latency testing for all QoS modifications</li>
+            <li>💡 Create QoS configuration checklist: always verify "priority" keyword for VoIP</li>
+            <li>💡 Enable continuous latency monitoring with alerting (threshold: >50ms)</li>
+            <li>💡 Update change control process to include QoS-specific verification steps</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Documentation & Artifacts:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete configuration backups (before/after) saved to repository</li>
+            <li>📄 NETCONF deployment script archived for future reference</li>
+            <li>📄 Agent investigation logs stored in knowledge base</li>
+            <li>📄 Updated runbook: "QoS Policy Maintenance Procedure"</li>
+            <li>📄 Incident added to RAG system for future pattern matching</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>✅ TICKET STATUS: RESOLVED</strong></p>
+          <p><strong>Resolution Category:</strong> Network Performance - QoS Configuration</p>
+          <p><strong>Resolved By:</strong> AI Operations Center (MRA + 6 Specialized Agents)</p>
+          <p><strong>Verified By:</strong> VERIFICATION_AGENT (all 5 tests passed)</p>
+          <p><strong>User Satisfaction:</strong> ⭐⭐⭐⭐⭐ (Awaiting user feedback)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: User Notification -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="notification-box">
+          <p><strong>📧 Email Notification Sent:</strong></p>
+          <hr>
+          <p><strong>To:</strong> sarah.chen@company.com</p>
+          <p><strong>CC:</strong> network-ops@company.com, mike.johnson@company.com</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED: Ticket #LAT-6734 - High Network Latency Affecting VoIP and CRM</p>
+          <p><strong>Sent:</strong> 2025-10-18 03:18:30 PM</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi Sarah,</p>
+            <p>Great news! Your ticket <strong>#LAT-6734</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>High network latency (250-400ms, normally 10-20ms) affecting your customer support team's VoIP calls and CRM application performance. The issue was caused by a QoS policy misconfiguration introduced during maintenance on October 17.</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center identified that the priority queue for VoIP traffic was accidentally removed during yesterday's maintenance. We restored the correct QoS configuration on WAN-RTR-02 at 3:15 PM today.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ Latency reduced from 288ms to 12ms (96% improvement)</li>
+              <li>✅ VoIP call quality excellent (MOS 4.4/5.0, was 2.1)</li>
+              <li>✅ CRM load times back to normal (0.8s, was 15-20s)</li>
+              <li>✅ All 50 customer support users can now work efficiently</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Within 24 hours: We'll update QoS templates and add verification checklists</li>
+              <li>📄 Full incident report attached (PDF)</li>
+              <li>📞 Network team will contact you to review preventive measures</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 41 minutes (from ticket creation to verified fix)</p>
+
+            <p>The issue is now fully resolved and your network performance is back to normal. Your team should experience no further latency issues with VoIP or CRM applications.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@company.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_LAT-6734.pdf (2.8 MB)</li>
+            <li>📎 QoS_Configuration_Changes.txt (12 KB)</li>
+            <li>📎 Latency_Test_Results.xlsx (189 KB)</li>
+            <li>📎 QoS_Best_Practices_Guide.pdf (1.2 MB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #LAT-6734 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated with incident details</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 41 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Efficiency: 41 minutes investigation + deployment</strong></li>
+            <li>👥 <strong>Zero human troubleshooting required - fully automated</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 3 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-13: Specialized Agents with KG/RAG/MCP queries + Inter-Agent Collaboration</li>
+            <li>✅ Steps 14-16: Feedback → MRA Correlation → Additional Tasks</li>
+            <li>✅ Steps 17-19: RCA Statement → RECOMMENDATIONS_AGENT → Solutions</li>
+            <li>✅ Steps 20-23: IO_AGENT Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+</style>
