@@ -1,0 +1,1847 @@
+<!-- SCENARIO 2: FIREWALL CONFIGURATION ANALYSIS - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Firewall Configuration Analysis v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from User Report:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Alert Time: 2025-10-17 08:35:12 AM</li>
+          <li>🔍 Alert Source: ServiceNow (User-initiated ticket)</li>
+          <li>⚠️ Alert Type: DMZ Access Failure</li>
+          <li>🔴 Severity: HIGH</li>
+          <li>📍 Affected: Finance Department → DMZ SharePoint Server</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#FW-8823</span></li>
+            <li>Category: Network Security</li>
+            <li>Subcategory: Firewall Access Issue</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: Security Operations Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #FW-8823 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> John (Finance Department)</p>
+          <p><strong>Affected Entity:</strong> XYZ Corporation</p>
+          <p><strong>Department:</strong> Finance Department</p>
+          <p><strong>Users Impacted:</strong> All finance department users (~35 users)</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Users in Finance Department unable to access SharePoint server in DMZ from internal network. Error message: 'Connection timed out'. Access worked fine yesterday. Issue started this morning at approximately 08:30 AM."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which specific DMZ application are you trying to access?</strong></p>
+            <p class="answer">A1: SharePoint server at dmz-sharepoint.xyzcorp.local (IP: 172.16.50.10)</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Which users or network segments are affected?</strong></p>
+            <p class="answer">A2: All finance department users on VLAN 100 (10.10.100.0/24) are affected</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: When exactly did the issue start? Is this the first occurrence?</strong></p>
+            <p class="answer">A3: Started this morning around 08:30 AM. It worked perfectly until yesterday evening (5:00 PM)</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: What is the business impact? Are other departments affected?</strong></p>
+            <p class="answer">A4: High impact - Finance team cannot access critical budget planning documents. Other departments (HR, IT) can access DMZ SharePoint fine.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: Have there been any recent firewall changes or maintenance?</strong></p>
+            <p class="answer">A5: Yes, last night (10:00 PM) there was scheduled firewall rule cleanup to remove obsolete ACLs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>Security Policy / Access Control</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Firewall ACL Configuration</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Single Department (Finance)</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Change-Related (Post-Maintenance)</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Issue started after scheduled firewall maintenance - strong correlation</li>
+            <li>✓ Only Finance department affected - suggests specific ACL or zone policy issue</li>
+            <li>✓ Other departments can access same DMZ resource - rules ACL ordering/priority problem</li>
+            <li>✓ Connection timeout indicates traffic being dropped, not rejected</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for firewall topology, ACL configs, and zone policies</li>
+            <li>2. Search RAG system for similar DMZ access issues and ACL conflicts</li>
+            <li>3. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>4. Deploy specialized agents for targeted investigation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Firewall Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Network Topology & Security Zones</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: XYZ Corp security architecture diagram</li>
+            <li>✓ Internal Zone: Finance VLAN 100 (10.10.100.0/24)</li>
+            <li>✓ DMZ Zone: DMZ Servers (172.16.50.0/24)</li>
+            <li>✓ Firewall: ASA-DC-01 (Active), ASA-DC-02 (Standby) - HA pair</li>
+            <li>✓ SharePoint Server: 172.16.50.10 (dmz-sharepoint.xyzcorp.local)</li>
+          </ul>
+          <p><strong>Query 2: Firewall Device Configurations</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Model</th>
+                  <th>OS Version</th>
+                  <th>Key Config</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ASA-DC-01</td>
+                  <td>Cisco ASA 5516-X</td>
+                  <td>ASA 9.16(4)20</td>
+                  <td>Active Unit (Primary)</td>
+                </tr>
+                <tr>
+                  <td>Inside Interface</td>
+                  <td>GigE 0/0</td>
+                  <td>Security Level: 100</td>
+                  <td>10.10.0.1/16</td>
+                </tr>
+                <tr>
+                  <td>DMZ Interface</td>
+                  <td>GigE 0/2</td>
+                  <td>Security Level: 50</td>
+                  <td>172.16.50.1/24</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: Access Control Lists (Current State)</strong></p>
+          <ul class="compact-list">
+            <li>✓ ACL Name: INSIDE-TO-DMZ (Applied to inside interface)</li>
+            <li>✓ Total Rules: 28 active rules</li>
+            <li>✓ Last Modified: 2025-10-16 22:15:34 (last night's maintenance)</li>
+            <li>✓ Change Description: "Cleanup obsolete ACL entries - removed 12 rules"</li>
+          </ul>
+          <p><strong>Query 4: Zone Pair Policies</strong></p>
+          <ul class="metric-list">
+            <li>Inside → DMZ: <span class="normal-value">Policy Active</span></li>
+            <li>DMZ → Inside: <span class="normal-value">Policy Active (return traffic)</span></li>
+            <li>Default Action: <span class="problem-value">DENY (implicit)</span></li>
+            <li>Inspection: <span class="success">Stateful inspection enabled</span></li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-warning">Recent Configuration Change Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "DMZ access issues + ACL conflicts + overlapping rules"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TKT-78234</td>
+                  <td><span class="success">92%</span></td>
+                  <td>DMZ access blocked after ACL cleanup</td>
+                  <td>Conflicting deny rule added above permit</td>
+                </tr>
+                <tr>
+                  <td>TKT-65091</td>
+                  <td><span class="success">84%</span></td>
+                  <td>Specific subnet cannot reach DMZ</td>
+                  <td>ACL rule order issue - resequenced</td>
+                </tr>
+                <tr>
+                  <td>TKT-52817</td>
+                  <td><span class="warning">71%</span></td>
+                  <td>Post-maintenance access failure</td>
+                  <td>Accidentally removed permit rule</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Troubleshooting Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>Cisco_ASA_ACL_Best_Practices.pdf</strong> (Cisco Doc ID: 119058)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ ACL processing is top-down; first match wins</li>
+            <li>📄 <strong>Firewall_Troubleshooting_Guide.pdf</strong> (Internal KB-9203)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Common issue: Broad deny rules placed before specific permits</li>
+            <li>📄 <strong>DMZ_Access_Policies_Standard.pdf</strong> (Security Policy v3.2)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ All internal users should have HTTPS access to DMZ SharePoint</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 3 similar incidents resolved by fixing ACL rule ordering</li>
+            <li>✓ Common root cause: ACL cleanup inadvertently created overlapping rules</li>
+            <li>✓ Recommended fix: Analyze ACL sequence, reorder conflicting rules</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>Finance department (10.10.100.0/24) cannot access DMZ SharePoint (172.16.50.10)</li>
+              <li>Connection timeout (traffic being dropped)</li>
+              <li>Started at 08:30 AM after 10:00 PM firewall maintenance</li>
+              <li>Other departments can access same DMZ resource</li>
+              <li>ACL cleanup performed last night - 12 rules removed</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>Firewall: ASA-DC-01 (Active) running ASA 9.16(4)20</li>
+              <li>ACL INSIDE-TO-DMZ: 28 rules active, modified last night</li>
+              <li>Implicit deny at end of ACL (default behavior)</li>
+              <li>Stateful inspection enabled (return traffic allowed)</li>
+              <li>Finance VLAN 100 → DMZ Zone traffic requires explicit permit</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>92% similarity to TKT-78234 (ACL cleanup causing access issues)</li>
+              <li>Historical resolution: Conflicting deny rule placed above permit rule</li>
+              <li>Common pattern: ACL rule ordering problems after maintenance</li>
+              <li>Best practice: Most specific rules first, general rules last</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> Last night's ACL cleanup introduced overlapping or conflicting rules that are blocking Finance department's access to DMZ SharePoint. Likely a broad deny rule placed before a specific permit rule. Need to verify with specialized agents.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">🛡️</div>
+            <div class="deployment-name">FIREWALL_CONFIG_AGENT</div>
+            <div class="deployment-task">Analyze firewall configs</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📋</div>
+            <div class="deployment-name">ACL_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Examine ACL rules</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔐</div>
+            <div class="deployment-name">ZONE_POLICY_AGENT</div>
+            <div class="deployment-task">Verify security zones</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🌊</div>
+            <div class="deployment-name">TRAFFIC_FLOW_AGENT</div>
+            <div class="deployment-task">Trace traffic paths</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate remediation plan</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: FIREWALL_CONFIG_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🛡️</span>
+        <span class="agent-name">FIREWALL_CONFIG_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Firewall Configuration Analysis via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved stored config (last backup: 2025-10-16 21:45:00)</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show running-config from ASA-DC-01</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show failover state (verify active unit)</li>
+          </ul>
+          <p><strong>Firewall Configuration Summary:</strong></p>
+          <ul class="compact-list">
+            <li>Device: ASA-DC-01 (Active), ASA-DC-02 (Standby) - HA Active/Standby</li>
+            <li>Failover State: Active (ASA-DC-01), Standby Ready (ASA-DC-02)</li>
+            <li>Inside Interface (GigE 0/0): Security Level 100, VLAN 10</li>
+            <li>DMZ Interface (GigE 0/2): Security Level 50, VLAN 50</li>
+            <li><strong>Key Finding:</strong> Last config change timestamp: 2025-10-16 22:15:34</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Firewall HA pair healthy (Active/Standby)</li>
+          <li>✅ All interfaces operational (no errors)</li>
+          <li>✅ Security zones properly defined</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>⚠️ Configuration modified last night during maintenance window</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-warning">Recent Config Change Detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 11: ACL_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">ACL_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>ACL Rule Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved ACL baseline from before maintenance</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show access-list INSIDE-TO-DMZ</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show run access-list | include 10.10.100</li>
+          </ul>
+          <p><strong>ACL INSIDE-TO-DMZ Analysis:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Line #</th>
+                  <th>Action</th>
+                  <th>Source</th>
+                  <th>Destination</th>
+                  <th>Service</th>
+                  <th>Hit Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5</td>
+                  <td>permit</td>
+                  <td>10.10.0.0/16</td>
+                  <td>172.16.50.10</td>
+                  <td>tcp/443</td>
+                  <td>142,567</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>permit</td>
+                  <td>10.10.200.0/24</td>
+                  <td>172.16.50.0/24</td>
+                  <td>tcp/443</td>
+                  <td>98,234</td>
+                </tr>
+                <tr>
+                  <td>17</td>
+                  <td><span class="problem-value">deny</span></td>
+                  <td><span class="problem-value">10.10.100.0/24</span></td>
+                  <td>172.16.50.0/24</td>
+                  <td>ip</td>
+                  <td><span class="problem-value">1,247</span></td>
+                </tr>
+                <tr>
+                  <td>22</td>
+                  <td>permit</td>
+                  <td><span class="problem-value">10.10.100.0/24</span></td>
+                  <td>172.16.50.10</td>
+                  <td>tcp/443</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>28</td>
+                  <td>deny</td>
+                  <td>any</td>
+                  <td>any</td>
+                  <td>ip</td>
+                  <td>8,923</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Critical Finding:</strong> Rule #17 (deny 10.10.100.0/24 → 172.16.50.0/24) is placed BEFORE Rule #22 (permit 10.10.100.0/24 → 172.16.50.10 tcp/443)</p>
+          <p><strong>ACL Processing Logic:</strong></p>
+          <ul class="compact-list">
+            <li>❌ Finance traffic (10.10.100.x) hits Rule #17 first → DENIED (broad deny rule)</li>
+            <li>🚫 Rule #22 never evaluated (traffic already dropped by Rule #17)</li>
+            <li>✅ Other departments (10.10.200.x, etc.) match Rule #5 and #12 → PERMITTED</li>
+            <li>📊 Rule #17 hit count: 1,247 (exactly matches Finance department attempts)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Rules #5, #12 working correctly for other departments</li>
+          <li>✅ Rule #22 syntax is correct (permit Finance → DMZ SharePoint HTTPS)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Rule #17: Broad deny rule blocking Finance subnet (10.10.100.0/24)</li>
+          <li>❌ Rule #22: Never hit (0 matches) - placed after deny rule</li>
+          <li>❌ ACL ordering violation: Deny rule before more specific permit rule</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">ACL Rule Conflict Identified</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: ZONE_POLICY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔐</span>
+        <span class="agent-name">ZONE_POLICY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Security Zone Policy Verification via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show nameif</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show zone-pair security</li>
+            <li>🔌 <strong>KG Query:</strong> Retrieved security zone policies</li>
+          </ul>
+          <p><strong>Security Zone Configuration:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Interface</th>
+                  <th>Zone Name</th>
+                  <th>Security Level</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GigE 0/0</td>
+                  <td>inside</td>
+                  <td>100</td>
+                  <td><span class="status-tag status-success">UP</span></td>
+                </tr>
+                <tr>
+                  <td>GigE 0/1</td>
+                  <td>outside</td>
+                  <td>0</td>
+                  <td><span class="status-tag status-success">UP</span></td>
+                </tr>
+                <tr>
+                  <td>GigE 0/2</td>
+                  <td>dmz</td>
+                  <td>50</td>
+                  <td><span class="status-tag status-success">UP</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Zone Pair Policy: inside → dmz</strong></p>
+          <ul class="compact-list">
+            <li>✓ Policy: INSIDE-TO-DMZ-POLICY (Active)</li>
+            <li>✓ ACL Applied: INSIDE-TO-DMZ (28 rules)</li>
+            <li>✓ Direction: Inbound on inside interface</li>
+            <li>✓ Stateful Inspection: Enabled (return traffic auto-allowed)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ All security zones properly defined and operational</li>
+          <li>✅ Zone pair policy inside → dmz is active</li>
+          <li>✅ Stateful inspection enabled for return traffic</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>⚠️ Zone policy enforcement depends on ACL INSIDE-TO-DMZ (which has rule conflict)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Zone Policies Configured Correctly</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: TRAFFIC_FLOW_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🌊</span>
+        <span class="agent-name">TRAFFIC_FLOW_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Traffic Flow Trace & Packet Capture Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP CLI (SSH):</strong> packet-tracer input inside tcp 10.10.100.5 443 172.16.50.10 443</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show conn address 10.10.100.5</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show asp drop frame acl-drop</li>
+          </ul>
+          <p><strong>Packet Tracer Results (Finance User → DMZ SharePoint):</strong></p>
+          <pre class="code-block">ASA-DC-01# packet-tracer input inside tcp 10.10.100.5 12345 172.16.50.10 443
+
+Phase: 1
+Type: ACCESS-LIST
+Subtype: log
+Result: <span class="problem-value">DROP</span>
+Config:
+access-list INSIDE-TO-DMZ line 17 extended deny ip 10.10.100.0 255.255.255.0 172.16.50.0 255.255.255.0
+Additional Information:
+  Forward Flow based lookup succeeded (implicit_rule)
+
+Result:
+input-interface: inside
+input-status: up
+input-line-status: up
+output-interface: dmz
+output-status: up
+output-line-status: up
+Action: <span class="problem-value">drop</span>
+Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
+          <p><strong>ASP Drop Statistics:</strong></p>
+          <ul class="metric-list">
+            <li>Total ACL Drops: <span class="problem-value">1,247 packets</span></li>
+            <li>Source: 10.10.100.0/24 (Finance VLAN)</li>
+            <li>Destination: 172.16.50.10 (DMZ SharePoint)</li>
+            <li>Matched ACL: INSIDE-TO-DMZ line 17</li>
+          </ul>
+          <p><strong>Connection Table Check:</strong></p>
+          <ul class="compact-list">
+            <li>❌ No active connections found for 10.10.100.x → 172.16.50.10</li>
+            <li>✅ Connections present for 10.10.200.x → 172.16.50.10 (other depts)</li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Firewall routing correct (knows how to reach both zones)</li>
+          <li>✅ Other departments' traffic flows successfully</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Finance traffic explicitly dropped by ACL line 17</li>
+          <li>❌ 1,247 packets dropped (matches user report timing and frequency)</li>
+          <li>❌ Packet tracer confirms: Traffic hits deny rule before permit rule</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Traffic Dropped by ACL Line 17</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">🛡️ FIREWALL_CONFIG_AGENT → 📋 ACL_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"I've confirmed config was modified last night at 22:15:34. Can you analyze the INSIDE-TO-DMZ ACL to identify what changed and if there are any conflicts?"</p>
+            <p class="collab-response">📋 Response: "Will analyze ACL line by line. Focusing on rules affecting Finance subnet 10.10.100.0/24."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">📋 ACL_ANALYSIS_AGENT → 🌊 TRAFFIC_FLOW_AGENT:</p>
+            <p class="collab-message">"Found overlapping rules: Line 17 (deny 10.10.100.0/24) placed before Line 22 (permit 10.10.100.0/24 → SharePoint). Can you run packet-tracer to confirm traffic is hitting the deny rule first?"</p>
+            <p class="collab-response">🌊 Response: "Running packet-tracer now for 10.10.100.5 → 172.16.50.10. Will trace exact ACL line match."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">🌊 TRAFFIC_FLOW_AGENT → 📋 ACL_ANALYSIS_AGENT:</p>
+            <p class="collab-message">"Packet-tracer confirms: Traffic dropped at ACL line 17. Drop reason: 'acl-drop'. ASP stats show 1,247 drops from Finance subnet. Line 22 never evaluated."</p>
+            <p class="collab-response">📋 Response: "Confirmed. ACL rule ordering is the root cause. Line 17 must be removed or moved below line 22."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">📋 ACL_ANALYSIS_AGENT → 🔐 ZONE_POLICY_AGENT:</p>
+            <p class="collab-message">"ACL conflict identified. Can you verify the zone policy intent? Should Finance department have access to DMZ SharePoint?"</p>
+            <p class="collab-response">🔐 Response: "Checking security policy docs. According to DMZ_Access_Policies_Standard.pdf, ALL internal users should have HTTPS access to SharePoint."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 5:</strong></p>
+            <p class="collab-from">📋 ACL_ANALYSIS_AGENT → 🔧 ROOT_CAUSE_AGENT:</p>
+            <p class="collab-message">"All evidence collected. Rule #17 was likely added during cleanup and accidentally placed above existing permit rule #22. Ready for correlation."</p>
+            <p class="collab-response">🔧 Response: "Acknowledged. Collecting all findings for root cause determination."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ ACL_ANALYSIS_AGENT prioritized Finance subnet rules based on problem statement</li>
+              <li>✓ TRAFFIC_FLOW_AGENT focused packet trace on specific ACL line match</li>
+              <li>✓ ZONE_POLICY_AGENT verified business policy to confirm intent</li>
+              <li>✓ All agents converged on ACL rule ordering hypothesis</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ FIREWALL_CONFIG_AGENT: Config modified 2025-10-16 22:15:34</li>
+            <li>✓ ACL_ANALYSIS_AGENT: Rule #17 (deny 10.10.100.0/24) before Rule #22 (permit)</li>
+            <li>✓ ZONE_POLICY_AGENT: Policy requires all internal users have DMZ access</li>
+            <li>✓ TRAFFIC_FLOW_AGENT: Packet-tracer confirms drop at ACL line 17</li>
+            <li>✓ RAG Historical Data: 92% similarity to TKT-78234 (ACL ordering issue)</li>
+          </ul>
+          <p><strong>Timeline Correlation:</strong></p>
+          <ul class="metric-list">
+            <li>22:00 PM: Scheduled maintenance begins (ACL cleanup)</li>
+            <li>22:15 PM: ACL modified - Rule #17 added (broad deny Finance subnet)</li>
+            <li>08:30 AM: Users return to work, attempt DMZ access → blocked</li>
+            <li>08:35 AM: Ticket #FW-8823 created by Finance user John</li>
+          </ul>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>During last night's scheduled ACL cleanup (2025-10-16 22:15:34), ACL rule #17 was added to deny traffic from Finance subnet (10.10.100.0/24) to DMZ network (172.16.50.0/24). This broad deny rule was inadvertently placed BEFORE the existing specific permit rule #22 (which allows Finance → DMZ SharePoint HTTPS access). Due to top-down ACL processing, Finance traffic hits the deny rule first and is dropped, preventing access to DMZ SharePoint.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. ACL rule #17 is overly broad (denies all IP traffic vs. specific protocols)</li>
+            <li>2. Rule ordering violation: General deny placed before specific permit</li>
+            <li>3. Insufficient testing after ACL cleanup (no post-change validation)</li>
+            <li>4. Rule #22 never evaluated (0 hit count) - shadowed by rule #17</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting connection timeout</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>Finance dept cannot access SharePoint</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Business application impact</td>
+                </tr>
+                <tr>
+                  <td>1,247 ACL drops from Finance subnet</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Firewall-level symptom</td>
+                </tr>
+                <tr>
+                  <td>Packet-tracer shows drop at line 17</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Technical validation</td>
+                </tr>
+                <tr>
+                  <td>Rule #22 has 0 hit count</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Medium</td>
+                  <td>Indicates rule shadowing</td>
+                </tr>
+                <tr>
+                  <td>Other departments can access DMZ</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Isolates issue to Finance ACL</td>
+                </tr>
+                <tr>
+                  <td>ACL modified during maintenance</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>Change correlation</td>
+                </tr>
+                <tr>
+                  <td>Rule #17 overly broad (deny all IP)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Poor rule specificity</td>
+                </tr>
+                <tr>
+                  <td>Rule #17 placed before Rule #22</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>ACL ordering violation</td>
+                </tr>
+                <tr>
+                  <td>No post-change validation testing</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Process failure</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms started immediately after 22:15 PM maintenance window</li>
+            <li>✓ All symptoms specific to Finance department (10.10.100.0/24)</li>
+            <li>✓ All technical evidence points to ACL line 17 as blocking point</li>
+            <li>✓ Pattern matches 92% with historical ticket TKT-78234</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: ACL rule #17 (deny) placed before rule #22 (permit)</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive and correlated across all data sources</p>
+          <p>✓ Packet-tracer and ASP drops provide definitive evidence</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">Finance department's inability to access DMZ SharePoint is caused by <strong>overlapping ACL rules in INSIDE-TO-DMZ access list</strong>. Specifically, rule #17 (deny 10.10.100.0/24 → 172.16.50.0/24 ip) was placed BEFORE rule #22 (permit 10.10.100.0/24 → 172.16.50.10 tcp/443) during last night's maintenance. Due to top-down ACL processing, traffic from Finance subnet hits the broader deny rule first and is dropped before reaching the specific permit rule.</p>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>• Rule #17 is overly broad (denies ALL IP traffic from Finance subnet to entire DMZ)</li>
+            <li>• ACL ordering best practice violated (specific permits should precede general denies)</li>
+            <li>• No post-maintenance validation testing performed</li>
+            <li>• Change management process did not include impact analysis for Finance department</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Packet-tracer output explicitly shows drop at ACL line 17</li>
+            <li>✓ ASP drop statistics show 1,247 packets dropped from 10.10.100.0/24</li>
+            <li>✓ Rule #22 has 0 hit count (shadowed by rule #17)</li>
+            <li>✓ Issue started immediately after 22:15 PM ACL modification</li>
+            <li>✓ Other departments accessing same DMZ resource successfully (different ACL rules)</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: 35 Finance users unable to access budget planning documents</li>
+            <li>🔴 Critical: Month-end financial reporting delayed</li>
+            <li>⏱️ Duration: ~2 hours (08:30 AM - 10:45 AM) - productivity impact</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved Cisco ASA ACL best practices and rule ordering guidelines</li>
+          <li>📚 RAG Query: Retrieved 3 successful resolution playbooks from similar tickets</li>
+          <li>🔧 MCP Server: Retrieved current ACL configuration for comparison</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 15 minutes)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Remove Conflicting ACL Rule #17</strong></p>
+            <ul class="compact-list">
+              <li>✓ Execute: no access-list INSIDE-TO-DMZ line 17</li>
+              <li>✓ This removes the broad deny rule blocking Finance traffic</li>
+              <li>⏱️ Deployment time: 30 seconds via SSH/NETCONF</li>
+              <li>📊 Expected impact: Immediate restoration of Finance DMZ access</li>
+              <li>🔄 Risk: LOW - Removing deny rule, permit rule #22 will take effect</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Verify Access Restoration</strong></p>
+            <ul class="compact-list">
+              <li>✓ Run packet-tracer to confirm permit rule #22 now matched</li>
+              <li>✓ Verify Finance users can access SharePoint (test with user)</li>
+              <li>⏱️ Verification time: 2 minutes</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 24 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - ACL Rule Optimization & Reordering</strong></p>
+            <ul class="compact-list">
+              <li>✓ Review entire INSIDE-TO-DMZ ACL for other potential conflicts</li>
+              <li>✓ Reorder rules: Most specific first, general denies last</li>
+              <li>✓ Document ACL structure with comments</li>
+              <li>⏱️ Implementation: Tonight 8:00 PM (maintenance window)</li>
+            </ul>
+
+            <p><strong>Action 2.2 - Configuration Backup & Documentation</strong></p>
+            <ul class="compact-list">
+              <li>✓ Save corrected configuration to startup-config</li>
+              <li>✓ Create configuration archive in version control</li>
+              <li>✓ Update network documentation with ACL logic flowchart</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Enhanced Change Management Process</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement mandatory pre-change ACL validation (packet-tracer tests)</li>
+              <li>✓ Require post-change testing checklist for firewall modifications</li>
+              <li>✓ Add automated ACL conflict detection tool to CI/CD pipeline</li>
+            </ul>
+
+            <p><strong>Action 3.2 - ACL Governance & Best Practices</strong></p>
+            <ul class="compact-list">
+              <li>✓ Establish ACL design standards (specific before general rules)</li>
+              <li>✓ Implement object-based ACLs for better maintainability</li>
+              <li>✓ Deploy ACL hit count monitoring and periodic review process</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Automated Testing & Monitoring</strong></p>
+            <ul class="compact-list">
+              <li>✓ Deploy synthetic transaction monitoring (Finance → DMZ SharePoint)</li>
+              <li>✓ Enable ASP drop alerting for ACL drops (threshold: >100/hour)</li>
+              <li>✓ Create dashboard for ACL rule hit counts and drops</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Remove ACL line 17</td>
+              <td><span class="success">LOW</span></td>
+              <td>Existing permit rule #22 will handle traffic</td>
+              <td>30 seconds</td>
+            </tr>
+            <tr>
+              <td>ACL reordering</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Test with packet-tracer before/after</td>
+              <td>1 minute (config rollback)</td>
+            </tr>
+            <tr>
+              <td>Process changes</td>
+              <td><span class="success">LOW</span></td>
+              <td>Phased implementation with training</td>
+              <td>N/A (procedural)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ Finance users can access DMZ SharePoint (HTTPS)</li>
+          <li>✓ Packet-tracer shows ALLOW result for Finance → DMZ SharePoint</li>
+          <li>✓ ACL line 22 shows non-zero hit count</li>
+          <li>✓ Zero ACL drops from Finance subnet (10.10.100.0/24)</li>
+          <li>✓ No impact to other departments' DMZ access</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings, KG best practices, and RAG historical resolutions. I recommend proceeding with PHASE 1 immediate action (remove ACL line 17) to provide immediate relief within 15 minutes."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 CLI commands for ACL modification</li>
+            <li>📄 Packet-tracer test scripts (before/after validation)</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Rollback procedures</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (John - Finance):</strong></p>
+          <p>"John, our AI agents have completed the investigation of ticket #FW-8823 (DMZ SharePoint access issue)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: ACL rule #17 (deny Finance subnet) placed before rule #22 (permit SharePoint access)</li>
+            <li>📊 Impact: Finance department blocked from accessing DMZ SharePoint</li>
+            <li>⏱️ Started: After last night's 10:00 PM ACL cleanup maintenance</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Remove ACL rule #17 (broad deny rule blocking Finance traffic)</li>
+            <li>2️⃣ Verify Finance users can access SharePoint (test connection)</li>
+            <li>⏱️ Total deployment time: ~2 minutes</li>
+            <li>📈 Expected result: Immediate restoration of DMZ SharePoint access</li>
+            <li>🔄 Rollback time: 30 seconds if any issues occur</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the removal of ACL rule #17 to restore access?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. Finance team needs access urgently for month-end reporting.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Can you test SharePoint access after deployment to confirm resolution?</strong></p>
+            <p class="answer">✅ A2: Yes, I'll test from my workstation (10.10.100.25) immediately after deployment.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (ACL optimization) tonight at 8:00 PM?</strong></p>
+            <p class="answer">✅ A3: Yes, approved. Please send notification to security team for review.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the final resolution report?</strong></p>
+            <p class="answer">✅ A4: Send to me (john@xyzcorp.com) and CC security-ops@xyzcorp.com</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target Device: ASA-DC-01 (Active Firewall)</li>
+          <li>🔧 Deployment Method: SSH CLI (Port 22)</li>
+          <li>⏱️ Start Time: 2025-10-17 10:52:18 AM</li>
+          <li>👤 Authorized By: John (Finance Department)</li>
+          <li>🎫 Change Ticket: CHG-2025-1017-002</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Remove Conflicting ACL Rule #17</strong></p>
+          <p><strong>CLI Commands:</strong></p>
+          <pre class="code-block">ASA-DC-01# configure terminal
+ASA-DC-01(config)# no access-list INSIDE-TO-DMZ line 17 extended deny ip 10.10.100.0 255.255.255.0 172.16.50.0 255.255.255.0
+ASA-DC-01(config)# end
+ASA-DC-01# write memory</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:52:20 - SSH session established to ASA-DC-01</li>
+            <li>⏱️ 10:52:22 - Entered configuration mode</li>
+            <li>⏱️ 10:52:25 - ACL line 17 removed from INSIDE-TO-DMZ</li>
+            <li>⏱️ 10:52:27 - Configuration saved to startup-config</li>
+            <li>✅ 10:52:28 - <strong>ACTION 1 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 2: Verify ACL Configuration</strong></p>
+          <p><strong>Verification Commands:</strong></p>
+          <pre class="code-block">ASA-DC-01# show access-list INSIDE-TO-DMZ | include 10.10.100
+
+access-list INSIDE-TO-DMZ line 22 extended permit tcp 10.10.100.0 255.255.255.0 host 172.16.50.10 eq https (hitcnt=0)</pre>
+          <p><strong>Verification Status:</strong></p>
+          <ul class="compact-list">
+            <li>✅ ACL line 17 successfully removed (not present in output)</li>
+            <li>✅ ACL line 22 (permit Finance → SharePoint HTTPS) now active</li>
+            <li>⚠️ Hit count still 0 (will increment when users test)</li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Verification:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Configuration committed to device running-config</li>
+          <li>✅ Configuration saved to startup-config</li>
+          <li>✅ SSH session closed gracefully</li>
+          <li>⏱️ Total Deployment Time: 10 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - No errors encountered</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-17 10:52:30 AM (2 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Packet-Tracer Simulation</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">ASA-DC-01# packet-tracer input inside tcp 10.10.100.5 12345 172.16.50.10 443
+
+Phase: 1
+Type: ACCESS-LIST
+Subtype: log
+Result: <span class="success">ALLOW</span>
+Config:
+access-list INSIDE-TO-DMZ line 22 extended permit tcp 10.10.100.0 255.255.255.0 host 172.16.50.10 eq https
+Additional Information:
+  Forward Flow based lookup succeeded
+
+Result:
+input-interface: inside
+input-status: up
+output-interface: dmz
+output-status: up
+Action: <span class="success">allow</span></pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Packet-tracer shows ALLOW (matched ACL line 22)</p>
+          <ul class="compact-list">
+            <li>✓ Finance traffic (10.10.100.x) now permitted to DMZ SharePoint</li>
+            <li>✓ Matched ACL line 22 (specific permit rule)</li>
+            <li>✓ No longer hitting deny rule (line 17 removed)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Real User Connection Test</strong></p>
+          <p><strong>User Test (John from Finance - 10.10.100.25):</strong></p>
+          <ul class="compact-list">
+            <li>🌐 Browser Test: https://dmz-sharepoint.xyzcorp.local</li>
+            <li>✅ Connection Status: <span class="success">SUCCESS</span></li>
+            <li>✅ Page Load Time: 1.2 seconds (normal)</li>
+            <li>✅ User Report: "SharePoint loads perfectly now!"</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Finance users can access DMZ SharePoint</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: ACL Hit Count Verification</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">ASA-DC-01# show access-list INSIDE-TO-DMZ | include 10.10.100
+
+access-list INSIDE-TO-DMZ line 22 extended permit tcp 10.10.100.0 255.255.255.0 host 172.16.50.10 eq https (hitcnt=47)</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - ACL line 22 showing hits (47 packets matched)</p>
+          <ul class="compact-list">
+            <li>✓ Hit count increased from 0 to 47 (rule is now active)</li>
+            <li>✓ Finance traffic successfully matching permit rule</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: ASP Drop Statistics</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">ASA-DC-01# show asp drop | include acl-drop
+
+Frame drop:
+  acl-drop                               1247 (no change in last 2 minutes)</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No new ACL drops since deployment</p>
+          <ul class="compact-list">
+            <li>✓ Drop count unchanged (1,247 - historical drops)</li>
+            <li>✓ No new drops in last 2 minutes</li>
+            <li>✓ Finance traffic no longer being dropped</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Other Departments Unaffected</strong></p>
+          <p><strong>Verification:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Source VLAN</th>
+                <th>DMZ Access</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Finance</td>
+                <td>VLAN 100 (10.10.100.0/24)</td>
+                <td>SharePoint HTTPS</td>
+                <td>✅ RESTORED</td>
+              </tr>
+              <tr>
+                <td>HR</td>
+                <td>VLAN 200 (10.10.200.0/24)</td>
+                <td>SharePoint HTTPS</td>
+                <td>✅ WORKING</td>
+              </tr>
+              <tr>
+                <td>IT</td>
+                <td>VLAN 10 (10.10.10.0/24)</td>
+                <td>All DMZ Services</td>
+                <td>✅ WORKING</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No negative impact to other departments</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ Packet-tracer confirms Finance traffic now permitted</li>
+            <li>✅ Real user test successful (SharePoint accessible)</li>
+            <li>✅ ACL line 22 showing active hits (47 matches)</li>
+            <li>✅ No new ACL drops detected</li>
+            <li>✅ Other departments' access unaffected</li>
+          </ul>
+          <p><strong>⏱️ Time to Resolution: 17 minutes from ticket assignment to verified fix</strong></p>
+          <p><strong>✅ Solution validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 INCIDENT RESOLUTION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #FW-8823</li>
+            <li>📋 Title: Finance Department Unable to Access DMZ SharePoint</li>
+            <li>👤 Reported By: John (Finance Department)</li>
+            <li>⏱️ Opened: 2025-10-17 08:35:12 AM</li>
+            <li>⏱️ Resolved: 2025-10-17 10:52:35 AM</li>
+            <li>⌛ Resolution Time: <strong>2 hours 17 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>All users in Finance Department (VLAN 100, 10.10.100.0/24) unable to access DMZ SharePoint server (172.16.50.10) starting at 08:30 AM. Users received "connection timeout" errors when attempting to access https://dmz-sharepoint.xyzcorp.local. Issue prevented Finance team from accessing critical budget planning documents needed for month-end reporting.</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p class="highlight">During scheduled ACL cleanup maintenance on 2025-10-16 at 22:15 PM, ACL rule #17 was added to access-list INSIDE-TO-DMZ, creating a broad deny statement (deny ip 10.10.100.0/24 172.16.50.0/24). This rule was inadvertently placed BEFORE existing rule #22 (permit tcp 10.10.100.0/24 host 172.16.50.10 eq https). Due to top-down ACL processing, Finance department traffic matched the deny rule first and was dropped, preventing access to DMZ SharePoint.</p>
+
+          <hr>
+
+          <p><strong>Investigation Timeline:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Agent/System</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>08:35 AM</td>
+                <td>TICKET_SYSTEM</td>
+                <td>Ticket #FW-8823 created by Finance user</td>
+              </tr>
+              <tr>
+                <td>08:36 AM</td>
+                <td>IO_AGENT</td>
+                <td>Engaged user, asked 5 clarifying questions</td>
+              </tr>
+              <tr>
+                <td>08:42 AM</td>
+                <td>MRA</td>
+                <td>Deployed 6 specialized agents</td>
+              </tr>
+              <tr>
+                <td>08:45 AM</td>
+                <td>FIREWALL_CONFIG_AGENT</td>
+                <td>Identified recent config change (22:15 PM)</td>
+              </tr>
+              <tr>
+                <td>08:48 AM</td>
+                <td>ACL_ANALYSIS_AGENT</td>
+                <td>Found overlapping rules #17 and #22</td>
+              </tr>
+              <tr>
+                <td>08:52 AM</td>
+                <td>TRAFFIC_FLOW_AGENT</td>
+                <td>Packet-tracer confirmed drop at ACL line 17</td>
+              </tr>
+              <tr>
+                <td>08:55 AM</td>
+                <td>ZONE_POLICY_AGENT</td>
+                <td>Verified security policy requires Finance access</td>
+              </tr>
+              <tr>
+                <td>09:02 AM</td>
+                <td>ROOT_CAUSE_AGENT</td>
+                <td>Correlated findings, confirmed ACL ordering issue</td>
+              </tr>
+              <tr>
+                <td>09:08 AM</td>
+                <td>RECOMMENDATIONS_AGENT</td>
+                <td>Created 3-phase remediation plan</td>
+              </tr>
+              <tr>
+                <td>09:15 AM</td>
+                <td>IO_AGENT</td>
+                <td>Obtained user approval for deployment</td>
+              </tr>
+              <tr>
+                <td>10:52 AM</td>
+                <td>DEPLOYMENT_AGENT</td>
+                <td>Removed ACL line 17</td>
+              </tr>
+              <tr>
+                <td>10:52 AM</td>
+                <td>VERIFICATION_AGENT</td>
+                <td>Verified fix, all tests passed</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Resolution Actions Taken:</strong></p>
+          <p><strong>PHASE 1 (Completed - 2025-10-17 10:52 AM):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Removed ACL rule #17 (deny 10.10.100.0/24 → 172.16.50.0/24)</li>
+            <li>✅ Verified ACL rule #22 (permit Finance → SharePoint HTTPS) now active</li>
+            <li>✅ Tested with packet-tracer (result: ALLOW)</li>
+            <li>✅ Confirmed user access restoration via real connection test</li>
+          </ul>
+
+          <p><strong>PHASE 2 (Scheduled - Tonight 8:00 PM):</strong></p>
+          <ul class="compact-list">
+            <li>⏳ Review entire INSIDE-TO-DMZ ACL for other conflicts</li>
+            <li>⏳ Reorder rules (most specific first, general denies last)</li>
+            <li>⏳ Add inline comments for documentation</li>
+          </ul>
+
+          <p><strong>PHASE 3 (Planned - 30-day roadmap):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Implement pre-change ACL validation process</li>
+            <li>📅 Deploy automated ACL conflict detection tools</li>
+            <li>📅 Establish synthetic monitoring for critical DMZ paths</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Results and Metrics:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Finance DMZ Access</td>
+                <td><span class="error">BLOCKED</span></td>
+                <td><span class="success">WORKING</span></td>
+                <td><span class="success">100% ✓</span></td>
+              </tr>
+              <tr>
+                <td>ACL Line 22 Hits</td>
+                <td><span class="error">0</span></td>
+                <td><span class="success">47+</span></td>
+                <td><span class="success">Active ✓</span></td>
+              </tr>
+              <tr>
+                <td>ACL Drops (Finance)</td>
+                <td><span class="error">1,247/hour</span></td>
+                <td><span class="success">0/hour</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+              <tr>
+                <td>User Complaints</td>
+                <td><span class="error">35 users</span></td>
+                <td><span class="success">0 users</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Knowledge Sources Utilized:</strong></p>
+          <ul class="compact-list">
+            <li>📚 <strong>Knowledge Graph:</strong> 6 queries (topology, ACL configs, security policies, zone definitions)</li>
+            <li>📚 <strong>RAG System:</strong> Retrieved 3 similar historical tickets + 3 troubleshooting documents</li>
+            <li>🔧 <strong>MCP Servers:</strong> 12+ real-time queries (SSH CLI, packet-tracer, ACL analysis)</li>
+            <li>🤖 <strong>AI Agents:</strong> 6 specialized agents deployed with inter-agent collaboration</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned & Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>💡 Implement mandatory packet-tracer testing before/after all ACL changes</li>
+            <li>💡 Establish ACL design standard: Specific permits before general denies</li>
+            <li>💡 Deploy automated ACL conflict detection in pre-production testing</li>
+            <li>💡 Enable monitoring for ACL hit counts (0 hits = potential issue)</li>
+            <li>💡 Require post-change validation checklist for firewall modifications</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Documentation & Artifacts:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete configuration backups (before/after) saved to repository</li>
+            <li>📄 Packet-tracer test results archived for reference</li>
+            <li>📄 Agent investigation logs stored for knowledge base</li>
+            <li>📄 Updated runbook: "Firewall ACL Troubleshooting Procedure"</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>✅ TICKET STATUS: RESOLVED</strong></p>
+          <p><strong>Resolution Category:</strong> Security Policy - Firewall ACL Configuration</p>
+          <p><strong>Resolved By:</strong> AI Operations Center (MRA + 6 Specialized Agents)</p>
+          <p><strong>Verified By:</strong> VERIFICATION_AGENT (all 5 tests passed)</p>
+          <p><strong>User Satisfaction:</strong> ⭐⭐⭐⭐⭐ (Awaiting user feedback)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: User Notification -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="notification-box">
+          <p><strong>📧 Email Notification Sent:</strong></p>
+          <hr>
+          <p><strong>To:</strong> john@xyzcorp.com</p>
+          <p><strong>CC:</strong> security-ops@xyzcorp.com</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED: Ticket #FW-8823 - Finance Department DMZ SharePoint Access</p>
+          <p><strong>Sent:</strong> 2025-10-17 10:55:00 AM</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi John,</p>
+            <p>Great news! Your ticket <strong>#FW-8823</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>Finance department unable to access DMZ SharePoint server (172.16.50.10), caused by overlapping firewall ACL rules introduced during last night's maintenance. ACL rule #17 (deny Finance subnet) was inadvertently placed before rule #22 (permit SharePoint access).</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center identified and removed the conflicting ACL rule #17 from firewall ASA-DC-01. The fix was deployed at 10:52 AM and verified successful immediately.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ Finance department access to DMZ SharePoint fully restored</li>
+              <li>✅ Packet-tracer confirms traffic now permitted (ACL line 22)</li>
+              <li>✅ ACL rule showing active hits (47+ connections)</li>
+              <li>✅ Zero ACL drops from Finance subnet</li>
+              <li>✅ No impact to other departments</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Tonight 8:00 PM: Complete ACL review and optimization</li>
+              <li>📄 Full incident report attached (PDF)</li>
+              <li>📞 Security Operations team will implement enhanced change management process</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 2 hours 17 minutes (from ticket creation to verified fix)</p>
+
+            <p>The issue is now fully resolved and your team should have normal access to DMZ SharePoint. If you experience any further issues, please open a new ticket or reply to this email.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@xyzcorp.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_FW-8823.pdf (2.8 MB)</li>
+            <li>📎 ACL_Configuration_Changes.txt (12 KB)</li>
+            <li>📎 Packet_Tracer_Results.txt (8 KB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #FW-8823 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 2 hours 17 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Efficiency: 17 minutes investigation + deployment</strong></li>
+            <li>👥 <strong>Human Approval Time: 2 hours (waiting for user response)</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 2 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-13: Specialized Agents (Firewall, ACL, Zone, Traffic Flow) with KG/RAG/MCP queries</li>
+            <li>✅ Step 14: Inter-Agent Collaboration & Dynamic Task Delegation</li>
+            <li>✅ Steps 15-16: ROOT_CAUSE_AGENT → MRA Correlation Analysis</li>
+            <li>✅ Steps 17-18: Additional Tasks Evaluation → Clear RCA Statement</li>
+            <li>✅ Steps 19-20: RECOMMENDATIONS_AGENT → IO_AGENT Transmission</li>
+            <li>✅ Steps 21-23: User Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+          <p><strong>🎯 All 42 Agent Workflow Checklist Items Satisfied</strong></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+</style>
