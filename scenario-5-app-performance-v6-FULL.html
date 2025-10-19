@@ -1,0 +1,1840 @@
+<!-- SCENARIO 5: APPLICATION PERFORMANCE RCA - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Application Performance RCA v6</h3>
+  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: ALERT/TICKET GENERATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Alert Generated from Application Performance Monitoring:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Alert Time: 2025-10-19 09:15:00 AM</li>
+          <li>🔍 Alert Source: AppDynamics APM</li>
+          <li>⚠️ Alert Type: Application Response Time Threshold Exceeded</li>
+          <li>🔴 Severity: HIGH</li>
+          <li>📍 Affected Application: CRM System (Salesforce)</li>
+          <li>👥 Affected Users: 200+ users (Sales Department)</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#45782</span></li>
+            <li>Category: Application Performance</li>
+            <li>Subcategory: Response Time Degradation</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: Network Operations Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #45782 Received - Initial Problem Statement:</strong></p>
+        <div class="change-details">
+          <p><strong>Reported By:</strong> XYZ Corp NOC (Automated Alert + User Reports)</p>
+          <p><strong>Affected Entity:</strong> XYZ Corporation</p>
+          <p><strong>Department:</strong> Sales Department</p>
+          <p><strong>Users Impacted:</strong> 200+ sales representatives</p>
+          <p><strong>Initial Problem Description:</strong></p>
+          <p>"Multiple users reporting 3-5 second CRM response times (normal: less than 1 second). Application performance monitoring shows significant degradation starting at 9:00 AM this morning. Users experiencing slow page loads, delayed search results, and timeout errors when accessing customer records."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering additional context before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which specific applications are experiencing performance issues?</strong></p>
+            <p class="answer">A1: Primarily CRM (Salesforce), but also email (Office 365) and internal SharePoint sites are slower than usual</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Which users or departments are affected? Is it location-specific?</strong></p>
+            <p class="answer">A2: Entire Sales department (200+ users) across all locations - HQ, Chicago, Dallas, Seattle offices</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: When exactly did the performance degradation begin? Is this the first occurrence?</strong></p>
+            <p class="answer">A3: Started this morning at exactly 9:00 AM. First occurrence - CRM has been performing normally until today.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Are users seeing specific error messages, or just slowness?</strong></p>
+            <p class="answer">A4: Mostly slowness (3-5 second page loads vs normal <1 sec). A few timeout errors when running reports or searching large customer databases.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: Were there any recent changes to the network, applications, or infrastructure?</strong></p>
+            <p class="answer">A5: Yes! Scheduled maintenance was performed last night (10 PM - 2 AM) on WAN routers. Network team updated QoS policies as part of standard maintenance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROBLEM CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Problem Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Problem Type</td>
+                <td>Application Performance Degradation</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Network QoS / Application Latency</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Department-wide (Sales - 200+ users)</td>
+              </tr>
+              <tr>
+                <td>Pattern</td>
+                <td>Sudden onset after maintenance window</td>
+              </tr>
+              <tr>
+                <td>Correlation</td>
+                <td>QoS policy changes during last night's maintenance</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Escalating to <strong>MASTER_REASONING_AGENT</strong> for systematic investigation
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
+        <div class="change-details">
+          <p><strong>Ticket Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Sudden performance degradation (3-5 sec vs <1 sec baseline) suggests configuration change</li>
+            <li>✓ Timing correlation with maintenance window (last night 10 PM - 2 AM) is significant</li>
+            <li>✓ QoS policy changes mentioned - likely root cause area</li>
+            <li>✓ Affecting cloud-hosted applications (CRM, Office 365) suggests WAN path issue</li>
+            <li>✓ All locations affected indicates central network component, not site-specific</li>
+          </ul>
+          <p><strong>Investigation Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for application topology and network path</li>
+            <li>2. Query Knowledge Graph for QoS policy baseline configurations</li>
+            <li>3. Search RAG system for similar application performance issues</li>
+            <li>4. Check LCM (Lifecycle Management) change records from last night's maintenance</li>
+            <li>5. Perform three-source analysis (Problem + KG + RAG)</li>
+            <li>6. Deploy specialized agents for targeted investigation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Application & Network Context:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Application Topology</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: CRM application architecture</li>
+            <li>✓ CRM Platform: Salesforce (cloud-hosted)</li>
+            <li>✓ CRM Servers: APP-LOAD-BALANCER-01 (10.50.100.10) → CRM-SERVER-CLUSTER (10.50.100.20-25)</li>
+            <li>✓ Network Path: Users → WAN-RTR-CORE-01 → APP-LOAD-BALANCER-01 → CRM Servers</li>
+            <li>✓ Protocol: HTTPS (TCP 443), Average bandwidth: 15-25 Mbps during business hours</li>
+          </ul>
+          <p><strong>Query 2: Network Device Configurations</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Model</th>
+                  <th>Role</th>
+                  <th>Key Config</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>WAN-RTR-CORE-01</td>
+                  <td>Cisco ASR 1006-X</td>
+                  <td>WAN Aggregation Router</td>
+                  <td>QoS: Policy-map BUSINESS-APPS</td>
+                </tr>
+                <tr>
+                  <td>APP-LOAD-BALANCER-01</td>
+                  <td>F5 BIG-IP 4200v</td>
+                  <td>Application Load Balancer</td>
+                  <td>Virtual Server: 10.50.100.10</td>
+                </tr>
+                <tr>
+                  <td>CRM-SERVER-CLUSTER</td>
+                  <td>VMware vSphere Cluster</td>
+                  <td>Application Servers (6 nodes)</td>
+                  <td>IPs: 10.50.100.20-25</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: QoS Policy Baseline (Retrieved from KG - Pre-Maintenance)</strong></p>
+          <ul class="metric-list">
+            <li>Policy Name: <span class="highlight">BUSINESS-APPS</span></li>
+            <li>CRM Traffic Class: <span class="success">AF31 (DSCP 26)</span></li>
+            <li>Baseline Bandwidth Allocation: <span class="success">35%</span> of WAN link</li>
+            <li>Priority: High (guaranteed bandwidth)</li>
+            <li>Last Modified: 2025-09-15 (1 month ago)</li>
+          </ul>
+          <p><strong>Query 4: Application Performance Baseline (Past 30 Days)</strong></p>
+          <ul class="metric-list">
+            <li>Average Response Time: <span class="normal-value">650ms</span></li>
+            <li>Peak Response Time: <span class="normal-value">950ms</span></li>
+            <li>99th Percentile: <span class="normal-value">1.2 seconds</span></li>
+            <li>Timeout Rate: <span class="success">0.01%</span></li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-success">Baseline QoS: 35% Bandwidth</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "application performance + QoS misconfiguration + response time degradation"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Similarity</th>
+                  <th>Problem</th>
+                  <th>Resolution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TKT-38921</td>
+                  <td><span class="success">92%</span></td>
+                  <td>CRM slow after QoS change</td>
+                  <td>Restored QoS bandwidth from 20% to 35%</td>
+                </tr>
+                <tr>
+                  <td>TKT-29104</td>
+                  <td><span class="success">85%</span></td>
+                  <td>App timeout after maintenance</td>
+                  <td>QoS policy rollback to previous config</td>
+                </tr>
+                <tr>
+                  <td>TKT-19553</td>
+                  <td><span class="warning">71%</span></td>
+                  <td>VoIP + CRM performance issues</td>
+                  <td>Adjusted class-map matching criteria</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Troubleshooting Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>QoS_Troubleshooting_Guide_Enterprise.pdf</strong> (Cisco Doc ID: 15091)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Recommends 30-40% bandwidth allocation for business-critical apps</li>
+            <li>📄 <strong>Application_Performance_Best_Practices.pdf</strong> (Internal KB-9921)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ QoS bandwidth reduction = primary cause of app slowness in 78% of cases</li>
+            <li>📄 <strong>Change_Management_QoS_Checklist.pdf</strong> (Internal KB-7734)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Verify class-map configs match DSCP markings after any QoS change</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 92% similarity to TKT-38921 - identical symptoms (CRM slow after QoS change)</li>
+            <li>✓ Resolution: Restore QoS bandwidth allocation to baseline (35%)</li>
+            <li>✓ Root cause pattern: Maintenance window QoS changes reducing app bandwidth</li>
+            <li>✓ 78% of similar incidents resolved by QoS policy restoration</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">High Confidence Pattern Match (92%)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Problem Statement:</strong></p>
+            <ul class="compact-list">
+              <li>CRM response time degraded from <1 sec to 3-5 seconds</li>
+              <li>Affecting 200+ sales users across all locations</li>
+              <li>Started at 9:00 AM this morning (business hours start)</li>
+              <li>Correlation: QoS policy changes during last night's maintenance (10 PM - 2 AM)</li>
+              <li>Users experiencing timeouts and slow page loads</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>Application path: Users → WAN-RTR-CORE-01 → APP-LOAD-BALANCER-01 → CRM Cluster</li>
+              <li>QoS policy baseline: 35% bandwidth for CRM traffic (DSCP AF31)</li>
+              <li>Historical performance: 650ms average, 1.2s at 99th percentile</li>
+              <li>Current state: Unknown (need to query current QoS config)</li>
+              <li>Network topology: All sites converge through WAN-RTR-CORE-01</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>92% similarity to TKT-38921 (identical CRM + QoS scenario)</li>
+              <li>Historical resolution: Restore QoS bandwidth from 20% back to 35%</li>
+              <li>Common pattern: Maintenance window QoS changes inadvertently reduce app bandwidth</li>
+              <li>Best practice: Always verify class-map bandwidth allocations post-change</li>
+              <li>78% of app performance issues traced to QoS bandwidth reduction</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Hypothesis:</strong> QoS policy changes during last night's maintenance reduced bandwidth allocation for CRM traffic on WAN-RTR-CORE-01, causing application response time degradation. Need to verify current QoS config and compare against 35% baseline.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">🗺️</div>
+            <div class="deployment-name">APPLICATION_TOPOLOGY_AGENT</div>
+            <div class="deployment-task">Map application data flow</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📊</div>
+            <div class="deployment-name">QOS_POLICY_AGENT</div>
+            <div class="deployment-task">Analyze QoS configurations</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔌</div>
+            <div class="deployment-name">NETWORK_PATH_AGENT</div>
+            <div class="deployment-task">Verify routing and paths</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📈</div>
+            <div class="deployment-name">HISTORICAL_PERF_AGENT</div>
+            <div class="deployment-task">Check LCM change records</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔧</div>
+            <div class="deployment-name">ROOT_CAUSE_AGENT</div>
+            <div class="deployment-task">Correlate all findings</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate remediation plan</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: APPLICATION_TOPOLOGY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🗺️</span>
+        <span class="agent-name">APPLICATION_TOPOLOGY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Application Topology Mapping via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved application architecture (last updated: 2025-10-01)</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Live routing tables from WAN-RTR-CORE-01</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show ip route from WAN-RTR-CORE-01</li>
+            <li>🔌 <strong>MCP RESTCONF:</strong> Application response time metrics from AppDynamics</li>
+          </ul>
+          <p><strong>Application Data Flow Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>User Workstations (All Sites) → Local Site Routers</li>
+            <li>Site Routers → MPLS WAN → WAN-RTR-CORE-01 (10.100.1.1)</li>
+            <li>WAN-RTR-CORE-01 → APP-LOAD-BALANCER-01 (10.50.100.10) via GigE 0/0/1</li>
+            <li>APP-LOAD-BALANCER-01 → CRM-SERVER-CLUSTER (10.50.100.20-25)</li>
+            <li><strong>Critical Path Identified:</strong> WAN-RTR-CORE-01 GigE 0/0/1 (QoS policy applied here)</li>
+          </ul>
+          <p><strong>Current Application Metrics (from AppDynamics MCP):</strong></p>
+          <ul class="metric-list">
+            <li>Current Response Time: <span class="problem-value">3.8 seconds</span> (baseline: 650ms)</li>
+            <li>Error Rate: <span class="problem-value">2.3%</span> (baseline: 0.01%)</li>
+            <li>Throughput: <span class="warning">15.2 Mbps</span> (normal: 22-25 Mbps)</li>
+            <li>Active Users: <span class="normal-value">203 users</span></li>
+          </ul>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ All routing paths established correctly</li>
+          <li>✅ CRM servers healthy (CPU: 45%, Memory: 62%)</li>
+          <li>✅ Load balancer operational (distributing traffic evenly)</li>
+          <li>✅ No packet loss on application server interfaces</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Response time degraded: 3.8 sec (baseline: 650ms) - 484% increase</li>
+          <li>❌ Error rate elevated: 2.3% (baseline: 0.01%) - 230x increase</li>
+          <li>❌ Throughput reduced: 15.2 Mbps (normal: 22-25 Mbps) - 33% reduction</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Application Performance Severely Degraded</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 11: QOS_POLICY_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">QOS_POLICY_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>QoS Policy Analysis via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved baseline QoS config (pre-maintenance)</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Current QoS policy from WAN-RTR-CORE-01</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show policy-map interface GigE 0/0/1</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show class-map BUSINESS-APPS</li>
+          </ul>
+          <p><strong>QoS Configuration Comparison:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Baseline (Pre-Maintenance)</th>
+                  <th>Current (Post-Maintenance)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Policy Name</td>
+                  <td>BUSINESS-APPS</td>
+                  <td>BUSINESS-APPS</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Class Name</td>
+                  <td>CRM-TRAFFIC</td>
+                  <td>CRM-TRAFFIC</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>DSCP Marking</td>
+                  <td>AF31 (DSCP 26)</td>
+                  <td>AF31 (DSCP 26)</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Bandwidth Allocation</td>
+                  <td><span class="success">35%</span></td>
+                  <td><span class="problem-value">25%</span></td>
+                  <td><span class="status-tag status-critical">CHANGED</span></td>
+                </tr>
+                <tr>
+                  <td>Queue Type</td>
+                  <td>Priority</td>
+                  <td>Priority</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>ROOT CAUSE IDENTIFIED:</strong></p>
+          <div class="rca-box">
+            <p><strong>QoS bandwidth allocation for CRM traffic was reduced from 35% to 25% during last night's maintenance window.</strong></p>
+            <p>This 10 percentage point reduction (28.6% decrease) directly correlates with the 33% throughput reduction and 484% response time increase observed this morning.</p>
+          </div>
+          <p><strong>Current QoS Policy Output (from MCP CLI):</strong></p>
+          <pre class="code-block">WAN-RTR-CORE-01# show policy-map interface GigE 0/0/1
+
+GigabitEthernet0/0/1
+  Service-policy output: BUSINESS-APPS
+    Class-map: CRM-TRAFFIC (match-any)
+      Match: ip dscp af31 (26)
+      Bandwidth: 25% (175 Mbps of 700 Mbps total)
+      Queue depth: 142/256 packets
+      Dropped packets: 1,847 (congestion)
+
+    Class-map: VOICE-TRAFFIC (match-any)
+      Match: ip dscp ef (46)
+      Bandwidth: 30% (210 Mbps)
+
+    Class-map: DEFAULT-TRAFFIC (match-any)
+      Bandwidth: 45% (315 Mbps)</pre>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ QoS policy correctly applied to interface GigE 0/0/1</li>
+          <li>✅ DSCP marking correct (AF31 for CRM traffic)</li>
+          <li>✅ Class-map matching criteria unchanged</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ Bandwidth allocation: 25% (should be 35%)</li>
+          <li>❌ Dropped packets: 1,847 due to queue congestion</li>
+          <li>❌ Queue depth high: 142/256 packets (55% utilization)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">QoS Bandwidth Reduced: 35% → 25%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: NETWORK_PATH_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">NETWORK_PATH_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Network Path Verification via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP NETCONF:</strong> Routing table from WAN-RTR-CORE-01</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> traceroute to 10.50.100.10 (APP-LOAD-BALANCER-01)</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Interface statistics and link utilization</li>
+          </ul>
+          <p><strong>Path Verification Results:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Route to CRM servers: 10.50.100.0/24 via GigE 0/0/1 (next-hop: 10.50.1.1)</li>
+            <li>✓ All intermediate hops responding (no routing loops)</li>
+            <li>✓ End-to-end connectivity confirmed</li>
+            <li>✓ No packet loss on network path (0% loss)</li>
+            <li>✓ Network latency normal: 8ms HQ to CRM servers (baseline: 6-10ms)</li>
+          </ul>
+          <p><strong>Interface Statistics (GigE 0/0/1 - Critical Path):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Current Value</th>
+                  <th>Threshold</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Input Errors</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Errors</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>CRC Errors</td>
+                  <td>0</td>
+                  <td>< 5</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Link Utilization</td>
+                  <td>42%</td>
+                  <td>< 80%</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>QoS Queue Drops</td>
+                  <td>1,847</td>
+                  <td>< 100</td>
+                  <td><span class="status-tag status-critical">CRITICAL</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Network path operational and stable</li>
+          <li>✅ No routing issues or loops</li>
+          <li>✅ Physical layer healthy (0 errors)</li>
+          <li>✅ Link utilization acceptable (42%)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ QoS queue drops: 1,847 packets (exceeds threshold by 18x)</li>
+          <li>❌ Drops correlate with reduced bandwidth allocation (25% vs 35%)</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-warning">Network Path OK, QoS Drops Elevated</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: HISTORICAL_PERF_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📈</span>
+        <span class="agent-name">HISTORICAL_PERF_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Historical Performance & LCM Change Record Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved 30-day application performance metrics</li>
+            <li>🔌 <strong>LCM System:</strong> Retrieved change records from last night's maintenance</li>
+            <li>🔌 <strong>RAG Query:</strong> Historical baseline for CRM application</li>
+          </ul>
+          <p><strong>30-Day Performance Baseline:</strong></p>
+          <ul class="metric-list">
+            <li>Oct 1-18 Average Response Time: <span class="success">620-680ms</span></li>
+            <li>Oct 1-18 Error Rate: <span class="success">0.01-0.02%</span></li>
+            <li>Oct 1-18 Throughput: <span class="success">22-25 Mbps</span></li>
+            <li>Oct 19 (Today) Response Time: <span class="problem-value">3.8 seconds</span></li>
+            <li>Oct 19 (Today) Error Rate: <span class="problem-value">2.3%</span></li>
+            <li>Oct 19 (Today) Throughput: <span class="problem-value">15.2 Mbps</span></li>
+          </ul>
+          <p><strong>LCM Change Records (Last Night's Maintenance):</strong></p>
+          <div class="change-details">
+            <p><strong>Change Ticket: CHG-2025-1018-003</strong></p>
+            <ul class="compact-list">
+              <li>Change Type: QoS Policy Update</li>
+              <li>Device: WAN-RTR-CORE-01</li>
+              <li>Executed By: Network Engineering Team</li>
+              <li>Time Window: 2025-10-18 10:00 PM - 2:00 AM</li>
+              <li>Change Description: "Adjust QoS bandwidth allocation to accommodate new VOICE-TRAFFIC class"</li>
+            </ul>
+            <p><strong>Change Details (from LCM audit log):</strong></p>
+            <pre class="code-block">Change Record: CHG-2025-1018-003
+Date/Time: 2025-10-18 23:45:12
+Device: WAN-RTR-CORE-01 (10.100.1.1)
+Configuration Changes:
+
+BEFORE (Policy-map BUSINESS-APPS):
+  class CRM-TRAFFIC
+    bandwidth percent 35
+  class VOICE-TRAFFIC
+    bandwidth percent 20
+  class DEFAULT-TRAFFIC
+    bandwidth percent 45
+
+AFTER (Policy-map BUSINESS-APPS):
+  class CRM-TRAFFIC
+    bandwidth percent 25    <-- REDUCED BY 10%
+  class VOICE-TRAFFIC
+    bandwidth percent 30    <-- INCREASED BY 10%
+  class DEFAULT-TRAFFIC
+    bandwidth percent 45    <-- UNCHANGED
+
+Rationale: Accommodate increased voice traffic demands
+Approved By: Network Manager (J. Thompson)
+Rollback Plan: Restore to previous bandwidth allocations</pre>
+          </div>
+          <p><strong>Performance Correlation Analysis:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Time Period</th>
+                  <th>QoS Bandwidth</th>
+                  <th>Avg Response Time</th>
+                  <th>Error Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Oct 1-18 (Pre-Change)</td>
+                  <td>35%</td>
+                  <td><span class="success">650ms</span></td>
+                  <td><span class="success">0.01%</span></td>
+                </tr>
+                <tr>
+                  <td>Oct 19 09:00 AM (Post-Change)</td>
+                  <td>25%</td>
+                  <td><span class="problem-value">3.8 sec</span></td>
+                  <td><span class="problem-value">2.3%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Historical baseline established: 650ms, 0.01% error rate</li>
+          <li>✅ Change record located: CHG-2025-1018-003</li>
+          <li>✅ Rollback plan documented in change record</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ QoS bandwidth reduced from 35% to 25% during maintenance</li>
+          <li>❌ Performance degradation started immediately after change (9:00 AM business hours)</li>
+          <li>❌ Direct correlation: 28.6% bandwidth reduction = 484% response time increase</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Change Record Confirms: QoS Bandwidth Reduced 35% → 25%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">🗺️ APPLICATION_TOPOLOGY_AGENT → 📊 QOS_POLICY_AGENT:</p>
+            <p class="collab-message">"I've identified WAN-RTR-CORE-01 GigE 0/0/1 as the critical path for CRM traffic. Can you analyze the QoS policy on this specific interface and compare against baseline?"</p>
+            <p class="collab-response">📊 Response: "Confirmed. Focusing on policy-map BUSINESS-APPS on GigE 0/0/1. Will retrieve baseline from KG and compare."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">📈 HISTORICAL_PERF_AGENT → 📊 QOS_POLICY_AGENT:</p>
+            <p class="collab-message">"I've retrieved the baseline QoS configuration from KG: CRM traffic should have 35% bandwidth allocation (DSCP AF31). Can you verify current config matches this baseline?"</p>
+            <p class="collab-response">📊 Response: "Checking now via NETCONF and CLI. Will compare current vs baseline allocation."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">📊 QOS_POLICY_AGENT → 📈 HISTORICAL_PERF_AGENT:</p>
+            <p class="collab-message">"CRITICAL FINDING: Current QoS bandwidth is 25%, not 35%. This is a 10 percentage point reduction. Can you check LCM change records from last night to see if this was changed during maintenance?"</p>
+            <p class="collab-response">📈 Response: "Searching LCM system now. Will correlate with maintenance window timestamp."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">📈 HISTORICAL_PERF_AGENT → 📊 QOS_POLICY_AGENT & 🔧 ROOT_CAUSE_AGENT:</p>
+            <p class="collab-message">"CONFIRMED: Change record CHG-2025-1018-003 shows QoS bandwidth reduced from 35% to 25% at 11:45 PM last night. Change was to accommodate increased voice traffic (20% → 30%). This directly correlates with performance degradation observed at 9:00 AM this morning."</p>
+            <p class="collab-response">📊 Response: "Perfect correlation. My QoS analysis shows 1,847 dropped packets due to queue congestion with 25% allocation."</p>
+            <p class="collab-response">🔧 Response: "Excellent collaboration. I have sufficient data for root cause determination. Proceeding with correlation."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 5:</strong></p>
+            <p class="collab-from">🔌 NETWORK_PATH_AGENT → 📊 QOS_POLICY_AGENT:</p>
+            <p class="collab-message">"I'm seeing 1,847 QoS queue drops on GigE 0/0/1. Can you confirm if this is related to the bandwidth reduction you identified?"</p>
+            <p class="collab-response">📊 Response: "Confirmed. Queue drops are a direct symptom of insufficient bandwidth allocation. With only 25% allocation (175 Mbps), queue is hitting capacity during business hours when CRM traffic peaks at 22-25 Mbps."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ APPLICATION_TOPOLOGY_AGENT identified critical path (GigE 0/0/1)</li>
+              <li>✓ QOS_POLICY_AGENT focused analysis on this specific interface</li>
+              <li>✓ HISTORICAL_PERF_AGENT provided baseline and change records</li>
+              <li>✓ All agents converged on QoS bandwidth reduction as root cause</li>
+              <li>✓ NETWORK_PATH_AGENT confirmed queue drops correlate with reduced allocation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: ROOT_CAUSE_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🔧</span>
+        <span class="agent-name">ROOT_CAUSE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Compilation:</strong></p>
+          <ul class="compact-list">
+            <li>✓ APPLICATION_TOPOLOGY_AGENT: CRM traffic flows through WAN-RTR-CORE-01 GigE 0/0/1</li>
+            <li>✓ QOS_POLICY_AGENT: QoS bandwidth reduced from 35% to 25%</li>
+            <li>✓ NETWORK_PATH_AGENT: 1,847 queue drops due to congestion</li>
+            <li>✓ HISTORICAL_PERF_AGENT: Change record confirms 35% → 25% at 11:45 PM last night</li>
+            <li>✓ RAG Historical Data: 92% similarity to TKT-38921 (identical QoS + CRM scenario)</li>
+          </ul>
+          <p><strong>Timeline Correlation:</strong></p>
+          <ul class="metric-list">
+            <li>Oct 18, 11:45 PM: QoS bandwidth reduced 35% → 25% (CHG-2025-1018-003)</li>
+            <li>Oct 19, 09:00 AM: Business hours begin, CRM traffic increases to 22-25 Mbps</li>
+            <li>Oct 19, 09:15 AM: Response time spikes to 3-5 seconds (queue congestion)</li>
+            <li>Oct 19, 09:15 AM: Users report slowness, ticket #45782 created</li>
+          </ul>
+          <p><strong>Symptom vs Cause Analysis:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting 3-5 sec response times</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>CRM timeout errors</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Application-level symptom</td>
+                </tr>
+                <tr>
+                  <td>Response time: 3.8 sec (baseline: 650ms)</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Performance metric deviation</td>
+                </tr>
+                <tr>
+                  <td>Error rate: 2.3% (baseline: 0.01%)</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Application error symptom</td>
+                </tr>
+                <tr>
+                  <td>1,847 QoS queue drops</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>Network-level symptom</td>
+                </tr>
+                <tr>
+                  <td>Throughput reduced 33% (22 Mbps → 15 Mbps)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Traffic constraint symptom</td>
+                </tr>
+                <tr>
+                  <td>Queue congestion during business hours</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Insufficient bandwidth allocation</td>
+                </tr>
+                <tr>
+                  <td>QoS bandwidth: 25% (should be 35%)</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Configuration change during maintenance</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p><strong>Root Cause Statement:</strong></p>
+        <div class="rca-box">
+          <p><strong>PRIMARY ROOT CAUSE:</strong></p>
+          <p>CRM application response time degradation (650ms → 3.8 seconds) is caused by <strong>QoS policy bandwidth reduction from 35% to 25%</strong> on WAN-RTR-CORE-01 interface GigE 0/0/1, implemented during maintenance window on Oct 18, 2025 at 11:45 PM (Change Record: CHG-2025-1018-003).</p>
+          <p>The 10 percentage point reduction (28.6% decrease) in guaranteed bandwidth allocation for CRM traffic (DSCP AF31) results in queue congestion during business hours when CRM traffic volume (22-25 Mbps) approaches the new reduced allocation (175 Mbps available from 700 Mbps link), causing 1,847 packet drops, increased latency, and application timeouts.</p>
+          <p><strong>CONTRIBUTING FACTORS:</strong></p>
+          <ul class="compact-list">
+            <li>1. QoS policy change prioritized voice traffic (20% → 30%) at expense of CRM traffic</li>
+            <li>2. Change implemented during off-hours (11:45 PM) - impact not visible until business hours</li>
+            <li>3. No pre-change capacity analysis to verify 25% allocation sufficient for CRM traffic peaks</li>
+            <li>4. No post-change verification during business hours to validate application performance</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Root Cause Confirmed: QoS Bandwidth 35% → 25%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CORRELATION ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Correlation Analysis - Validation of Root Cause:</strong></p>
+        <div class="change-details">
+          <p><strong>Evidence Correlation Matrix:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Timing: Performance degradation (9:00 AM) occurred exactly when business hours traffic increased after QoS change (11:45 PM previous night)</li>
+            <li>✓ Configuration: LCM change record confirms 35% → 25% reduction</li>
+            <li>✓ Impact: 28.6% bandwidth reduction correlates with 33% throughput reduction and 484% response time increase</li>
+            <li>✓ Symptoms: Queue drops (1,847) align with insufficient bandwidth allocation</li>
+            <li>✓ Historical: 92% similarity to TKT-38921 (same root cause, same resolution)</li>
+          </ul>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms began at 9:00 AM (business hours start)</li>
+            <li>✓ All symptoms correlate with QoS change timestamp (11:45 PM Oct 18)</li>
+            <li>✓ All affected applications use same QoS class (DSCP AF31)</li>
+            <li>✓ All affected users traverse same network path (WAN-RTR-CORE-01)</li>
+            <li>✓ Pattern matches historical incident TKT-38921 with 92% similarity</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause definitively confirmed. High confidence (98%) based on evidence from all 6 specialized agents plus historical RAG data. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Task Assignment (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Root cause clearly identified: QoS bandwidth reduced from 35% to 25%</p>
+          <p>✓ All specialized agents have completed their investigations</p>
+          <p>✓ Findings are conclusive with 98% confidence</p>
+          <p>✓ Change record located with documented rollback plan</p>
+          <p>✓ Historical precedent (TKT-38921) confirms resolution approach</p>
+          <p><strong>Decision: No additional investigation tasks required. Proceeding directly to resolution recommendations.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear RCA Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 ROOT CAUSE ANALYSIS STATEMENT</h3>
+          <p><strong>Primary Root Cause:</strong></p>
+          <p class="highlight">CRM application performance degradation (response time increased from 650ms to 3.8 seconds) is caused by <strong>QoS policy bandwidth allocation reduction from 35% to 25%</strong> on WAN-RTR-CORE-01 interface GigE 0/0/1, implemented during maintenance window CHG-2025-1018-003 on October 18, 2025 at 11:45 PM.</p>
+
+          <p><strong>Technical Details:</strong></p>
+          <ul class="compact-list">
+            <li>Device: WAN-RTR-CORE-01 (10.100.1.1)</li>
+            <li>Interface: GigabitEthernet 0/0/1</li>
+            <li>Policy: BUSINESS-APPS</li>
+            <li>Class: CRM-TRAFFIC (DSCP AF31)</li>
+            <li>Change: Bandwidth reduced from 35% (245 Mbps) to 25% (175 Mbps) on 700 Mbps link</li>
+          </ul>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>• Voice traffic bandwidth increased from 20% to 30% during same change</li>
+            <li>• No capacity analysis performed to verify 25% allocation sufficient for CRM traffic peaks</li>
+            <li>• Change implemented during off-hours (11:45 PM) - impact not observable until business hours</li>
+            <li>• No post-change validation during peak business hours</li>
+          </ul>
+
+          <p><strong>Evidence Supporting RCA:</strong></p>
+          <ul class="compact-list">
+            <li>✓ LCM Change Record CHG-2025-1018-003 confirms 35% → 25% reduction at 11:45 PM Oct 18</li>
+            <li>✓ MCP NETCONF query shows current QoS config: 25% bandwidth for CRM-TRAFFIC class</li>
+            <li>✓ MCP CLI output shows 1,847 queue drops on GigE 0/0/1 due to congestion</li>
+            <li>✓ AppDynamics metrics show response time degradation starting 9:00 AM Oct 19</li>
+            <li>✓ Historical data: 30-day baseline shows 650ms avg, current: 3.8 seconds (484% increase)</li>
+            <li>✓ RAG system: 92% similarity to TKT-38921 (same root cause, same resolution)</li>
+          </ul>
+
+          <p><strong>Business Impact:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: Sales team productivity severely impacted (200+ users)</li>
+            <li>🔴 Critical: CRM response time 484% slower than baseline</li>
+            <li>🔴 Critical: 2.3% error rate (230x increase from 0.01% baseline)</li>
+            <li>🟡 Medium: Revenue impact - sales reps unable to access customer data efficiently</li>
+            <li>⏱️ Duration: 2+ hours (started 9:00 AM, ongoing at 11:15 AM)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved baseline QoS configuration (35% for CRM traffic)</li>
+          <li>📚 RAG Query: Retrieved resolution from TKT-38921 (restore bandwidth to 35%)</li>
+          <li>📚 LCM Query: Retrieved rollback plan from CHG-2025-1018-003</li>
+          <li>🔧 MCP Server: Retrieved current QoS configuration via NETCONF</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 15 minutes)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Restore QoS Bandwidth Allocation to 35%</strong></p>
+            <ul class="compact-list">
+              <li>✓ Restore CRM-TRAFFIC class bandwidth from 25% to 35%</li>
+              <li>✓ Adjust VOICE-TRAFFIC class from 30% to 25% (compromise solution)</li>
+              <li>✓ Deploy via NETCONF to WAN-RTR-CORE-01</li>
+              <li>⏱️ Deployment time: 2 minutes via NETCONF automation</li>
+              <li>📊 Expected impact: Response time reduced from 3.8 sec to <1 second</li>
+              <li>🔄 Rollback plan: Revert to current config (stored in backup)</li>
+            </ul>
+
+            <p><strong>Configuration Change (NETCONF):</strong></p>
+            <pre class="code-block">policy-map BUSINESS-APPS
+  class CRM-TRAFFIC
+    bandwidth percent 35    (RESTORE from 25%)
+  class VOICE-TRAFFIC
+    bandwidth percent 25    (REDUCE from 30%)
+  class DEFAULT-TRAFFIC
+    bandwidth percent 40    (REDUCE from 45%)</pre>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 24 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Capacity Analysis & Long-Term QoS Optimization</strong></p>
+            <ul class="compact-list">
+              <li>✓ Analyze 30-day traffic patterns for voice and CRM traffic</li>
+              <li>✓ Determine optimal bandwidth allocation balancing voice and CRM needs</li>
+              <li>✓ Consider link upgrade if combined requirements exceed 80% capacity</li>
+              <li>⏱️ Analysis timeframe: 4-6 hours</li>
+              <li>📊 Deliverable: Optimized QoS policy recommendation</li>
+            </ul>
+
+            <p><strong>Action 2.2 - Implement Application Performance Monitoring Alerts</strong></p>
+            <ul class="compact-list">
+              <li>✓ Configure AppDynamics alert: Response time > 1.5 seconds (150% of baseline)</li>
+              <li>✓ Configure QoS monitoring: Alert if queue drops > 100 per hour</li>
+              <li>✓ Integrate alerts with ticketing system for automatic escalation</li>
+              <li>⏱️ Implementation: 2 hours</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Enhanced Change Management Process</strong></p>
+            <ul class="compact-list">
+              <li>✓ Require capacity analysis before any QoS bandwidth changes</li>
+              <li>✓ Implement post-change validation during peak business hours</li>
+              <li>✓ Add application team approval for QoS changes affecting business apps</li>
+              <li>⏱️ Process update: 2 weeks</li>
+            </ul>
+
+            <p><strong>Action 3.2 - WAN Link Capacity Assessment</strong></p>
+            <ul class="compact-list">
+              <li>✓ Evaluate current 700 Mbps WAN link utilization trends</li>
+              <li>✓ Consider upgrade to 1 Gbps if combined voice + CRM + other apps exceed 560 Mbps (80% threshold)</li>
+              <li>✓ Cost-benefit analysis: Link upgrade vs. application optimization</li>
+              <li>⏱️ Assessment period: 30 days</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Automated QoS Policy Validation</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement automated pre-change validation script</li>
+              <li>✓ Script compares proposed QoS config against baseline requirements</li>
+              <li>✓ Alerts if any business-critical application class bandwidth reduced</li>
+              <li>⏱️ Development: 1 week, Testing: 1 week</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Restore QoS to 35%</td>
+              <td><span class="success">LOW</span></td>
+              <td>Restoring to known-good baseline config</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Reduce voice traffic to 25%</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Monitor voice quality for 1 hour post-change</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Performance monitoring alerts</td>
+              <td><span class="success">LOW</span></td>
+              <td>Non-impacting, monitoring only</td>
+              <td>N/A</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ CRM response time reduced to <1 second (baseline: 650ms)</li>
+          <li>✓ Error rate reduced to <0.1% (baseline: 0.01%)</li>
+          <li>✓ Zero QoS queue drops on GigE 0/0/1</li>
+          <li>✓ No user complaints from sales department</li>
+          <li>✓ Voice quality maintained (MOS >4.0) after VOICE-TRAFFIC adjustment</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings, KG baseline configuration, RAG historical resolution (TKT-38921), and LCM change record rollback plan. I recommend proceeding with PHASE 1 immediate action (restore QoS bandwidth to 35%) to provide rapid relief within 15 minutes."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 NETCONF configuration snippet for QoS restoration</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Success criteria and validation tests</li>
+            <li>📄 Rollback procedures (2-minute rollback if needed)</li>
+            <li>📄 Voice quality monitoring plan (verify no impact to voice traffic)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (Network Operations Manager):</strong></p>
+          <p>"Our AI agents have completed the investigation of ticket #45782 (CRM application performance degradation)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: QoS bandwidth reduced from 35% to 25% during last night's maintenance</li>
+            <li>📊 Impact: CRM response time increased from 650ms to 3.8 seconds (484% slower)</li>
+            <li>👥 Affecting: 200+ sales users across all locations</li>
+            <li>📋 Change Record: CHG-2025-1018-003 (Oct 18, 11:45 PM)</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Restore CRM-TRAFFIC QoS bandwidth from 25% to 35%</li>
+            <li>2️⃣ Adjust VOICE-TRAFFIC from 30% to 25% (compromise to maintain total 100%)</li>
+            <li>3️⃣ Monitor voice quality for 1 hour post-change to ensure no impact</li>
+            <li>⏱️ Total deployment time: 2 minutes via NETCONF</li>
+            <li>📉 Expected result: CRM response time reduced from 3.8 sec to <1 second</li>
+            <li>🔄 Rollback time: 2 minutes if any issues occur</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the deployment of PHASE 1 immediate actions (restore QoS bandwidth to 35%)?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. This is critical - sales team is severely impacted. Please proceed immediately.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: Are you comfortable with reducing VOICE-TRAFFIC from 30% to 25% as part of this change?</strong></p>
+            <p class="answer">✅ A2: Yes, but please monitor voice quality closely for the next hour. If voice quality degrades, we may need to consider a link upgrade.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: What is your preferred maintenance window for deployment?</strong></p>
+            <p class="answer">✅ A3: Deploy immediately (11:20 AM) - this is business hours but the impact to sales is too severe to wait. Users are already experiencing issues.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the final resolution report and post-change validation results?</strong></p>
+            <p class="answer">✅ A4: Send to me (netops-manager@xyzcorp.com) and CC: sales-director@xyzcorp.com, network-ops@xyzcorp.com</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target Device: WAN-RTR-CORE-01 (10.100.1.1)</li>
+          <li>🎯 Target Interface: GigabitEthernet 0/0/1</li>
+          <li>🔧 Deployment Method: NETCONF over SSH (Port 830)</li>
+          <li>⏱️ Start Time: 2025-10-19 11:22:15 AM</li>
+          <li>👤 Authorized By: Network Operations Manager (netops-manager@xyzcorp.com)</li>
+          <li>🎫 Change Ticket: CHG-2025-1019-001 (Emergency Change)</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Restore QoS Bandwidth Allocation</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;policy&gt;
+      &lt;policy-map&gt;
+        &lt;name&gt;BUSINESS-APPS&lt;/name&gt;
+        &lt;class&gt;
+          &lt;name&gt;CRM-TRAFFIC&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;35&lt;/percent&gt;  &lt;!-- RESTORED from 25% --&gt;
+          &lt;/bandwidth&gt;
+          &lt;priority&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;VOICE-TRAFFIC&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;25&lt;/percent&gt;  &lt;!-- REDUCED from 30% --&gt;
+          &lt;/bandwidth&gt;
+          &lt;priority&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;DEFAULT-TRAFFIC&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;40&lt;/percent&gt;  &lt;!-- REDUCED from 45% --&gt;
+          &lt;/bandwidth&gt;
+        &lt;/class&gt;
+      &lt;/policy-map&gt;
+    &lt;/policy&gt;
+    &lt;interface&gt;
+      &lt;GigabitEthernet&gt;
+        &lt;name&gt;0/0/1&lt;/name&gt;
+        &lt;service-policy&gt;
+          &lt;output&gt;BUSINESS-APPS&lt;/output&gt;
+        &lt;/service-policy&gt;
+      &lt;/GigabitEthernet&gt;
+    &lt;/interface&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 11:22:18 - NETCONF session established to WAN-RTR-CORE-01</li>
+            <li>⏱️ 11:22:22 - Configuration validated (no syntax errors)</li>
+            <li>⏱️ 11:22:25 - Backup of current config saved to repository</li>
+            <li>⏱️ 11:22:28 - CRM-TRAFFIC class bandwidth updated: 25% → 35%</li>
+            <li>⏱️ 11:22:31 - VOICE-TRAFFIC class bandwidth updated: 30% → 25%</li>
+            <li>⏱️ 11:22:34 - DEFAULT-TRAFFIC class bandwidth updated: 45% → 40%</li>
+            <li>⏱️ 11:22:37 - Policy-map BUSINESS-APPS updated successfully</li>
+            <li>⏱️ 11:22:40 - Configuration committed to running-config</li>
+            <li>✅ 11:22:43 - <strong>ACTION 1 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Immediate Checks:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Configuration committed to device running-config</li>
+          <li>✅ Configuration saved to startup-config (automatic backup)</li>
+          <li>✅ NETCONF session closed gracefully</li>
+          <li>✅ No interface flaps detected</li>
+          <li>✅ Policy-map applied and active on GigE 0/0/1</li>
+          <li>⏱️ Total Deployment Time: 28 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - No errors encountered</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-19 11:23:00 AM (17 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Verify QoS Policy Configuration</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">WAN-RTR-CORE-01# show policy-map interface GigE 0/0/1
+
+GigabitEthernet0/0/1
+  Service-policy output: BUSINESS-APPS
+    Class-map: CRM-TRAFFIC (match-any)
+      Match: ip dscp af31 (26)
+      Bandwidth: 35% (245 Mbps of 700 Mbps total)  ← RESTORED
+      Queue depth: 12/256 packets
+      Dropped packets: 0 (past 60 seconds)
+
+    Class-map: VOICE-TRAFFIC (match-any)
+      Match: ip dscp ef (46)
+      Bandwidth: 25% (175 Mbps)  ← ADJUSTED
+      Queue depth: 8/256 packets
+      Dropped packets: 0
+
+    Class-map: DEFAULT-TRAFFIC (match-any)
+      Bandwidth: 40% (280 Mbps)  ← ADJUSTED
+      Queue depth: 15/256 packets
+      Dropped packets: 0</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - QoS policy correctly restored to 35% for CRM traffic</p>
+          <ul class="compact-list">
+            <li>✓ CRM-TRAFFIC bandwidth: 35% (245 Mbps) - matches baseline</li>
+            <li>✓ VOICE-TRAFFIC bandwidth: 25% (175 Mbps) - adjusted as planned</li>
+            <li>✓ Queue depth reduced: 12/256 (was 142/256 before change)</li>
+            <li>✓ Zero dropped packets in past 60 seconds (was 1,847 before)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Verify CRM Application Response Time</strong></p>
+          <p><strong>MCP Server Query (AppDynamics RESTCONF API):</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before Change</th>
+                <th>After Change (5 min avg)</th>
+                <th>Baseline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Avg Response Time</td>
+                <td><span class="error">3.8 seconds</span></td>
+                <td><span class="success">720ms</span></td>
+                <td>650ms</td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Error Rate</td>
+                <td><span class="error">2.3%</span></td>
+                <td><span class="success">0.02%</span></td>
+                <td>0.01%</td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Throughput</td>
+                <td><span class="error">15.2 Mbps</span></td>
+                <td><span class="success">23.1 Mbps</span></td>
+                <td>22-25 Mbps</td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Active Users</td>
+                <td>203</td>
+                <td>207</td>
+                <td>200-220</td>
+                <td>✅ NORMAL</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Application performance restored to baseline</p>
+          <ul class="compact-list">
+            <li>✓ Response time: 3.8 sec → 720ms (81% improvement, within 11% of baseline)</li>
+            <li>✓ Error rate: 2.3% → 0.02% (99.1% improvement, near baseline)</li>
+            <li>✓ Throughput: 15.2 Mbps → 23.1 Mbps (52% increase, within normal range)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: Verify Voice Quality (VOICE-TRAFFIC Class Validation)</strong></p>
+          <p><strong>Query: Voice Quality Monitoring System + MCP SNMP</strong></p>
+          <ul class="compact-list">
+            <li>📞 Active calls monitored: 47 concurrent voice sessions</li>
+            <li>📊 Mean Opinion Score (MOS): <strong>4.2</strong> (target: >4.0)</li>
+            <li>🎵 Jitter: 6ms (acceptable: <30ms)</li>
+            <li>⏱️ Latency: 38ms (acceptable: <150ms)</li>
+            <li>📉 Packet loss: 0.01% (acceptable: <1%)</li>
+            <li>🔊 No user complaints from voice users</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Voice quality maintained despite bandwidth reduction (30% → 25%)</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: User Validation</strong></p>
+          <p><strong>Sales Department User Testing (Sample: 5 users):</strong></p>
+          <ul class="compact-list">
+            <li>✅ User 1 (Chicago): CRM page loads in <1 second - "Back to normal"</li>
+            <li>✅ User 2 (Dallas): Customer search instant - "Much better!"</li>
+            <li>✅ User 3 (Seattle): Report generation <2 seconds - "Working great"</li>
+            <li>✅ User 4 (HQ): No timeout errors - "Fast again"</li>
+            <li>✅ User 5 (Boston): Dashboard loads quickly - "Issue resolved"</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Users confirm performance restored</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Verify No Negative Side Effects</strong></p>
+          <ul class="compact-list">
+            <li>✅ No interface flaps on GigE 0/0/1</li>
+            <li>✅ BGP sessions stable (no routing changes)</li>
+            <li>✅ CPU utilization normal: 18% (no spike)</li>
+            <li>✅ Memory utilization: 52% (no increase)</li>
+            <li>✅ All sites reachable via ping</li>
+            <li>✅ No new tickets generated (monitoring helpdesk queue)</li>
+            <li>✅ Load balancer health checks: All CRM servers passing</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No adverse impacts detected</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ QoS bandwidth restored to 35% for CRM traffic</li>
+            <li>✅ Application response time improved 81% (3.8 sec → 720ms)</li>
+            <li>✅ Error rate reduced 99.1% (2.3% → 0.02%)</li>
+            <li>✅ Voice quality maintained (MOS 4.2/5.0) despite bandwidth adjustment</li>
+            <li>✅ Users confirm performance restored to normal</li>
+            <li>✅ Zero queue drops observed post-change</li>
+            <li>✅ Zero negative side effects observed</li>
+          </ul>
+          <p><strong>⏱️ Time to Resolution: 2 hours 8 minutes from ticket creation to verified fix</strong></p>
+          <p><strong>✅ Solution validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 INCIDENT RESOLUTION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #45782</li>
+            <li>📋 Title: CRM Application Performance Degradation</li>
+            <li>👤 Reported By: XYZ Corp NOC (Automated Alert + User Reports)</li>
+            <li>⏱️ Opened: 2025-10-19 09:15:00 AM</li>
+            <li>⏱️ Resolved: 2025-10-19 11:23:00 AM</li>
+            <li>⌛ Resolution Time: <strong>2 hours 8 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>Multiple users (200+ sales representatives) across all locations reported severe CRM application performance degradation starting at 9:00 AM. Response times increased from normal <1 second to 3-5 seconds. Users experienced slow page loads, delayed search results, and timeout errors when accessing customer records. Application monitoring (AppDynamics) confirmed 3.8 second average response time (baseline: 650ms) and 2.3% error rate (baseline: 0.01%).</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p><strong>PRIMARY ROOT CAUSE:</strong> QoS policy bandwidth allocation for CRM traffic (DSCP AF31) was reduced from 35% to 25% on WAN-RTR-CORE-01 interface GigE 0/0/1 during maintenance window CHG-2025-1018-003 on October 18, 2025 at 11:45 PM.</p>
+
+          <p><strong>Technical Details:</strong></p>
+          <ul class="compact-list">
+            <li>Device: WAN-RTR-CORE-01 (10.100.1.1)</li>
+            <li>Interface: GigabitEthernet 0/0/1 (700 Mbps WAN link)</li>
+            <li>Policy-map: BUSINESS-APPS</li>
+            <li>Class-map: CRM-TRAFFIC (DSCP AF31)</li>
+            <li>Change: Bandwidth reduced from 35% (245 Mbps) to 25% (175 Mbps)</li>
+            <li>Reason: Accommodate voice traffic increase (20% → 30%)</li>
+          </ul>
+
+          <p><strong>Contributing Factors:</strong></p>
+          <ul class="compact-list">
+            <li>1. No pre-change capacity analysis to verify 25% allocation sufficient for peak CRM traffic</li>
+            <li>2. Change implemented during off-hours (11:45 PM) - impact not visible until business hours</li>
+            <li>3. No post-change validation during peak business hours</li>
+            <li>4. Insufficient QoS queue capacity resulted in 1,847 packet drops during business hours</li>
+          </ul>
+
+          <p><strong>Evidence:</strong></p>
+          <ul class="compact-list">
+            <li>✓ LCM Change Record CHG-2025-1018-003: Documented 35% → 25% reduction</li>
+            <li>✓ MCP NETCONF/CLI: Confirmed current config showed 25% bandwidth allocation</li>
+            <li>✓ MCP CLI: 1,847 queue drops on GigE 0/0/1 due to congestion</li>
+            <li>✓ AppDynamics: Response time 3.8 sec (484% increase from baseline)</li>
+            <li>✓ Historical baseline (KG): 30-day average 650ms, current 3.8 seconds</li>
+            <li>✓ RAG system: 92% similarity to TKT-38921 (identical root cause and resolution)</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Resolution Implemented:</strong></p>
+          <p><strong>PHASE 1 - Immediate (Deployed):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Restored CRM-TRAFFIC class bandwidth from 25% to 35% (245 Mbps)</li>
+            <li>✅ Adjusted VOICE-TRAFFIC class from 30% to 25% (175 Mbps)</li>
+            <li>✅ Adjusted DEFAULT-TRAFFIC class from 45% to 40% (280 Mbps)</li>
+            <li>✅ Deployed via NETCONF automation to WAN-RTR-CORE-01</li>
+            <li>✅ Deployment time: 28 seconds</li>
+            <li>✅ Change record: CHG-2025-1019-001 (Emergency Change)</li>
+          </ul>
+
+          <p><strong>Results Achieved:</strong></p>
+          <ul class="compact-list">
+            <li>✅ CRM response time: 3.8 sec → 720ms (81% improvement, within 11% of baseline)</li>
+            <li>✅ Error rate: 2.3% → 0.02% (99.1% improvement)</li>
+            <li>✅ Throughput: 15.2 Mbps → 23.1 Mbps (52% increase)</li>
+            <li>✅ QoS queue drops: 1,847 → 0 (eliminated)</li>
+            <li>✅ Voice quality maintained: MOS 4.2/5.0 (no impact from 30% → 25% adjustment)</li>
+            <li>✅ User validation: 5 sample users confirmed performance restored</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Next Steps (PHASE 2 & 3 - Scheduled):</strong></p>
+          <p><strong>Short-Term (24 hours):</strong></p>
+          <ul class="compact-list">
+            <li>🔲 Conduct 30-day traffic analysis for voice and CRM to determine optimal long-term allocation</li>
+            <li>🔲 Implement AppDynamics alert: Response time >1.5 seconds</li>
+            <li>🔲 Implement QoS monitoring alert: Queue drops >100/hour</li>
+          </ul>
+
+          <p><strong>Long-Term (30 days):</strong></p>
+          <ul class="compact-list">
+            <li>🔲 Enhance change management: Require capacity analysis before QoS changes</li>
+            <li>🔲 Implement post-change validation requirement during peak hours</li>
+            <li>🔲 WAN capacity assessment (consider 700 Mbps → 1 Gbps upgrade)</li>
+            <li>🔲 Develop automated QoS policy validation script</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned:</strong></p>
+          <ul class="compact-list">
+            <li>✓ QoS bandwidth changes require pre-change capacity analysis</li>
+            <li>✓ Off-hours changes must include business hours validation requirement</li>
+            <li>✓ Application performance monitoring alerts critical for rapid detection</li>
+            <li>✓ AI agent collaboration reduced RCA time from typical 4-6 hours to 2 hours</li>
+            <li>✓ Knowledge Graph + RAG historical data enabled 92% confidence RCA</li>
+            <li>✓ MCP server automation enabled 28-second deployment vs typical 30-minute manual change</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Ticket Status:</strong></p>
+          <div class="success-box">
+            <p><strong>✅ RESOLVED - Verified and Closed</strong></p>
+            <p>⏱️ Total Resolution Time: 2 hours 8 minutes</p>
+            <p>📊 Success Rate: 100% (All validation tests passed)</p>
+            <p>👥 User Satisfaction: Positive (Users confirm performance restored)</p>
+            <p>🔄 Rollback Required: No</p>
+          </div>
+
+          <p><strong>Report Generated By:</strong> MASTER_REASONING_AGENT</p>
+          <p><strong>Report Distribution:</strong></p>
+          <ul class="compact-list">
+            <li>✉️ netops-manager@xyzcorp.com (Primary)</li>
+            <li>✉️ sales-director@xyzcorp.com (CC)</li>
+            <li>✉️ network-ops@xyzcorp.com (CC)</li>
+          </ul>
+
+          <p><strong>Report Generated:</strong> 2025-10-19 11:23:45 AM</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: Ticket Closure -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 25: IO_AGENT - Ticket Closure</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎉 TICKET #45782 - CLOSED</h3>
+          <p><strong>Closure Summary:</strong></p>
+          <ul class="compact-list">
+            <li>✅ Root cause identified: QoS bandwidth reduced from 35% to 25%</li>
+            <li>✅ Resolution deployed: QoS bandwidth restored to 35%</li>
+            <li>✅ Verification completed: All tests passed (5/5)</li>
+            <li>✅ User validation: Sales users confirm performance restored</li>
+            <li>✅ Final report distributed to stakeholders</li>
+          </ul>
+
+          <p><strong>Incident Timeline:</strong></p>
+          <ul class="compact-list">
+            <li>09:15 AM - Ticket created (automated alert + user reports)</li>
+            <li>09:18 AM - IO_AGENT received ticket, asked clarifying questions</li>
+            <li>09:25 AM - MRA deployed, began KG and RAG queries</li>
+            <li>09:35 AM - 6 specialized agents deployed in parallel</li>
+            <li>10:15 AM - Root cause identified (QoS bandwidth 35% → 25%)</li>
+            <li>10:45 AM - Remediation plan approved by user</li>
+            <li>11:22 AM - QoS configuration restored via NETCONF</li>
+            <li>11:23 AM - Verification complete, all tests passed</li>
+            <li>11:23 AM - Ticket closed</li>
+          </ul>
+
+          <p><strong>AI Agent Efficiency Metrics:</strong></p>
+          <ul class="compact-list">
+            <li>📊 RCA Time: 56 minutes (typical manual: 4-6 hours)</li>
+            <li>📊 Deployment Time: 28 seconds (typical manual: 30 minutes)</li>
+            <li>📊 Verification Time: 3 minutes (typical manual: 1 hour)</li>
+            <li>📊 Total Resolution: 2 hours 8 minutes (typical manual: 6-8 hours)</li>
+            <li>📊 Efficiency Gain: 74% faster than manual process</li>
+          </ul>
+
+          <p><strong>Ticket Closed By:</strong> IO_AGENT (automated)</p>
+          <p><strong>Closure Time:</strong> 2025-10-19 11:23:45 AM</p>
+          <p><strong>Status:</strong> <span class="status-tag status-success">RESOLVED</span></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .collaboration-exchange {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 170, 255, 0.03);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .collab-from {
+    font-weight: 600;
+    color: #00aaff;
+    margin-bottom: 8px;
+  }
+
+  .collab-message {
+    margin-left: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 5px;
+    font-style: italic;
+  }
+
+  .collab-response {
+    margin-left: 40px;
+    margin-top: 8px;
+    padding: 10px;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 5px;
+    color: #00ff88;
+  }
+
+  .rca-box {
+    background: rgba(255, 87, 87, 0.1);
+    border: 2px solid #ff5757;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .symptom-tag {
+    background: rgba(255, 170, 0, 0.2);
+    color: #ffaa00;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .contributing-tag {
+    background: rgba(255, 200, 0, 0.2);
+    color: #ffc800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .root-cause-tag {
+    background: rgba(255, 87, 87, 0.2);
+    color: #ff5757;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .user-interaction-box {
+    background: rgba(0, 170, 255, 0.05);
+    border: 2px solid #00aaff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .deployment-box {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .verification-box {
+    background: rgba(170, 170, 255, 0.05);
+    border: 1px solid #aaaaff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .final-report-box {
+    background: rgba(0, 255, 136, 0.03);
+    border: 2px solid #00ff88;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 20px 0;
+  }
+
+  .final-report-box h2 {
+    color: #00ff88;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .final-report-box hr {
+    border: none;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    margin: 20px 0;
+  }
+
+  .code-block {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+</style>
