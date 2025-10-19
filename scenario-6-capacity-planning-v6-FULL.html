@@ -1,0 +1,2101 @@
+<!-- SCENARIO 6: CAPACITY PLANNING & FORECASTING - v6 FULL COMPLIANCE -->
+<!-- This is the complete 25-step workflow implementation -->
+
+<div class="root-container">
+  <h3>Agentic AI - Capacity Planning & Forecasting v6</h3>
+  <p><strong>Complete 25-Step Workflow: Request → Analysis → Planning → Validation</strong></p>
+
+  <div class="agent-workflow">
+
+    <!-- STEP 1: CAPACITY PLANNING REQUEST -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎫</span>
+        <span class="agent-name">PLANNING_REQUEST → TICKET_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Capacity Planning Request Submitted:</strong></p>
+        <ul class="compact-list">
+          <li>⏰ Request Time: 2025-10-17 09:15:23 AM</li>
+          <li>🔍 Request Source: Network Planning Portal</li>
+          <li>⚠️ Request Type: Annual Capacity Forecast & Planning</li>
+          <li>🔴 Priority: HIGH</li>
+          <li>📍 Scope: WAN Infrastructure + Data Center Core</li>
+        </ul>
+        <div class="change-details">
+          <p><strong>Automatic Ticket Creation:</strong></p>
+          <ul class="metric-list">
+            <li>Ticket ID: <span class="highlight">#CAP-8891</span></li>
+            <li>Category: Capacity Planning</li>
+            <li>Subcategory: Network Infrastructure Forecasting</li>
+            <li>Priority: P2 - High</li>
+            <li>Auto-assigned to: Network Planning Team</li>
+          </ul>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Ticket automatically routed to <strong>IO_AGENT</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: IO_AGENT RECEIVES REQUEST -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Ticket #CAP-8891 Received - Initial Planning Request:</strong></p>
+        <div class="change-details">
+          <p><strong>Submitted By:</strong> Jennifer Williams, Network Planning Team</p>
+          <p><strong>Organization:</strong> XYZ Corporation</p>
+          <p><strong>Department:</strong> Network Planning & Architecture</p>
+          <p><strong>Business Units Covered:</strong> ~200 users across 5 remote sites + data center</p>
+          <p><strong>Initial Request Description:</strong></p>
+          <p>"Need comprehensive capacity analysis and 12-month forecast for WAN and data center infrastructure. Planning FY2026 budget and need to identify equipment requiring upgrades. Must account for anticipated 30% growth in cloud migration traffic and new video conferencing deployment."</p>
+        </div>
+        <p><strong>IO_AGENT Status:</strong> Gathering planning requirements before escalation</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: IO_AGENT ASKS PLANNING QUESTIONS -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT ↔ USER</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>IO_AGENT Gathering Planning Requirements:</strong></p>
+        <div class="change-details">
+          <div class="question-block">
+            <p><strong>Q1: Which network segments need capacity analysis?</strong></p>
+            <p class="answer">A1: All WAN links (5 remote sites: Chicago, Dallas, Seattle, Denver, Boston) + Data Center core routers (DC-RTR-01, DC-RTR-02)</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is the forecasting timeframe required?</strong></p>
+            <p class="answer">A2: 12-month forecast needed for FY2026 budget planning. Need quarterly checkpoints.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Are there known business drivers affecting capacity needs?</strong></p>
+            <p class="answer">A3: Yes - 30% increase in cloud migration traffic expected, new enterprise video conferencing (Teams) rolling out Q2 2026, and potential acquisition adding 50 users in Q3.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: What utilization threshold triggers upgrade recommendations?</strong></p>
+            <p class="answer">A4: Company policy: 85% average utilization or 95% peak utilization requires upgrade planning</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q5: What is the budget approval timeline?</strong></p>
+            <p class="answer">A5: Budget submission due November 15, 2025. Need preliminary recommendations by November 1st for stakeholder review.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: REQUEST CLASSIFICATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <span class="agent-name">IO_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Request Classification Complete:</strong></p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Request Type</td>
+                <td>Infrastructure Capacity Planning</td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Network Capacity Forecasting</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Multi-Site WAN + Data Center</td>
+              </tr>
+              <tr>
+                <td>Timeframe</td>
+                <td>12-month forecast (FY2026)</td>
+              </tr>
+              <tr>
+                <td>Priority</td>
+                <td><span class="status-tag status-critical">P2 - High</span></td>
+              </tr>
+              <tr>
+                <td>Recommended Agent</td>
+                <td>MASTER_REASONING_AGENT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="agent-transfer">
+          <span class="arrow">→</span> Routing to <strong>MASTER_REASONING_AGENT</strong> for capacity analysis orchestration
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: MRA DEPLOYMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Taking Ownership - Initializing Capacity Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Request Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 12-month forecast requires historical trend analysis (minimum 24 months data)</li>
+            <li>✓ Multi-site scope indicates need for individual link analysis plus aggregate views</li>
+            <li>✓ Business drivers (cloud migration, video conferencing) require traffic growth modeling</li>
+            <li>✓ Budget timeline (Nov 1 deadline) requires systematic analysis with procurement planning</li>
+          </ul>
+          <p><strong>Analysis Strategy:</strong></p>
+          <ul class="compact-list">
+            <li>1. Query Knowledge Graph for current infrastructure inventory and configurations</li>
+            <li>2. Search RAG system for capacity planning methodologies and historical growth patterns</li>
+            <li>3. Perform three-source analysis (Requirements + KG + RAG)</li>
+            <li>4. Deploy specialized agents for utilization analysis and forecasting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Querying Knowledge Graph for Infrastructure Inventory:</strong></p>
+        <div class="change-details">
+          <p><strong>Query 1: Current Infrastructure Topology</strong></p>
+          <ul class="compact-list">
+            <li>✓ Retrieved: XYZ Corp infrastructure inventory</li>
+            <li>✓ 5 Remote sites: CHI-SITE-01, DAL-SITE-01, SEA-SITE-01, DEN-SITE-01, BOS-SITE-01</li>
+            <li>✓ MPLS WAN: 3 links (CHI: 100 Mbps, DAL: 100 Mbps, SEA: 50 Mbps)</li>
+            <li>✓ DC routers: DC-RTR-01 (10.1.1.1), DC-RTR-02 (10.1.1.2) - Catalyst 8300</li>
+            <li>✓ Core switches: CORE-SW-01 (10.1.2.1), CORE-SW-02 (10.1.2.2) - Catalyst 9500</li>
+          </ul>
+          <p><strong>Query 2: Equipment Age & Lifecycle</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Model</th>
+                  <th>Install Date</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DC-RTR-01</td>
+                  <td>Cisco Catalyst 8300</td>
+                  <td>2021-03-15</td>
+                  <td>4.5 years</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-02</td>
+                  <td>Cisco Catalyst 8300</td>
+                  <td>2021-03-15</td>
+                  <td>4.5 years</td>
+                </tr>
+                <tr>
+                  <td>CHI-WAN-01</td>
+                  <td>100 Mbps MPLS</td>
+                  <td>2019-06-01</td>
+                  <td>6.3 years</td>
+                </tr>
+                <tr>
+                  <td>DAL-WAN-01</td>
+                  <td>100 Mbps MPLS</td>
+                  <td>2019-06-01</td>
+                  <td>6.3 years</td>
+                </tr>
+                <tr>
+                  <td>SEA-WAN-01</td>
+                  <td>50 Mbps MPLS</td>
+                  <td>2020-01-10</td>
+                  <td>5.8 years</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Query 3: Current Link Capacities</strong></p>
+          <ul class="compact-list">
+            <li>✓ Chicago WAN: 100 Mbps MPLS</li>
+            <li>✓ Dallas WAN: 100 Mbps MPLS</li>
+            <li>✓ Seattle WAN: 50 Mbps MPLS</li>
+            <li>✓ Denver WAN: 100 Mbps MPLS</li>
+            <li>✓ Boston WAN: 100 Mbps MPLS</li>
+            <li>✓ DC Routers: 2x 10 Gbps uplinks each</li>
+          </ul>
+          <p><strong>Query 4: Historical Utilization Trends (Past 24 Months)</strong></p>
+          <ul class="metric-list">
+            <li>Chicago WAN Avg: <span class="warning">78%</span> (growing 3.2% monthly)</li>
+            <li>Dallas WAN Avg: <span class="warning">82%</span> (growing 3.5% monthly)</li>
+            <li>Seattle WAN Avg: <span class="problem-value">91%</span> (growing 2.8% monthly)</li>
+            <li>DC-RTR-01 Avg: <span class="warning">68%</span> (growing 2.1% monthly)</li>
+            <li>DC-RTR-02 Avg: <span class="warning">71%</span> (growing 2.3% monthly)</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">KG Data Retrieved</span>
+          <span class="finding-tag finding-warning">Growth Trend Analysis Required</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: RAG SYSTEM QUERIES -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔍</span>
+        <span class="agent-name">MRA → RAG_SYSTEM</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Searching RAG for Capacity Planning Methodologies and Historical Projects:</strong></p>
+        <div class="change-details">
+          <p><strong>Search Query:</strong> "network capacity forecasting + growth modeling + infrastructure planning"</p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Similarity</th>
+                  <th>Scope</th>
+                  <th>Methodology</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CAP-2024-Q2</td>
+                  <td><span class="success">91%</span></td>
+                  <td>WAN capacity planning (8 sites)</td>
+                  <td>Linear regression + 20% buffer</td>
+                </tr>
+                <tr>
+                  <td>CAP-2023-Q4</td>
+                  <td><span class="success">84%</span></td>
+                  <td>Data center expansion forecast</td>
+                  <td>Trend analysis with seasonal adjustment</td>
+                </tr>
+                <tr>
+                  <td>CAP-2023-Q1</td>
+                  <td><span class="warning">72%</span></td>
+                  <td>Cloud migration impact analysis</td>
+                  <td>Business driver modeling</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Retrieved Planning Documents:</strong></p>
+          <ul class="compact-list">
+            <li>📄 <strong>Capacity_Planning_Methodology_v3.2.pdf</strong> (Internal Standard)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Use 85% threshold for average, 95% for peak. Forecast = Trend + Business Drivers + 15% safety margin</li>
+            <li>📄 <strong>Network_Forecasting_Best_Practices.pdf</strong> (Cisco Press 2024)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Minimum 24 months historical data. Account for seasonality and business initiatives.</li>
+            <li>📄 <strong>Equipment_Lifecycle_Management.pdf</strong> (IT Asset Management)
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;→ Network equipment: 5-year lifecycle. Plan refreshes 6-9 months in advance.</li>
+          </ul>
+          <p><strong>Key Insights from RAG:</strong></p>
+          <ul class="compact-list">
+            <li>✓ 3 similar capacity projects completed successfully using trend + business driver analysis</li>
+            <li>✓ Standard methodology: Historical trend (24 mo) + Business growth factors + 15% safety margin</li>
+            <li>✓ Recommended approach: Identify devices exceeding 85% within 6 months, plan procurement</li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">RAG Data Retrieved</span>
+          <span class="finding-tag finding-success">Planning Methodology Identified</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: THREE-SOURCE ANALYSIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Three-Source Analysis Complete:</strong></p>
+        <div class="change-details">
+          <div class="source-analysis">
+            <p><strong>1️⃣ Planning Requirements:</strong></p>
+            <ul class="compact-list">
+              <li>12-month capacity forecast for FY2026</li>
+              <li>Scope: 5 WAN links + 2 DC routers</li>
+              <li>Business drivers: 30% cloud migration growth + new video conferencing</li>
+              <li>Threshold: 85% average or 95% peak triggers upgrade</li>
+              <li>Deadline: November 1, 2025 for budget submission</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>2️⃣ Knowledge Graph Data:</strong></p>
+            <ul class="compact-list">
+              <li>Current WAN links: 3x 100 Mbps, 1x 50 Mbps, 1x 100 Mbps</li>
+              <li>Equipment age: Routers 4.5 years, WAN links 5.8-6.3 years</li>
+              <li>24-month trend: 2.1-3.5% monthly growth across all links</li>
+              <li>Seattle WAN already at 91% average utilization</li>
+              <li>DC routers at 68-71% with 2.1-2.3% monthly growth</li>
+            </ul>
+          </div>
+          <div class="source-analysis">
+            <p><strong>3️⃣ RAG Historical Data:</strong></p>
+            <ul class="compact-list">
+              <li>91% similarity to CAP-2024-Q2 (multi-site WAN planning)</li>
+              <li>Standard methodology: Trend + Business Drivers + 15% safety margin</li>
+              <li>Best practice: 24 months historical data minimum</li>
+              <li>Equipment lifecycle: 5 years, plan refreshes 6-9 months ahead</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>🎯 MRA Analysis:</strong> Current growth trends (2.1-3.5% monthly) plus business drivers (30% cloud migration) will push 3 WAN links and 2 DC routers beyond 85% utilization threshold within 6 months. Need detailed forecasting and lifecycle analysis from specialized agents.</p>
+      </div>
+    </div>
+
+    <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Deploying Specialized Agents for Capacity Analysis:</strong></p>
+        <div class="agent-deployment-grid">
+          <div class="deployment-card">
+            <div class="deployment-icon">📊</div>
+            <div class="deployment-name">UTILIZATION_ANALYSIS_AGENT</div>
+            <div class="deployment-task">Analyze current utilization</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">📈</div>
+            <div class="deployment-name">TREND_FORECASTING_AGENT</div>
+            <div class="deployment-task">Generate growth forecasts</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">🔌</div>
+            <div class="deployment-name">INTERFACE_STATS_AGENT</div>
+            <div class="deployment-task">Collect interface metrics</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">⏱️</div>
+            <div class="deployment-name">DEVICE_LIFECYCLE_AGENT</div>
+            <div class="deployment-task">Assess equipment age</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💰</div>
+            <div class="deployment-name">COST_OPTIMIZATION_AGENT</div>
+            <div class="deployment-task">Calculate upgrade costs</div>
+          </div>
+          <div class="deployment-card">
+            <div class="deployment-icon">💡</div>
+            <div class="deployment-name">RECOMMENDATIONS_AGENT</div>
+            <div class="deployment-task">Generate capacity roadmap</div>
+          </div>
+        </div>
+        <p><strong>Total: 6 Specialized Agents Deployed</strong></p>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Deployed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: UTILIZATION_ANALYSIS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📊</span>
+        <span class="agent-name">UTILIZATION_ANALYSIS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Current Utilization Analysis via Knowledge Graph & MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved 24-month historical utilization data</li>
+            <li>🔌 <strong>MCP NETCONF:</strong> Real-time interface statistics from all devices</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Hourly polling data for peak/average calculations</li>
+          </ul>
+          <p><strong>WAN Link Utilization (Current Month - October 2025):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Link</th>
+                  <th>Capacity</th>
+                  <th>Avg Util</th>
+                  <th>Peak Util</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CHI-WAN-01</td>
+                  <td>100 Mbps</td>
+                  <td><span class="warning">78%</span></td>
+                  <td><span class="warning">94%</span></td>
+                  <td>⚠️ Approaching threshold</td>
+                </tr>
+                <tr>
+                  <td>DAL-WAN-01</td>
+                  <td>100 Mbps</td>
+                  <td><span class="warning">82%</span></td>
+                  <td><span class="problem-value">97%</span></td>
+                  <td>🔴 Exceeds peak threshold</td>
+                </tr>
+                <tr>
+                  <td>SEA-WAN-01</td>
+                  <td>50 Mbps</td>
+                  <td><span class="problem-value">91%</span></td>
+                  <td><span class="problem-value">98%</span></td>
+                  <td>🔴 Exceeds both thresholds</td>
+                </tr>
+                <tr>
+                  <td>DEN-WAN-01</td>
+                  <td>100 Mbps</td>
+                  <td><span class="normal-value">64%</span></td>
+                  <td><span class="warning">87%</span></td>
+                  <td>✅ Within limits</td>
+                </tr>
+                <tr>
+                  <td>BOS-WAN-01</td>
+                  <td>100 Mbps</td>
+                  <td><span class="warning">71%</span></td>
+                  <td><span class="warning">91%</span></td>
+                  <td>✅ Within limits</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Data Center Router Utilization:</strong></p>
+          <ul class="compact-list">
+            <li>DC-RTR-01 Uplink: Avg <span class="warning">68%</span>, Peak <span class="warning">89%</span></li>
+            <li>DC-RTR-02 Uplink: Avg <span class="warning">71%</span>, Peak <span class="warning">92%</span></li>
+          </ul>
+        </div>
+        <p><strong>High Utilization Devices:</strong></p>
+        <ul class="compact-list">
+          <li>🔴 SEA-WAN-01: 91% avg (exceeds 85% threshold)</li>
+          <li>🔴 DAL-WAN-01: 97% peak (exceeds 95% threshold)</li>
+          <li>⚠️ CHI-WAN-01: 78% avg (approaching threshold with 3.2% monthly growth)</li>
+        </ul>
+        <p><strong>Within Normal Range:</strong></p>
+        <ul class="compact-list">
+          <li>✅ DEN-WAN-01: 64% avg, healthy headroom</li>
+          <li>✅ BOS-WAN-01: 71% avg, moderate headroom</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">3 Links Require Immediate Attention</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue with remaining steps in next part due to length... -->
+    <!-- This file demonstrates the structure. Full implementation continues similarly -->
+
+  </div>
+</div>
+
+<style>
+  .question-block {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid #00aaff;
+    border-radius: 5px;
+  }
+
+  .question-block p {
+    margin: 5px 0;
+  }
+
+  .question-block .answer {
+    color: #00ff88;
+    margin-left: 20px;
+    font-style: italic;
+  }
+
+  .source-analysis {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+
+  .agent-deployment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .deployment-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .deployment-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .deployment-name {
+    font-weight: 600;
+    color: #00ff88;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .deployment-task {
+    font-size: 0.75rem;
+    color: #888;
+  }
+</style>
+
+    <!-- STEP 11: TREND_FORECASTING_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📈</span>
+        <span class="agent-name">TREND_FORECASTING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Growth Trend Forecasting & Capacity Modeling:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved 24-month utilization history for trend analysis</li>
+            <li>🔌 <strong>RAG Query:</strong> Retrieved forecasting methodology and business growth factors</li>
+            <li>🔌 <strong>MCP SNMP:</strong> Current month utilization for baseline validation</li>
+          </ul>
+          <p><strong>12-Month Capacity Forecast (Including Business Drivers):</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Link</th>
+                  <th>Current (Oct 2025)</th>
+                  <th>6-Month Forecast (Apr 2026)</th>
+                  <th>12-Month Forecast (Oct 2026)</th>
+                  <th>Threshold Breach</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CHI-WAN-01</td>
+                  <td>78% avg</td>
+                  <td><span class="warning">92%</span></td>
+                  <td><span class="problem-value">107%</span></td>
+                  <td>🔴 Month 3 (Jan 2026)</td>
+                </tr>
+                <tr>
+                  <td>DAL-WAN-01</td>
+                  <td>82% avg</td>
+                  <td><span class="problem-value">97%</span></td>
+                  <td><span class="problem-value">113%</span></td>
+                  <td>🔴 Month 1 (Nov 2025)</td>
+                </tr>
+                <tr>
+                  <td>SEA-WAN-01</td>
+                  <td>91% avg</td>
+                  <td><span class="problem-value">103%</span></td>
+                  <td><span class="problem-value">118%</span></td>
+                  <td>🔴 Already breached</td>
+                </tr>
+                <tr>
+                  <td>DEN-WAN-01</td>
+                  <td>64% avg</td>
+                  <td><span class="warning">74%</span></td>
+                  <td><span class="warning">84%</span></td>
+                  <td>✅ Within limits</td>
+                </tr>
+                <tr>
+                  <td>BOS-WAN-01</td>
+                  <td>71% avg</td>
+                  <td><span class="warning">82%</span></td>
+                  <td><span class="warning">93%</span></td>
+                  <td>⚠️ Month 11 (Sep 2026)</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-01</td>
+                  <td>68% avg</td>
+                  <td><span class="warning">79%</span></td>
+                  <td><span class="warning">91%</span></td>
+                  <td>⚠️ Month 10 (Aug 2026)</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-02</td>
+                  <td>71% avg</td>
+                  <td><span class="warning">83%</span></td>
+                  <td><span class="problem-value">96%</span></td>
+                  <td>🔴 Month 7 (May 2026)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Forecasting Methodology Applied:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Historical trend: Linear regression on 24 months data</li>
+            <li>✓ Business driver: +30% cloud migration traffic (Q2-Q4 2026)</li>
+            <li>✓ Business driver: +15% video conferencing traffic (Q2 2026 rollout)</li>
+            <li>✓ Safety margin: +15% capacity buffer per company policy</li>
+          </ul>
+        </div>
+        <p><strong>Critical Findings:</strong></p>
+        <ul class="compact-list">
+          <li>🔴 3 WAN links will breach 85% threshold within 6 months</li>
+          <li>🔴 2 DC routers will breach thresholds within 12 months</li>
+          <li>🔴 SEA-WAN-01 requires immediate upgrade (already at 91%)</li>
+        </ul>
+        <p><strong>On Track for Normal Growth:</strong></p>
+        <ul class="compact-list">
+          <li>✅ DEN-WAN-01: Healthy headroom through FY2026</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">5 Devices Require Upgrades Within 12 Months</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12: INTERFACE_STATS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🔌</span>
+        <span class="agent-name">INTERFACE_STATS_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Interface Health Check via MCP Servers:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>MCP NETCONF:</strong> ietf-interfaces module from CORE-SW-01</li>
+            <li>🔌 <strong>MCP SNMP:</strong> IF-MIB interface statistics</li>
+            <li>🔌 <strong>MCP CLI (SSH):</strong> show interface GigabitEthernet 0/1/0</li>
+          </ul>
+          <p><strong>Interface GigE 0/1/0 Statistics:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Current Value</th>
+                  <th>Threshold</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Input Errors</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>CRC Errors</td>
+                  <td>0</td>
+                  <td>< 5</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Output Drops</td>
+                  <td>1,247 (past hour)</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-critical">CRITICAL</span></td>
+                </tr>
+                <tr>
+                  <td>Buffer Overruns</td>
+                  <td>1,247</td>
+                  <td>< 5</td>
+                  <td><span class="status-tag status-critical">CRITICAL</span></td>
+                </tr>
+                <tr>
+                  <td>Collisions</td>
+                  <td>0</td>
+                  <td>< 10</td>
+                  <td><span class="status-tag status-success">OK</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Physical Layer:</strong> Link up, Full-duplex, 1000 Mbps, Copper</p>
+        </div>
+        <p><strong>Working List:</strong></p>
+        <ul class="compact-list">
+          <li>✅ GigE 0/1/1: Clean (0 errors, 0 drops)</li>
+          <li>✅ GigE 0/1/2: Clean (0 errors, 0 drops)</li>
+          <li>✅ Physical layer healthy on GigE 0/1/0</li>
+          <li>✅ No input errors (excludes upstream issues)</li>
+        </ul>
+        <p><strong>Not Working List:</strong></p>
+        <ul class="compact-list">
+          <li>❌ GigE 0/1/0: Output drops = 1,247 (past hour)</li>
+          <li>❌ Buffer overruns = 1,247 (exactly matching drops)</li>
+          <li>❌ Drop rate: 8.2% during peak periods</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">Buffer Overruns Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13: DEVICE_LIFECYCLE_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">⏱️</span>
+        <span class="agent-name">DEVICE_LIFECYCLE_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Equipment Lifecycle & End-of-Support Analysis:</strong></p>
+        <div class="change-details">
+          <p><strong>Data Sources:</strong></p>
+          <ul class="compact-list">
+            <li>🔌 <strong>KG Query:</strong> Retrieved device installation dates and models from CMDB</li>
+            <li>🔌 <strong>RAG Query:</strong> "Cisco equipment lifecycle + end-of-sale + end-of-support dates"</li>
+            <li>🔌 <strong>WebAPI:</strong> Cisco End-of-Life database for current support status</li>
+          </ul>
+          <p><strong>Equipment Age Analysis:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Age (Years)</th>
+                  <th>Company Lifecycle</th>
+                  <th>Vendor Support Status</th>
+                  <th>Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DC-RTR-01</td>
+                  <td>4.5</td>
+                  <td><span class="warning">Approaching 5-yr limit</span></td>
+                  <td><span class="success">Supported until 2027</span></td>
+                  <td>⚠️ Plan refresh within 6 months</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-02</td>
+                  <td>4.5</td>
+                  <td><span class="warning">Approaching 5-yr limit</span></td>
+                  <td><span class="success">Supported until 2027</span></td>
+                  <td>⚠️ Plan refresh within 6 months</td>
+                </tr>
+                <tr>
+                  <td>CHI-WAN-01</td>
+                  <td>6.3</td>
+                  <td><span class="problem-value">Exceeds 5-yr limit</span></td>
+                  <td><span class="success">Active contract</span></td>
+                  <td>🔴 Immediate upgrade required</td>
+                </tr>
+                <tr>
+                  <td>DAL-WAN-01</td>
+                  <td>6.3</td>
+                  <td><span class="problem-value">Exceeds 5-yr limit</span></td>
+                  <td><span class="success">Active contract</span></td>
+                  <td>🔴 Immediate upgrade required</td>
+                </tr>
+                <tr>
+                  <td>SEA-WAN-01</td>
+                  <td>5.8</td>
+                  <td><span class="problem-value">Exceeds 5-yr limit</span></td>
+                  <td><span class="success">Active contract</span></td>
+                  <td>🔴 Immediate upgrade required</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Lifecycle Policy Compliance:</strong></p>
+          <ul class="compact-list">
+            <li>Company Policy: Network equipment must be refreshed within 5 years</li>
+            <li>Vendor Support: All devices have active support contracts through 2026-2027</li>
+            <li>Risk Assessment: Aging equipment has higher failure rates and reduced performance</li>
+          </ul>
+        </div>
+        <p><strong>Within Lifecycle Limits:</strong></p>
+        <ul class="compact-list">
+          <li>✅ None - All critical devices approaching or exceeding 5-year limit</li>
+        </ul>
+        <p><strong>Lifecycle Issues Identified:</strong></p>
+        <ul class="compact-list">
+          <li>❌ 3 WAN links exceed 5-year lifecycle policy</li>
+          <li>❌ 2 DC routers approaching 5-year limit (due for refresh Q2 2026)</li>
+          <li>❌ Coincides with capacity constraints - combined upgrade opportunity</li>
+        </ul>
+        <div class="finding-summary">
+          <span class="finding-tag finding-critical">5 Devices Require Lifecycle Refresh</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14: INTER-AGENT COLLABORATION -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💬</span>
+        <span class="agent-name">AGENT_COLLABORATION</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
+        <div class="change-details">
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 1:</strong></p>
+            <p class="collab-from">📊 UTILIZATION_ANALYSIS_AGENT → 📈 TREND_FORECASTING_AGENT:</p>
+            <p class="collab-message">"Current analysis shows 3 WAN links at 78-91% utilization with 2.8-3.5% monthly growth. Can you project when each will breach 85% threshold?"</p>
+            <p class="collab-response">📈 Response: "Running forecast models now. Will incorporate business drivers (cloud migration + video conferencing) into projections."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 2:</strong></p>
+            <p class="collab-from">📈 TREND_FORECASTING_AGENT → ⏱️ DEVICE_LIFECYCLE_AGENT:</p>
+            <p class="collab-message">"Forecast shows CHI, DAL, and SEA WAN links will breach thresholds within 1-3 months. Need lifecycle status - are these devices due for refresh anyway?"</p>
+            <p class="collab-response">⏱️ Response: "Checking CMDB and vendor EoL database. Will identify overlap opportunities."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 3:</strong></p>
+            <p class="collab-from">⏱️ DEVICE_LIFECYCLE_AGENT → 📈 TREND_FORECASTING_AGENT:</p>
+            <p class="collab-message">"All 3 WAN links exceed 5-year lifecycle policy. DC routers at 4.5 years approaching limit. This aligns perfectly with your capacity forecast - combined upgrade opportunity."</p>
+            <p class="collab-response">📈 Response: "Excellent - we can size new equipment for 2-3 year growth instead of just current needs. Will adjust recommendations."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 4:</strong></p>
+            <p class="collab-from">📈 TREND_FORECASTING_AGENT → 💰 COST_OPTIMIZATION_AGENT:</p>
+            <p class="collab-message">"Identified 5 devices needing upgrades within 12 months. Can you calculate costs and evaluate whether we should accelerate DC router refresh to consolidate projects?"</p>
+            <p class="collab-response">💰 Response: "Analyzing pricing and procurement timelines. Will model phased vs. consolidated approach."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Exchange 5:</strong></p>
+            <p class="collab-from">💰 COST_OPTIMIZATION_AGENT → 💡 RECOMMENDATIONS_AGENT:</p>
+            <p class="collab-message">"Cost analysis complete. Consolidated procurement saves 12% due to volume discounts. Ready for roadmap generation."</p>
+            <p class="collab-response">💡 Response: "Acknowledged. Compiling 12-month capacity roadmap with procurement milestones and budget requirements."</p>
+          </div>
+          <div class="collaboration-exchange">
+            <p><strong>Dynamic Task Adjustment:</strong></p>
+            <ul class="compact-list">
+              <li>✓ UTILIZATION_ANALYSIS identified high-risk devices for focused forecasting</li>
+              <li>✓ TREND_FORECASTING requested lifecycle data to inform upgrade sizing</li>
+              <li>✓ DEVICE_LIFECYCLE discovered alignment opportunity for combined refresh</li>
+              <li>✓ COST_OPTIMIZATION evaluated consolidated vs. phased procurement</li>
+              <li>✓ All agents converged on integrated capacity + lifecycle roadmap</li>
+            </ul>
+          </div>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Agents Collaborating Effectively</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 15: COST_OPTIMIZATION_AGENT -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">💰</span>
+        <span class="agent-name">COST_OPTIMIZATION_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>Cost Analysis & Procurement Strategy:</strong></p>
+        <div class="change-details">
+          <p><strong>Equipment Pricing Analysis:</strong></p>
+          <ul class="compact-list">
+            <li>✓ WAN Link Upgrades: Queried vendor pricing for 200 Mbps MPLS circuits</li>
+            <li>✓ DC Router Refresh: Retrieved Catalyst 8500 series pricing from Cisco</li>
+            <li>✓ Volume Discounts: Evaluated consolidated vs. phased procurement</li>
+            <li>✓ Maintenance Contracts: Calculated 3-year SmartNet costs</li>
+          </ul>
+          <p><strong>12-Month Cost Projection:</strong></p>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Upgrade Item</th>
+                  <th>Timing</th>
+                  <th>Equipment Cost</th>
+                  <th>Recurring (Annual)</th>
+                  <th>Total (Year 1)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SEA-WAN-01: 50→200 Mbps</td>
+                  <td>Q1 2026 (Immediate)</td>
+                  <td>$12,000</td>
+                  <td>$18,000</td>
+                  <td>$30,000</td>
+                </tr>
+                <tr>
+                  <td>DAL-WAN-01: 100→200 Mbps</td>
+                  <td>Q1 2026</td>
+                  <td>$8,000</td>
+                  <td>$12,000</td>
+                  <td>$20,000</td>
+                </tr>
+                <tr>
+                  <td>CHI-WAN-01: 100→200 Mbps</td>
+                  <td>Q2 2026</td>
+                  <td>$8,000</td>
+                  <td>$12,000</td>
+                  <td>$20,000</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-01: Catalyst 8500</td>
+                  <td>Q2 2026</td>
+                  <td>$45,000</td>
+                  <td>$6,750</td>
+                  <td>$51,750</td>
+                </tr>
+                <tr>
+                  <td>DC-RTR-02: Catalyst 8500</td>
+                  <td>Q2 2026</td>
+                  <td>$45,000</td>
+                  <td>$6,750</td>
+                  <td>$51,750</td>
+                </tr>
+                <tr>
+                  <td><strong>Volume Discount (12%)</strong></td>
+                  <td>-</td>
+                  <td><span class="success">-$14,160</span></td>
+                  <td>-</td>
+                  <td><span class="success">-$14,160</span></td>
+                </tr>
+                <tr>
+                  <td><strong>TOTAL</strong></td>
+                  <td>-</td>
+                  <td><strong>$103,840</strong></td>
+                  <td><strong>$55,500</strong></td>
+                  <td><strong>$159,340</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Procurement Strategy Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Consolidated purchase of all equipment in Q1 2026 saves $14,160 (12% volume discount)</li>
+            <li>✓ Phased deployment: WAN links Q1, DC routers Q2 reduces deployment risk</li>
+            <li>✓ Early procurement locks in current pricing (equipment costs rising 8% annually)</li>
+          </ul>
+        </div>
+        <p><strong>Budget Breakdown:</strong></p>
+        <div class="rca-box">
+          <p><strong>FY2026 CAPITAL BUDGET REQUEST:</strong></p>
+          <p>Total one-time capital: <strong>$103,840</strong> (equipment + installation)</p>
+          <p>Annual recurring costs: <strong>$55,500</strong> (MPLS circuits + SmartNet)</p>
+          <p><strong>COST AVOIDANCE:</strong></p>
+          <ul class="compact-list">
+            <li>1. Volume discount on consolidated purchase: $14,160 savings</li>
+            <li>2. Avoiding emergency procurement premiums: ~$25,000 savings</li>
+            <li>3. Combined lifecycle refresh reduces project management overhead: ~$15,000 savings</li>
+            <li>4. <strong>Total Cost Avoidance: $54,160</strong></li>
+          </ul>
+        </div>
+        <div class="finding-summary">
+          <span class="finding-tag finding-success">Cost Optimization Complete</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16: MRA CAPACITY ASSESSMENT SYNTHESIS -->
+    <div class="agent-step completed highlight-step">
+      <div class="agent-header">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">MASTER_REASONING_AGENT</span>
+        <span class="status-tag status-success">Complete</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Capacity Assessment Synthesis - Consolidating All Findings:</strong></p>
+        <div class="change-details">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Observation</th>
+                  <th>Type</th>
+                  <th>Severity</th>
+                  <th>Relationship</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Users reporting slow applications</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>User-observed impact</td>
+                </tr>
+                <tr>
+                  <td>business-critical applications calls dropping</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Time-sensitive traffic affected</td>
+                </tr>
+                <tr>
+                  <td>5-8% capacity planning and forecasting</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Network-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 buffer overruns</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Device-level symptom</td>
+                </tr>
+                <tr>
+                  <td>1,247 output drops</td>
+                  <td><span class="symptom-tag">SYMPTOM</span></td>
+                  <td>High</td>
+                  <td>Direct result of buffer exhaustion</td>
+                </tr>
+                <tr>
+                  <td>95% interface utilization</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Causes buffer pressure</td>
+                </tr>
+                <tr>
+                  <td>620 Mbps capacity growth and forecasting</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>High</td>
+                  <td>Major bandwidth consumer</td>
+                </tr>
+                <tr>
+                  <td>64 KB buffer (insufficient)</td>
+                  <td><span class="contributing-tag">CONTRIBUTING FACTOR</span></td>
+                  <td>Medium</td>
+                  <td>Cannot absorb bursts</td>
+                </tr>
+                <tr>
+                  <td>Backup during business hours</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Triggers the issue</td>
+                </tr>
+                <tr>
+                  <td>No traffic shaping policy</td>
+                  <td><span class="root-cause-tag">ROOT CAUSE</span></td>
+                  <td>Critical</td>
+                  <td>Allows uncontrolled traffic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with capacity growth and forecasting schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Commonalities Identified:</strong></p>
+          <ul class="compact-list">
+            <li>✓ All symptoms occur only during 09:00-11:00 window</li>
+            <li>✓ All symptoms correlate with capacity growth and forecasting schedule</li>
+            <li>✓ All symptoms resolve when backup completes</li>
+            <li>✓ Pattern is 100% repeatable</li>
+          </ul>
+        </div>
+        <p><strong>MRA Decision: Root cause confirmed. No additional investigation needed. Proceeding to resolution phase.</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 17: Additional Analysis (if needed) -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <span class="agent-name">STEP 17: MRA - Additional Analysis Assignment</span>
+        <span class="status-badge">Evaluated</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>MRA Evaluation:</strong></p>
+        <div class="info-box">
+          <p>✓ Capacity constraints clearly identified: 3 WAN links + 2 DC routers exceed thresholds within 12 months</p>
+          <p>✓ All specialized agents have completed their analysis</p>
+          <p>✓ Forecasts validated with 91% similarity to historical projects</p>
+          <p>✓ Comprehensive data collected from KG (utilization), RAG (methodology), and MCP (real-time metrics)</p>
+          <p><strong>Decision: No additional analysis tasks required. Proceeding directly to capacity roadmap generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Clear Capacity Assessment Statement -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📋</span>
+        <span class="agent-name">STEP 18: CAPACITY ASSESSMENT - Final Statement</span>
+        <span class="status-badge">Confirmed</span>
+      </div>
+      <div class="agent-content">
+        <div class="success-box">
+          <h3>🎯 CAPACITY ASSESSMENT STATEMENT</h3>
+          <p><strong>Primary Finding:</strong></p>
+          <p class="highlight">Based on 24-month trend analysis and business growth drivers (30% cloud migration + 15% video conferencing), <strong>3 WAN links (CHI, DAL, SEA) and 2 DC routers will exceed 85% utilization threshold within 6 months</strong>, requiring immediate capacity planning action to avoid performance degradation.</p>
+
+          <p><strong>Critical Capacity Constraints Identified:</strong></p>
+          <ul class="compact-list">
+            <li>• SEA-WAN-01: Already at 91% avg utilization - immediate upgrade required</li>
+            <li>• DAL-WAN-01: At 97% peak utilization - breaches threshold in Month 1 (Nov 2025)</li>
+            <li>• CHI-WAN-01: Will breach 85% threshold in Month 3 (Jan 2026)</li>
+            <li>• DC-RTR-02: Will breach threshold in Month 7 (May 2026) due to aggregate traffic growth</li>
+            <li>• DC-RTR-01: Will breach threshold in Month 10 (Aug 2026)</li>
+          </ul>
+
+          <p><strong>Evidence Supporting Assessment:</strong></p>
+          <ul class="compact-list">
+            <li>✓ Historical trend: Consistent 2.8-3.5% monthly utilization growth over 24 months</li>
+            <li>✓ Business drivers: Cloud migration (+30%) and video conferencing (+15%) validated by IT leadership</li>
+            <li>✓ Lifecycle analysis: 3 WAN links exceed 5-year refresh policy, align with capacity needs</li>
+            <li>✓ RAG validation: 91% similarity to CAP-2024-Q2 project (methodology validated)</li>
+            <li>✓ Forecast model: ±3% accuracy when back-tested against 12-month historical data</li>
+          </ul>
+
+          <p><strong>Business Impact of Inaction:</strong></p>
+          <ul class="compact-list">
+            <li>🔴 Critical: Network congestion leading to application performance degradation (Q1-Q2 2026)</li>
+            <li>🔴 High: Emergency procurement at 20-30% premium pricing if reactive</li>
+            <li>🟡 Medium: Inability to support cloud migration initiative on schedule</li>
+            <li>⏱️ Opportunity Cost: $54,160 savings lost if not consolidating procurement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19: RECOMMENDATIONS_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">💡</span>
+        <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
+        <span class="status-badge">Analyzing</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT Querying Systems:</strong></p>
+        <ul class="compact-list">
+          <li>📚 KG Query: Retrieved best practice procurement planning templates for Cisco routers</li>
+          <li>📚 RAG Query: Retrieved 3 successful resolution playbooks from similar tickets</li>
+          <li>🔧 MCP Server: Retrieved current procurement planning configuration (none configured)</li>
+        </ul>
+
+        <div class="info-box">
+          <h3>🎯 THREE-PHASE REMEDIATION PLAN</h3>
+
+          <p><strong>PHASE 1: IMMEDIATE (Deploy within 30 minutes)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 1.1 - Implement Traffic Shaping Policy on GigE 0/1/0</strong></p>
+            <ul class="compact-list">
+              <li>✓ Limit capacity growth and forecasting to 40% of link capacity (260 Mbps)</li>
+              <li>✓ Reserve 50% for business-critical traffic (325 Mbps)</li>
+              <li>✓ Reserve 10% for network management (65 Mbps)</li>
+              <li>⏱️ Deployment time: 5 minutes via NETCONF</li>
+              <li>📊 Expected impact: Reduce capacity planning and forecasting from 8% to <0.5%</li>
+            </ul>
+
+            <p><strong>Action 1.2 - Increase Interface Buffer Size</strong></p>
+            <ul class="compact-list">
+              <li>✓ Increase GigE 0/1/0 buffer from 64 KB to 256 KB</li>
+              <li>✓ Enable weighted fair queueing (WFQ)</li>
+              <li>⏱️ Deployment time: 3 minutes via NETCONF</li>
+              <li>📊 Expected impact: Eliminate buffer overruns</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 2: SHORT-TERM (Deploy within 24 hours)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 2.1 - Reschedule Backup Window</strong></p>
+            <ul class="compact-list">
+              <li>✓ Move backup from 09:00-11:00 AM to 01:00-03:00 AM (off-peak)</li>
+              <li>✓ Coordinate with backup team and change management</li>
+              <li>⏱️ Implementation: Tonight 8:00 PM</li>
+              <li>📊 Expected impact: Eliminate daytime congestion entirely</li>
+            </ul>
+          </div>
+
+          <p><strong>PHASE 3: LONG-TERM (Deploy within 30 days)</strong></p>
+          <div class="recommendation-phase">
+            <p><strong>Action 3.1 - Comprehensive procurement planning Implementation</strong></p>
+            <ul class="compact-list">
+              <li>✓ Deploy class-based procurement planning across all WAN interfaces</li>
+              <li>✓ Implement priority queuing for business-critical applications (guaranteed bandwidth)</li>
+              <li>✓ Implement DSCP marking for application prioritization</li>
+              <li>⏱️ Rollout: Phased deployment over 2 weeks</li>
+            </ul>
+
+            <p><strong>Action 3.2 - WAN Link Capacity Upgrade</strong></p>
+            <ul class="compact-list">
+              <li>✓ Evaluate upgrade from 650 Mbps to 1 Gbps MPLS link</li>
+              <li>✓ Cost-benefit analysis vs. SD-WAN implementation</li>
+              <li>⏱️ Timeline: 30-day evaluation period</li>
+            </ul>
+
+            <p><strong>Action 3.3 - Enhanced Monitoring</strong></p>
+            <ul class="compact-list">
+              <li>✓ Implement real-time bandwidth utilization alerts (>80% threshold)</li>
+              <li>✓ Enable NetFlow collection on all WAN interfaces</li>
+              <li>✓ Create dashboard for procurement planning queue statistics</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Risk Assessment:</strong></p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Risk Level</th>
+              <th>Mitigation</th>
+              <th>Rollback Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12-month capacity roadmap with procurement plan policy</td>
+              <td><span class="success">LOW</span></td>
+              <td>Non-disruptive, can adjust limits</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Buffer size increase</td>
+              <td><span class="success">LOW</span></td>
+              <td>No downtime required</td>
+              <td>2 minutes</td>
+            </tr>
+            <tr>
+              <td>Backup rescheduling</td>
+              <td><span class="warning">MEDIUM</span></td>
+              <td>Test backup completion before production</td>
+              <td>N/A (schedule change)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Success Criteria:</strong></p>
+        <ul class="compact-list">
+          <li>✓ Forecast model validated against historical data to <0.1% on all remote site links</li>
+          <li>✓ Zero buffer overruns on GigE 0/1/0</li>
+          <li>✓ business-critical applications call quality score >4.0 (MOS)</li>
+          <li>✓ Business-critical traffic receives guaranteed bandwidth</li>
+          <li>✓ No user complaints during backup window</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 20: Recommendations to IO_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📤</span>
+        <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
+        <span class="status-badge">Transmitted</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>RECOMMENDATIONS_AGENT → IO_AGENT Communication:</strong></p>
+        <div class="info-box">
+          <p>💡 <strong>Message:</strong> "I have completed the solution design based on RCA findings, KG best practices, and RAG historical resolutions. I recommend proceeding with PHASE 1 immediate actions (traffic shaping + buffer increase) to provide rapid relief within 30 minutes."</p>
+          <p><strong>Attachments to IO_AGENT:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete 3-phase remediation plan</li>
+            <li>📄 NETCONF configuration snippets for deployment</li>
+            <li>📄 Risk assessment matrix</li>
+            <li>📄 Success criteria and verification tests</li>
+            <li>📄 Rollback procedures</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21: User Permission Request -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">👤</span>
+        <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
+        <span class="status-badge">Awaiting Response</span>
+      </div>
+      <div class="agent-content">
+        <div class="user-interaction-box">
+          <p><strong>📢 IO_AGENT to User (John Smith):</strong></p>
+          <p>"John, our AI agents have completed the investigation of ticket #CAP-8891 (capacity planning and forecasting issue)."</p>
+
+          <p><strong>Summary:</strong></p>
+          <ul class="compact-list">
+            <li>🎯 Root Cause: Backup traffic consuming 95% of WAN link without traffic control</li>
+            <li>📊 Impact: 5-8% capacity planning and forecasting during 09:00-11:00 AM daily</li>
+            <li>⏱️ Affecting: All 5 remote sites (Chicago, Dallas, Seattle, Denver, Boston)</li>
+          </ul>
+
+          <p><strong>Recommended Immediate Solution (PHASE 1):</strong></p>
+          <ul class="compact-list">
+            <li>1️⃣ Deploy traffic shaping policy to limit capacity growth and forecasting to 260 Mbps (40%)</li>
+            <li>2️⃣ Increase buffer size from 64 KB to 256 KB on interface GigE 0/1/0</li>
+            <li>⏱️ Total deployment time: ~8 minutes</li>
+            <li>📉 Expected result: Forecast model validated against historical data from 8% to <0.5%</li>
+            <li>🔄 Rollback time: 2 minutes if any issues occur</li>
+          </ul>
+
+          <p><strong>❓ Questions for User:</strong></p>
+          <div class="question-block">
+            <p><strong>Q1: Do you approve the deployment of PHASE 1 immediate actions?</strong></p>
+            <p class="answer">✅ A1: Yes, approved. Please proceed immediately.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q2: What is your preferred maintenance window for deployment?</strong></p>
+            <p class="answer">✅ A2: Deploy now (10:45 AM) - users are already experiencing issues, so minimal additional risk.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q3: Should we proceed with PHASE 2 (backup rescheduling) tonight at 8:00 PM?</strong></p>
+            <p class="answer">✅ A3: Yes, coordinate with backup team. I'll approve the change request.</p>
+          </div>
+          <div class="question-block">
+            <p><strong>Q4: Who should receive the final resolution report?</strong></p>
+            <p class="answer">✅ A4: Send to me (john.smith@xyzcorp.com) and CC network-ops@xyzcorp.com</p>
+          </div>
+        </div>
+        <p><strong>✅ User Permission Granted: Proceeding to deployment phase</strong></p>
+      </div>
+    </div>
+
+    <!-- STEP 22: DEPLOYMENT_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">🚀</span>
+        <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
+        <span class="status-badge">Deploying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>DEPLOYMENT_AGENT Initiated - Deployment Plan:</strong></p>
+        <ul class="compact-list">
+          <li>🎯 Target Device: RTR-CORE-01 (Interface GigE 0/1/0)</li>
+          <li>🔧 Deployment Method: NETCONF over SSH (Port 830)</li>
+          <li>⏱️ Start Time: 2025-10-17 10:47:15 AM</li>
+          <li>👤 Authorized By: John Smith (john.smith@xyzcorp.com)</li>
+          <li>🎫 Change Ticket: CHG-2025-1017-001</li>
+        </ul>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 1: Deploy Traffic Shaping Policy</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;policy&gt;
+      &lt;policy-map&gt;
+        &lt;name&gt;WAN-TRAFFIC-SHAPING&lt;/name&gt;
+        &lt;class&gt;
+          &lt;name&gt;BACKUP-TRAFFIC&lt;/name&gt;
+          &lt;police&gt;
+            &lt;rate&gt;260000000&lt;/rate&gt;  &lt;!-- 260 Mbps --&gt;
+            &lt;burst&gt;8000000&lt;/burst&gt;
+            &lt;conform-action&gt;transmit&lt;/conform-action&gt;
+            &lt;exceed-action&gt;drop&lt;/exceed-action&gt;
+          &lt;/police&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;BUSINESS-CRITICAL&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;50&lt;/percent&gt;  &lt;!-- 325 Mbps reserved --&gt;
+          &lt;/bandwidth&gt;
+          &lt;priority&gt;
+        &lt;/class&gt;
+        &lt;class&gt;
+          &lt;name&gt;NETWORK-MGMT&lt;/name&gt;
+          &lt;bandwidth&gt;
+            &lt;percent&gt;10&lt;/percent&gt;  &lt;!-- 65 Mbps reserved --&gt;
+          &lt;/bandwidth&gt;
+        &lt;/class&gt;
+      &lt;/policy-map&gt;
+    &lt;/policy&gt;
+    &lt;interface&gt;
+      &lt;GigabitEthernet&gt;
+        &lt;name&gt;0/1/0&lt;/name&gt;
+        &lt;service-policy&gt;
+          &lt;output&gt;WAN-TRAFFIC-SHAPING&lt;/output&gt;
+        &lt;/service-policy&gt;
+      &lt;/GigabitEthernet&gt;
+    &lt;/interface&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:18 - NETCONF session established to RTR-CORE-01</li>
+            <li>⏱️ 10:47:22 - Configuration validated (no syntax errors)</li>
+            <li>⏱️ 10:47:25 - Policy-map WAN-TRAFFIC-SHAPING created</li>
+            <li>⏱️ 10:47:28 - Classes configured: BACKUP-TRAFFIC, BUSINESS-CRITICAL, NETWORK-MGMT</li>
+            <li>⏱️ 10:47:31 - Service policy applied to GigE 0/1/0 output</li>
+            <li>✅ 10:47:33 - <strong>ACTION 1 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <div class="deployment-box">
+          <p><strong>📝 ACTION 2: Increase Interface Buffer Size</strong></p>
+          <p><strong>NETCONF Configuration:</strong></p>
+          <pre class="code-block">&lt;config&gt;
+  &lt;native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"&gt;
+    &lt;interface&gt;
+      &lt;GigabitEthernet&gt;
+        &lt;name&gt;0/1/0&lt;/name&gt;
+        &lt;hold-queue&gt;256&lt;/hold-queue&gt;  &lt;!-- 256 KB buffer --&gt;
+        &lt;tx-ring-limit&gt;512&lt;/tx-ring-limit&gt;
+        &lt;fair-queue&gt;
+          &lt;weight&gt;true&lt;/weight&gt;  &lt;!-- Enable WFQ --&gt;
+        &lt;/fair-queue&gt;
+      &lt;/GigabitEthernet&gt;
+    &lt;/interface&gt;
+  &lt;/native&gt;
+&lt;/config&gt;</pre>
+          <p><strong>Deployment Status:</strong></p>
+          <ul class="compact-list">
+            <li>⏱️ 10:47:35 - Applying buffer configuration to GigE 0/1/0</li>
+            <li>⏱️ 10:47:38 - Hold-queue increased from 64 to 256 packets</li>
+            <li>⏱️ 10:47:41 - TX ring limit set to 512</li>
+            <li>⏱️ 10:47:43 - Weighted Fair Queuing (WFQ) enabled</li>
+            <li>✅ 10:47:45 - <strong>ACTION 2 COMPLETED SUCCESSFULLY</strong></li>
+          </ul>
+        </div>
+
+        <p><strong>📊 Post-Deployment Verification:</strong></p>
+        <ul class="compact-list">
+          <li>✅ Configuration committed to device running-config</li>
+          <li>✅ Configuration saved to startup-config (automatic backup)</li>
+          <li>✅ NETCONF session closed gracefully</li>
+          <li>⏱️ Total Deployment Time: 30 seconds</li>
+          <li>🎉 <strong>PHASE 1 DEPLOYMENT COMPLETE - No errors encountered</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 23: VERIFICATION_AGENT -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">✅</span>
+        <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
+        <span class="status-badge">Verifying</span>
+      </div>
+      <div class="agent-content">
+        <p><strong>VERIFICATION_AGENT Executing Post-Deployment Tests:</strong></p>
+        <p>⏱️ Verification Start Time: 2025-10-17 10:48:00 AM (15 seconds after deployment)</p>
+
+        <div class="verification-box">
+          <p><strong>TEST 1: Verify Traffic Shaping Policy Active</strong></p>
+          <p><strong>MCP Server Query (CLI via SSH):</strong></p>
+          <pre class="code-block">RTR-CORE-01# show policy-map interface GigE 0/1/0
+
+GigabitEthernet0/1/0
+  Service-policy output: WAN-TRAFFIC-SHAPING
+    Class-map: BACKUP-TRAFFIC (match-any)
+      Police: 260000000 bps, 8000000 byte burst
+        Conformed: 245321 packets, 253.4 Mbps
+        Exceeded: 8932 packets (dropped)
+        Conform rate: 95.2% | Exceed rate: 4.8%
+
+    Class-map: BUSINESS-CRITICAL (match-any)
+      Bandwidth: 50% (325 Mbps guaranteed)
+        Packets: 182934 packets, 298.7 Mbps
+        Priority queue: Active
+
+    Class-map: NETWORK-MGMT (match-any)
+      Bandwidth: 10% (65 Mbps guaranteed)
+        Packets: 15432 packets, 18.3 Mbps</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - 12-month capacity roadmap with procurement plan policy actively policing traffic</p>
+          <ul class="compact-list">
+            <li>✓ Backup traffic limited to 253.4 Mbps (target: 260 Mbps)</li>
+            <li>✓ Business-critical traffic receiving guaranteed bandwidth</li>
+            <li>✓ Policy already dropping excess backup packets (8,932 dropped)</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 2: Verify Buffer Configuration</strong></p>
+          <p><strong>MCP Server Query (NETCONF):</strong></p>
+          <pre class="code-block">RTR-CORE-01# show interfaces GigE 0/1/0 | include queue
+  Output queue: 0/256 (size/max)
+  TX ring: 512
+  Queueing strategy: weighted fair
+  Output drops: 0 (in last 60 seconds)</pre>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Buffer configuration applied correctly</p>
+          <ul class="compact-list">
+            <li>✓ Hold-queue size increased to 256 (previously 64)</li>
+            <li>✓ TX ring limit set to 512</li>
+            <li>✓ Weighted Fair Queuing active</li>
+            <li>✓ Zero output drops in last 60 seconds</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 3: Verify Capacity Planning Reduction</strong></p>
+          <p><strong>MCP Server Query (SNMP + NetFlow):</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Site</th>
+                <th>Capacity Planning (Before)</th>
+                <th>Capacity Planning (After)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chicago</td>
+                <td><span class="error">8.2%</span></td>
+                <td><span class="success">0.08%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Dallas</td>
+                <td><span class="error">7.5%</span></td>
+                <td><span class="success">0.05%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Seattle</td>
+                <td><span class="error">6.8%</span></td>
+                <td><span class="success">0.03%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Denver</td>
+                <td><span class="error">5.4%</span></td>
+                <td><span class="success">0.01%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+              <tr>
+                <td>Boston</td>
+                <td><span class="error">5.1%</span></td>
+                <td><span class="success">0.02%</span></td>
+                <td>✅ FIXED</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - Forecast model validated against historical data by 99% across all sites</p>
+          <ul class="compact-list">
+            <li>✓ Average capacity planning and forecasting: 6.6% → 0.04% (164x improvement)</li>
+            <li>✓ All sites now below 0.1% threshold (target: <0.5%)</li>
+            <li>✓ Exceeds success criteria</li>
+          </ul>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 4: Verify business-critical applications Call Quality</strong></p>
+          <p><strong>Query: Voice Quality Monitoring System</strong></p>
+          <ul class="compact-list">
+            <li>📞 Active calls monitored: 23 concurrent business-critical applications sessions</li>
+            <li>📊 Mean Opinion Score (MOS): <strong>4.3</strong> (target: >4.0)</li>
+            <li>🎵 Jitter: 8ms (acceptable: <30ms)</li>
+            <li>⏱️ Latency: 45ms (acceptable: <150ms)</li>
+            <li>📉 Packet loss: 0.02% (acceptable: <1%)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - business-critical applications quality restored to excellent</p>
+        </div>
+
+        <div class="verification-box">
+          <p><strong>TEST 5: Verify No Negative Side Effects</strong></p>
+          <ul class="compact-list">
+            <li>✅ No interface flaps detected</li>
+            <li>✅ BGP sessions stable (no routing changes)</li>
+            <li>✅ CPU utilization normal: 12% (no spike from procurement planning processing)</li>
+            <li>✅ Memory utilization: 45% (no increase)</li>
+            <li>✅ All remote sites reachable via ping</li>
+            <li>✅ No user complaints received (monitoring helpdesk queue)</li>
+          </ul>
+          <p><strong>Result:</strong> ✅ <span class="success">PASS</span> - No adverse impacts detected</p>
+        </div>
+
+        <p><strong>📊 VERIFICATION SUMMARY:</strong></p>
+        <div class="success-box">
+          <p><strong>🎉 ALL VERIFICATION TESTS PASSED (5/5)</strong></p>
+          <ul class="compact-list">
+            <li>✅ 12-month capacity roadmap with procurement plan policy operational and effective</li>
+            <li>✅ Buffer configuration applied successfully</li>
+            <li>✅ Forecast model validated against historical data from 6.6% average to 0.04% (99% improvement)</li>
+            <li>✅ business-critical applications call quality excellent (MOS 4.3/5.0)</li>
+            <li>✅ Zero negative side effects observed</li>
+          </ul>
+          <p><strong>⏱️ Time to Resolution: 18 minutes from ticket assignment to verified fix</strong></p>
+          <p><strong>✅ Solution validated and stable. Proceeding to final report generation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24: Final Report -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📄</span>
+        <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
+        <span class="status-badge">Complete</span>
+      </div>
+      <div class="agent-content">
+        <div class="final-report-box">
+          <h2>🎯 INCIDENT RESOLUTION REPORT</h2>
+
+          <p><strong>Ticket Information:</strong></p>
+          <ul class="compact-list">
+            <li>🎫 Ticket ID: #CAP-8891</li>
+            <li>📋 Title: Capacity Planning Across All Remote Sites</li>
+            <li>👤 Reported By: John Smith (john.smith@xyzcorp.com)</li>
+            <li>⏱️ Opened: 2025-10-17 09:15:23 AM</li>
+            <li>⏱️ Resolved: 2025-10-17 10:48:45 AM</li>
+            <li>⌛ Resolution Time: <strong>1 hour 33 minutes</strong></li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Problem Summary:</strong></p>
+          <p>Users across all 5 remote sites (Chicago, Dallas, Seattle, Denver, Boston) reported degraded network performance during 09:00-11:00 AM daily, including poor business-critical applications quality, video conferencing issues, and slow application response times. Investigation revealed 5-8% capacity planning and forecasting on WAN connections during this time window.</p>
+
+          <hr>
+
+          <p><strong>Root Cause Analysis:</strong></p>
+          <p class="highlight">Uncontrolled capacity growth and forecasting consuming 620 Mbps (95% of 650 Mbps WAN link capacity) during business hours without traffic shaping or procurement planning policies. Insufficient buffer size (64 KB) on convergence interface GigE 0/1/0 resulted in 1,247 buffer overruns and packet drops.</p>
+
+          <hr>
+
+          <p><strong>Investigation Timeline:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Agent/System</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:15 AM</td>
+                <td>MONITORING_SYSTEM</td>
+                <td>Alert generated, ticket #CAP-8891 created</td>
+              </tr>
+              <tr>
+                <td>09:16 AM</td>
+                <td>IO_AGENT</td>
+                <td>Engaged user, asked 5 clarifying questions</td>
+              </tr>
+              <tr>
+                <td>09:22 AM</td>
+                <td>MRA</td>
+                <td>Deployed 6 specialized agents</td>
+              </tr>
+              <tr>
+                <td>09:23 AM</td>
+                <td>TOPOLOGY_AGENT</td>
+                <td>Identified GigE 0/1/0 convergence point</td>
+              </tr>
+              <tr>
+                <td>09:25 AM</td>
+                <td>TRAFFIC_ANALYSIS_AGENT</td>
+                <td>Discovered 620 Mbps capacity growth and forecasting (NetFlow)</td>
+              </tr>
+              <tr>
+                <td>09:27 AM</td>
+                <td>INTERFACE_STATS_AGENT</td>
+                <td>Found 1,247 buffer overruns</td>
+              </tr>
+              <tr>
+                <td>09:29 AM</td>
+                <td>BUFFER_ANALYSIS_AGENT</td>
+                <td>Confirmed 64 KB buffer insufficient</td>
+              </tr>
+              <tr>
+                <td>09:35 AM</td>
+                <td>ROOT_CAUSE_AGENT</td>
+                <td>Correlated findings, confirmed root cause</td>
+              </tr>
+              <tr>
+                <td>09:38 AM</td>
+                <td>RECOMMENDATIONS_AGENT</td>
+                <td>Created 3-phase remediation plan</td>
+              </tr>
+              <tr>
+                <td>09:42 AM</td>
+                <td>IO_AGENT</td>
+                <td>Obtained user approval for deployment</td>
+              </tr>
+              <tr>
+                <td>10:47 AM</td>
+                <td>DEPLOYMENT_AGENT</td>
+                <td>Deployed traffic shaping + buffer config</td>
+              </tr>
+              <tr>
+                <td>10:48 AM</td>
+                <td>VERIFICATION_AGENT</td>
+                <td>Verified fix, all tests passed</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Resolution Actions Taken:</strong></p>
+          <p><strong>PHASE 1 (Completed - 2025-10-17 10:47 AM):</strong></p>
+          <ul class="compact-list">
+            <li>✅ Deployed traffic shaping policy limiting capacity growth and forecasting to 260 Mbps (40%)</li>
+            <li>✅ Reserved 325 Mbps (50%) for business-critical applications</li>
+            <li>✅ Reserved 65 Mbps (10%) for network management</li>
+            <li>✅ Increased interface buffer from 64 KB to 256 KB</li>
+            <li>✅ Enabled Weighted Fair Queuing (WFQ)</li>
+          </ul>
+
+          <p><strong>PHASE 2 (Scheduled - Tonight 8:00 PM):</strong></p>
+          <ul class="compact-list">
+            <li>⏳ Reschedule backup window from 09:00-11:00 AM to 01:00-03:00 AM</li>
+            <li>⏳ Coordinate with backup team (change request CHG-2025-1017-002)</li>
+          </ul>
+
+          <p><strong>PHASE 3 (Planned - 30-day roadmap):</strong></p>
+          <ul class="compact-list">
+            <li>📅 Implement comprehensive class-based procurement planning across all WAN interfaces</li>
+            <li>📅 Evaluate WAN capacity upgrade (650 Mbps → 1 Gbps)</li>
+            <li>📅 Deploy enhanced monitoring with real-time alerts</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Results and Metrics:</strong></p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Improvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Capacity Planning (avg)</td>
+                <td><span class="error">6.6%</span></td>
+                <td><span class="success">0.04%</span></td>
+                <td><span class="success">99.4% ↓</span></td>
+              </tr>
+              <tr>
+                <td>business-critical applications MOS Score</td>
+                <td><span class="error">2.8</span></td>
+                <td><span class="success">4.3</span></td>
+                <td><span class="success">54% ↑</span></td>
+              </tr>
+              <tr>
+                <td>Buffer Overruns</td>
+                <td><span class="error">1,247/hour</span></td>
+                <td><span class="success">0/hour</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+              <tr>
+                <td>User Complaints</td>
+                <td><span class="error">15+ calls</span></td>
+                <td><span class="success">0 calls</span></td>
+                <td><span class="success">100% ↓</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <p><strong>Knowledge Sources Utilized:</strong></p>
+          <ul class="compact-list">
+            <li>📚 <strong>Knowledge Graph:</strong> 8 queries (topology, configs, protocols, interfaces)</li>
+            <li>📚 <strong>RAG System:</strong> Retrieved 3 similar historical tickets + 3 troubleshooting documents</li>
+            <li>🔧 <strong>MCP Servers:</strong> 15+ real-time queries (NETCONF, SNMP, CLI, NetFlow)</li>
+            <li>🤖 <strong>AI Agents:</strong> 6 specialized agents deployed with inter-agent collaboration</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Lessons Learned & Recommendations:</strong></p>
+          <ul class="compact-list">
+            <li>💡 Implement proactive bandwidth monitoring with alerting (>80% utilization threshold)</li>
+            <li>💡 Establish change management process for backup schedules to avoid business hours</li>
+            <li>💡 Deploy baseline procurement planning policies on all WAN interfaces as standard practice</li>
+            <li>💡 Enable NetFlow collection permanently for traffic visibility</li>
+            <li>💡 Document buffer sizing standards based on interface speed and traffic patterns</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>Documentation & Artifacts:</strong></p>
+          <ul class="compact-list">
+            <li>📄 Complete configuration backups (before/after) saved to repository</li>
+            <li>📄 NETCONF deployment scripts archived for reuse</li>
+            <li>📄 Agent investigation logs stored for knowledge base</li>
+            <li>📄 Updated runbook: "WAN Capacity Planning Investigation Procedure"</li>
+          </ul>
+
+          <hr>
+
+          <p><strong>✅ TICKET STATUS: RESOLVED</strong></p>
+          <p><strong>Resolution Category:</strong> Network Performance - WAN Optimization</p>
+          <p><strong>Resolved By:</strong> AI Operations Center (MRA + 6 Specialized Agents)</p>
+          <p><strong>Verified By:</strong> VERIFICATION_AGENT (all 5 tests passed)</p>
+          <p><strong>User Satisfaction:</strong> ⭐⭐⭐⭐⭐ (Awaiting user feedback)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25: User Notification -->
+    <div class="agent-step completed">
+      <div class="agent-header">
+        <span class="agent-icon">📧</span>
+        <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
+        <span class="status-badge">Closed</span>
+      </div>
+      <div class="agent-content">
+        <div class="notification-box">
+          <p><strong>📧 Email Notification Sent:</strong></p>
+          <hr>
+          <p><strong>To:</strong> john.smith@xyzcorp.com</p>
+          <p><strong>CC:</strong> network-ops@xyzcorp.com</p>
+          <p><strong>Subject:</strong> ✅ RESOLVED: Ticket #CAP-8891 - Capacity Planning Across All Remote Sites</p>
+          <p><strong>Sent:</strong> 2025-10-17 10:50:15 AM</p>
+          <hr>
+          <div class="email-body">
+            <p>Hi John,</p>
+            <p>Great news! Your ticket <strong>#CAP-8891</strong> has been <strong>successfully resolved</strong>.</p>
+
+            <p><strong>Issue Summary:</strong></p>
+            <p>5-8% capacity planning and forecasting across all remote sites (Chicago, Dallas, Seattle, Denver, Boston) during 09:00-11:00 AM daily, caused by uncontrolled capacity growth and forecasting consuming 95% of WAN link capacity without traffic shaping policies.</p>
+
+            <p><strong>Resolution:</strong></p>
+            <p>Our AI Operations Center deployed traffic shaping policies and optimized buffer configurations on your core router (RTR-CORE-01). The fix was deployed at 10:47 AM and verified successful by 10:48 AM.</p>
+
+            <p><strong>Results:</strong></p>
+            <ul>
+              <li>✅ Forecast model validated against historical data from 6.6% average to 0.04% (99.4% improvement)</li>
+              <li>✅ business-critical applications call quality improved from 2.8 to 4.3 MOS (Excellent)</li>
+              <li>✅ Zero buffer overruns detected</li>
+              <li>✅ All remote sites now performing normally</li>
+            </ul>
+
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+              <li>📅 Tonight 8:00 PM: Backup schedule will be moved to 01:00-03:00 AM (off-peak hours)</li>
+              <li>📄 Full incident report attached (PDF)</li>
+              <li>📞 Network Operations team will contact you to review long-term recommendations</li>
+            </ul>
+
+            <p><strong>Resolution Time:</strong> 1 hour 33 minutes (from ticket creation to verified fix)</p>
+
+            <p>The issue is now fully resolved and your network should be performing optimally. If you experience any further issues, please open a new ticket or reply to this email.</p>
+
+            <p><strong>We'd appreciate your feedback!</strong> Please rate your experience: <a href="#">⭐⭐⭐⭐⭐</a></p>
+
+            <p>Thank you for using AI Operations Center!</p>
+
+            <p>Best regards,<br>
+            <strong>AI Operations Center</strong><br>
+            Powered by MRA + 6 Specialized AI Agents<br>
+            📧 aiops-support@xyzcorp.com | 📞 1-800-AIOPS-24</p>
+          </div>
+          <hr>
+          <p><strong>Attachments:</strong></p>
+          <ul class="compact-list">
+            <li>📎 Incident_Report_67891.pdf (3.2 MB)</li>
+            <li>📎 Configuration_Changes_Log.txt (18 KB)</li>
+            <li>📎 Verification_Test_Results.xlsx (245 KB)</li>
+          </ul>
+        </div>
+
+        <div class="success-box">
+          <p><strong>🎉 TICKET #CAP-8891 - CLOSED</strong></p>
+          <ul class="compact-list">
+            <li>✅ User notified via email</li>
+            <li>✅ Final report delivered</li>
+            <li>✅ Documentation archived</li>
+            <li>✅ Knowledge base updated</li>
+            <li>✅ Change tickets created for Phase 2 & 3</li>
+            <li>⏱️ <strong>Total Resolution Time: 1 hour 33 minutes</strong></li>
+            <li>🤖 <strong>AI Agents Efficiency: 18 minutes investigation + deployment</strong></li>
+            <li>👥 <strong>Human Approval Time: 1 hour 15 minutes (waiting for user response)</strong></li>
+          </ul>
+        </div>
+
+        <div class="completion-banner">
+          <h2>✅ SCENARIO 6 COMPLETE - ALL 25 STEPS IMPLEMENTED</h2>
+          <p><strong>Compliance Status: 100% v6 Standard</strong></p>
+          <ul class="compact-list">
+            <li>✅ Steps 1-5: Alert → IO_AGENT → Classification → MRA → KG</li>
+            <li>✅ Steps 6-8: RAG → 3-Source Analysis → Agent Deployment</li>
+            <li>✅ Steps 9-13: Specialized Agents with KG/RAG/MCP queries + Inter-Agent Collaboration</li>
+            <li>✅ Steps 14-16: Feedback → MRA Correlation → Additional Tasks</li>
+            <li>✅ Steps 17-19: RCA Statement → RECOMMENDATIONS_AGENT → Solutions</li>
+            <li>✅ Steps 20-23: IO_AGENT Permission → DEPLOYMENT_AGENT → VERIFICATION_AGENT</li>
+            <li>✅ Steps 24-25: Final Report → User Notification → Ticket Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+  
+  .deployment-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .verification-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .final-report-box {
+    background: #fff3e0;
+    border: 2px solid #ff9800;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .notification-box {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .email-body {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .completion-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .completion-banner h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  .code-block {
+    background: #263238;
+    color: #aed581;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .user-interaction-box {
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  
+  .recommendation-phase {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+  }
+
+  .rca-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+
+  .collaboration-exchange {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .collab-from {
+    font-weight: bold;
+    color: #00aaff;
+    margin-bottom: 5px;
+  }
+
+  .collab-message {
+    font-style: italic;
+    margin-left: 20px;
+    color: #ccc;
+  }
+
+  .collab-response {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #00ff88;
+  }
+
+  .symptom-tag {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .contributing-tag {
+    background: #ffc107;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .root-cause-tag {
+    background: #f44336;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+</style>
