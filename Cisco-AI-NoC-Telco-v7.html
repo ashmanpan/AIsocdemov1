@@ -624,7 +624,12 @@
             background-color: #00ff88;
             color: #000;
         }
-        
+
+        .status-in-progress {
+            background-color: #ff9900;
+            color: #fff;
+        }
+
         .status-info {
             background-color: #00aaff;
             color: #fff;
@@ -953,16 +958,16 @@
 
 <div class="root-container">
   <h3>Packet Loss Investigation</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from Network Monitoring:</strong></p>
@@ -990,11 +995,11 @@
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #67891 Received - Initial Problem Statement:</strong></p>
@@ -1011,11 +1016,11 @@
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -1045,11 +1050,11 @@
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -1096,11 +1101,11 @@
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -1124,11 +1129,11 @@
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
@@ -1197,11 +1202,11 @@
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -1267,7 +1272,7 @@
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -1307,11 +1312,11 @@
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -1355,11 +1360,11 @@
     </div>
 
     <!-- STEP 10: TOPOLOGY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Topology Verification via Knowledge Graph & MCP Servers:</strong></p>
@@ -1460,11 +1465,11 @@
 </style>
 
     <!-- STEP 11: TRAFFIC_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Traffic Pattern Analysis via MCP Servers:</strong></p>
@@ -1540,11 +1545,11 @@
     </div>
 
     <!-- STEP 12: INTERFACE_STATS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔌</span>
         <span class="agent-name">INTERFACE_STATS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Interface Health Check via MCP Servers:</strong></p>
@@ -1622,11 +1627,11 @@
     </div>
 
     <!-- STEP 13: BUFFER_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💾</span>
         <span class="agent-name">BUFFER_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Buffer Configuration & Utilization Analysis:</strong></p>
@@ -1696,11 +1701,11 @@
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -1756,7 +1761,7 @@
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -1800,7 +1805,7 @@
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -1908,7 +1913,7 @@
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -1927,7 +1932,7 @@
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -1968,7 +1973,7 @@
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -2086,7 +2091,7 @@
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -2109,7 +2114,7 @@
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -2159,7 +2164,7 @@
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -2267,7 +2272,7 @@
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -2419,7 +2424,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -2632,7 +2637,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -2890,16 +2895,16 @@ GigabitEthernet0/1/0
 
 <div class="root-container">
   <h3>Agentic AI - Firewall Configuration Analysis v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from User Report:</strong></p>
@@ -2927,11 +2932,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #FW-8823 Received - Initial Problem Statement:</strong></p>
@@ -2948,11 +2953,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -2982,11 +2987,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -3033,11 +3038,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -3061,11 +3066,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Firewall Context:</strong></p>
@@ -3134,11 +3139,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -3204,7 +3209,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -3244,11 +3249,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -3292,11 +3297,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 10: FIREWALL_CONFIG_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🛡️</span>
         <span class="agent-name">FIREWALL_CONFIG_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Firewall Configuration Analysis via Knowledge Graph & MCP Servers:</strong></p>
@@ -3333,11 +3338,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 11: ACL_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">ACL_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>ACL Rule Analysis via MCP Servers:</strong></p>
@@ -3432,11 +3437,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 12: ZONE_POLICY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔐</span>
         <span class="agent-name">ZONE_POLICY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Security Zone Policy Verification via MCP Servers:</strong></p>
@@ -3505,11 +3510,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 13: TRAFFIC_FLOW_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🌊</span>
         <span class="agent-name">TRAFFIC_FLOW_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Traffic Flow Trace & Packet Capture Analysis:</strong></p>
@@ -3572,11 +3577,11 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -3632,7 +3637,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -3676,7 +3681,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -3768,7 +3773,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -3787,7 +3792,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -3827,7 +3832,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -3950,7 +3955,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -3973,7 +3978,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -4023,7 +4028,7 @@ Drop-reason: (acl-drop) Flow is denied by configured rule</pre>
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -4082,7 +4087,7 @@ access-list INSIDE-TO-DMZ line 22 extended permit tcp 10.10.100.0 255.255.255.0 
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -4213,7 +4218,7 @@ Frame drop:
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -4426,7 +4431,7 @@ Frame drop:
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -4745,16 +4750,16 @@ Frame drop:
 
 <div class="root-container">
   <h3>Agentic AI - Network Latency Investigation v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from User Report:</strong></p>
@@ -4782,11 +4787,11 @@ Frame drop:
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #LAT-6734 Received - Initial Problem Statement:</strong></p>
@@ -4802,11 +4807,11 @@ Frame drop:
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -4836,11 +4841,11 @@ Frame drop:
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -4887,11 +4892,11 @@ Frame drop:
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -4915,11 +4920,11 @@ Frame drop:
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
@@ -4988,11 +4993,11 @@ Frame drop:
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -5058,7 +5063,7 @@ Frame drop:
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -5098,11 +5103,11 @@ Frame drop:
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -5146,11 +5151,11 @@ Frame drop:
     </div>
 
     <!-- STEP 10: TOPOLOGY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Network Path Mapping via Knowledge Graph & MCP Servers:</strong></p>
@@ -5193,11 +5198,11 @@ Frame drop:
     </div>
 
     <!-- STEP 11: LATENCY_MEASUREMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⏱️</span>
         <span class="agent-name">LATENCY_MEASUREMENT_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Hop-by-Hop Latency Analysis via MCP Servers:</strong></p>
@@ -5290,11 +5295,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 12: WAN_LINK_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔗</span>
         <span class="agent-name">WAN_LINK_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>WAN Link Health Verification via MCP Servers:</strong></p>
@@ -5420,11 +5425,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 13: QOS_POLICY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">QOS_POLICY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>QoS Policy Configuration Analysis:</strong></p>
@@ -5526,11 +5531,11 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -5586,7 +5591,7 @@ Policy Map WAN-QOS-POLICY
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -5630,7 +5635,7 @@ Policy Map WAN-QOS-POLICY
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -5722,7 +5727,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -5741,7 +5746,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -5783,7 +5788,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -5909,7 +5914,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -5933,7 +5938,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -5983,7 +5988,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -6093,7 +6098,7 @@ Policy Map WAN-QOS-POLICY
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -6269,7 +6274,7 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -6483,7 +6488,7 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -6799,16 +6804,16 @@ Trace complete.</pre>
 
 <div class="root-container">
   <h3>Agentic AI - Router Troubleshooting: BGP Flapping v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from Network Monitoring:</strong></p>
@@ -6838,11 +6843,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #RTR-5512 Received - Initial Problem Statement:</strong></p>
@@ -6865,11 +6870,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -6899,11 +6904,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -6954,11 +6959,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -6982,11 +6987,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
@@ -7053,11 +7058,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -7124,7 +7129,7 @@ Trace complete.</pre>
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -7164,11 +7169,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -7212,11 +7217,11 @@ Trace complete.</pre>
     </div>
 
     <!-- STEP 10: INTERFACE_HEALTH_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔌</span>
         <span class="agent-name">INTERFACE_HEALTH_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Interface Health Check via MCP Servers:</strong></p>
@@ -7284,11 +7289,11 @@ GigabitEthernet0/0/1 transceiver information:
     </div>
 
     <!-- STEP 11: BGP_PROTOCOL_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔀</span>
         <span class="agent-name">BGP_PROTOCOL_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>BGP Protocol Analysis via MCP Servers:</strong></p>
@@ -7360,11 +7365,11 @@ BGP neighbor is 10.200.1.1, remote AS 65001, internal link
     </div>
 
     <!-- STEP 12: SYSTEM_RESOURCES_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💻</span>
         <span class="agent-name">SYSTEM_RESOURCES_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>System Resource Analysis via MCP Servers:</strong></p>
@@ -7438,11 +7443,11 @@ BGP neighbor is 10.200.1.1, remote AS 65001, internal link
     </div>
 
     <!-- STEP 13: LOG_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📝</span>
         <span class="agent-name">LOG_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Syslog Analysis via MCP Servers:</strong></p>
@@ -7507,11 +7512,11 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🤝</span>
         <span class="agent-name">INTER-AGENT COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Agents Sharing Findings and Cross-Validating:</strong></p>
@@ -7550,7 +7555,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -7602,7 +7607,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -7695,7 +7700,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -7715,7 +7720,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -7770,7 +7775,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -7902,7 +7907,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -7926,7 +7931,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -7981,7 +7986,7 @@ Oct 19 07:28:33: %PHY-4-SFP_TX_FAULT: GigabitEthernet0/0/1: SFP transmit fault d
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Executing Remediation</span>
@@ -8071,7 +8076,7 @@ Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -8181,7 +8186,7 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 24: FINAL REPORT GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">STEP 24: MRA → IO_AGENT - Final Report</span>
@@ -8236,7 +8241,7 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 25: USER NOTIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -8562,16 +8567,16 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
 
 <div class="root-container">
   <h3>Agentic AI - Application Performance RCA v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from Application Performance Monitoring:</strong></p>
@@ -8600,11 +8605,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #45782 Received - Initial Problem Statement:</strong></p>
@@ -8621,11 +8626,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -8655,11 +8660,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -8710,11 +8715,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -8741,11 +8746,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Application & Network Context:</strong></p>
@@ -8815,11 +8820,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -8886,7 +8891,7 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -8927,11 +8932,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -8975,11 +8980,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 10: APPLICATION_TOPOLOGY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">APPLICATION_TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Application Topology Mapping via Knowledge Graph & MCP Servers:</strong></p>
@@ -9027,11 +9032,11 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
     </div>
 
     <!-- STEP 11: QOS_POLICY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">QOS_POLICY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>QoS Policy Analysis via MCP Servers:</strong></p>
@@ -9130,11 +9135,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 12: NETWORK_PATH_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔌</span>
         <span class="agent-name">NETWORK_PATH_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Network Path Verification via MCP Servers:</strong></p>
@@ -9218,11 +9223,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 13: HISTORICAL_PERF_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📈</span>
         <span class="agent-name">HISTORICAL_PERF_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Historical Performance & LCM Change Record Analysis:</strong></p>
@@ -9325,11 +9330,11 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -9387,7 +9392,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -9486,7 +9491,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Validation of Root Cause:</strong></p>
@@ -9513,7 +9518,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -9533,7 +9538,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -9585,7 +9590,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -9717,7 +9722,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -9741,7 +9746,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -9793,7 +9798,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -9878,7 +9883,7 @@ Rollback Plan: Restore to previous bandwidth allocations</pre>
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -10032,7 +10037,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -10168,7 +10173,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 25: Ticket Closure -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 25: IO_AGENT - Ticket Closure</span>
@@ -10410,16 +10415,16 @@ GigabitEthernet0/0/1
 
 <div class="root-container">
   <h3>Agentic AI - Capacity Planning & Forecasting v6</h3>
-  <p><strong>Complete 25-Step Workflow: Request → Analysis → Planning → Validation</strong></p>
+  <p><strong>Complete Workflow: Request → Analysis → Planning → Validation</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: CAPACITY PLANNING REQUEST -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">PLANNING_REQUEST → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Capacity Planning Request Submitted:</strong></p>
@@ -10447,11 +10452,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES REQUEST -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #CAP-8891 Received - Initial Planning Request:</strong></p>
@@ -10468,11 +10473,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS PLANNING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Gathering Planning Requirements:</strong></p>
@@ -10502,11 +10507,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 4: REQUEST CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Request Classification Complete:</strong></p>
@@ -10553,11 +10558,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Capacity Analysis:</strong></p>
@@ -10581,11 +10586,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Infrastructure Inventory:</strong></p>
@@ -10669,11 +10674,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Capacity Planning Methodologies and Historical Projects:</strong></p>
@@ -10739,7 +10744,7 @@ GigabitEthernet0/0/1
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -10779,11 +10784,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Capacity Analysis:</strong></p>
@@ -10827,11 +10832,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 10: UTILIZATION_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">UTILIZATION_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Current Utilization Analysis via Knowledge Graph & MCP Servers:</strong></p>
@@ -10982,11 +10987,11 @@ GigabitEthernet0/0/1
 </style>
 
     <!-- STEP 11: TREND_FORECASTING_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📈</span>
         <span class="agent-name">TREND_FORECASTING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Growth Trend Forecasting & Capacity Modeling:</strong></p>
@@ -11087,11 +11092,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 12: INTERFACE_STATS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔌</span>
         <span class="agent-name">INTERFACE_STATS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Interface Health Check via MCP Servers:</strong></p>
@@ -11169,11 +11174,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 13: DEVICE_LIFECYCLE_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⏱️</span>
         <span class="agent-name">DEVICE_LIFECYCLE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Equipment Lifecycle & End-of-Support Analysis:</strong></p>
@@ -11259,11 +11264,11 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -11320,7 +11325,7 @@ GigabitEthernet0/0/1
       <div class="agent-header">
         <span class="agent-icon">💰</span>
         <span class="agent-name">COST_OPTIMIZATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Cost Analysis & Procurement Strategy:</strong></p>
@@ -11428,7 +11433,7 @@ GigabitEthernet0/0/1
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Capacity Assessment Synthesis - Consolidating All Findings:</strong></p>
@@ -11536,7 +11541,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 17: Additional Analysis (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Analysis Assignment</span>
@@ -11555,7 +11560,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 18: Clear Capacity Assessment Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: CAPACITY ASSESSMENT - Final Statement</span>
@@ -11597,7 +11602,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -11715,7 +11720,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -11738,7 +11743,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -11788,7 +11793,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -11896,7 +11901,7 @@ GigabitEthernet0/0/1
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -12048,7 +12053,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -12261,7 +12266,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -12519,16 +12524,16 @@ GigabitEthernet0/1/0
 
 <div class="root-container">
   <h3>Agentic AI - SD-WAN Path Optimization v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from Network Monitoring:</strong></p>
@@ -12556,11 +12561,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #SDWAN-7234 Received - Initial Problem Statement:</strong></p>
@@ -12577,11 +12582,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -12611,11 +12616,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -12662,11 +12667,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -12690,11 +12695,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for SD-WAN Context:</strong></p>
@@ -12760,11 +12765,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -12830,7 +12835,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -12870,11 +12875,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -12918,11 +12923,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 10: SDWAN_POLICY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📡</span>
         <span class="agent-name">SDWAN_POLICY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>SD-WAN Policy Analysis via Knowledge Graph & MCP Servers:</strong></p>
@@ -13025,11 +13030,11 @@ GigabitEthernet0/1/0
 </style>
 
     <!-- STEP 11: PATH_SELECTION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🛣️</span>
         <span class="agent-name">PATH_SELECTION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>WAN Path Selection Analysis via MCP Servers:</strong></p>
@@ -13099,11 +13104,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 12: PERFORMANCE_METRICS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">PERFORMANCE_METRICS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>WAN Path Performance & SLA Analysis via MCP Servers:</strong></p>
@@ -13174,11 +13179,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 13: COST_ANALYSIS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💰</span>
         <span class="agent-name">COST_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>WAN Cost Optimization Analysis:</strong></p>
@@ -13249,11 +13254,11 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -13304,7 +13309,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -13348,7 +13353,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -13456,7 +13461,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -13475,7 +13480,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -13516,7 +13521,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 19: RECOMMENDATIONS_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">STEP 19: RECOMMENDATIONS_AGENT - Solution Design</span>
@@ -13634,7 +13639,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: RECOMMENDATIONS_AGENT → IO_AGENT</span>
@@ -13657,7 +13662,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -13707,7 +13712,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -13816,7 +13821,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -13982,7 +13987,7 @@ Path Health:
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -14195,7 +14200,7 @@ Path Health:
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -14453,16 +14458,16 @@ Path Health:
 
 <div class="root-container">
   <h3>Agentic AI - Security Breach Detection v6</h3>
-  <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
+  <p><strong>Complete Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
 
     <!-- STEP 1: ALERT/TICKET GENERATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎫</span>
         <span class="agent-name">MONITORING_SYSTEM → TICKET_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Alert Generated from Security Monitoring:</strong></p>
@@ -14490,11 +14495,11 @@ Path Health:
     </div>
 
     <!-- STEP 2: IO_AGENT RECEIVES TICKET -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Ticket #SEC-9123 Received - Initial Problem Statement:</strong></p>
@@ -14511,11 +14516,11 @@ Path Health:
     </div>
 
     <!-- STEP 3: IO_AGENT ASKS CLARIFYING QUESTIONS -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT ↔ USER</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>IO_AGENT Asking Clarifying Questions:</strong></p>
@@ -14545,11 +14550,11 @@ Path Health:
     </div>
 
     <!-- STEP 4: PROBLEM CLASSIFICATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Problem Classification Complete:</strong></p>
@@ -14596,11 +14601,11 @@ Path Health:
     </div>
 
     <!-- STEP 5: MRA DEPLOYMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Taking Ownership - Initializing Investigation:</strong></p>
@@ -14624,11 +14629,11 @@ Path Health:
     </div>
 
     <!-- STEP 6: KNOWLEDGE GRAPH QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📚</span>
         <span class="agent-name">MRA → KNOWLEDGE_GRAPH</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Querying Knowledge Graph for Network Context:</strong></p>
@@ -14697,11 +14702,11 @@ Path Health:
     </div>
 
     <!-- STEP 7: RAG SYSTEM QUERIES -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">MRA → RAG_SYSTEM</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Searching RAG for Similar Incidents and Solutions:</strong></p>
@@ -14767,7 +14772,7 @@ Path Health:
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Three-Source Analysis Complete:</strong></p>
@@ -14807,11 +14812,11 @@ Path Health:
     </div>
 
     <!-- STEP 9: AGENT DEPLOYMENT ANNOUNCEMENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Deploying Specialized Agents for Targeted Investigation:</strong></p>
@@ -14860,11 +14865,11 @@ Path Health:
     </div>
 
     <!-- STEP 10: TOPOLOGY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Topology Verification via Knowledge Graph & MCP Servers:</strong></p>
@@ -14965,11 +14970,11 @@ Path Health:
 </style>
 
     <!-- STEP 11: TRAFFIC_ANOMALY_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚨</span>
         <span class="agent-name">TRAFFIC_ANOMALY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Traffic Pattern Analysis via MCP Servers:</strong></p>
@@ -15045,11 +15050,11 @@ Path Health:
     </div>
 
     <!-- STEP 12: THREAT_INTELLIGENCE_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🛡️</span>
         <span class="agent-name">THREAT_INTELLIGENCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Interface Health Check via MCP Servers:</strong></p>
@@ -15127,11 +15132,11 @@ Path Health:
     </div>
 
     <!-- STEP 13: LOG_CORRELATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">LOG_CORRELATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Buffer Configuration & Utilization Analysis:</strong></p>
@@ -15201,11 +15206,11 @@ Path Health:
     </div>
 
     <!-- STEP 14: INTER-AGENT COLLABORATION -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💬</span>
         <span class="agent-name">AGENT_COLLABORATION</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Inter-Agent Communication & Task Delegation:</strong></p>
@@ -15261,7 +15266,7 @@ Path Health:
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">ROOT_CAUSE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Root Cause Analysis - Correlating All Agent Findings:</strong></p>
@@ -15305,7 +15310,7 @@ Path Health:
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>MRA Correlation Analysis - Symptoms vs. Causes:</strong></p>
@@ -15413,7 +15418,7 @@ Path Health:
     </div>
 
     <!-- STEP 17: Additional Task Assignment (if needed) -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🎯</span>
         <span class="agent-name">STEP 17: MRA - Additional Task Assignment</span>
@@ -15432,7 +15437,7 @@ Path Health:
     </div>
 
     <!-- STEP 18: Clear RCA Statement -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">STEP 18: ROOT CAUSE ANALYSIS - Final Statement</span>
@@ -15473,7 +15478,7 @@ Path Health:
     </div>
 
     <!-- STEP 19: REMEDIATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚡</span>
         <span class="agent-name">STEP 19: REMEDIATION_AGENT - Solution Design</span>
@@ -15591,7 +15596,7 @@ Path Health:
     </div>
 
     <!-- STEP 20: Recommendations to IO_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📤</span>
         <span class="agent-name">STEP 20: REMEDIATION_AGENT → IO_AGENT</span>
@@ -15614,7 +15619,7 @@ Path Health:
     </div>
 
     <!-- STEP 21: User Permission Request -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">👤</span>
         <span class="agent-name">STEP 21: IO_AGENT → USER - Permission Request</span>
@@ -15665,7 +15670,7 @@ Path Health:
     </div>
 
     <!-- STEP 22: DEPLOYMENT_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🚀</span>
         <span class="agent-name">STEP 22: DEPLOYMENT_AGENT - Configuration Deployment</span>
@@ -15773,7 +15778,7 @@ Path Health:
     </div>
 
     <!-- STEP 23: VERIFICATION_AGENT -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">STEP 23: VERIFICATION_AGENT - Post-Deployment Validation</span>
@@ -15925,7 +15930,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 24: Final Report -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📄</span>
         <span class="agent-name">STEP 24: MRA - Final Resolution Report</span>
@@ -16145,7 +16150,7 @@ GigabitEthernet0/1/0
     </div>
 
     <!-- STEP 25: User Notification -->
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📧</span>
         <span class="agent-name">STEP 25: IO_AGENT → USER - Final Notification</span>
@@ -16404,11 +16409,11 @@ GigabitEthernet0/1/0
   <p><strong>Comprehensive Resilience Check for Router DC-CORE-01 Upgrade (Change Request #CR-89234)</strong></p>
   
   <div class="agent-workflow">
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Change Request #CR-89234 received. Planned upgrade for router DC-CORE-01 from IOS-XR 7.3.2 to 7.5.1 scheduled for maintenance window. Requesting comprehensive resilience assessment before approval.</p>
@@ -16418,11 +16423,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Initiating comprehensive pre-upgrade resilience assessment. Need to verify redundancy and failover capabilities across all layers to ensure zero service impact during upgrade.</p>
@@ -16446,11 +16451,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">HARDWARE_RESILIENCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Hardware redundancy assessment for DC-CORE-01:</p>
@@ -16520,11 +16525,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔀</span>
         <span class="agent-name">BGP_RESILIENCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>BGP resilience analysis complete:</p>
@@ -16600,11 +16605,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔄</span>
         <span class="agent-name">TRAFFIC_SIMULATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Failover simulation results (DC-CORE-01 shutdown scenario):</p>
@@ -16629,11 +16634,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Consolidating all resilience findings and generating risk assessment:</p>
@@ -16650,11 +16655,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🛡️</span>
         <span class="agent-name">MITIGATION_PLANNING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Pre-upgrade mitigation plan to address identified risks:</p>
@@ -16671,11 +16676,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Resilience assessment complete. Generating final recommendation.</p>
@@ -16901,11 +16906,11 @@ GigabitEthernet0/1/0
   <p><strong>Investigating Intermittent Application Slowness for Global Finance Corp (Ticket #78234)</strong></p>
   
   <div class="agent-workflow">
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Ticket #78234 received from Global Finance Corp. Users experiencing intermittent slow response times (15-20 seconds) for critical trading application. Issue affects London to Singapore traffic flow.</p>
@@ -16915,11 +16920,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Analyzing intermittent performance issues. Need to investigate end-to-end path quality and identify problematic segments.</p>
@@ -16929,11 +16934,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Current path analysis for London to Singapore traffic:</p>
@@ -16950,11 +16955,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Initiating comprehensive link quality analysis across the path:</p>
@@ -16976,7 +16981,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">LINK_QUALITY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Link quality analysis complete. <strong>Critical finding on DXB-P-01 to MUM-P-01 link</strong>:</p>
@@ -16995,11 +17000,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📈</span>
         <span class="agent-name">TELEMETRY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Performance telemetry confirms intermittent degradation:</p>
@@ -17017,11 +17022,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔍</span>
         <span class="agent-name">INTERFACE_STATS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Interface statistics for DXB-P-01 to MUM-P-01 link:</p>
@@ -17036,11 +17041,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Root cause identified: Physical layer issues on DXB-MUM link causing packet loss and retransmissions. Immediate mitigation needed while scheduling maintenance.</p>
@@ -17054,7 +17059,7 @@ GigabitEthernet0/1/0
       <div class="agent-header">
         <span class="agent-icon">🛤️</span>
         <span class="agent-name">SR_PCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>SR-PCE (Segment Routing Path Computation Element) analysis initiated:</p>
@@ -17108,11 +17113,11 @@ GigabitEthernet0/1/0
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🤖</span>
         <span class="agent-name">AUTOMATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Deploying SR-TE policy for traffic steering:</p>
@@ -17141,11 +17146,11 @@ segment-routing traffic-eng
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">✅</span>
         <span class="agent-name">VALIDATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Post-deployment validation results:</p>
@@ -17164,11 +17169,11 @@ segment-routing traffic-eng
       </div>
     </div>
     
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Issue successfully mitigated. Preparing final report and maintenance recommendations.</p>
@@ -17335,11 +17340,11 @@ segment-routing traffic-eng
   <p><strong>Comprehensive Network Audit for Enterprise Corp (Audit Request #AU-5521)</strong></p>
 
   <div class="agent-workflow">
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Audit request received for complete network infrastructure: 45 routers, 120 switches, 18 firewalls across 12 data centers. Quarterly compliance and resiliency assessment required.</p>
@@ -17349,11 +17354,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Initiating multi-phase audit strategy. Need to assess configuration compliance, security posture, and resiliency across all network devices.</p>
@@ -17368,11 +17373,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📋</span>
         <span class="agent-name">CONFIG_AUDIT_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Configuration scanning complete across all 183 devices:</p>
@@ -17403,11 +17408,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🛡️</span>
         <span class="agent-name">COMPLIANCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Compliance assessment against industry standards (CIS, NIST, PCI-DSS):</p>
@@ -17452,7 +17457,7 @@ segment-routing traffic-eng
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">RESILIENCY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Resiliency Assessment Results:</strong></p>
@@ -17478,11 +17483,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">RECOMMENDATIONS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Comprehensive remediation roadmap generated:</p>
@@ -17571,11 +17576,11 @@ segment-routing traffic-eng
   <p><strong>Proactive Network Assessment for TechCorp Global (Assessment ID: REC-9847)</strong></p>
 
   <div class="agent-workflow">
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Proactive assessment request received. Analyzing network for optimization opportunities across performance, security, reliability, cost, and resiliency domains.</p>
@@ -17585,11 +17590,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Orchestrating multi-domain analysis. Deploying specialized agents for comprehensive assessment:</p>
@@ -17613,11 +17618,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚡</span>
         <span class="agent-name">PERFORMANCE_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Performance Analysis Complete:</strong></p>
@@ -17648,11 +17653,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔒</span>
         <span class="agent-name">SECURITY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Security Posture Assessment:</strong></p>
@@ -17675,11 +17680,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔧</span>
         <span class="agent-name">RELIABILITY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Reliability & Redundancy Analysis:</strong></p>
@@ -17699,11 +17704,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💰</span>
         <span class="agent-name">COST_OPTIMIZATION_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Cost Optimization Opportunities:</strong></p>
@@ -17738,7 +17743,7 @@ segment-routing traffic-eng
       <div class="agent-header">
         <span class="agent-icon">🛡️</span>
         <span class="agent-name">RESILIENCY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Resiliency & Disaster Recovery Assessment:</strong></p>
@@ -17764,11 +17769,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">RECOMMENDATIONS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Prioritized Action Plan:</strong></p>
@@ -17847,11 +17852,11 @@ segment-routing traffic-eng
   <p><strong>MPLS to SD-WAN Migration for RetailCorp (Project ID: MIG-7723)</strong></p>
 
   <div class="agent-workflow">
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">⚙️</span>
         <span class="agent-name">IO_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Migration request received: Transition 67 retail sites from MPLS to Cisco SD-WAN. Requirements: Zero customer impact, phased rollout, automated rollback capability.</p>
@@ -17861,11 +17866,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🧠</span>
         <span class="agent-name">MASTER_REASONING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p>Analyzing migration complexity and dependencies. Developing phased migration strategy with automated scheduling and rollback procedures.</p>
@@ -17880,11 +17885,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🗺️</span>
         <span class="agent-name">TOPOLOGY_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Current vs. Target Architecture Mapping:</strong></p>
@@ -17930,11 +17935,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">📊</span>
         <span class="agent-name">IMPACT_ANALYSIS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Migration Impact Assessment:</strong></p>
@@ -17972,7 +17977,7 @@ segment-routing traffic-eng
       <div class="agent-header">
         <span class="agent-icon">📅</span>
         <span class="agent-name">SCHEDULING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Optimal Maintenance Window Analysis:</strong></p>
@@ -18030,11 +18035,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔄</span>
         <span class="agent-name">MIGRATION_PLANNING_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Per-Site Migration Playbook:</strong></p>
@@ -18072,11 +18077,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">🔙</span>
         <span class="agent-name">ROLLBACK_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Automated Rollback Procedures:</strong></p>
@@ -18103,11 +18108,11 @@ segment-routing traffic-eng
       </div>
     </div>
 
-    <div class="agent-step completed">
+    <div class="agent-step in_progress">
       <div class="agent-header">
         <span class="agent-icon">💡</span>
         <span class="agent-name">RECOMMENDATIONS_AGENT</span>
-        <span class="status-tag status-success">Complete</span>
+        <span class="status-tag status-in-progress">In Progress</span>
       </div>
       <div class="agent-content">
         <p><strong>Migration Success Criteria & KPIs:</strong></p>
@@ -18284,13 +18289,41 @@ segment-routing traffic-eng
             }, 2000);
         }
         
+        // Mark agent steps as complete after they finish streaming
+        function markVisibleStepsComplete(container) {
+            // Find all agent steps that are currently in_progress
+            const steps = container.querySelectorAll('.agent-step.in_progress');
+
+            steps.forEach(step => {
+                // Check if the step's content is fully visible (has closing </div>)
+                const content = step.querySelector('.agent-content');
+                if (content && content.innerHTML.trim().length > 100) {
+                    // Check if this step has next sibling (meaning it's fully loaded)
+                    const hasNextStep = step.nextElementSibling && step.nextElementSibling.classList.contains('agent-step');
+                    if (hasNextStep || step === container.querySelector('.agent-step:last-of-type')) {
+                        // Mark as complete
+                        step.classList.remove('in_progress');
+                        step.classList.add('completed');
+
+                        // Update status badge
+                        const statusBadge = step.querySelector('.status-in-progress');
+                        if (statusBadge) {
+                            statusBadge.classList.remove('status-in-progress');
+                            statusBadge.classList.add('status-success');
+                            statusBadge.textContent = 'Complete';
+                        }
+                    }
+                }
+            });
+        }
+
         // Stream HTML content with typing effect
         function streamHTMLContent(element, html) {
             // Split HTML into chunks for streaming
             const htmlChunks = splitHTMLToChunks(html, 5);
             let currentHTML = '';
             let chunkIndex = 0;
-            
+
             // Helper function for random delays
             function getRandomDelay(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -18302,17 +18335,20 @@ segment-routing traffic-eng
                     currentHTML += htmlChunks[chunkIndex];
                     element.innerHTML = currentHTML;
                     chunkIndex++;
-                    
+
+                    // Mark steps as complete after they fully appear
+                    markVisibleStepsComplete(element);
+
                     // Auto-scroll to bottom
                     chatMessages.scrollTop = chatMessages.scrollHeight;
-                    
+
                     // Decide on the delay for the next chunk
                     let nextDelay;
-                    
+
                     // Every 10 chunks, pause for a bit longer to simulate thinking
                     if (chunkIndex % 10 === 0) {
                         nextDelay = getRandomDelay(300, 800);
-                    } 
+                    }
                     // Every 5 chunks, pause briefly
                     else if (chunkIndex % 5 === 0) {
                         nextDelay = getRandomDelay(150, 350);
@@ -18321,8 +18357,11 @@ segment-routing traffic-eng
                     else {
                         nextDelay = getRandomDelay(70, 120);
                     }
-                    
+
                     setTimeout(processNextChunk, nextDelay);
+                } else {
+                    // Final pass to mark all remaining steps complete
+                    markVisibleStepsComplete(element);
                 }
             }
             
