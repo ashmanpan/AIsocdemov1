@@ -1160,8 +1160,10 @@
         }
 
         async function addVideo() {
+            const videoId = document.getElementById('videoId').value;
             const video = {
-                id: document.getElementById('videoId').value,
+                videoId: videoId,
+                id: videoId, // Keep both for compatibility
                 url: document.getElementById('vimeoUrl').value,
                 title: document.getElementById('videoTitle').value,
                 description: document.getElementById('videoDescription').value,
@@ -1187,7 +1189,18 @@
                 switchTab('manage');
             } catch (error) {
                 console.error('Error adding video:', error);
-                showToast(`Failed to add video: ${error.message || error}`, 'error');
+                // Check if video was actually created despite error
+                const allVideos = await VideoAPI.getAllVideos().catch(() => []);
+                const wasCreated = allVideos.some(v => v.videoId === videoId || v.id === videoId);
+                if (wasCreated) {
+                    videos = allVideos;
+                    saveVideos();
+                    resetForm();
+                    showToast('Video added successfully!', 'success');
+                    switchTab('manage');
+                } else {
+                    showToast(`Failed to add video: ${error.message || error}`, 'error');
+                }
             }
         }
 
@@ -1254,10 +1267,13 @@
 
         async function saveEditedVideo() {
             const index = document.getElementById('editVideoIndex').value;
-            const videoId = videos[index].id;
+            const video = videos[index];
+            const videoId = video.videoId || video.id;
+            const newVideoId = document.getElementById('editVideoId').value;
 
             const updates = {
-                id: document.getElementById('editVideoId').value,
+                videoId: newVideoId,
+                id: newVideoId, // Keep both for compatibility
                 url: document.getElementById('editVimeoUrl').value,
                 title: document.getElementById('editVideoTitle').value,
                 description: document.getElementById('editVideoDescription').value,
@@ -1280,7 +1296,7 @@
                 showToast('Video updated successfully!', 'success');
             } catch (error) {
                 console.error('Error updating video:', error);
-                showToast('Failed to update video in database', 'error');
+                showToast(`Failed to update video: ${error.message || error}`, 'error');
             }
         }
 
@@ -1304,7 +1320,8 @@
             }
 
             if (deleteIndex !== null) {
-                const videoId = videos[deleteIndex].id;
+                const video = videos[deleteIndex];
+                const videoId = video.videoId || video.id;
 
                 try {
                     showToast('Deleting video from database...', 'success');
@@ -1316,7 +1333,7 @@
                     showToast('Video deleted successfully!', 'success');
                 } catch (error) {
                     console.error('Error deleting video:', error);
-                    showToast('Failed to delete video from database', 'error');
+                    showToast(`Failed to delete video: ${error.message || error}`, 'error');
                     closeDeleteModal();
                 }
             }
@@ -1412,17 +1429,18 @@
 
         async function toggleStatus(index) {
             const video = videos[index];
+            const videoId = video.videoId || video.id;
             const newStatus = video.status === 'active' ? 'inactive' : 'active';
 
             try {
-                await VideoAPI.updateVideo(video.id, { status: newStatus });
+                await VideoAPI.updateVideo(videoId, { status: newStatus });
                 videos[index].status = newStatus;
                 saveVideos(); // Backup to localStorage
                 await loadVideos(); // Reload from API
                 showToast(`Video ${newStatus === 'active' ? 'activated' : 'deactivated'}`, 'success');
             } catch (error) {
                 console.error('Error toggling status:', error);
-                showToast('Failed to update video status', 'error');
+                showToast(`Failed to update video status: ${error.message || error}`, 'error');
             }
         }
 
@@ -1580,7 +1598,7 @@
                 try {
                     showToast('Deleting all videos from database...', 'success');
                     const deletePromises = videos.map(video =>
-                        VideoAPI.deleteVideo(video.id)
+                        VideoAPI.deleteVideo(video.videoId || video.id)
                     );
                     await Promise.all(deletePromises);
                     videos = [];
@@ -1589,7 +1607,7 @@
                     showToast('All videos cleared', 'success');
                 } catch (error) {
                     console.error('Error clearing all videos:', error);
-                    showToast('Failed to clear all videos', 'error');
+                    showToast(`Failed to clear all videos: ${error.message || error}`, 'error');
                 }
             }
         }
@@ -1598,14 +1616,14 @@
             try {
                 showToast('Activating all videos...', 'success');
                 const updatePromises = videos.map(video =>
-                    VideoAPI.updateVideo(video.id, { status: 'active' })
+                    VideoAPI.updateVideo(video.videoId || video.id, { status: 'active' })
                 );
                 await Promise.all(updatePromises);
                 await loadVideos(); // Reload from API
                 showToast('All videos activated', 'success');
             } catch (error) {
                 console.error('Error activating videos:', error);
-                showToast('Failed to activate all videos', 'error');
+                showToast(`Failed to activate all videos: ${error.message || error}`, 'error');
             }
         }
 
@@ -1613,14 +1631,14 @@
             try {
                 showToast('Deactivating all videos...', 'success');
                 const updatePromises = videos.map(video =>
-                    VideoAPI.updateVideo(video.id, { status: 'inactive' })
+                    VideoAPI.updateVideo(video.videoId || video.id, { status: 'inactive' })
                 );
                 await Promise.all(updatePromises);
                 await loadVideos(); // Reload from API
                 showToast('All videos deactivated', 'success');
             } catch (error) {
                 console.error('Error deactivating videos:', error);
-                showToast('Failed to deactivate all videos', 'error');
+                showToast(`Failed to deactivate all videos: ${error.message || error}`, 'error');
             }
         }
 
