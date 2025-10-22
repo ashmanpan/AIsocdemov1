@@ -76,6 +76,28 @@
             font-weight: 600;
             margin-left: 0.5rem;
         }
+
+        .version-switch-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 6px 16px;
+            background: rgba(0, 170, 255, 0.2);
+            color: #00aaff;
+            border: 1px solid #00aaff;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .version-switch-btn:hover {
+            background: rgba(0, 170, 255, 0.3);
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+        }
         
         .main-container {
             display: flex;
@@ -828,6 +850,7 @@
             <span class="version-badge">v7</span>
         </div>
         <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <a href="Cisco-AI-NoC-Telco-v5.html" class="version-switch-btn" title="Switch to v5">← v5</a>
         <div class="actions">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
