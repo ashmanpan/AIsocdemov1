@@ -85,19 +85,15 @@ def lambda_handler(event, context):
     """
     Main Lambda handler for conversation management
     """
+    # CORS headers (defined first to be available in error handler)
+    headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    }
+
     try:
-        # Parse request
-        body = json.loads(event.get('body', '{}'))
-        action = body.get('action', 'start')
-
-        # CORS headers
-        headers = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS'
-        }
-
         # Handle OPTIONS for CORS
         if event.get('httpMethod') == 'OPTIONS':
             return {
@@ -106,6 +102,11 @@ def lambda_handler(event, context):
                 'body': ''
             }
 
+        # Parse request (handle None body)
+        body_str = event.get('body') or '{}'
+        body = json.loads(body_str)
+        action = body.get('action', 'start')
+
         # Route to appropriate handler
         if action == 'start':
             result = start_conversation(body)
@@ -113,6 +114,8 @@ def lambda_handler(event, context):
             result = handle_message(body)
         elif action == 'generate':
             result = generate_code(body)
+        elif action == 'firewall_chat':
+            result = firewall_chat(body)
         elif action == 'test':
             # Import testing agents
             from testing_agents import OrchestratorAgent
@@ -416,3 +419,75 @@ def parse_generated_code(content):
         files[current_file] = '\n'.join(current_code)
 
     return files
+
+
+def firewall_chat(body):
+    """
+    Handle firewall management chat using Claude AI
+    Simplified chat without structured conversation flow
+    """
+    message = body.get('message', '')
+    conversation_history = body.get('conversationHistory', [])
+
+    if not ANTHROPIC_API_KEY:
+        raise ValueError("ANTHROPIC_API_KEY not configured")
+
+    if not message:
+        raise ValueError("Message is required")
+
+    # Build system prompt for firewall expertise
+    system_prompt = """You are an AI assistant specialized in Cisco firewall management, network security, and FTD/FMC systems.
+
+You help network engineers and security analysts with:
+- Troubleshooting firewall issues (CPU spikes, packet loss, performance)
+- Analyzing traffic patterns and anomalies
+- Interface validation and discrepancy resolution
+- Security policy recommendations
+- Root cause analysis for network incidents
+- FMC/FTD configuration best practices
+
+Provide clear, actionable technical guidance. When analyzing issues, use a structured approach:
+1. Understand the problem
+2. Gather relevant data points
+3. Correlate information
+4. Identify root cause
+5. Provide remediation steps
+
+Be concise but thorough. Use technical terminology appropriately."""
+
+    # Prepare messages for Claude API
+    messages = conversation_history + [{"role": "user", "content": message}]
+
+    # Call Claude API
+    api_url = 'https://api.anthropic.com/v1/messages'
+
+    request_data = {
+        "model": "claude-3-5-sonnet-20241022",
+        "max_tokens": 4096,
+        "system": system_prompt,
+        "messages": messages
+    }
+
+    req = urllib_request.Request(
+        api_url,
+        data=json.dumps(request_data).encode('utf-8'),
+        headers={
+            'Content-Type': 'application/json',
+            'anthropic-version': '2023-06-01',
+            'x-api-key': ANTHROPIC_API_KEY
+        }
+    )
+
+    try:
+        with urllib_request.urlopen(req) as response:
+            response_data = json.loads(response.read().decode('utf-8'))
+            ai_response = response_data['content'][0]['text']
+    except HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f"Claude API Error: {e.code} - {error_body}")
+        raise ValueError(f"Failed to get chat response: {error_body}")
+
+    return {
+        'response': ai_response,
+        'conversationHistory': messages + [{"role": "assistant", "content": ai_response}]
+    }
