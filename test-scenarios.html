@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOC Scenarios Testing Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.875rem;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .scenario-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .scenario-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .scenario-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-complete {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .status-pending {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+
+        .scenario-number {
+            font-size: 0.875rem;
+            color: #00aaff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .scenario-ticket {
+            color: #888;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #888;
+        }
+
+        .scenario-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #ccc;
+        }
+
+        .scenario-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00ff88;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .instructions h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00aaff;
+        }
+
+        .test-checklist {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .test-checklist h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .checklist-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .checklist-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: #00aaff;
+        }
+
+        .checklist-section ul {
+            list-style: none;
+            color: #ccc;
+        }
+
+        .checklist-section li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .checklist-section li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+        }
+
+        @media (max-width: 768px) {
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
+            <h1 class="title">NOC Scenarios Testing Dashboard</h1>
+            <p class="subtitle">Comprehensive testing interface for all AI-powered NOC automation workflows</p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Scenarios Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Workflow Compliance</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">662KB</div>
+                <div class="stat-label">Total Code Size</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+        </div>
+
+        <!-- Testing Instructions -->
+        <div class="instructions">
+            <h2>🧪 How to Test</h2>
+            <ol>
+                <li>Click <strong>"Open Scenario"</strong> button to view the complete workflow</li>
+                <li>Verify all <strong>25 workflow steps</strong> are present and sequential</li>
+                <li>Check that <strong>IO_AGENT</strong> asks 5 clarifying questions</li>
+                <li>Confirm <strong>Knowledge Graph</strong> and <strong>RAG queries</strong> are shown</li>
+                <li>Validate that <strong>6 specialized agents</strong> are deployed</li>
+                <li>Verify <strong>inter-agent collaboration</strong> (5+ exchanges)</li>
+                <li>Check <strong>DEPLOYMENT_AGENT</strong> and <strong>VERIFICATION_AGENT</strong> sections</li>
+                <li>Review technical accuracy (device names, IPs, commands, outputs)</li>
+                <li>Use the checklist below to mark items as tested</li>
+            </ol>
+        </div>
+
+        <!-- Scenarios Grid -->
+        <div class="scenarios-grid">
+            <!-- Scenario 1 -->
+            <div class="scenario-card" onclick="window.open('scenario-1-packet-loss-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 1</div>
+                <div class="scenario-title">Packet Loss Investigation</div>
+                <div class="scenario-ticket">Ticket: #67891</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 83KB</span>
+                    <span class="meta-item">🔢 1,929 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">IO_AGENT</span>
+                    <span class="feature-badge">6 Agents</span>
+                    <span class="feature-badge">KG Queries</span>
+                    <span class="feature-badge">RAG</span>
+                    <span class="feature-badge">MCP</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-1-packet-loss-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 2 -->
+            <div class="scenario-card" onclick="window.open('scenario-2-firewall-config-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 2</div>
+                <div class="scenario-title">Firewall Configuration</div>
+                <div class="scenario-ticket">Ticket: #FW-8823</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 81KB</span>
+                    <span class="meta-item">🔢 1,893 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">ACL Analysis</span>
+                    <span class="feature-badge">6 Agents</span>
+                    <span class="feature-badge">Packet Tracer</span>
+                    <span class="feature-badge">RAG 92%</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-2-firewall-config-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 3 -->
+            <div class="scenario-card" onclick="window.open('scenario-3-network-latency-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 3</div>
+                <div class="scenario-title">Network Latency</div>
+                <div class="scenario-ticket">Ticket: #LAT-6734</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 89KB</span>
+                    <span class="meta-item">🔢 2,046 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">QoS Analysis</span>
+                    <span class="feature-badge">WAN Links</span>
+                    <span class="feature-badge">96% Improvement</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-3-network-latency-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 4 -->
+            <div class="scenario-card" onclick="window.open('scenario-4-router-troubleshooting-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 4</div>
+                <div class="scenario-title">Router Troubleshooting</div>
+                <div class="scenario-ticket">Ticket: #RTR-5512</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 80KB</span>
+                    <span class="meta-item">🔢 1,755 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">BGP Flapping</span>
+                    <span class="feature-badge">SFP Diagnostics</span>
+                    <span class="feature-badge">Hardware RCA</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-4-router-troubleshooting-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 5 -->
+            <div class="scenario-card" onclick="window.open('scenario-5-app-performance-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 5</div>
+                <div class="scenario-title">App Performance RCA</div>
+                <div class="scenario-ticket">Ticket: #45782</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 86KB</span>
+                    <span class="meta-item">🔢 1,840 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">LCM Integration</span>
+                    <span class="feature-badge">Historical Data</span>
+                    <span class="feature-badge">81% Faster</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-5-app-performance-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 6 -->
+            <div class="scenario-card" onclick="window.open('scenario-6-capacity-planning-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 6</div>
+                <div class="scenario-title">Capacity Planning</div>
+                <div class="scenario-ticket">Ticket: #CAP-8891</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 92KB</span>
+                    <span class="meta-item">🔢 ~2,000 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">Traffic Forecast</span>
+                    <span class="feature-badge">Resource Planning</span>
+                    <span class="feature-badge">Proactive</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-6-capacity-planning-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 7 -->
+            <div class="scenario-card" onclick="window.open('scenario-7-sdwan-optimization-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 7</div>
+                <div class="scenario-title">SD-WAN Optimization</div>
+                <div class="scenario-ticket">Ticket: #SDWAN-7234</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 86KB</span>
+                    <span class="meta-item">🔢 ~1,900 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">Path Selection</span>
+                    <span class="feature-badge">Viptela</span>
+                    <span class="feature-badge">Performance</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-7-sdwan-optimization-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scenario 8 -->
+            <div class="scenario-card" onclick="window.open('scenario-8-security-breach-v6-FULL.html', '_blank')">
+                <span class="scenario-status status-complete">✓ COMPLETE</span>
+                <div class="scenario-number">SCENARIO 8</div>
+                <div class="scenario-title">Security Breach</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 85KB</span>
+                    <span class="meta-item">🔢 ~1,850 lines</span>
+                </div>
+                <div class="scenario-features">
+                    <span class="feature-badge">Threat Detection</span>
+                    <span class="feature-badge">Security</span>
+                    <span class="feature-badge">Forensics</span>
+                </div>
+                <div class="scenario-actions">
+                    <a href="scenario-8-security-breach-v6-FULL.html" target="_blank" class="btn btn-primary">
+                        🚀 Open Scenario
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pending Scenarios -->
+            <div class="scenario-card" style="opacity: 0.6; cursor: not-allowed;">
+                <span class="scenario-status status-pending">⏳ PENDING</span>
+                <div class="scenario-number">SCENARIO 9</div>
+                <div class="scenario-title">Router Upgrade</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 TBD</span>
+                </div>
+                <div class="scenario-actions">
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" style="opacity: 0.6; cursor: not-allowed;">
+                <span class="scenario-status status-pending">⏳ PENDING</span>
+                <div class="scenario-number">SCENARIO 10</div>
+                <div class="scenario-title">Intermittent Slow Response</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 TBD</span>
+                </div>
+                <div class="scenario-actions">
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" style="opacity: 0.6; cursor: not-allowed;">
+                <span class="scenario-status status-pending">⏳ PENDING</span>
+                <div class="scenario-number">SCENARIO 11</div>
+                <div class="scenario-title">Config Audit</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 TBD</span>
+                </div>
+                <div class="scenario-actions">
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" style="opacity: 0.6; cursor: not-allowed;">
+                <span class="scenario-status status-pending">⏳ PENDING</span>
+                <div class="scenario-number">SCENARIO 12</div>
+                <div class="scenario-title">AI-Driven Recommendations</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 TBD</span>
+                </div>
+                <div class="scenario-actions">
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" style="opacity: 0.6; cursor: not-allowed;">
+                <span class="scenario-status status-pending">⏳ PENDING</span>
+                <div class="scenario-number">SCENARIO 13</div>
+                <div class="scenario-title">Scheduled Migration</div>
+                <div class="scenario-ticket">Ticket: TBD</div>
+                <div class="scenario-meta">
+                    <span class="meta-item">📄 TBD</span>
+                </div>
+                <div class="scenario-actions">
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Checklist -->
+        <div class="test-checklist">
+            <h2>✓ Testing Checklist</h2>
+            <div class="checklist-grid">
+                <div class="checklist-section">
+                    <h3>Visual Quality</h3>
+                    <ul>
+                        <li>Page loads without errors</li>
+                        <li>CSS styles applied correctly</li>
+                        <li>Colors and formatting consistent</li>
+                        <li>Tables properly aligned</li>
+                        <li>Code blocks readable</li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h3>Content Completeness</h3>
+                    <ul>
+                        <li>All 25 steps present</li>
+                        <li>IO_AGENT 5 questions</li>
+                        <li>Knowledge Graph queries (3+)</li>
+                        <li>RAG queries (3+ tickets)</li>
+                        <li>6 specialized agents</li>
+                        <li>Inter-agent collaboration (5+)</li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h3>Technical Accuracy</h3>
+                    <ul>
+                        <li>Realistic device names</li>
+                        <li>Valid IP addresses</li>
+                        <li>Accurate commands</li>
+                        <li>Outputs match commands</li>
+                        <li>Protocol details correct</li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h3>Workflow Logic</h3>
+                    <ul>
+                        <li>Steps flow logically</li>
+                        <li>Information builds progressively</li>
+                        <li>Root cause follows evidence</li>
+                        <li>Fix addresses root cause</li>
+                        <li>Verification confirms fix</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #888;">
+            <p>📚 For detailed testing instructions, see <a href="TESTING-GUIDE.md" style="color: #00ff88; text-decoration: none;">TESTING-GUIDE.md</a></p>
+            <p style="margin-top: 0.5rem;">🏠 <a href="index.html" style="color: #00aaff; text-decoration: none;">Back to Home</a></p>
+        </div>
+    </div>
+</body>
+</html>
