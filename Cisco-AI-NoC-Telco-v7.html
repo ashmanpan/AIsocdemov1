@@ -66,6 +66,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        .version-badge {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
         
         .main-container {
             display: flex;
@@ -809,7 +819,8 @@
     <div class="navbar">
         <div class="logo">
             <img src="ciscologo.jpg" alt="Cisco Logo">
-            <span class="logo-text">Cisco-Agentic-AI-NOC-Telco-Demo-V5</span>
+            <span class="logo-text">Cisco Agentic AI - NOC Demo</span>
+            <span class="version-badge">v7</span>
         </div>
         <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
         <div class="actions">
@@ -932,16 +943,16 @@
         // Scenario data and responses
         const scenarios = {
             'packet-loss': {
-                title: 'AI-Driven Packet Loss Investigation',
+                title: 'Packet Loss Investigation',
                 icon: '📊',
-                description: 'Complete 25-step workflow for packet loss investigation with KG, RAG, and 6 agents',
+                description: 'Investigating intermittent packet loss on telco core network',
                 initialQuery: 'Show AI-Driven Packet Loss Investigation',
                 responses: [
-                    `<!-- SCENARIO 1: PACKET LOSS INVESTIGATION - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 1: PACKET LOSS INVESTIGATION -->
+
 
 <div class="root-container">
-  <h3>Agentic AI - Packet Loss Investigation v6</h3>
+  <h3>Packet Loss Investigation</h3>
   <p><strong>Complete 25-Step Workflow: Alert → Investigation → Resolution → Verification</strong></p>
 
   <div class="agent-workflow">
@@ -2869,13 +2880,13 @@ GigabitEthernet0/1/0
                 ]
             },
             'firewall-config': {
-                title: 'Firewall Configuration Analysis',
+                title: 'Firewall Configuration',
                 icon: '🔥',
-                description: 'ACL analysis and packet-tracer validation with deployment verification',
+                description: 'Analyzing firewall ACL rules and traffic flow issues',
                 initialQuery: 'Show Firewall Configuration Analysis',
                 responses: [
-                    `<!-- SCENARIO 2: FIREWALL CONFIGURATION ANALYSIS - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 2: FIREWALL CONFIGURATION ANALYSIS  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Firewall Configuration Analysis v6</h3>
@@ -4724,13 +4735,13 @@ Frame drop:
                 ]
             },
             'network-latency': {
-                title: 'Network Latency Investigation',
+                title: 'Network Latency',
                 icon: '🐌',
-                description: 'QoS policy analysis and WAN link optimization (96% improvement)',
+                description: 'Investigating high latency across WAN links',
                 initialQuery: 'Show Network Latency Investigation',
                 responses: [
-                    `<!-- SCENARIO 3: NETWORK LATENCY ANALYSIS - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 3: NETWORK LATENCY ANALYSIS  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Network Latency Investigation v6</h3>
@@ -6780,11 +6791,11 @@ Trace complete.</pre>
             'router-troubleshooting': {
                 title: 'Router Troubleshooting',
                 icon: '🔧',
-                description: 'BGP flapping root cause - SFP diagnostics and hardware replacement',
+                description: 'BGP session flapping and connectivity issues',
                 initialQuery: 'Show Router Troubleshooting',
                 responses: [
-                    `<!-- SCENARIO 4: ROUTER TROUBLESHOOTING - BGP FLAPPING - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 4: ROUTER TROUBLESHOOTING - BGP FLAPPING  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Router Troubleshooting: BGP Flapping v6</h3>
@@ -8541,13 +8552,13 @@ Oct 19 11:39:14: %BGP-5-ADJCHANGE: neighbor 203.0.113.1 Up
                 ]
             },
             'app-performance': {
-                title: 'Application Performance RCA',
+                title: 'Application Performance',
                 icon: '📈',
-                description: 'LCM integration with historical performance analysis (81% faster)',
+                description: 'Root cause analysis for slow application response times',
                 initialQuery: 'Show Application Performance RCA',
                 responses: [
-                    `<!-- SCENARIO 5: APPLICATION PERFORMANCE RCA - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 5: APPLICATION PERFORMANCE RCA  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Application Performance RCA v6</h3>
@@ -10389,13 +10400,13 @@ GigabitEthernet0/0/1
                 ]
             },
             'capacity-planning': {
-                title: 'Proactive Capacity Planning',
+                title: 'Capacity Planning',
                 icon: '📊',
-                description: 'Traffic forecast and resource planning with utilization analysis',
+                description: 'Proactive network capacity and growth planning',
                 initialQuery: 'Show Proactive Capacity Planning',
                 responses: [
-                    `<!-- SCENARIO 6: CAPACITY PLANNING & FORECASTING - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 6: CAPACITY PLANNING & FORECASTING  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Capacity Planning & Forecasting v6</h3>
@@ -12498,13 +12509,13 @@ GigabitEthernet0/1/0
                 ]
             },
             'sdwan-optimization': {
-                title: 'SD-WAN Path Optimization',
+                title: 'SD-WAN Optimization',
                 icon: '🌐',
-                description: 'Viptela SD-WAN path selection and application performance optimization',
+                description: 'Optimizing SD-WAN path selection and performance',
                 initialQuery: 'Show SD-WAN Path Optimization',
                 responses: [
-                    `<!-- SCENARIO 7: SD-WAN OPTIMIZATION - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 7: SD-WAN OPTIMIZATION  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - SD-WAN Path Optimization v6</h3>
@@ -14432,13 +14443,13 @@ Path Health:
                 ]
             },
             'security-breach': {
-                title: 'Security Breach Investigation',
+                title: 'Security Breach',
                 icon: '🔒',
-                description: 'Threat detection, forensics analysis, and security remediation workflow',
+                description: 'Detecting and responding to network security incidents',
                 initialQuery: 'Show Security Breach Investigation',
                 responses: [
-                    `<!-- SCENARIO 8: SECURITY BREACH DETECTION - v6 FULL COMPLIANCE -->
-<!-- This is the complete 25-step workflow implementation -->
+                    `<!-- SCENARIO 8: SECURITY BREACH DETECTION  -->
+
 
 <div class="root-container">
   <h3>Agentic AI - Security Breach Detection v6</h3>
