@@ -18273,16 +18273,69 @@ segment-routing traffic-eng
             streamHTMLContent(messageDiv, response);
         }
         
+        // Auto-type user input and send
+        function autoTypeAndSend(text, delay = 50) {
+            return new Promise((resolve) => {
+                chatInput.value = '';
+                chatInput.focus();
+                let index = 0;
+
+                function typeNextChar() {
+                    if (index < text.length) {
+                        chatInput.value += text[index];
+                        index++;
+                        setTimeout(typeNextChar, delay + Math.random() * 30);
+                    } else {
+                        // Wait a bit then auto-send
+                        setTimeout(() => {
+                            addMessage(text, true);
+                            chatInput.value = '';
+                            resolve();
+                        }, 500);
+                    }
+                }
+
+                typeNextChar();
+            });
+        }
+
+        // Extract answers from question blocks and auto-type them
+        async function autoAnswerQuestions(container) {
+            const questionBlocks = container.querySelectorAll('.question-block');
+
+            for (let i = 0; i < questionBlocks.length; i++) {
+                const block = questionBlocks[i];
+                const answerElem = block.querySelector('.answer');
+
+                if (answerElem && !answerElem.dataset.autoTyped) {
+                    // Extract just the answer text (remove "A1:", "A2:" etc)
+                    const answerText = answerElem.textContent.replace(/^A\d+:\s*/, '').trim();
+
+                    // Wait a bit before typing (simulate user thinking)
+                    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+
+                    // Auto-type the answer
+                    await autoTypeAndSend(answerText);
+
+                    // Mark as typed
+                    answerElem.dataset.autoTyped = 'true';
+
+                    // Small delay before next answer
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+            }
+        }
+
         // Send message function
         function sendMessage(message) {
             if (!message.trim()) return;
-            
+
             addMessage(message, true);
             chatInput.value = '';
-            
+
             // Show typing indicator
             showTypingIndicator();
-            
+
             setTimeout(() => {
                 hideTypingIndicator();
                 addMessage("I understand you'd like to know more about this scenario. This demo shows the AI agents working together to analyze network issues. Each scenario demonstrates different aspects of network operations troubleshooting and optimization.");
@@ -18339,6 +18392,9 @@ segment-routing traffic-eng
                     // Mark steps as complete after they fully appear
                     markVisibleStepsComplete(element);
 
+                    // Check for questions and auto-type answers
+                    autoAnswerQuestions(element);
+
                     // Auto-scroll to bottom
                     chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -18362,6 +18418,8 @@ segment-routing traffic-eng
                 } else {
                     // Final pass to mark all remaining steps complete
                     markVisibleStepsComplete(element);
+                    // Final pass for any remaining questions
+                    autoAnswerQuestions(element);
                 }
             }
             
