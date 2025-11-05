@@ -923,93 +923,523 @@
     'incident-management': {
         title: 'AI-Driven Incident Management',
         icon: '🚨',
-        description: 'Automated detection, triage, root cause analysis, and resolution of datacenter incidents',
-        initialQuery: 'Critical alert: Database cluster experiencing high latency',
+        description: 'Rapid detection, triage, root cause analysis, and remediation of datacenter incidents spanning ACI fabric, UCS compute, Nexus switching, and Kubernetes/container workloads',
+        initialQuery: 'Critical alert: VM connectivity loss affecting 50+ VMs in EPG "Prod-Web"',
         responses: [
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">🚨</span>
-                    <h3 class="workflow-title">Multi-Agent Incident Response Orchestration</h3>
+                    <h3 class="workflow-title">Use Case 1: Datacenter Incident Management</h3>
                 </div>
-                
+
                 <div class="ticket-info">
                     <div>
-                        <div class="ticket-id">TICKET #DC-2024-00847</div>
+                        <div class="ticket-id">INCIDENT #INC-2024-05678</div>
                         <div style="font-size: 12px; color: #888; margin-top: 5px;">Generated: ${new Date().toISOString()}</div>
                     </div>
                     <div class="ticket-priority severity-critical">P1 - CRITICAL</div>
                 </div>
-                
-                <div class="agent-step">
-                    <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Task Received</span>
-                    </div>
-                    <div class="agent-content">
-                        <strong>Input Source:</strong> ServiceNow Ticketing System<br>
-                        <strong>Alert Type:</strong> Database Performance Degradation<br>
-                        <strong>Severity:</strong> P1 - Critical<br>
-                        <strong>Affected System:</strong> Production Database Cluster<br>
-                        <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>INCIDENT_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #ff4444;">
+                    <h4 style="color: #ff4444; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Incident:</strong> VM connectivity loss affecting 50+ VMs in EPG "Prod-Web" on ACI fabric<br><br>
+                        <strong>Initial Symptoms:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • APIC raises fault: <code>F1234 - EPG Prod-Web endpoint learning failures</code><br>
+                            • Nexus leaf switches show CRC errors on uplinks<br>
+                            • UCS fabric interconnects report link flaps on vNIC adapters<br>
+                            • Kubernetes pods in namespace "prod-web" stuck in CrashLoopBackOff<br>
+                            • ThousandEyes alerts: HTTP 503 errors from production web application
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 INCIDENT_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Response</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 sec - Multi-Source Alerts Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Alert Sources:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <strong>APIC webhook:</strong> <code>POST /api/webhook</code> → Fault F1234<br>
+                            • <strong>NDI anomaly:</strong> Endpoint movement storm in EPG "Prod-Web"<br>
+                            • <strong>Intersight alert:</strong> UCS Blade 5 vNIC link flap<br>
+                            • <strong>Kubernetes event stream:</strong> 50 pods in CrashLoopBackOff<br>
+                            • <strong>Hubble alert:</strong> 500 DNS resolution failures in last 60 seconds
+                        </div>
+                        <br>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Alert normalized and enriched, triggering Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🗺️ Topology Graph Agent</span>
+                        <span class="agent-status status-completed">T+5 sec - Dependency Mapping</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Topology Enrichment:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • EPG "Prod-Web" → VLAN 100 → Nexus Leaf 101 Eth1/1<br>
+                            • Nexus Leaf 101 Eth1/1 → UCS FI-A Eth1/1/1 → UCS Blade 5 vNIC 0<br>
+                            • K8s Pods in namespace "prod-web" → K8s Node worker-05 → VM on UCS Blade 5
+                        </div>
+                        <br>
+                        <strong>Knowledge Graph Match:</strong><br>
+                        <div style="margin-left: 20px;">
+                            Similar incident: <code>INC-2024-00123</code> (bad optics causing CRC errors)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-active">T+10 sec - Orchestrating Specialized Agents</span>
                     </div>
                     <div class="agent-content">
                         <strong>Agent Deployment Strategy:</strong><br>
                         <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ Deploying DETECTION_AGENT<br>
-                            ✓ Deploying TRIAGE_AGENT<br>
-                            ✓ Deploying RCA_AGENT<br>
-                            ✓ Deploying DB_SPECIALIST_AGENT<br>
-                            ✓ Deploying INFRA_AGENT<br>
+                            ✓ Spawning ACI_FABRIC_AGENT<br>
+                            ✓ Spawning NEXUS_SWITCH_AGENT<br>
+                            ✓ Spawning UCS_COMPUTE_AGENT<br>
+                            ✓ Spawning KUBERNETES_AGENT<br>
+                            ✓ Spawning EBPF_CILIUM_AGENT<br>
+                            ✓ Spawning STORAGE_AGENT
+                        </div>
+                        <br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px;">
+                            <em>All agents running in parallel with read-only access...</em>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🔍 DETECTION_AGENT</span>
-                        <span class="agent-status status-completed">Analysis Complete</span>
+                        <span class="agent-name">🌐 ACI Fabric Agent</span>
+                        <span class="agent-status status-completed">T+15 sec - APIC Analysis Complete</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Anomaly Detected:</strong> Query latency 850ms (baseline: 45ms)<br>
-                        <strong>Pattern Match:</strong> Query plan regression<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • EPG "Prod-Web" health score: <span style="color: #ff4444;">35/100 (CRITICAL)</span><br>
+                            • Fault F1234: "Endpoint learning failure on Leaf 101 port Eth1/1"<br>
+                            • 50 endpoints missing from EPG<br>
+                            • Contract "Web-to-DB" policy allows traffic (no policy issue)<br>
+                            • VXLAN VTEP 10.1.1.101 reachable from all spines<br>
+                            • Leaf 101 TCAM utilization: 45% (normal)<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ ROOT CAUSE INDICATOR:</span> Issue downstream of Leaf 101 Eth1/1
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># ACI Fabric Agent - APIC REST API Query
+import requests
+
+class ACIFabricAgent:
+    def get_epg_health(self, tenant, app_profile, epg):
+        health_url = (
+            f"{self.apic_url}/api/node/mo/uni/tn-{tenant}/"
+            f"ap-{app_profile}/epg-{epg}/health.json"
+        )
+        health_response = self.session.get(health_url)
+        health_data = health_response.json()
+
+        health_score = int(
+            health_data['imdata'][0]['healthInst']['attributes']['cur']
+        )
+
+        return {'health_score': health_score}
+
+    def get_endpoint_learning_failures(self, tenant, app_profile, epg):
+        fault_query_url = (
+            f"{self.apic_url}/api/node/class/faultInst.json?"
+            f"query-target-filter=and("
+            f"wcard(faultInst.dn,\"tn-{tenant}/ap-{app_profile}/epg-{epg}\"),"
+            f"eq(faultInst.code,\"F1234\")"
+            f")"
+        )
+        response = self.session.get(fault_query_url)
+        return response.json()['imdata']</code></pre>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="agent-step" style="border: 2px solid #00ff88;">
+
+                <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 INCIDENT_MRA</span>
-                        <span class="agent-status status-completed">Correlation Complete</span>
+                        <span class="agent-name">🔀 Nexus Switch Agent</span>
+                        <span class="agent-status status-completed">T+20 sec - Interface Analysis Complete</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Correlated Findings:</strong> Database query plan regression confirmed<br>
-                        <strong>Resolution Plan:</strong> Apply index hints, optimize queries<br>
-                        <strong>← Sending report to IO_AGENT...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Leaf 101 Eth1/1 CRC errors: <span style="color: #ff4444;">15,234 (INCREASING)</span><br>
+                            • Interface flapping: <span style="color: #ff4444;">23 flaps in last 10 minutes</span><br>
+                            • VPC peer-link healthy, peer-keepalive OK<br>
+                            • No STP topology changes<br>
+                            • VXLAN control-plane stable<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ ROOT CAUSE INDICATOR:</span> Physical layer issue on Eth1/1 or upstream device
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step" style="border: 2px solid #ff8800;">
+                    <div class="agent-header">
+                        <span class="agent-name">💻 UCS Compute Agent</span>
+                        <span class="agent-status status-completed">T+25 sec - Hardware Diagnostics Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • UCS Blade 5 vNIC 0 link flaps: <span style="color: #ff4444;">23 flaps (MATCHES NEXUS FLAPS)</span><br>
+                            • Adapter fault: <span style="color: #ff4444;">"SFP validation failed"</span><br>
+                            • Optics diagnostics: RX power <span style="color: #ff4444;">-20dBm</span> (threshold: -14dBm) - <strong>BAD OPTICS</strong><br>
+                            • Firmware version: Adapter 4.2(3d), FI 4.2(3d) - consistent<br>
+                            • Service profile "Prod-Web-Blade-05" configuration OK<br>
+                            <br>
+                            <span style="color: #00ff88;">✓ ROOT CAUSE CONFIRMED:</span> Bad SFP module on UCS Blade 5 vNIC 0
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># UCS Compute Agent - Intersight API Query
+import requests
+
+class UCSComputeAgent:
+    def get_vnics_status(self, blade_moid):
+        vnic_url = f"{self.base_url}/api/v1/adapter/Units"
+        params = {
+            "$filter": f"ComputeBlade.Moid eq '{blade_moid}'",
+            "$expand": "AdapterLinks"
+        }
+
+        response = self.session.get(vnic_url, params=params)
+        vnics = response.json().get('Results', [])
+
+        vnic_status = []
+        for vnic in vnics:
+            for link in vnic.get('AdapterLinks', []):
+                vnic_status.append({
+                    'adapter_id': vnic.get('AdapterId'),
+                    'link_state': link.get('LinkState'),
+                    'rx_power_dbm': link.get('RxPower'),  # Key metric!
+                    'tx_fault': link.get('TxFault')
+                })
+
+        return vnic_status
+
+    def investigate_blade_issue(self, blade_serial, blade_moid):
+        vnics = self.get_vnics_status(blade_moid)
+        bad_vnics = []
+
+        for vnic in vnics:
+            # Check RX power (threshold: -14dBm for 10G SFP+)
+            if vnic['rx_power_dbm'] and vnic['rx_power_dbm'] < -14:
+                bad_vnics.append({
+                    'adapter_id': vnic['adapter_id'],
+                    'issue': 'LOW_RX_POWER',
+                    'rx_power': vnic['rx_power_dbm'],
+                    'threshold': -14
+                })
+
+        return bad_vnics</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">☸️ Kubernetes Agent</span>
+                        <span class="agent-status status-completed">T+30 sec - Pod/Node Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • 50 pods in namespace "prod-web" CrashLoopBackOff<br>
+                            • All pods scheduled on node <code>worker-05</code> (maps to UCS Blade 5)<br>
+                            • Pod logs: "Unable to connect to database" (connectivity issue)<br>
+                            • Node "worker-05" condition: Ready=True (node itself healthy)<br>
+                            • PVC bindings OK, service endpoints missing (pods not ready)<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ ROOT CAUSE INDICATOR:</span> Network connectivity issue on worker-05
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🐝 eBPF/Cilium Agent</span>
+                        <span class="agent-status status-completed">T+35 sec - Network Policy Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Hubble flows from pods on worker-05: <span style="color: #ff4444;">500 DROPPED</span> (verdict: FORWARDING_DISABLED)<br>
+                            • Cilium agent logs on worker-05: "Endpoint regeneration failed due to datapath unavailable"<br>
+                            • eBPF datapath: kernel drops due to interface flaps<br>
+                            • DNS resolution failures: pods unable to reach CoreDNS due to network instability<br>
+                            • No network policy denies (policy configuration OK)<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ ROOT CAUSE INDICATOR:</span> Kernel dropping packets due to unstable network interface
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step" style="border: 3px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-completed">T+60 sec - Conflict-Aware Reasoning Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>INCIDENT NARRATIVE:</strong><br>
+                        <div style="background: #0d1a0d; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #00ff88;">
+                            <div style="font-size: 16px; color: #00ff88; margin-bottom: 10px;">
+                                <strong>Title:</strong> VM Connectivity Loss - Bad Optics on UCS Blade 5
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Root Cause (Confirmed):</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px;">
+                                    Failed SFP module on UCS Blade 5 vNIC 0 adapter<br>
+                                    RX power -20dBm (6dB below threshold) causing link instability
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #ffaa00;">Causal Chain:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    1. Bad SFP on UCS Blade 5 vNIC 0<br>
+                                    2. Link flaps between UCS FI and Nexus Leaf 101 Eth1/1<br>
+                                    3. CRC errors accumulate on Nexus interface<br>
+                                    4. VXLAN endpoint learning failures in ACI fabric<br>
+                                    5. Hypervisor VM (K8s worker-05) network instability<br>
+                                    6. Cilium eBPF datapath disabled due to interface flaps<br>
+                                    7. Kubernetes pods lose network connectivity<br>
+                                    8. Application unavailable (HTTP 503)
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #ff4444;">Impact:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px;">
+                                    • 50 VMs in EPG "Prod-Web" unreachable<br>
+                                    • 50 Kubernetes pods in CrashLoopBackOff<br>
+                                    • Application downtime: 8 minutes (so far)<br>
+                                    • Estimated customer impact: 5,000 users
+                                </div>
+                            </div>
+
+                            <div style="color: #00ff88;">
+                                <strong>Confidence:</strong> 98% (multiple corroborating signals)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📋 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-completed">T+70 sec - Mitigation Plan Drafted</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>MITIGATION PLAN:</strong><br>
+                        <div style="background: #0a0a0a; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <div style="margin-bottom: 10px;">
+                                <strong>Title:</strong> Replace failed SFP on UCS Blade 5 vNIC 0<br>
+                                <strong>Risk Level:</strong> <span style="color: #00ff88;">LOW</span><br>
+                                <strong>Change Window:</strong> Immediate (service already down)<br>
+                                <strong>Blast Radius:</strong> Single blade (50 VMs)<br>
+                                <strong>Estimated Additional Downtime:</strong> 5 minutes
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong>Prerequisites:</strong><br>
+                                <div style="margin-left: 20px;">
+                                    • Spare SFP module available in DC inventory<br>
+                                    • Remote hands or on-site engineer available
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong>Steps:</strong><br>
+                                <div style="margin-left: 20px; line-height: 1.8;">
+                                    1. Log into UCS Manager<br>
+                                    2. Acknowledge blade fault on Blade 5<br>
+                                    3. Physically replace SFP module on vNIC 0 adapter<br>
+                                    4. Clear interface errors on Nexus Leaf 101 Eth1/1: <code>clear counters interface Eth1/1</code><br>
+                                    5. Monitor for link stability (60 seconds)<br>
+                                    6. Verify APIC endpoint learning resumes<br>
+                                    7. Confirm K8s pods reach Running state<br>
+                                    8. Test application connectivity (HTTP 200)
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong>Post-Change Validation:</strong><br>
+                                <div style="margin-left: 20px;">
+                                    ✓ Nexus Eth1/1 CRC errors: 0 (for 5 minutes)<br>
+                                    ✓ UCS Blade 5 vNIC 0 link status: UP (stable)<br>
+                                    ✓ APIC EPG health score: &gt; 95/100<br>
+                                    ✓ K8s pods: 50/50 Running<br>
+                                    ✓ Hubble flows: FORWARDED (no drops)<br>
+                                    ✓ Application: HTTP 200 response from ThousandEyes
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong>Rollback Plan:</strong><br>
+                                <div style="margin-left: 20px;">
+                                    If new SFP also fails: Move VMs to standby blade<br>
+                                    RTO: 15 minutes
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: #1a1a0a; padding: 10px; border-radius: 5px; margin-top: 10px; border-left: 3px solid #ffaa00;">
+                            <strong>→ Awaiting human approval via ServiceNow...</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">👤 Human Operator</span>
+                        <span class="agent-status status-completed">T+75 sec - Approval Granted</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Ops Engineer Review:</strong><br>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            Reviewed mitigation plan and evidence bundle.<br>
+                            Root cause analysis is thorough and confidence is high.<br>
+                            <br>
+                            <span style="color: #00ff88;"><strong>✓ APPROVED</strong></span> via Slack bot: <code>/approve INC-2024-05678</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔧 Execution & Validation</span>
+                        <span class="agent-status status-completed">T+80 sec to T+12 min - Remediation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Execution Timeline:</strong><br>
+                        <div style="margin-left: 20px; line-height: 2;">
+                            <span style="color: #00ff88;">✓</span> T+80s: Remote hands dispatched<br>
+                            <span style="color: #00ff88;">✓</span> T+5m: SFP module replaced<br>
+                            <span style="color: #00ff88;">✓</span> T+6m: Link stable, CRC errors cleared<br>
+                            <span style="color: #00ff88;">✓</span> T+7m: APIC endpoint learning resumed<br>
+                            <span style="color: #00ff88;">✓</span> T+10m: All 50 K8s pods Running<br>
+                            <span style="color: #00ff88;">✓</span> T+12m: Application HTTP 200 confirmed
+                        </div>
+                        <br>
+                        <div style="background: #0d1a0d; padding: 12px; border-radius: 5px; border-left: 3px solid #00ff88;">
+                            <strong>All validation checks PASSED</strong><br>
+                            Incident auto-resolved in ServiceNow
+                        </div>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Response Delivered</span>
+                        <span class="agent-name">📚 Knowledge Graph Agent</span>
+                        <span class="agent-status status-completed">T+15 min - Knowledge Capture Complete</span>
                     </div>
                     <div class="agent-content">
-                        ✅ <strong>Incident Resolved</strong><br>
-                        • Root Cause: Query plan regression<br>
-                        • Resolution Time: 8 minutes 34 seconds<br>
-                        • Agents Involved: 8<br>
-                        • Ticket Status: Auto-closed
+                        <strong>Knowledge Graph Updates:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Incident pattern: "UCS SFP failure → ACI endpoint learning failure"<br>
+                            • Vendor context: CSCvy12345 (known issue with specific SFP model)<br>
+                            • Preventive action: Schedule quarterly optics health audit<br>
+                            • Runbook updated: "UCS Optics Failure" playbook
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #0a0a0a; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid #00ff88;">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">Key Performance Indicators (KPIs)</h3>
+                    <table style="width: 100%; border-collapse: collapse; color: #fff;">
+                        <thead>
+                            <tr style="background: #1a1a1a;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #333;">Metric</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Before AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">With AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>MTTR (Mean Time to Resolve)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">45 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">12 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 73%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>MTTI (Mean Time to Identify)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">20 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">2 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 90%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>False Escalations</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">35% of tickets</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">8% of tickets</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 77%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Manual Investigation Steps</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">25 per incident</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">3 per incident</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 88%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Repeat Incidents</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">15% recurrence</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">4% recurrence</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 73%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Incident Documentation</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">30% complete</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">98% complete</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↑ 68pp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 15px; padding: 10px; background: #1a0a1a; border-radius: 5px;">
+                        <strong>FCAPS Coverage:</strong> <span style="color: #00ff88;">F (Fault)</span>, <span style="color: #00aaff;">P (Performance)</span>
+                    </div>
+                </div>
+
+                <div style="background: #1a1a0a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #00aaff;">
+                    <h4 style="color: #00aaff; margin-bottom: 10px;">Guardrails & Safety</h4>
+                    <div style="color: #ccc; line-height: 1.8;">
+                        ✓ <strong>Read-Only by Default:</strong> All agents query APIs in read-only mode<br>
+                        ✓ <strong>Human-in-Loop:</strong> Config changes require explicit approval<br>
+                        ✓ <strong>Blast Radius Check:</strong> MRA calculates impact before suggesting changes<br>
+                        ✓ <strong>Audit Trail:</strong> All agent actions logged to immutable audit store<br>
+                        ✓ <strong>Rollback Plan Mandatory:</strong> Every mitigation includes automated rollback<br>
+                        ✓ <strong>Approval Workflow:</strong> Integration with ServiceNow change approval<br>
+                        ✓ <strong>Safe Mode:</strong> Agents can be put in "monitor-only" mode
+                    </div>
+                </div>
+
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">✅ Incident Resolved</span>
+                        <span class="agent-status status-completed">Total Time: 12 minutes</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Summary:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Root Cause: Failed SFP module on UCS Blade 5 vNIC 0<br>
+                            • Resolution: SFP replaced, all systems validated<br>
+                            • Total Downtime: 12 minutes<br>
+                            • Agents Involved: 6 specialized + 1 MRA + IOAgent<br>
+                            • Human Interactions: 1 (approval only)<br>
+                            • Knowledge Base: Updated with incident pattern
+                        </div>
                     </div>
                 </div>
             </div>`
@@ -1025,97 +1455,333 @@
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">📊</span>
-                    <h3 class="workflow-title">Multi-Agent Capacity Planning Orchestration</h3>
+                    <h3 class="workflow-title">Use Case 2: Datacenter Capacity Management</h3>
                 </div>
-                
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #4488ff;">
+                    <h4 style="color: #4488ff; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Situation:</strong> Quarterly capacity planning reveals compute capacity will be exhausted in 45 days based on current growth trends, risking VM provisioning failures and application deployment delays.<br><br>
+                        <strong>Data Sources:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <strong>Intersight API:</strong> UCS compute capacity (CPU cores, memory allocation, blade inventory)<br>
+                            • <strong>APIC/NDI:</strong> ACI endpoint scale, TCAM utilization, fabric capacity metrics<br>
+                            • <strong>HyperFlex:</strong> Storage capacity, deduplication ratios, IOPS/throughput<br>
+                            • <strong>Kubernetes:</strong> PVC growth rate, node resource utilization<br>
+                            • <strong>Historical Trends:</strong> 90-day VM creation rate, vCPU/vRAM growth patterns
+                        </div>
+                    </div>
+                </div>
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Request Received</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 sec - Capacity Alert Received</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Input Source:</strong> Scheduled Capacity Review<br>
-                        <strong>Scope:</strong> All datacenter resources<br>
-                        <strong>Time Horizon:</strong> 7, 30, 90, 365 days<br>
+                        <strong>Trigger Event:</strong> Intersight threshold alert (CPU allocation &gt;85%)<br>
+                        <strong>Additional Signals:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • NDI reports ACI TCAM utilization approaching 80% on Leaf-101<br>
+                            • HyperFlex cluster showing 56% capacity utilization<br>
+                            • Budget cycle: Quarterly capacity planning review scheduled<br>
+                            • Predictive model forecasts &lt;10% headroom in 30 days
+                        </div>
                         <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>CAPACITY_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating Capacity Management workflow via MRA...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 CAPACITY_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                        <span class="agent-name">📊 Capacity Monitoring Agent</span>
+                        <span class="agent-status status-completed">T+5 sec - Real-Time Metrics Collection</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Agent Deployment:</strong><br>
-                        <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ MONITORING_AGENT - Current metrics<br>
-                            ✓ ANALYTICS_AGENT - Historical trends<br>
-                            ✓ ML_PREDICTION_AGENT - Forecasting<br>
-                            ✓ OPTIMIZATION_AGENT - Resource optimization<br>
-                            ✓ COST_ANALYST_AGENT - Financial analysis<br>
+                        <strong>UCS Compute Capacity (via Intersight):</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Total CPU Cores: 16,000 (Physical)<br>
+                            • Allocated CPU Cores: 12,450 (77.8%)<br>
+                            • Total Memory: 64 TB<br>
+                            • Allocated Memory: 45.2 TB (70.6%)<br>
+                            • VM Count: 3,245 / 5,000 capacity (64.9%)<br>
+                            • Blade Status: 85/100 active, 15 in standby
+                        </div>
+                        <br>
+                        <strong>ACI Network Capacity (via APIC/NDI):</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Endpoints: 125,456 / 180,000 capacity (69.7%)<br>
+                            • TCAM Utilization: 78% (Leaf-101 - highest)<br>
+                            • Fabric Bandwidth: 850 / 1,000 Gbps (85.0%)<br>
+                            • EPGs: 450 / 1,000 limit (45.0%)<br>
+                            • Contracts: 2,340 / 5,000 limit (46.8%)
+                        </div>
+                        <br>
+                        <div style="background: #1a1a0d; padding: 10px; border-radius: 5px;">
+                            <strong>→ Metrics stored in InfluxDB, passing to Predictive Analytics Agent...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📊 MONITORING_AGENT</span>
-                        <span class="agent-status status-completed">Metrics Collected</span>
+                        <span class="agent-name">🤖 Predictive Analytics Agent</span>
+                        <span class="agent-status status-completed">T+15 sec - Prophet ML Forecasting</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Current Utilization:</strong><br>
-                        • CPU: 77.8% (12,450/16,000 cores)<br>
-                        • Memory: 70.6% (45.2/64 TB)<br>
-                        • Network: 85% ⚠️ (850/1000 Gb)<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>Forecast Model: Facebook Prophet</strong><br>
+                        <div class="code-block">
+from prophet import Prophet
+import pandas as pd
+
+# Historical data: 90 days of CPU utilization
+model = Prophet(
+    yearly_seasonality=True,
+    weekly_seasonality=True,
+    changepoint_prior_scale=0.05
+)
+
+# Add quarterly business cycle seasonality
+model.add_seasonality(
+    name='quarterly',
+    period=91.25,
+    fourier_order=5
+)
+
+model.fit(historical_cpu_data)
+forecast = model.predict(
+    model.make_future_dataframe(periods=90)
+)
+
+# Result: CPU will hit 90% threshold in 42 days
+days_until_exhaustion = 42</div>
+                        <br>
+                        <strong>Capacity Predictions (90-day horizon):</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <span style="color: #ff4444;">CPU Cores: 95% in 90 days (89% in 30 days) 🔴 URGENT</span><br>
+                            • <span style="color: #ffaa44;">Memory: 85% in 90 days (78% in 30 days) ⚠️</span><br>
+                            • <span style="color: #ffaa44;">ACI TCAM: 92% in 90 days (85% in 30 days) ⚠️</span><br>
+                            • <span style="color: #ff4444;">Fabric Bandwidth: 98% in 90 days (92% in 30 days) 🚨 CRITICAL</span><br>
+                            • <span style="color: #44ff88;">Storage: 70% in 90 days ✓ OK</span>
+                        </div>
+                        <br>
+                        <strong>Critical Finding:</strong> <span style="color: #ff4444;">CPU capacity exhaustion in 42 days, Network bandwidth crisis in 45 days</span>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🤖 ML_PREDICTION_AGENT</span>
-                        <span class="agent-status status-completed">Predictions Generated</span>
+                        <span class="agent-name">🎯 Optimization Agent</span>
+                        <span class="agent-status status-completed">T+25 sec - VM Placement Optimization</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Capacity Predictions:</strong><br>
-                        • Network: 98% in 90 days 🔴<br>
-                        • CPU: 95% in 90 days ⚠️<br>
-                        • Critical Date: Network exhaustion ~45 days<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>Linear Programming Optimization:</strong><br>
+                        <div class="code-block">
+from scipy.optimize import linprog
+
+# Objective: Minimize active hosts
+# Constraints: CPU + memory capacity per host
+def optimize_vm_placement(vms, hosts):
+    # Decision variables: x[i][j] = VM i on host j
+    num_vms = len(vms)
+    num_hosts = len(hosts)
+
+    # Cost vector: minimize host count
+    c = [0] * (num_vms * num_hosts) + [1] * num_hosts
+
+    # CPU capacity constraints
+    A_ub = []
+    for host in hosts:
+        cpu_constraint = [0] * len(c)
+        for i, vm in enumerate(vms):
+            cpu_constraint[i*num_hosts + host.id] = vm.cpu
+        A_ub.append(cpu_constraint)
+
+    result = linprog(c, A_ub=A_ub, b_ub=b_ub)
+    return result
+
+# Result: Consolidate 127 VMs from 15 hosts to 10 hosts</div>
+                        <br>
+                        <strong>Optimization Opportunities Identified:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            <strong>1. VM Consolidation:</strong><br>
+                            • Consolidate 127 VMs: 15 hosts → 10 hosts<br>
+                            • Savings: 5 blades (400 CPU cores, 2TB RAM)<br>
+                            • Power savings: 15 KW<br>
+                            • Risk: LOW (anti-affinity rules preserved)<br>
+                            <br>
+                            <strong>2. ACI TCAM Optimization:</strong><br>
+                            • Remove 234 unused contracts (stale &gt;90 days)<br>
+                            • TCAM reclamation: ~12% capacity freed<br>
+                            • Impact: None (contracts inactive)<br>
+                            <br>
+                            <strong>3. Storage Deduplication Tuning:</strong><br>
+                            • Projected savings: 8% capacity (400TB)<br>
+                            • Performance impact: &lt;2% latency increase
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📈 Capacity Planning Agent</span>
+                        <span class="agent-status status-completed">T+35 sec - Scenario Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Black Friday 2024 Scenario Simulation:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Expected load multiplier: 5x normal<br>
+                            • Duration: 72 hours (Nov 29-Dec 1)<br>
+                            • Required additional capacity:<br>
+                            &nbsp;&nbsp;- CPU: +2,000 cores<br>
+                            &nbsp;&nbsp;- Memory: +8 TB<br>
+                            &nbsp;&nbsp;- Network: +400 Gbps<br>
+                            • Deployment strategy: Cloud burst to AWS<br>
+                            • Estimated cost: $15,000 (vs $250K CapEx for permanent)
+                        </div>
+                        <br>
+                        <strong>Recommendation:</strong> Hybrid approach - optimize existing + cloud burst for peak
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💰 Budget Impact Agent</span>
+                        <span class="agent-status status-completed">T+40 sec - Financial Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Investment Required:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • 10 UCS Blades (B200 M6): $150,000<br>
+                            • Network upgrade (2x 100G modules): $80,000<br>
+                            • Implementation services: $25,000<br>
+                            • <strong>Total CapEx: $255,000</strong>
+                        </div>
+                        <br>
+                        <strong>Savings from Optimization:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • VM consolidation power savings: $21,600/year<br>
+                            • Deferred hardware purchases: $180,000<br>
+                            • Reduced over-provisioning: $400,000/year<br>
+                            • <strong>Total Annual Savings: $601,600</strong>
+                        </div>
+                        <br>
+                        <strong>ROI: 5.2 months payback period</strong>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00ff88;">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 CAPACITY_MRA</span>
-                        <span class="agent-status status-completed">Analysis Complete</span>
+                        <span class="agent-name">🧠 Master Reasoning Agent</span>
+                        <span class="agent-status status-completed">T+45 sec - Consolidated Capacity Plan</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Consolidated Plan:</strong><br>
-                        🔴 Network capacity critical - 45 days<br>
-                        💰 $67k/month savings via optimization<br>
-                        <strong>Action Plan:</strong> Immediate optimization + network upgrade<br>
-                        <strong>← Sending report to IO_AGENT...</strong>
+                        <strong>Executive Summary:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            🔴 <strong>Critical Actions (0-30 days):</strong><br>
+                            • Execute VM consolidation (free 400 cores immediately)<br>
+                            • Order 10 UCS blades (45-day lead time)<br>
+                            • Clean up 234 unused ACI contracts<br>
+                            <br>
+                            ⚠️ <strong>Important Actions (30-60 days):</strong><br>
+                            • Deploy new UCS blades<br>
+                            • Install network capacity upgrade<br>
+                            • Implement Black Friday cloud burst plan<br>
+                            <br>
+                            ✓ <strong>Monitoring (60-90 days):</strong><br>
+                            • Validate forecast accuracy<br>
+                            • Tune predictive models<br>
+                            • Prepare Q2 capacity planning
+                        </div>
+                        <br>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px;">
+                            <strong>→ Sending detailed plan to IOAgent for ticket creation...</strong>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Report Delivered</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+50 sec - Actions Created</span>
                     </div>
                     <div class="agent-content">
-                        📊 <strong>Executive Summary:</strong><br>
-                        • Network exhaustion: 45 days<br>
-                        • Investment needed: $165k<br>
-                        • Savings identified: $804k/year<br>
-                        • JIRA Tickets Created: 3<br>
-                        • Approvals Requested: CFO, CTO
+                        <strong>📋 ServiceNow Tickets Created:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <code>CHG-2024-1234</code>: VM Consolidation (127 VMs)<br>
+                            • <code>PRJ-2024-567</code>: UCS Blade Procurement (CFO approval required)<br>
+                            • <code>TASK-2024-890</code>: ACI Contract Cleanup (234 contracts)<br>
+                            • <code>PRJ-2024-568</code>: Black Friday Cloud Burst Setup
+                        </div>
+                        <br>
+                        <strong>📊 Capacity Dashboard Updated:</strong> Real-time forecast visible to all stakeholders<br>
+                        <strong>📧 Notifications Sent:</strong> CTO, CFO, Infrastructure Manager<br>
+                        <strong>📅 Calendar Invites:</strong> Capacity Review Meeting scheduled (3 stakeholders)
+                    </div>
+                </div>
+
+                <div style="background: #0d1a1a; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="color: #44aaff; margin-bottom: 15px;">📊 KPIs & Business Impact</h4>
+                    <table style="width: 100%; border-collapse: collapse; color: #ccc;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #444;">
+                                <th style="text-align: left; padding: 10px;">Metric</th>
+                                <th style="text-align: center; padding: 10px;">Before AI</th>
+                                <th style="text-align: center; padding: 10px;">With AI</th>
+                                <th style="text-align: center; padding: 10px;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Capacity-Related Outages/Year</td>
+                                <td style="text-align: center; padding: 10px;">8</td>
+                                <td style="text-align: center; padding: 10px;">1</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 87%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Over-Provisioning Cost</td>
+                                <td style="text-align: center; padding: 10px;">$2M/year</td>
+                                <td style="text-align: center; padding: 10px;">$1.2M/year</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 40%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Lead Time for Capacity Adds</td>
+                                <td style="text-align: center; padding: 10px;">90 days</td>
+                                <td style="text-align: center; padding: 10px;">45 days</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 50%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Forecast Accuracy (30-day)</td>
+                                <td style="text-align: center; padding: 10px;">65%</td>
+                                <td style="text-align: center; padding: 10px;">92%</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↑ 27pp</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Resource Utilization (Compute)</td>
+                                <td style="text-align: center; padding: 10px;">62%</td>
+                                <td style="text-align: center; padding: 10px;">82%</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↑ 20pp</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">Manual Analysis Hours/Month</td>
+                                <td style="text-align: center; padding: 10px;">40 hrs</td>
+                                <td style="text-align: center; padding: 10px;">5 hrs</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 87%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="background: #1a0d0d; padding: 15px; border-radius: 8px; border-left: 4px solid #ff8844;">
+                    <h4 style="color: #ff8844; margin-bottom: 10px;">🛡️ Guardrails & Safety</h4>
+                    <div style="color: #ccc; line-height: 1.8;">
+                        • <strong>Human Approval Required:</strong> All CapEx &gt;$100K requires CFO approval<br>
+                        • <strong>Optimization Safety:</strong> Anti-affinity and affinity rules never violated<br>
+                        • <strong>Change Control:</strong> All VM migrations follow standard change process<br>
+                        • <strong>Rollback Plan:</strong> All optimizations reversible within 30 minutes<br>
+                        • <strong>What-If Sandbox:</strong> All scenarios tested in isolated environment first
                     </div>
                 </div>
             </div>`
@@ -1131,84 +1797,380 @@
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">🛡️</span>
-                    <h3 class="workflow-title">Multi-Agent Resiliency Testing Orchestration</h3>
+                    <h3 class="workflow-title">Use Case 3: Datacenter Resiliency Check</h3>
                 </div>
-                
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #ff8844;">
+                    <h4 style="color: #ff8844; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Situation:</strong> Quarterly DR drill reveals that ACI VPC peer-link on Leaf-101/102 is not properly configured, meaning a single leaf failure would cause complete tenant outage instead of seamless failover.<br><br>
+                        <strong>Test Scope:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <strong>ACI Fabric:</strong> VPC redundancy, spine connectivity, APIC cluster health, L3Out BGP<br>
+                            • <strong>UCS Compute:</strong> FI redundancy, vNIC failover, PSU redundancy, blade health<br>
+                            • <strong>Kubernetes:</strong> etcd quorum, worker node spread, PodDisruptionBudgets<br>
+                            • <strong>Cilium/eBPF:</strong> Agent health, BPF program load status, network policy enforcement<br>
+                            • <strong>Storage:</strong> HyperFlex 3-replica, multipathing, witness node health
+                        </div>
+                    </div>
+                </div>
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Request Received</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 sec - DR Drill Initiated</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Input Source:</strong> Quarterly Resiliency Review<br>
-                        <strong>Test Scope:</strong> Full datacenter infrastructure<br>
-                        <strong>Test Type:</strong> Chaos engineering + Failover tests<br>
+                        <strong>Trigger Event:</strong> Scheduled quarterly DR drill<br>
+                        <strong>Test Type:</strong> Automated failover tests + Chaos engineering<br>
+                        <strong>Safety Mode:</strong> Non-production isolated test environment<br>
                         <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>RESILIENCY_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        <div style="background: #1a0a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating Resilience Assessment via MRA...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Tests</span>
+                        <span class="agent-name">🛡️ Resilience Assessment Agent</span>
+                        <span class="agent-status status-completed">T+5 sec - Baseline Scoring</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Test Agent Deployment:</strong><br>
-                        <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ ASSESSMENT_AGENT - Baseline assessment<br>
-                            ✓ CHAOS_AGENT - Failure injection<br>
-                            ✓ FAILOVER_AGENT - Failover testing<br>
-                            ✓ RECOVERY_AGENT - Recovery validation<br>
-                            ✓ COMPLIANCE_AGENT - Standards check<br>
+                        <strong>ACI Fabric Resiliency Score: 96/100</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✓ VPC Redundancy: All 8 VPC pairs healthy<br>
+                            ✓ Spine Connectivity: 2+ uplinks per leaf (redundant)<br>
+                            ✓ APIC Cluster: 3-node cluster healthy<br>
+                            ✓ L3Out BGP: Dual-homed to WAN routers<br>
+                        </div>
+                        <br>
+                        <strong>UCS Compute Resiliency Score: 95/100</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✓ FI Redundancy: FI-A/FI-B cluster healthy<br>
+                            ✓ vNIC Failover: Fabric failover enabled on all blades<br>
+                            ✓ PSU Redundancy: N+1 on all chassis<br>
+                            ✓ Blade Health: All 85 blades operational
+                        </div>
+                        <br>
+                        <strong>Kubernetes Resiliency Score: 89/100</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✓ etcd Quorum: 3-member cluster healthy<br>
+                            ✓ Worker Nodes: Spread across 3 racks<br>
+                            ⚠️ PodDisruptionBudget: 3 deployments missing PDB<br>
+                            ✓ Control Plane HA: 3 master nodes active
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">💥 CHAOS_AGENT</span>
-                        <span class="agent-status status-active">Injecting Failures</span>
+                        <span class="agent-name">🔥 Failover Testing Agent</span>
+                        <span class="agent-status status-active">T+20 sec - ACI VPC Failover Test</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Chaos Experiments:</strong><br>
-                        ✅ Random pod termination - Recovered in 12s<br>
-                        ✅ Network partition - Failover in 8s<br>
-                        ⚠️ Storage failure - Recovery 45s (target: 30s)<br>
-                        ✅ Database failover - 15s, zero data loss<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>Test: ACI VPC Peer-Link Failure (Leaf-101/102)</strong><br>
+                        <div class="code-block">
+# Test ACI VPC failover by admin-down peer-link
+def test_aci_vpc_failover(apic, leaf_pair_id):
+    # Phase 1: Pre-test validation
+    pre_test = {
+        'vpc_peer_link_status': 'up',
+        'endpoint_count': 1250,
+        'traffic_baseline': 850  # Mbps
+    }
+
+    # Phase 2: Shutdown peer-link (simulate failure)
+    peer_link_intf = get_vpc_peer_link(apic, leaf_pair_id)
+    admin_down_interface(apic, peer_link_intf)
+    shutdown_time = time.time()
+
+    # Phase 3: Monitor failover
+    endpoint_recovery = monitor_endpoint_learning(apic)
+    traffic_recovery = monitor_traffic_rate(apic)
+
+    # Results: Failover time = 4.2 seconds
+    return {
+        'endpoint_learning_time': 4.2,
+        'traffic_recovery_time': 3.8,
+        'passed': True  # Both &lt; 5s target
+    }</div>
+                        <br>
+                        <strong>📊 Test Results:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✅ <span style="color: #00ff88;">VPC Failover: 4.2 seconds (target: &lt;5s)</span><br>
+                            ✅ Endpoint Re-Learning: 95% recovered in 4.2s<br>
+                            ✅ Traffic Recovery: 3.8 seconds (target: &lt;5s)<br>
+                            ✅ Packet Loss: 12 packets (0.0008% loss rate)<br>
+                            ✅ <strong>TEST PASSED</strong> - VPC failover working as designed
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💥 Chaos Engineering Agent</span>
+                        <span class="agent-status status-active">T+45 sec - Kubernetes Pod Chaos</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Experiment: Random Pod Termination with eBPF Observability</strong><br>
+                        <div class="code-block">
+from kubernetes import client
+import random
+
+class ChaosEngineeringAgent:
+    def chaos_pod_termination(self, namespace,
+                               label_selector, count=1):
+        # Validate PodDisruptionBudget first
+        pdb_check = self.check_pdb_allows_disruption(
+            label_selector
+        )
+        if not pdb_check['allowed']:
+            return {'status': 'BLOCKED_BY_PDB'}
+
+        # Select random pods (10% blast radius max)
+        pods = self.v1.list_namespaced_pod(
+            namespace=namespace,
+            label_selector=label_selector
+        )
+        targets = random.sample(pods.items, count)
+
+        # Kill pods
+        for pod in targets:
+            self.v1.delete_namespaced_pod(
+                name=pod.metadata.name,
+                namespace=namespace,
+                grace_period_seconds=0
+            )
+
+        # Monitor recovery via Cilium/Hubble
+        recovery_time = self.monitor_pod_recovery(
+            label_selector, count
+        )
+        return {'recovery_time_seconds': recovery_time}</div>
+                        <br>
+                        <strong>📊 Chaos Experiment Results:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✅ Pods Killed: 5 (app=web-frontend)<br>
+                            ✅ Recovery Time: 12 seconds (target: &lt;60s)<br>
+                            ✅ Service Availability: No user-facing impact<br>
+                            ✅ Cilium Network Policy: Continued enforcement during recovery<br>
+                            ✅ <strong>TEST PASSED</strong> - Pod recovery working correctly
+                        </div>
+                        <br>
+                        <strong>eBPF Flow Analysis (via Hubble):</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Total flows during test: 12,456<br>
+                            • Allowed flows: 12,245 (98.3%)<br>
+                            • Denied flows: 211 (1.7% - expected external traffic)<br>
+                            • Network policy enforcement: 100% during chaos
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔬 eBPF Datapath Testing Agent</span>
+                        <span class="agent-status status-completed">T+60 sec - Cilium Health Check</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Cilium eBPF Datapath Verification:</strong><br>
+                        <div class="code-block">
+def test_cilium_ebpf_datapath(k8s_client):
+    nodes = k8s_client.list_node()
+    results = {'healthy_nodes': 0, 'unhealthy': []}
+
+    for node in nodes.items:
+        # Get Cilium agent pod on this node
+        cilium_pod = get_cilium_agent_pod(node.name)
+
+        # Check BPF program load status
+        exec_cmd = ['cilium', 'status', '--brief']
+        resp = exec_in_pod(cilium_pod, exec_cmd)
+
+        if 'OK' in resp:
+            results['healthy_nodes'] += 1
+        else:
+            results['unhealthy'].append(node.name)
+
+    return results</div>
+                        <br>
+                        <strong>📊 eBPF Health Results:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✅ Nodes Checked: 45<br>
+                            ✅ Healthy Cilium Agents: 45/45 (100%)<br>
+                            ✅ BPF Programs Loaded: 100%<br>
+                            ✅ Connection Tracking Entries: 12,456 active<br>
+                            ✅ Hubble Relay: 3 replicas operational<br>
+                            ✅ <strong>DATAPATH HEALTHY</strong> - All eBPF components functioning
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💾 Storage Multipath Agent</span>
+                        <span class="agent-status status-completed">T+75 sec - Storage Failover Test</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test: HyperFlex iSCSI Path Failure</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✅ Disabled 1 of 4 iSCSI paths<br>
+                            ✅ Multipath driver switched to alternate path: &lt;1 second<br>
+                            ✅ I/O continued without interruption<br>
+                            ✅ Path restored, rebalancing complete<br>
+                            ✅ <strong>TEST PASSED</strong> - Multipathing working correctly
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔍 Recovery Validation Agent</span>
+                        <span class="agent-status status-completed">T+90 sec - Post-Test Validation</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>All Systems Restored to Pre-Test State:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ✓ ACI VPC peer-link restored: PASS<br>
+                            ✓ All pods recovered to desired count: PASS<br>
+                            ✓ Cilium agents healthy on all nodes: PASS<br>
+                            ✓ Storage multipath all 4 paths active: PASS<br>
+                            ✓ Service endpoints responding normally: PASS<br>
+                            ✓ No configuration drift detected: PASS
+                        </div>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00ff88;">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
-                        <span class="agent-status status-completed">Assessment Complete</span>
+                        <span class="agent-name">🧠 Master Reasoning Agent</span>
+                        <span class="agent-status status-completed">T+95 sec - Resiliency Assessment Complete</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Resiliency Score: 94/100</strong><br>
-                        ✅ N+2 redundancy verified<br>
-                        ⚠️ Storage failover needs improvement<br>
-                        <strong>Recommendations:</strong> Optimize storage failover<br>
-                        <strong>← Sending report to IO_AGENT...</strong>
+                        <strong>Overall Datacenter Resiliency Score: 94/100</strong><br>
+                        <br>
+                        <strong>✅ Components Scoring 95+:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • ACI Fabric: 96/100<br>
+                            • UCS Compute: 95/100<br>
+                            • Storage (HyperFlex): 99/100<br>
+                            • Cilium/eBPF: 94/100
+                        </div>
+                        <br>
+                        <strong>⚠️ Areas for Improvement:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Kubernetes: 89/100 (3 deployments missing PodDisruptionBudget)<br>
+                            • Recommendation: Add PDB with minAvailable: 1 to affected deployments
+                        </div>
+                        <br>
+                        <strong>🎯 Single Points of Failure (SPOFs) Detected:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            ⚠️ <strong>MAJOR:</strong> VPC domain 150 missing peer-keepalive SVI<br>
+                            &nbsp;&nbsp;&nbsp;Impact: VPC split-brain possible<br>
+                            &nbsp;&nbsp;&nbsp;Action: Add SVI on VLAN 3967<br>
+                            <br>
+                            ⚠️ <strong>MINOR:</strong> 3 K8s deployments missing PDB<br>
+                            &nbsp;&nbsp;&nbsp;Impact: Node drain may cause downtime<br>
+                            &nbsp;&nbsp;&nbsp;Action: Add PDB to web-frontend, api-backend, worker deployments
+                        </div>
+                        <br>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px;">
+                            <strong>→ Sending detailed report to IOAgent for remediation...</strong>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Report Delivered</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+100 sec - Report & Tickets Created</span>
                     </div>
                     <div class="agent-content">
-                        🛡️ <strong>Resiliency Status:</strong><br>
-                        • Overall Score: 94/100<br>
-                        • Tests Passed: 47/50<br>
-                        • Avg Recovery: 8.3 min<br>
-                        • Next DR Drill: 5 days<br>
-                        • Report Filed: Compliance Team
+                        <strong>📋 ServiceNow Tickets Created:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <code>TASK-2024-1001</code>: Add peer-keepalive SVI to VPC domain 150<br>
+                            • <code>TASK-2024-1002</code>: Add PodDisruptionBudgets to 3 deployments<br>
+                            • <code>INC-2024-0045</code>: Document all test results for audit
+                        </div>
+                        <br>
+                        <strong>📊 Compliance Report Generated:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • SOC 2 audit evidence: DR drill complete ✓<br>
+                            • ISO 27001 requirement met: Quarterly resilience test ✓<br>
+                            • Report filed with Compliance Team
+                        </div>
+                        <br>
+                        <strong>📧 Stakeholder Notifications:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • CISO: Resiliency score 94/100, 2 SPOFs identified<br>
+                            • Infrastructure Manager: Remediation tasks assigned<br>
+                            • Audit Committee: Compliance evidence attached
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #0d1a1a; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="color: #44aaff; margin-bottom: 15px;">📊 KPIs & Business Impact</h4>
+                    <table style="width: 100%; border-collapse: collapse; color: #ccc;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #444;">
+                                <th style="text-align: left; padding: 10px;">Metric</th>
+                                <th style="text-align: center; padding: 10px;">Before AI</th>
+                                <th style="text-align: center; padding: 10px;">With AI</th>
+                                <th style="text-align: center; padding: 10px;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Unplanned Outages/Year</td>
+                                <td style="text-align: center; padding: 10px;">12</td>
+                                <td style="text-align: center; padding: 10px;">3</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 75%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">SPOF Detection Rate</td>
+                                <td style="text-align: center; padding: 10px;">40%</td>
+                                <td style="text-align: center; padding: 10px;">95%</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↑ 55pp</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">DR Drill Frequency</td>
+                                <td style="text-align: center; padding: 10px;">Quarterly</td>
+                                <td style="text-align: center; padding: 10px;">Monthly</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">4x increase</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Failover Test Coverage</td>
+                                <td style="text-align: center; padding: 10px;">30%</td>
+                                <td style="text-align: center; padding: 10px;">85%</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↑ 55pp</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #333;">
+                                <td style="padding: 10px;">Test Execution Time</td>
+                                <td style="text-align: center; padding: 10px;">8 hours</td>
+                                <td style="text-align: center; padding: 10px;">45 minutes</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 91%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">Audit Prep Time</td>
+                                <td style="text-align: center; padding: 10px;">40 hours</td>
+                                <td style="text-align: center; padding: 10px;">4 hours</td>
+                                <td style="text-align: center; padding: 10px; color: #00ff88;">↓ 90%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="background: #1a0d0d; padding: 15px; border-radius: 8px; border-left: 4px solid #ff8844;">
+                    <h4 style="color: #ff8844; margin-bottom: 10px;">🛡️ Guardrails & Safety</h4>
+                    <div style="color: #ccc; line-height: 1.8;">
+                        • <strong>Production Chaos Opt-In:</strong> Chaos tests in prod require explicit approval<br>
+                        • <strong>Blast Radius Limits:</strong> Max 10% of resources affected per test<br>
+                        • <strong>Automatic Rollback:</strong> All tests have &lt;30s rollback if SLA breached<br>
+                        • <strong>Maintenance Windows:</strong> Failover tests scheduled during low-traffic periods<br>
+                        • <strong>PDB Enforcement:</strong> Cannot kill pods if PodDisruptionBudget violated<br>
+                        • <strong>Change Approval:</strong> All tests logged as standard changes in ServiceNow
                     </div>
                 </div>
             </div>`
@@ -1224,98 +2186,410 @@
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">✅</span>
-                    <h3 class="workflow-title">Multi-Agent Infrastructure Verification</h3>
+                    <h3 class="workflow-title">Use Case 4: Datacenter Infrastructure Verification</h3>
                 </div>
-                
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #44aaff;">
+                    <h4 style="color: #44aaff; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Situation:</strong> Pre-change validation before quarterly OS upgrade reveals 15 UCS blades have firmware mismatches, 8 ACI leaf switches have unapproved QoS configurations, and 23 Kubernetes nodes are missing required security hardening (CIS benchmark violations).<br><br>
+                        <strong>Trigger:</strong> Pre-Change Validation Request for Q3 OS Upgrade
+                    </div>
+                </div>
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Request Received</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 sec - Verification Request Received</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Input Source:</strong> Compliance Audit Request<br>
-                        <strong>Verification Scope:</strong> All infrastructure components<br>
-                        <strong>Standards:</strong> PCI-DSS, SOC2, CIS Benchmarks<br>
+                        <strong>Input Source:</strong> Change Management System (ServiceNow)<br>
+                        <strong>Change Request:</strong> CHG-2024-12345 - Quarterly OS Upgrade<br>
+                        <strong>Verification Scope:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • ACI Fabric: Config drift detection, golden config compliance<br>
+                            • UCS Compute: Firmware consistency, hardware health<br>
+                            • Nexus Switching: Security hardening, baseline configs<br>
+                            • Kubernetes: CIS benchmark compliance, policy enforcement
+                        </div>
                         <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>VERIFICATION_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Triggering Master Reasoning Agent...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Verification</span>
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-active">T+5 sec - Orchestrating Verification Agents</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Verification Agent Deployment:</strong><br>
+                        <strong>Agent Deployment Strategy:</strong><br>
                         <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ CONFIG_AGENT - Configuration checks<br>
-                            ✓ COMPLIANCE_AGENT - Standards validation<br>
-                            ✓ HARDWARE_AGENT - Hardware health<br>
-                            ✓ NETWORK_AGENT - Network verification<br>
-                            ✓ SECURITY_AGENT - Security posture<br>
+                            ✓ Spawning CONFIGURATION_VERIFICATION_AGENT<br>
+                            ✓ Spawning COMPLIANCE_VERIFICATION_AGENT<br>
+                            ✓ Spawning HARDWARE_HEALTH_AGENT<br>
+                            ✓ Spawning FIRMWARE_CONSISTENCY_AGENT
+                        </div>
+                        <br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px;">
+                            <em>All agents running in parallel with read-only access...</em>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">⚙️ CONFIG_AGENT</span>
-                        <span class="agent-status status-completed">Config Verified</span>
+                        <span class="agent-name">⚙️ Configuration Verification Agent</span>
+                        <span class="agent-status status-completed">T+15 sec - ACI Tenant Config Drift Detection</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Configuration Status:</strong><br>
-                        ✅ 847/850 servers compliant<br>
-                        ⚠️ 3 configuration drifts detected<br>
-                        • MySQL max_connections changed<br>
-                        • VLAN 200 missing on switch<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Tenant "Prod-Web": <span style="color: #ffaa00;">8 drift items detected (2.1% drift)</span><br>
+                            • 5 EPGs have QoS markings changed from AF31 to BE (unapproved)<br>
+                            • 3 bridge domains missing required subnets<br>
+                            • Contract "Web-to-DB" has extra filter entry (not in golden config)<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ CONFIG DRIFT:</span> 8 items require remediation
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Configuration Verification Agent - Git Diff Style
+import difflib
+
+class ConfigurationVerificationAgent:
+    def verify_aci_tenant_config(self, apic_client, tenant_name, golden_template):
+        # Get current tenant config
+        current_config = self.get_tenant_config(apic_client, tenant_name)
+
+        # Normalize configs for comparison
+        current_normalized = self.normalize_aci_config(current_config)
+        golden_normalized = self.normalize_aci_config(golden_template)
+
+        # Compute diff (unified diff format)
+        diff = list(difflib.unified_diff(
+            golden_normalized.splitlines(),
+            current_normalized.splitlines(),
+            lineterm='',
+            fromfile='golden',
+            tofile='current'
+        ))
+
+        drift_items = []
+        for line in diff:
+            if line.startswith('+') and not line.startswith('+++'):
+                # Extra configuration (not in golden)
+                drift_items.append({
+                    'type': 'EXTRA_CONFIG',
+                    'line': line[1:].strip(),
+                    'severity': 'MAJOR',
+                    'impact': 'Configuration not per standard'
+                })
+            elif line.startswith('-') and not line.startswith('---'):
+                # Missing configuration (should be in current)
+                drift_items.append({
+                    'type': 'MISSING_CONFIG',
+                    'line': line[1:].strip(),
+                    'severity': 'CRITICAL',
+                    'impact': 'Required configuration missing'
+                })
+
+        return {
+            'tenant': tenant_name,
+            'drift_detected': len(drift_items) &gt; 0,
+            'drift_items': drift_items,
+            'compliant': drift_percent &lt;= 0.02  # 2% threshold
+        }</code></pre>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🔐 COMPLIANCE_AGENT</span>
-                        <span class="agent-status status-warning">Issues Found</span>
+                        <span class="agent-name">🔧 Firmware Consistency Agent</span>
+                        <span class="agent-status status-completed">T+20 sec - UCS Blade Firmware Analysis</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Compliance Results:</strong><br>
-                        ✅ PCI-DSS: Fully Compliant<br>
-                        ✅ SOC 2: Compliant<br>
-                        ⚠️ CIS: 3 medium findings<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Total UCS Blades: 120<br>
+                            • Firmware Consistent: <span style="color: #ff4444;">105 blades (87.5%)</span><br>
+                            • <span style="color: #ff4444;">Inconsistent: 15 blades (12.5%)</span><br>
+                            <br>
+                            <strong>Standard Firmware (105 blades):</strong><br>
+                            &nbsp;&nbsp;• BIOS: 4.2(3d)<br>
+                            &nbsp;&nbsp;• CIMC: 4.2(3d)<br>
+                            &nbsp;&nbsp;• Adapter: 5.2(1a)<br>
+                            <br>
+                            <strong>Outlier Blades (15):</strong><br>
+                            &nbsp;&nbsp;• Blades 45-59: BIOS 4.1(3c), CIMC 4.1(3c), Adapter 5.1(2e)<br>
+                            <br>
+                            <span style="color: #ffaa00;">⚠ REMEDIATION REQUIRED:</span> Upgrade 15 blades to standard firmware
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Firmware Consistency Agent - Intersight API
+class FirmwareConsistencyAgent:
+    def verify_ucs_firmware_consistency(self, intersight_client, domain_name):
+        # Query all blades in domain
+        blades_query = intersight_client.get(
+            f"/compute/PhysicalSummaries?$filter=ManagementMode eq 'Intersight' and "
+            f"Parent.Moid eq '{domain_name}'"
+        )
+
+        blades = blades_query['Results']
+
+        # Group by firmware versions
+        firmware_groups = {}
+        for blade in blades:
+            fw_key = (
+                blade.get('BiosVersion'),
+                blade.get('CimcVersion'),
+                blade.get('AdapterFirmware')
+            )
+
+            if fw_key not in firmware_groups:
+                firmware_groups[fw_key] = []
+
+            firmware_groups[fw_key].append({
+                'serial': blade['Serial'],
+                'model': blade['Model'],
+                'name': blade['Name']
+            })
+
+        # Determine if there's firmware inconsistency
+        inconsistent = len(firmware_groups) &gt; 1
+
+        # Identify the "standard" version (most common)
+        standard_group = max(firmware_groups.items(), key=lambda x: len(x[1]))
+        outliers = [b for fw, blades in firmware_groups.items()
+                   if fw != standard_group[0] for b in blades]
+
+        return {
+            'firmware_consistent': not inconsistent,
+            'outlier_blades': outliers,
+            'remediation': f"Upgrade {len(outliers)} blades to standard firmware"
+        }</code></pre>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="agent-step" style="border: 2px solid #00ff88;">
+
+                <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
-                        <span class="agent-status status-completed">Verification Complete</span>
+                        <span class="agent-name">🔐 Compliance Verification Agent</span>
+                        <span class="agent-status status-completed">T+30 sec - CIS Kubernetes Benchmark Audit</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Overall Compliance: 96.5%</strong><br>
-                        ✅ Infrastructure verified<br>
-                        ⚠️ 6 items need attention<br>
-                        <strong>Action Plan:</strong> Auto-remediation available<br>
-                        <strong>← Sending report to IO_AGENT...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Framework: CIS Kubernetes Benchmark v1.8<br>
+                            • Total Checks: 150<br>
+                            • Passed: <span style="color: #00ff88;">127 (84.7%)</span><br>
+                            • Failed: <span style="color: #ff4444;">23 (15.3%)</span><br>
+                            <br>
+                            <strong>Critical Failures:</strong><br>
+                            &nbsp;&nbsp;• CIS 5.2.1: PodSecurityPolicy admission controller disabled (23 nodes)<br>
+                            &nbsp;&nbsp;• CIS 5.3.2: Default service accounts have token automount enabled<br>
+                            &nbsp;&nbsp;• CIS 5.7.3: AppArmor profiles not applied to pods<br>
+                            <br>
+                            <span style="color: #ff4444;">⚠ COMPLIANCE SCORE:</span> 84.7% (Target: 95%+)
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Compliance Verification Agent - CIS Benchmark
+import yaml
+
+class ComplianceVerificationAgent:
+    def audit_kubernetes_cis_compliance(self, k8s_api_client):
+        results = {
+            'framework': 'CIS_KUBERNETES_V1.8',
+            'total_checks': 0,
+            'passed': 0,
+            'failed': 0,
+            'findings': []
+        }
+
+        cis_checks = self.compliance_frameworks['cis_kubernetes']
+
+        for check in cis_checks:
+            result = self.execute_cis_check(k8s_api_client, check)
+
+            results['total_checks'] += 1
+
+            if result['passed']:
+                results['passed'] += 1
+            else:
+                results['failed'] += 1
+                results['findings'].append({
+                    'check_id': check['id'],
+                    'title': check['title'],
+                    'severity': check['severity'],
+                    'description': check['description'],
+                    'current_state': result['current_state'],
+                    'expected_state': result['expected_state'],
+                    'remediation': check['remediation']
+                })
+
+        results['compliance_score'] = (results['passed'] / results['total_checks']) * 100
+
+        return results</code></pre>
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🏥 Hardware Health Agent</span>
+                        <span class="agent-status status-completed">T+40 sec - Predictive Hardware Failure Detection</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            • Blades Checked: 120<br>
+                            • Healthy: <span style="color: #00ff88;">115 (95.8%)</span><br>
+                            • Warnings: <span style="color: #ffaa00;">3 (2.5%)</span><br>
+                            • Critical: <span style="color: #ff4444;">2 (1.7%)</span><br>
+                            <br>
+                            <strong>Critical Issues:</strong><br>
+                            &nbsp;&nbsp;• Blade 23: DIMM A1 has 67 ECC errors (predictive failure in 7 days)<br>
+                            &nbsp;&nbsp;• Blade 89: Disk 0 has 25 reallocated sectors (pre-failure state)<br>
+                            <br>
+                            <strong>Warning Issues:</strong><br>
+                            &nbsp;&nbsp;• Blade 12: CPU temp 78°C (warning threshold: 75°C)<br>
+                            &nbsp;&nbsp;• Blade 45: DIMM B2 has 12 ECC errors (monitor closely)<br>
+                            &nbsp;&nbsp;• Blade 91: Disk 1 has 8 reallocated sectors (elevated risk)<br>
+                            <br>
+                            <span style="color: #ff4444;">⚠ ACTION REQUIRED:</span> Schedule component replacements
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step" style="border: 3px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-completed">T+60 sec - Verification Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>INFRASTRUCTURE VERIFICATION REPORT:</strong><br>
+                        <div style="background: #0d1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #44aaff;">
+                            <div style="font-size: 16px; color: #44aaff; margin-bottom: 10px;">
+                                <strong>Pre-Change Validation Status: NOT READY</strong>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #ff4444;">Blocking Issues (Must Fix Before Upgrade):</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    1. <strong>Firmware Inconsistency:</strong> 15 UCS blades on old firmware<br>
+                                    2. <strong>Config Drift:</strong> 8 ACI configuration deviations from golden config<br>
+                                    3. <strong>CIS Compliance:</strong> 23 Kubernetes nodes missing security hardening<br>
+                                    4. <strong>Hardware Predictive Failures:</strong> 2 components in pre-failure state
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Remediation Plan:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    <strong>Phase 1 (Pre-Upgrade - 3 days):</strong><br>
+                                    &nbsp;&nbsp;• Upgrade 15 UCS blades to standard firmware (4.2(3d))<br>
+                                    &nbsp;&nbsp;• Replace DIMM A1 on Blade 23, Disk 0 on Blade 89<br>
+                                    &nbsp;&nbsp;• Remediate 8 ACI config drift items (auto-remediation available)<br>
+                                    <br>
+                                    <strong>Phase 2 (Pre-Upgrade - 2 days):</strong><br>
+                                    &nbsp;&nbsp;• Enable PodSecurityPolicy admission controller on all K8s nodes<br>
+                                    &nbsp;&nbsp;• Apply AppArmor profiles to pods<br>
+                                    &nbsp;&nbsp;• Disable service account token automount<br>
+                                    <br>
+                                    <strong>Phase 3 (Validation - 1 day):</strong><br>
+                                    &nbsp;&nbsp;• Re-run full verification suite<br>
+                                    &nbsp;&nbsp;• Confirm all blocking issues resolved<br>
+                                    &nbsp;&nbsp;• Proceed with OS upgrade only if 100% pass rate
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #ffaa00;">Risk Assessment:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px;">
+                                    Proceeding with upgrade without remediation: <span style="color: #ff4444;">HIGH RISK</span><br>
+                                    Estimated probability of upgrade failure: <span style="color: #ff4444;">45%</span><br>
+                                    Recommendation: <span style="color: #00ff88;">DELAY UPGRADE - Complete remediation first</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #0a0a0a; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid #00ff88;">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">Key Performance Indicators (KPIs)</h3>
+                    <table style="width: 100%; border-collapse: collapse; color: #fff;">
+                        <thead>
+                            <tr style="background: #1a1a1a;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #333;">Metric</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Before AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">With AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Config Drift Incidents/Month</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">25</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">5</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 80%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Compliance Audit Prep Time</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">120 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">12 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 90%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Hardware Predictive Failures</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">0 detected</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">15 detected</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">N/A</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Pre-Change Validation Time</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">4 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">15 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 94%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Firmware Inconsistencies</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">45 blades</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">2 blades</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 96%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Security Posture Score</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">72/100</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">94/100</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↑ 22 points</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 15px; padding: 10px; background: #1a0a1a; border-radius: 5px;">
+                        <strong>FCAPS Coverage:</strong> <span style="color: #00ff88;">C (Configuration)</span>, <span style="color: #ffaa00;">S (Security)</span>, <span style="color: #00aaff;">A (Accounting/Audit)</span>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Report Delivered</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">Report Delivered to Change Management</span>
                     </div>
                     <div class="agent-content">
                         ✅ <strong>Verification Summary:</strong><br>
-                        • Compliance Score: 96.5%<br>
-                        • Config Drift: 6 items<br>
-                        • Hardware Alerts: 3<br>
-                        • Next Audit: 45 days<br>
-                        • Report Filed: Audit Committee
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Overall Status: <span style="color: #ff4444;">NOT READY FOR UPGRADE</span><br>
+                            • Compliance Score: 84.7% (Target: 95%+)<br>
+                            • Config Drift Items: 8 (ACI)<br>
+                            • Firmware Inconsistencies: 15 blades<br>
+                            • Hardware Predictive Failures: 2 critical<br>
+                            • CIS Compliance Failures: 23 findings<br>
+                            • Remediation Timeline: 6 days<br>
+                            • Report Filed: ServiceNow CHG-2024-12345<br>
+                            • Recommendation: <strong>DELAY UPGRADE - Complete remediation first</strong>
+                        </div>
                     </div>
                 </div>
             </div>`
@@ -1331,100 +2605,393 @@
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">🔍</span>
-                    <h3 class="workflow-title">Multi-Agent Service Testing Pipeline</h3>
+                    <h3 class="workflow-title">Use Case 5: Service Verification (Black Box &amp; White Box Testing)</h3>
                 </div>
-                
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #44aaff;">
+                    <h4 style="color: #44aaff; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Situation:</strong> New Kubernetes-based microservices application deployed on ACI fabric with Cilium CNI. Before production release, need to validate: API functionality, network policies, pod-to-pod communication, database connectivity, performance under load, and eBPF datapath health.<br><br>
+                        <strong>Trigger:</strong> Pre-Production Validation Request for "web-frontend" Service
+                    </div>
+                </div>
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Request Received</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 sec - Test Request Received</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Input Source:</strong> Service Health Check Request<br>
-                        <strong>Test Scope:</strong> All datacenter services<br>
-                        <strong>Test Types:</strong> Black box + White box testing<br>
+                        <strong>Input Source:</strong> CI/CD Pipeline (GitHub Actions)<br>
+                        <strong>Service:</strong> web-frontend (Kubernetes deployment)<br>
+                        <strong>Test Types:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • <strong>Black-Box:</strong> API health, load testing, service discovery<br>
+                            • <strong>White-Box:</strong> Pod deployment, Cilium eBPF datapath, network policies
+                        </div>
                         <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>TESTING_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Triggering Master Reasoning Agent...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 TESTING_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Tests</span>
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-active">T+5 sec - Orchestrating Test Agents</span>
                     </div>
                     <div class="agent-content">
                         <strong>Test Agent Deployment:</strong><br>
                         <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ BLACKBOX_AGENT - External testing<br>
-                            ✓ WHITEBOX_AGENT - Internal testing<br>
-                            ✓ VM_TEST_AGENT - VM services<br>
-                            ✓ CONTAINER_AGENT - K8s testing<br>
-                            ✓ DB_TEST_AGENT - Database testing<br>
+                            ✓ Spawning BLACKBOX_TESTING_AGENT<br>
+                            ✓ Spawning WHITEBOX_KUBERNETES_AGENT<br>
+                            ✓ Spawning CILIUM_EBPF_AGENT<br>
+                            ✓ Spawning NETWORK_POLICY_AGENT
+                        </div>
+                        <br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px;">
+                            <em>All agents running test suites in parallel...</em>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">⬛ BLACKBOX_AGENT</span>
-                        <span class="agent-status status-completed">External Tests Done</span>
+                        <span class="agent-name">⬛ Black-Box Testing Agent</span>
+                        <span class="agent-status status-completed">T+15 sec - External API Testing Complete</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Black Box Results:</strong><br>
-                        ✅ VM Service: 48/50 passed<br>
-                        ✅ Kubernetes: 38/40 passed<br>
-                        ⚠️ Database: 3 slow queries<br>
-                        ✅ Message Queue: 35/36 passed<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            <strong>Health Endpoint Test:</strong><br>
+                            &nbsp;&nbsp;• Status Code: <span style="color: #00ff88;">200 OK</span><br>
+                            &nbsp;&nbsp;• Response Time: <span style="color: #00ff88;">12ms avg</span><br>
+                            &nbsp;&nbsp;• Health Check: PASS<br>
+                            <br>
+                            <strong>Load Test Results (60 sec, 100 concurrent users):</strong><br>
+                            &nbsp;&nbsp;• Total Requests: <span style="color: #00ff88;">5,432</span><br>
+                            &nbsp;&nbsp;• Successful: <span style="color: #00ff88;">5,429 (99.95%)</span><br>
+                            &nbsp;&nbsp;• Failed: <span style="color: #ffaa00;">3 (0.05%)</span><br>
+                            &nbsp;&nbsp;• Throughput: <span style="color: #00ff88;">90.5 RPS</span><br>
+                            &nbsp;&nbsp;• Latency P95: <span style="color: #00ff88;">45ms</span><br>
+                            &nbsp;&nbsp;• Latency P99: <span style="color: #00ff88;">78ms</span><br>
+                            &nbsp;&nbsp;• Error Rate: <span style="color: #00ff88;">0.05%</span> (Target: &lt;1%)<br>
+                            <br>
+                            <strong>Service Discovery Test:</strong><br>
+                            &nbsp;&nbsp;• DNS Resolution: <span style="color: #00ff88;">PASS</span><br>
+                            &nbsp;&nbsp;• Service FQDN: web-frontend.default.svc.cluster.local<br>
+                            &nbsp;&nbsp;• Resolved IPs: 3 endpoints<br>
+                            <br>
+                            <span style="color: #00ff88;">✓ BLACK-BOX TESTS:</span> PASS (99.95% success rate)
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Black-Box Testing Agent - Load Test
+import requests
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+class BlackBoxTestingAgent:
+    def load_test_api(self, endpoint, duration_seconds=60, concurrent_users=100):
+        results = {
+            'total_requests': 0,
+            'successful_requests': 0,
+            'failed_requests': 0,
+            'response_times_ms': []
+        }
+
+        end_time = time.time() + duration_seconds
+
+        def send_request():
+            try:
+                start = time.time()
+                response = self.session.get(f"{self.base_url}{endpoint}", timeout=10)
+                elapsed_ms = (time.time() - start) * 1000
+
+                return {
+                    'success': response.status_code == 200,
+                    'status_code': response.status_code,
+                    'response_time_ms': elapsed_ms
+                }
+            except Exception as e:
+                return {'success': False, 'error': str(e)}
+
+        # Execute concurrent requests
+        with ThreadPoolExecutor(max_workers=concurrent_users) as executor:
+            while time.time() &lt; end_time:
+                futures = [executor.submit(send_request) for _ in range(concurrent_users)]
+
+                for future in as_completed(futures):
+                    result = future.result()
+                    results['total_requests'] += 1
+
+                    if result['success']:
+                        results['successful_requests'] += 1
+                        results['response_times_ms'].append(result['response_time_ms'])
+                    else:
+                        results['failed_requests'] += 1
+
+        # Calculate statistics
+        results['throughput_rps'] = results['successful_requests'] / duration_seconds
+        results['error_rate_percent'] = (results['failed_requests'] / results['total_requests']) * 100
+
+        return results</code></pre>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">⬜ WHITEBOX_AGENT</span>
-                        <span class="agent-status status-completed">Internal Tests Done</span>
+                        <span class="agent-name">⬜ White-Box Kubernetes Agent</span>
+                        <span class="agent-status status-completed">T+25 sec - Pod Deployment Internal Validation</span>
                     </div>
                     <div class="agent-content">
-                        <strong>White Box Results:</strong><br>
-                        ✅ Code Coverage: 87%<br>
-                        ✅ Internal APIs: All passing<br>
-                        ⚠️ Memory leaks: 2 detected<br>
-                        ✅ Security: No vulnerabilities<br>
-                        <strong>→ Reporting to MRA...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            <strong>Deployment Status:</strong><br>
+                            &nbsp;&nbsp;• Deployment: web-frontend<br>
+                            &nbsp;&nbsp;• Namespace: default<br>
+                            &nbsp;&nbsp;• Desired Replicas: <span style="color: #00ff88;">10</span><br>
+                            &nbsp;&nbsp;• Available Replicas: <span style="color: #00ff88;">10 (100%)</span><br>
+                            &nbsp;&nbsp;• All replicas ready: <span style="color: #00ff88;">PASS</span><br>
+                            <br>
+                            <strong>Pod Events Analysis:</strong><br>
+                            &nbsp;&nbsp;• Warning Events: <span style="color: #00ff88;">0</span><br>
+                            &nbsp;&nbsp;• Error Events: <span style="color: #00ff88;">0</span><br>
+                            &nbsp;&nbsp;• All pods healthy: <span style="color: #00ff88;">PASS</span><br>
+                            <br>
+                            <strong>Resource Utilization:</strong><br>
+                            &nbsp;&nbsp;• CPU Usage: <span style="color: #00ff88;">45% avg</span> (within limits)<br>
+                            &nbsp;&nbsp;• Memory Usage: <span style="color: #00ff88;">62% avg</span> (within limits)<br>
+                            &nbsp;&nbsp;• Resource health: <span style="color: #00ff88;">PASS</span><br>
+                            <br>
+                            <span style="color: #00ff88;">✓ WHITE-BOX KUBERNETES:</span> PASS (all checks passed)
+                        </div>
                     </div>
                 </div>
-                
-                <div class="agent-step" style="border: 2px solid #00ff88;">
+
+                <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 TESTING_MRA</span>
-                        <span class="agent-status status-completed">Test Analysis Complete</span>
+                        <span class="agent-name">🐝 Cilium eBPF Agent</span>
+                        <span class="agent-status status-completed">T+35 sec - Network Policy &amp; eBPF Datapath Validation</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Test Summary:</strong><br>
-                        • Overall Pass Rate: 95.7%<br>
-                        • Critical Issues: 0<br>
-                        • Performance Issues: 5<br>
-                        <strong>Recommendations:</strong> Optimize slow queries<br>
-                        <strong>← Sending report to IO_AGENT...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            <strong>Hubble Flow Analysis (last 60 seconds):</strong><br>
+                            &nbsp;&nbsp;• Total Flows: <span style="color: #00ff88;">12,456</span><br>
+                            &nbsp;&nbsp;• Allowed (FORWARDED): <span style="color: #00ff88;">12,275 (98.5%)</span><br>
+                            &nbsp;&nbsp;• Denied (DROPPED): <span style="color: #ffaa00;">181 (1.5%)</span><br>
+                            &nbsp;&nbsp;• Denied flows analysis: All expected (external traffic blocked by policy)<br>
+                            <br>
+                            <strong>Network Policy Enforcement:</strong><br>
+                            &nbsp;&nbsp;• Policies Applied: <span style="color: #00ff88;">5 CiliumNetworkPolicies</span><br>
+                            &nbsp;&nbsp;• Policy Verdicts: <span style="color: #00ff88;">Correct (98.5% allowed as expected)</span><br>
+                            &nbsp;&nbsp;• Deny Rate: <span style="color: #00ff88;">1.5%</span> (Expected: &lt;10%)<br>
+                            <br>
+                            <strong>eBPF Datapath Health (all nodes):</strong><br>
+                            &nbsp;&nbsp;• Nodes Checked: <span style="color: #00ff88;">45</span><br>
+                            &nbsp;&nbsp;• Healthy Nodes: <span style="color: #00ff88;">45 (100%)</span><br>
+                            &nbsp;&nbsp;• Cilium Agent Status: <span style="color: #00ff88;">OK on all nodes</span><br>
+                            &nbsp;&nbsp;• BPF Programs Loaded: <span style="color: #00ff88;">100%</span><br>
+                            &nbsp;&nbsp;• Connection Tracking: <span style="color: #00ff88;">12,456 entries</span><br>
+                            <br>
+                            <span style="color: #00ff88;">✓ CILIUM eBPF DATAPATH:</span> PASS (all checks passed)
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Cilium eBPF Agent - Hubble Flow Analysis
+from hubble.observer_pb2 import GetFlowsRequest
+from hubble.observer_pb2_grpc import ObserverStub
+import grpc
+
+class CiliumEBPFAgent:
+    def test_cilium_network_policy_enforcement(self, namespace, pod_label):
+        results = {
+            'test': 'CILIUM_NETWORK_POLICY',
+            'namespace': namespace,
+            'pod_label': pod_label,
+            'policy_verdicts': {
+                'allowed': 0,
+                'denied': 0
+            },
+            'sample_flows': []
+        }
+
+        # Query Hubble for recent flows
+        request = GetFlowsRequest(
+            whitelist=[f"source.namespace={namespace}", f"source.labels={pod_label}"],
+            since="60s",
+            follow=False
+        )
+
+        for response in self.hubble_observer.GetFlows(request):
+            flow = response.flow
+
+            verdict = str(flow.verdict)
+
+            if 'FORWARDED' in verdict:
+                results['policy_verdicts']['allowed'] += 1
+            elif 'DROPPED' in verdict or 'DENIED' in verdict:
+                results['policy_verdicts']['denied'] += 1
+
+            # Collect sample flows
+            if len(results['sample_flows']) &lt; 10:
+                results['sample_flows'].append({
+                    'source': f"{flow.source.namespace}/{flow.source.pod_name}",
+                    'destination': f"{flow.destination.namespace}/{flow.destination.pod_name}",
+                    'verdict': verdict,
+                    'l4_protocol': 'TCP' if flow.l4.TCP else 'UDP',
+                    'dest_port': (flow.l4.TCP.destination_port if flow.l4.TCP
+                                 else flow.l4.UDP.destination_port)
+                })
+
+        # Analyze results
+        total_flows = results['policy_verdicts']['allowed'] + results['policy_verdicts']['denied']
+
+        if total_flows &gt; 0:
+            results['deny_rate_percent'] = (results['policy_verdicts']['denied'] / total_flows) * 100
+
+            # If deny rate is unexpectedly high, flag as potential issue
+            if results['deny_rate_percent'] &gt; 10:
+                results['status'] = 'WARNING'
+            else:
+                results['status'] = 'PASS'
+
+        return results</code></pre>
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step" style="border: 3px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-completed">T+60 sec - Service Verification Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>SERVICE VERIFICATION REPORT:</strong><br>
+                        <div style="background: #0d1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #00ff88;">
+                            <div style="font-size: 16px; color: #00ff88; margin-bottom: 10px;">
+                                <strong>Production Readiness Status: APPROVED</strong>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Test Results Summary:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    <strong>Black-Box Testing:</strong><br>
+                                    &nbsp;&nbsp;• Health Endpoint: <span style="color: #00ff88;">✓ PASS</span> (200 OK, 12ms avg)<br>
+                                    &nbsp;&nbsp;• Load Test: <span style="color: #00ff88;">✓ PASS</span> (5,432 RPS, 99.95% success)<br>
+                                    &nbsp;&nbsp;• Service Discovery: <span style="color: #00ff88;">✓ PASS</span> (DNS resolves to 3 endpoints)<br>
+                                    <br>
+                                    <strong>White-Box Testing:</strong><br>
+                                    &nbsp;&nbsp;• Pod Deployment: <span style="color: #00ff88;">✓ PASS</span> (10/10 replicas healthy)<br>
+                                    &nbsp;&nbsp;• Resource Usage: <span style="color: #00ff88;">✓ PASS</span> (CPU 45%, Memory 62%)<br>
+                                    &nbsp;&nbsp;• Pod Events: <span style="color: #00ff88;">✓ PASS</span> (No warnings)<br>
+                                    <br>
+                                    <strong>Cilium eBPF Testing:</strong><br>
+                                    &nbsp;&nbsp;• Network Policy: <span style="color: #00ff88;">✓ PASS</span> (98.5% flows allowed as expected)<br>
+                                    &nbsp;&nbsp;• eBPF Datapath: <span style="color: #00ff88;">✓ PASS</span> (All 45 nodes healthy)<br>
+                                    &nbsp;&nbsp;• Hubble Observability: <span style="color: #00ff88;">✓ PASS</span> (12,456 flows analyzed)
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Overall Assessment:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    • Test Coverage: <span style="color: #00ff88;">92%</span> (Target: 80%+)<br>
+                                    • Pass Rate: <span style="color: #00ff88;">100%</span> (All critical tests passed)<br>
+                                    • Performance: <span style="color: #00ff88;">Exceeds targets</span> (P95: 45ms vs 100ms target)<br>
+                                    • Reliability: <span style="color: #00ff88;">High</span> (99.95% success rate)<br>
+                                    • Security: <span style="color: #00ff88;">Compliant</span> (Network policies enforced correctly)
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #00ff88;">Recommendation:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px;">
+                                    Service "web-frontend" is <span style="color: #00ff88;">APPROVED FOR PRODUCTION</span><br>
+                                    Confidence Level: <span style="color: #00ff88;">HIGH (95%)</span><br>
+                                    Risk Assessment: <span style="color: #00ff88;">LOW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #0a0a0a; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid #00ff88;">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">Key Performance Indicators (KPIs)</h3>
+                    <table style="width: 100%; border-collapse: collapse; color: #fff;">
+                        <thead>
+                            <tr style="background: #1a1a1a;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #333;">Metric</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Before AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">With AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Service Deployment Failures</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">18%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">3%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 83%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Test Coverage</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">45%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">92%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↑ 47pp</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Test Execution Time</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">6 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">25 minutes</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 93%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>False Positive Rate</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">15%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">2%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 87%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Time to Production</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">14 days</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">5 days</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 64%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Post-Deployment Incidents</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">12/quarter</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">2/quarter</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 83%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 15px; padding: 10px; background: #1a0a1a; border-radius: 5px;">
+                        <strong>FCAPS Coverage:</strong> <span style="color: #00aaff;">P (Performance)</span>, <span style="color: #00ff88;">F (Fault)</span>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Report Delivered</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">Report Delivered to CI/CD Pipeline</span>
                     </div>
                     <div class="agent-content">
-                        🔍 <strong>Service Health Report:</strong><br>
-                        • Tests Passed: 287/300<br>
-                        • Service SLA: 99.95%<br>
-                        • Code Coverage: 87%<br>
-                        • Next Test Cycle: 7 days<br>
-                        • Report Filed: DevOps Team
+                        🔍 <strong>Service Verification Summary:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Service: web-frontend<br>
+                            • Overall Status: <span style="color: #00ff88;">APPROVED FOR PRODUCTION</span><br>
+                            • Tests Passed: 100% (All critical tests)<br>
+                            • Test Coverage: 92%<br>
+                            • Performance: Exceeds SLA (P95: 45ms vs 100ms target)<br>
+                            • Error Rate: 0.05% (Target: &lt;1%)<br>
+                            • eBPF Datapath: Healthy on all 45 nodes<br>
+                            • Network Policies: Correctly enforced<br>
+                            • Confidence Level: HIGH (95%)<br>
+                            • Report Filed: GitHub Actions Build #12345<br>
+                            • Next Action: <strong>Deploy to Production</strong>
+                        </div>
                     </div>
                 </div>
             </div>`
@@ -1435,104 +3002,560 @@
         title: 'AI Service Creation Agent',
         icon: '🤖',
         description: 'Automatically generate self-service portals from API documentation',
-        initialQuery: 'Create a self-service portal for Firewall as a Service',
+        initialQuery: 'Create a self-service portal for L3VPN as a Service',
         responses: [
             `<div class="agent-workflow">
                 <div class="workflow-header">
                     <span class="workflow-icon">🤖</span>
-                    <h3 class="workflow-title">Multi-Agent Service Creation Pipeline</h3>
+                    <h3 class="workflow-title">Use Case 6: Service Creation Agent (Nexus Dashboard Integration)</h3>
                 </div>
-                
+
+                <div style="background: #1a0a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #44aaff;">
+                    <h4 style="color: #44aaff; margin-bottom: 10px;">Real-World Scenario</h4>
+                    <div style="color: #ccc;">
+                        <strong>Situation:</strong> NetOps team wants to offer "L3VPN as a Service" via self-service portal. Needs to integrate with APIC REST API for tenant creation, EPG provisioning, contract application, and L3Out BGP peering. Traditional development would take 4-6 weeks. AI agent generates complete portal in 2 hours.<br><br>
+                        <strong>Trigger:</strong> Service Portal Request - "L3VPN as a Service"
+                    </div>
+                </div>
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Request Received</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">T+0 min - Service Portal Request Received</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Input:</strong> API Documentation (OpenAPI Spec)<br>
-                        <strong>Service:</strong> Firewall as a Service<br>
-                        <strong>Requirements:</strong> Self-service portal with UI + Backend<br>
+                        <strong>Input:</strong> APIC OpenAPI/Swagger Specification<br>
+                        <strong>Service Definition:</strong> L3VPN as a Service<br>
+                        <strong>Requirements:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • React TypeScript frontend (Material-UI)<br>
+                            • Python FastAPI backend<br>
+                            • APIC API integration for tenant/VRF/L3Out creation<br>
+                            • Form validation with Yup schema<br>
+                            • Kubernetes deployment manifests
+                        </div>
                         <br>
-                        <strong>🎯 MRA Selection:</strong> Routing to <code>CREATION_MRA</code><br>
-                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        <div style="background: #0d1a0d; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Triggering Master Reasoning Agent...</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 CREATION_MRA</span>
-                        <span class="agent-status status-active">Orchestrating Pipeline</span>
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-active">T+5 min - Orchestrating Service Creation Pipeline</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Creation Agent Deployment:</strong><br>
+                        <strong>Service Creation Agent Deployment:</strong><br>
                         <div style="margin-left: 20px; color: #00ff88;">
-                            ✓ API_PARSER_AGENT - Parse API spec<br>
-                            ✓ UI_DESIGNER_AGENT - Design interface<br>
-                            ✓ FRONTEND_DEV_AGENT - Generate UI<br>
-                            ✓ BACKEND_DEV_AGENT - Generate server<br>
-                            ✓ DEVOPS_AGENT - Create deployment<br>
+                            ✓ Spawning API_ANALYSIS_AGENT<br>
+                            ✓ Spawning UI_GENERATION_AGENT<br>
+                            ✓ Spawning BACKEND_GENERATION_AGENT<br>
+                            ✓ Spawning CODE_GENERATION_AGENT<br>
+                            ✓ Spawning DEPLOYMENT_AGENT
+                        </div>
+                        <br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px;">
+                            <em>All agents generating portal components in parallel...</em>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">📄 API_PARSER_AGENT</span>
-                        <span class="agent-status status-completed">API Analyzed</span>
+                        <span class="agent-name">📄 API Analysis Agent</span>
+                        <span class="agent-status status-completed">T+10 min - APIC API Spec Analyzed</span>
                     </div>
                     <div class="agent-content">
-                        <strong>API Analysis:</strong><br>
-                        • Endpoints: 12 discovered<br>
-                        • Auth: API Key (Header)<br>
-                        • Models: 5 schemas extracted<br>
-                        <strong>→ Passing to UI_DESIGNER...</strong>
+                        <strong>FINDINGS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            <strong>Service Definition - L3VPN as a Service:</strong><br>
+                            <br>
+                            <strong>Operation: create_l3vpn</strong><br>
+                            &nbsp;&nbsp;• Endpoint: /api/node/mo/uni/tn-{tenant}.json<br>
+                            &nbsp;&nbsp;• Method: POST<br>
+                            &nbsp;&nbsp;• Auth: APIC Cookie-based<br>
+                            <br>
+                            <strong>Parameters Extracted:</strong><br>
+                            &nbsp;&nbsp;• tenant_name (string, required, 3-32 chars)<br>
+                            &nbsp;&nbsp;• vrf_name (string, required)<br>
+                            &nbsp;&nbsp;• bd_subnet (CIDR, required, e.g. 10.1.1.0/24)<br>
+                            &nbsp;&nbsp;• l3out_name (string, required)<br>
+                            &nbsp;&nbsp;• bgp_asn (integer, required, 1-4294967295)<br>
+                            <br>
+                            <strong>Additional Operations:</strong><br>
+                            &nbsp;&nbsp;• delete_l3vpn (DELETE)<br>
+                            &nbsp;&nbsp;• list_l3vpns (GET)<br>
+                            <br>
+                            <span style="color: #00ff88;">✓ API ANALYSIS:</span> Complete - 3 operations, 5 parameters
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">💻 FRONTEND_DEV_AGENT</span>
-                        <span class="agent-status status-completed">Frontend Generated</span>
+                        <span class="agent-name">💻 UI Generation Agent</span>
+                        <span class="agent-status status-completed">T+30 min - React TypeScript Components Generated</span>
                     </div>
                     <div class="agent-content">
-                        <strong>UI Components Generated:</strong><br>
-                        ✅ Dashboard component<br>
-                        ✅ Firewall creation form<br>
-                        ✅ Rule management table<br>
-                        ✅ Metrics dashboard<br>
-                        <strong>Files: 23 components created</strong>
+                        <strong>GENERATED COMPONENTS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            ✅ CreateL3VPNForm.tsx (Material-UI form component)<br>
+                            ✅ L3VPNList.tsx (Data table with pagination)<br>
+                            ✅ L3VPNDashboard.tsx (Main dashboard)<br>
+                            ✅ Yup validation schema (form validation)<br>
+                            <br>
+                            <strong>Files Created: 12 TypeScript components</strong>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-typescript">// Auto-generated by Service Creation Agent
+// CreateL3VPNForm.tsx - React Component with Yup Validation
+
+import React, { useState } from 'react';
+import { TextField, Button, Card, Grid, Typography, Alert } from '@mui/material';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { ACIAPIClient } from './api-client';
+
+interface CreateL3VPNFormProps {
+  onSuccess?: (tenant: string) =&gt; void;
+  onError?: (error: string) =&gt; void;
+}
+
+const CreateL3VPNForm: React.FC&lt;CreateL3VPNFormProps&gt; = ({ onSuccess, onError }) =&gt; {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  const apiClient = new ACIAPIClient({
+    baseUrl: process.env.REACT_APP_APIC_URL,
+    apiKey: process.env.REACT_APP_APIC_KEY
+  });
+
+  // Form validation schema (auto-generated from API spec)
+  const validationSchema = Yup.object({
+    tenant_name: Yup.string()
+      .matches(/^[a-zA-Z0-9_-]{3,32}$/, 'Tenant name must be 3-32 alphanumeric characters')
+      .required('Tenant name is required'),
+    vrf_name: Yup.string()
+      .required('VRF name is required'),
+    bd_subnet: Yup.string()
+      .matches(/^([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-9]{1,2}$/, 'Must be valid CIDR')
+      .required('Bridge domain subnet is required'),
+    l3out_name: Yup.string()
+      .required('L3Out name is required'),
+    bgp_asn: Yup.number()
+      .min(1, 'BGP ASN must be &gt;= 1')
+      .max(4294967295, 'BGP ASN must be &lt;= 4294967295')
+      .required('BGP ASN is required')
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      tenant_name: '',
+      vrf_name: '',
+      bd_subnet: '',
+      l3out_name: '',
+      bgp_asn: 65001
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) =&gt; {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const result = await apiClient.createL3VPN({
+          tenantName: values.tenant_name,
+          vrfName: values.vrf_name,
+          bdSubnet: values.bd_subnet,
+          l3outName: values.l3out_name,
+          bgpAsn: values.bgp_asn
+        });
+
+        if (onSuccess) {
+          onSuccess(values.tenant_name);
+        }
+
+        formik.resetForm();
+      } catch (err: any) {
+        const errorMessage = err.response?.data?.imdata?.[0]?.error?.attributes?.text ||
+                           err.message || 'Failed to create L3VPN tenant';
+        setError(errorMessage);
+        if (onError) {
+          onError(errorMessage);
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+  });
+
+  return (
+    &lt;Card sx={{ p: 3, maxWidth: 800, margin: '0 auto' }}&gt;
+      &lt;Typography variant="h5" gutterBottom&gt;
+        Create New L3VPN Service
+      &lt;/Typography&gt;
+      {/* Form fields auto-generated based on API parameters */}
+      &lt;form onSubmit={formik.handleSubmit}&gt;
+        &lt;Grid container spacing={3}&gt;
+          &lt;Grid item xs={12} md={6}&gt;
+            &lt;TextField fullWidth id="tenant_name" name="tenant_name"
+              label="Tenant Name" value={formik.values.tenant_name}
+              onChange={formik.handleChange}
+              error={formik.touched.tenant_name &amp;&amp; Boolean(formik.errors.tenant_name)}
+              helperText={formik.touched.tenant_name &amp;&amp; formik.errors.tenant_name}
+              disabled={loading} /&gt;
+          &lt;/Grid&gt;
+          {/* Additional fields for vrf_name, bd_subnet, l3out_name, bgp_asn */}
+          &lt;Grid item xs={12}&gt;
+            &lt;Button type="submit" variant="contained" fullWidth disabled={loading || !formik.isValid}&gt;
+              {loading ? 'Creating L3VPN...' : 'Create L3VPN Service'}
+            &lt;/Button&gt;
+          &lt;/Grid&gt;
+        &lt;/Grid&gt;
+      &lt;/form&gt;
+    &lt;/Card&gt;
+  );
+};
+
+export default CreateL3VPNForm;</code></pre>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="agent-step" style="border: 2px solid #00ff88;">
+
+                <div class="agent-step">
                     <div class="agent-header">
-                        <span class="agent-name">🧠 CREATION_MRA</span>
-                        <span class="agent-status status-completed">Portal Complete</span>
+                        <span class="agent-name">🔧 Backend Generation Agent</span>
+                        <span class="agent-status status-completed">T+45 min - Python API Client Generated</span>
                     </div>
                     <div class="agent-content">
-                        <strong>Generation Summary:</strong><br>
-                        ✅ Full-stack application generated<br>
-                        ✅ 8,743 lines of code<br>
-                        ✅ Docker + K8s configs ready<br>
-                        ✅ Documentation generated<br>
-                        <strong>← Sending package to IO_AGENT...</strong>
+                        <strong>GENERATED BACKEND:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            ✅ ACIAPIClient.py (Python APIC client)<br>
+                            ✅ Authentication flow (APIC cookie-based auth)<br>
+                            ✅ Error handling & retry logic<br>
+                            ✅ Webhook integrations<br>
+                            <br>
+                            <strong>Files Created: 8 Python modules</strong>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-python"># Auto-generated by Service Creation Agent
+# ACIAPIClient.py - Python API Client
+
+import requests
+import json
+from typing import Dict, List, Optional
+from datetime import datetime
+
+class ACIAPIClient:
+    """
+    Auto-generated API client for Cisco ACI
+    Provides methods for L3VPN service management
+    """
+
+    def __init__(self, base_url: str, username: str, password: str):
+        self.base_url = base_url.rstrip('/')
+        self.username = username
+        self.password = password
+        self.session = requests.Session()
+        self.session.verify = False
+        self.token = None
+        self._authenticate()
+
+    def _authenticate(self):
+        """Authenticate to APIC and obtain token"""
+        login_url = f"{self.base_url}/api/aaaLogin.json"
+        payload = {
+            "aaaUser": {
+                "attributes": {
+                    "name": self.username,
+                    "pwd": self.password
+                }
+            }
+        }
+
+        response = self.session.post(login_url, json=payload)
+        response.raise_for_status()
+
+        self.token = response.json()['imdata'][0]['aaaLogin']['attributes']['token']
+        self.session.cookies.set('APIC-cookie', self.token)
+
+    def create_l3vpn(
+        self,
+        tenant_name: str,
+        vrf_name: str,
+        bd_subnet: str,
+        l3out_name: str,
+        bgp_asn: int
+    ) -&gt; Dict:
+        """
+        Create new L3VPN tenant with EPGs and contracts
+
+        Args:
+            tenant_name: Unique tenant name
+            vrf_name: VRF name for L3VPN
+            bd_subnet: Bridge domain subnet (e.g., 10.1.1.0/24)
+            l3out_name: L3Out for external connectivity
+            bgp_asn: BGP AS number for peering
+
+        Returns:
+            API response with created tenant details
+        """
+        # Build ACI JSON payload
+        payload = {
+            "fvTenant": {
+                "attributes": {
+                    "name": tenant_name,
+                    "descr": f"L3VPN Service - Created {datetime.now().isoformat()}"
+                },
+                "children": [
+                    {
+                        "fvCtx": {
+                            "attributes": {
+                                "name": vrf_name,
+                                "pcEnfPref": "enforced"
+                            }
+                        }
+                    },
+                    {
+                        "fvBD": {
+                            "attributes": {
+                                "name": f"{tenant_name}_BD",
+                                "arpFlood": "yes"
+                            },
+                            "children": [
+                                {
+                                    "fvRsCtx": {
+                                        "attributes": {
+                                            "tnFvCtxName": vrf_name
+                                        }
+                                    }
+                                },
+                                {
+                                    "fvSubnet": {
+                                        "attributes": {
+                                            "ip": bd_subnet,
+                                            "scope": "public"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "l3extOut": {
+                            "attributes": {
+                                "name": l3out_name
+                            },
+                            "children": [
+                                {
+                                    "l3extRsEctx": {
+                                        "attributes": {
+                                            "tnFvCtxName": vrf_name
+                                        }
+                                    }
+                                },
+                                {
+                                    "bgpExtP": {
+                                        "attributes": {}
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+
+        url = f"{self.base_url}/api/node/mo/uni/tn-{tenant_name}.json"
+        response = self.session.post(url, json=payload)
+        response.raise_for_status()
+
+        return response.json()
+
+    def delete_l3vpn(self, tenant_name: str) -&gt; Dict:
+        """Delete L3VPN tenant"""
+        url = f"{self.base_url}/api/node/mo/uni/tn-{tenant_name}.json"
+        response = self.session.delete(url)
+        response.raise_for_status()
+        return response.json()
+
+    def list_l3vpns(self) -&gt; List[Dict]:
+        """List all L3VPN tenants"""
+        url = f"{self.base_url}/api/class/fvTenant.json"
+        response = self.session.get(url)
+        response.raise_for_status()
+
+        tenants = response.json()['imdata']
+        return [
+            {
+                'name': t['fvTenant']['attributes']['name'],
+                'description': t['fvTenant']['attributes'].get('descr', ''),
+                'dn': t['fvTenant']['attributes']['dn']
+            }
+            for t in tenants
+        ]</code></pre>
+                        </div>
                     </div>
                 </div>
-                
+
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🚀 Deployment Agent</span>
+                        <span class="agent-status status-completed">T+90 min - Kubernetes Manifests Generated</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>DEPLOYMENT ARTIFACTS:</strong><br>
+                        <div style="background: #0a0a0a; padding: 12px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 13px;">
+                            ✅ Dockerfile (multi-stage build)<br>
+                            ✅ deployment.yaml (Kubernetes deployment)<br>
+                            ✅ service.yaml (Kubernetes service)<br>
+                            ✅ ingress.yaml (NGINX ingress)<br>
+                            ✅ configmap.yaml (environment configuration)<br>
+                            ✅ .github/workflows/ci-cd.yaml (GitHub Actions)<br>
+                            <br>
+                            <strong>Files Created: 15 deployment artifacts</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-step" style="border: 3px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 Master Reasoning Agent (MRA)</span>
+                        <span class="agent-status status-completed">T+120 min - Service Portal Generation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>SERVICE PORTAL GENERATION REPORT:</strong><br>
+                        <div style="background: #0d1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #00ff88;">
+                            <div style="font-size: 16px; color: #00ff88; margin-bottom: 10px;">
+                                <strong>Portal Generation Status: COMPLETE</strong>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Generated Artifacts:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    <strong>Frontend (React TypeScript):</strong><br>
+                                    &nbsp;&nbsp;• 12 React components (Material-UI)<br>
+                                    &nbsp;&nbsp;• Yup validation schema<br>
+                                    &nbsp;&nbsp;• Formik form handling<br>
+                                    &nbsp;&nbsp;• TypeScript interfaces<br>
+                                    <br>
+                                    <strong>Backend (Python FastAPI):</strong><br>
+                                    &nbsp;&nbsp;• 8 Python modules<br>
+                                    &nbsp;&nbsp;• APIC API client with authentication<br>
+                                    &nbsp;&nbsp;• Error handling & retry logic<br>
+                                    &nbsp;&nbsp;• Webhook integrations<br>
+                                    <br>
+                                    <strong>Deployment (Kubernetes):</strong><br>
+                                    &nbsp;&nbsp;• Docker multi-stage build<br>
+                                    &nbsp;&nbsp;• K8s deployment, service, ingress<br>
+                                    &nbsp;&nbsp;• ConfigMaps for environment variables<br>
+                                    &nbsp;&nbsp;• GitHub Actions CI/CD pipeline<br>
+                                    <br>
+                                    <strong>Documentation:</strong><br>
+                                    &nbsp;&nbsp;• User guide (Markdown)<br>
+                                    &nbsp;&nbsp;• API documentation (Swagger)<br>
+                                    &nbsp;&nbsp;• Deployment guide
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #00ff88;">Code Statistics:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
+                                    • Total Lines of Code: <span style="color: #00ff88;">8,743</span><br>
+                                    • Components Generated: <span style="color: #00ff88;">35</span><br>
+                                    • Test Coverage: <span style="color: #00ff88;">95%</span> (auto-generated unit tests)<br>
+                                    • Documentation Pages: <span style="color: #00ff88;">12</span><br>
+                                    • Generation Time: <span style="color: #00ff88;">2 hours</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #00ff88;">Time Comparison:</strong><br>
+                                <div style="margin-left: 20px; margin-top: 5px;">
+                                    Traditional Development: <span style="color: #ff4444;">4-6 weeks</span><br>
+                                    AI-Generated Portal: <span style="color: #00ff88;">2 hours</span><br>
+                                    Time Saved: <span style="color: #00ff88;">99% reduction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #0a0a0a; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid #00ff88;">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">Key Performance Indicators (KPIs)</h3>
+                    <table style="width: 100%; border-collapse: collapse; color: #fff;">
+                        <thead>
+                            <tr style="background: #1a1a1a;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #333;">Metric</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Before AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">With AI</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #333;">Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Time to Create Service Portal</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">4-6 weeks</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">2 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 99%</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Developer Effort</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">200 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">5 hours</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 97%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Code Quality (Test Coverage)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">60%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">95%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↑ 35pp</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>API Integration Errors</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">15%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">1%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↓ 93%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Documentation Completeness</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">40%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">100%</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">↑ 60pp</td>
+                            </tr>
+                            <tr style="background: #111;">
+                                <td style="padding: 10px; border: 1px solid #333;"><strong>Service Catalog Growth</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333;">2 services/qtr</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88;">15 services/qtr</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #333; color: #00ff88; font-weight: bold;">7.5x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 15px; padding: 10px; background: #1a0a1a; border-radius: 5px;">
+                        <strong>FCAPS Coverage:</strong> <span style="color: #00ff88;">C (Configuration)</span>, <span style="color: #00aaff;">A (Accounting/Service Catalog)</span>
+                    </div>
+                </div>
+
                 <div class="agent-step" style="border: 2px solid #00aaff;">
                     <div class="agent-header">
-                        <span class="agent-name">📥 IO_AGENT</span>
-                        <span class="agent-status status-completed">Delivered to User</span>
+                        <span class="agent-name">📥 IOAgent</span>
+                        <span class="agent-status status-completed">Portal Package Delivered to NetOps Team</span>
                     </div>
                     <div class="agent-content">
-                        🤖 <strong>Portal Generated!</strong><br>
-                        • Generation Time: 4:28<br>
-                        • Code: 8.7k lines<br>
-                        • Test Coverage: 87%<br>
-                        • Time Saved: 3 weeks<br>
-                        • GitHub Repo: Ready to deploy
+                        🤖 <strong>Service Portal Generation Summary:</strong><br>
+                        <div style="margin-left: 20px; line-height: 1.8;">
+                            • Service: L3VPN as a Service<br>
+                            • Generation Time: <span style="color: #00ff88;">2 hours</span><br>
+                            • Total Lines of Code: <span style="color: #00ff88;">8,743</span><br>
+                            • Components Generated: <span style="color: #00ff88;">35</span><br>
+                            • Test Coverage: <span style="color: #00ff88;">95%</span><br>
+                            • Documentation: <span style="color: #00ff88;">Complete (12 pages)</span><br>
+                            • Deployment Ready: <span style="color: #00ff88;">Yes (K8s + CI/CD)</span><br>
+                            • GitHub Repository: <span style="color: #00ff88;">Ready to deploy</span><br>
+                            • Time Saved vs Traditional: <span style="color: #00ff88;">4-6 weeks (99% reduction)</span><br>
+                            • Next Action: <strong>Deploy to Kubernetes cluster</strong>
+                        </div>
                     </div>
                 </div>
             </div>`
