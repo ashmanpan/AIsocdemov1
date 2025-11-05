@@ -332,14 +332,27 @@
         .industry-card .demo-icon {
             color: #f39c12;
         }
-        
+
         .industry-card:hover {
             border-color: #f39c12;
             box-shadow: 0 20px 40px rgba(243, 156, 18, 0.3);
         }
-        
+
         .industry-card::before {
             background: radial-gradient(circle, rgba(243, 156, 18, 0.1) 0%, transparent 70%);
+        }
+
+        .migration-card .demo-icon {
+            color: #00d4ff;
+        }
+
+        .migration-card:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .migration-card::before {
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
         }
         
         @media (max-width: 1200px) {
@@ -651,7 +664,7 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="ciscologo.jpg" alt="Cisco Logo">
-                <span>AI Operations Center</span>
+                <span>Agentic AI Solution Hub</span>
             </div>
             <nav class="nav-menu" id="navMenu">
                 <div class="nav-dropdown">
@@ -686,7 +699,7 @@
     <div class="container">
         <div class="logo-section">
             <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
-            <h1>AI Operations Center</h1>
+            <h1>Agentic AI Solution Hub</h1>
             <p class="subtitle">Choose Your Agentic AI Experience</p>
         </div>
         
@@ -887,6 +900,34 @@
                     </div>
                 </div>
                 <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
+            </div>
+
+            <div class="demo-card migration-card" onclick="window.location.href='network-migration-usecases.html'">
+                <span class="demo-icon">🔄</span>
+                <h2 class="demo-title">Network Migration Use Cases</h2>
+                <p class="demo-description">
+                    AI-driven network migration strategies for seamless transitions across technologies, vendors,
+                    and architectures with minimal disruption and automated validation.
+                </p>
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Multi-vendor migration automation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Zero-downtime cutover planning</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Pre & post-migration validation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Risk assessment & rollback</span>
+                    </div>
+                </div>
+                <a href="network-migration-usecases.html" class="demo-button">Explore Migrations</a>
             </div>
         </div>
         
