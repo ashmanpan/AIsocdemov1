@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco-Agentic-AI-Datacenter-Demo-V2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+        
+        .scenario-icon {
+            font-size: 20px;
+        }
+        
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .ai-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .ai-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-heading {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-subtext {
+            color: #888;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .chat-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        .chat-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-description {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-message {
+            background-color: #002b36;
+            border: 1px solid #00ff88;
+            color: #fff;
+            align-self: flex-end;
+        }
+        
+        .assistant-message {
+            background-color: #111111;
+            border: 1px solid #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+        
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .send-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.6s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Agent response styles */
+        .agent-workflow {
+            background-color: #0a1014;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .workflow-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .workflow-icon {
+            font-size: 24px;
+        }
+        
+        .workflow-title {
+            font-size: 20px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .agent-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-step:hover {
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #00aaff;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #0088ff;
+            color: #fff;
+        }
+        
+        .status-warning {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .agent-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #00ff88;
+        }
+        
+        .metric-title {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .metric-details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .severity-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .severity-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .severity-high {
+            background-color: #ff6600;
+            color: #fff;
+        }
+        
+        .severity-medium {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .severity-low {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .alert-box {
+            background-color: #1a0a0a;
+            border: 1px solid #ff0044;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            color: #ff0044;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-size: 16px;
+            color: #ff0044;
+            margin-bottom: 5px;
+        }
+        
+        .alert-description {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+        }
+        
+        .action-secondary {
+            background-color: transparent;
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+        
+        .action-danger {
+            background-color: #ff0044;
+            color: #fff;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .timeline-container {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #333;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            border: 2px solid #0a0a0a;
+        }
+        
+        .timeline-content {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        
+        .timeline-time {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        /* Ticket tracking styles */
+        .ticket-info {
+            background-color: #1a0a1a;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ticket-id {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .ticket-priority {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Capacity utilization styles */
+        .capacity-container {
+            background-color: #0a1014;
+            border: 1px solid #00aaff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .capacity-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00aaff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .capacity-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .capacity-item {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        
+        .capacity-label {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .capacity-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .capacity-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .capacity-normal {
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+        }
+        
+        .capacity-warning {
+            background: linear-gradient(90deg, #ffaa00, #ff6600);
+        }
+        
+        .capacity-critical {
+            background: linear-gradient(90deg, #ff0044, #ff6600);
+        }
+        
+        .capacity-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Service health dashboard */
+        .service-health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .service-health-card {
+            background-color: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .service-health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+        }
+        
+        .service-icon-large {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .service-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .status-healthy {
+            background-color: #00ff88;
+            color: #000;
+        }
+        
+        .status-degraded {
+            background-color: #ffaa00;
+            color: #000;
+        }
+        
+        .status-down {
+            background-color: #ff0044;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <span class="logo-text">Cisco-Agentic-AI-Datacenter-Demo-V1.0</span>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+        <div class="actions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Datacenter AI Operations</h2>
+                <p class="sidebar-subtitle">Infrastructure • Capacity • Services • Automation</p>
+            </div>
+            <ul class="scenario-list">
+                <li class="scenario-item" data-scenario="incident-management">
+                    <span class="scenario-icon">🚨</span>
+                    <span class="scenario-text">AI-Driven Incident Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="capacity-management">
+                    <span class="scenario-icon">📊</span>
+                    <span class="scenario-text">Predictive Capacity Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="resiliency-check">
+                    <span class="scenario-icon">🛡️</span>
+                    <span class="scenario-text">Datacenter Resiliency Check</span>
+                </li>
+                <li class="scenario-item" data-scenario="infra-verification">
+                    <span class="scenario-icon">✅</span>
+                    <span class="scenario-text">Infrastructure Verification</span>
+                </li>
+                <li class="scenario-item" data-scenario="service-verification">
+                    <span class="scenario-icon">🔍</span>
+                    <span class="scenario-text">Service Verification Testing</span>
+                </li>
+                <li class="scenario-item" data-scenario="service-creation">
+                    <span class="scenario-icon">🤖</span>
+                    <span class="scenario-text">AI Service Creation Agent</span>
+                </li>
+                <li class="scenario-item" data-scenario="vm-management">
+                    <span class="scenario-icon">💻</span>
+                    <span class="scenario-text">VM Lifecycle Management</span>
+                </li>
+                <li class="scenario-item" data-scenario="container-orchestration">
+                    <span class="scenario-icon">🐳</span>
+                    <span class="scenario-text">Container Orchestration</span>
+                </li>
+                <li class="scenario-item" data-scenario="database-optimization">
+                    <span class="scenario-icon">🗄️</span>
+                    <span class="scenario-text">Database Performance Optimization</span>
+                </li>
+                <li class="scenario-item" data-scenario="network-automation">
+                    <span class="scenario-icon">🌐</span>
+                    <span class="scenario-text">Network Automation & SDN</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">
+                    <div class="pulse-ring"></div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M30 50 L45 35 L45 45 L70 45 L70 55 L45 55 L45 65 Z" fill="#00ff88"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.5"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#00aaff" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h1 class="welcome-heading">Datacenter AI Operations Center</h1>
+                <p class="welcome-subtext">
+                    Experience the power of Agentic AI in datacenter management. Our intelligent agents work collaboratively to manage incidents, optimize capacity, ensure resiliency, and automate service provisioning across your entire infrastructure.
+                </p>
+            </div>
+            
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2 class="chat-title">
+                        <span id="scenarioIcon">💬</span>
+                        <span id="scenarioTitle">Chat</span>
+                    </h2>
+                    <p class="chat-description" id="scenarioDescription">Select a scenario to begin</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" class="input-field" id="userInput" placeholder="Ask about the scenario or type a command...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario data and responses
+        const scenarios = {
+    'incident-management': {
+        title: 'AI-Driven Incident Management',
+        icon: '🚨',
+        description: 'Automated detection, triage, root cause analysis, and resolution of datacenter incidents',
+        initialQuery: 'Critical alert: Database cluster experiencing high latency',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🚨</span>
+                    <h3 class="workflow-title">Multi-Agent Incident Response Orchestration</h3>
+                </div>
+                
+                <div class="ticket-info">
+                    <div>
+                        <div class="ticket-id">TICKET #DC-2024-00847</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Generated: ${new Date().toISOString()}</div>
+                    </div>
+                    <div class="ticket-priority severity-critical">P1 - CRITICAL</div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Task Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> ServiceNow Ticketing System<br>
+                        <strong>Alert Type:</strong> Database Performance Degradation<br>
+                        <strong>Severity:</strong> P1 - Critical<br>
+                        <strong>Affected System:</strong> Production Database Cluster<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>INCIDENT_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 INCIDENT_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Response</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Agent Deployment Strategy:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ Deploying DETECTION_AGENT<br>
+                            ✓ Deploying TRIAGE_AGENT<br>
+                            ✓ Deploying RCA_AGENT<br>
+                            ✓ Deploying DB_SPECIALIST_AGENT<br>
+                            ✓ Deploying INFRA_AGENT<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔍 DETECTION_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Anomaly Detected:</strong> Query latency 850ms (baseline: 45ms)<br>
+                        <strong>Pattern Match:</strong> Query plan regression<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 INCIDENT_MRA</span>
+                        <span class="agent-status status-completed">Correlation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Correlated Findings:</strong> Database query plan regression confirmed<br>
+                        <strong>Resolution Plan:</strong> Apply index hints, optimize queries<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Response Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        ✅ <strong>Incident Resolved</strong><br>
+                        • Root Cause: Query plan regression<br>
+                        • Resolution Time: 8 minutes 34 seconds<br>
+                        • Agents Involved: 8<br>
+                        • Ticket Status: Auto-closed
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'capacity-management': {
+        title: 'Predictive Capacity Management',
+        icon: '📊',
+        description: 'AI-powered capacity planning and optimization using predictive analytics',
+        initialQuery: 'Analyze current capacity and predict future requirements',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">📊</span>
+                    <h3 class="workflow-title">Multi-Agent Capacity Planning Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Scheduled Capacity Review<br>
+                        <strong>Scope:</strong> All datacenter resources<br>
+                        <strong>Time Horizon:</strong> 7, 30, 90, 365 days<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>CAPACITY_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CAPACITY_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ MONITORING_AGENT - Current metrics<br>
+                            ✓ ANALYTICS_AGENT - Historical trends<br>
+                            ✓ ML_PREDICTION_AGENT - Forecasting<br>
+                            ✓ OPTIMIZATION_AGENT - Resource optimization<br>
+                            ✓ COST_ANALYST_AGENT - Financial analysis<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📊 MONITORING_AGENT</span>
+                        <span class="agent-status status-completed">Metrics Collected</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Current Utilization:</strong><br>
+                        • CPU: 77.8% (12,450/16,000 cores)<br>
+                        • Memory: 70.6% (45.2/64 TB)<br>
+                        • Network: 85% ⚠️ (850/1000 Gb)<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🤖 ML_PREDICTION_AGENT</span>
+                        <span class="agent-status status-completed">Predictions Generated</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Capacity Predictions:</strong><br>
+                        • Network: 98% in 90 days 🔴<br>
+                        • CPU: 95% in 90 days ⚠️<br>
+                        • Critical Date: Network exhaustion ~45 days<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CAPACITY_MRA</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Consolidated Plan:</strong><br>
+                        🔴 Network capacity critical - 45 days<br>
+                        💰 $67k/month savings via optimization<br>
+                        <strong>Action Plan:</strong> Immediate optimization + network upgrade<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        📊 <strong>Executive Summary:</strong><br>
+                        • Network exhaustion: 45 days<br>
+                        • Investment needed: $165k<br>
+                        • Savings identified: $804k/year<br>
+                        • JIRA Tickets Created: 3<br>
+                        • Approvals Requested: CFO, CTO
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'resiliency-check': {
+        title: 'Datacenter Resiliency Check',
+        icon: '🛡️',
+        description: 'Automated resilience validation through chaos engineering and failover testing',
+        initialQuery: 'Run comprehensive resiliency assessment',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🛡️</span>
+                    <h3 class="workflow-title">Multi-Agent Resiliency Testing Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Quarterly Resiliency Review<br>
+                        <strong>Test Scope:</strong> Full datacenter infrastructure<br>
+                        <strong>Test Type:</strong> Chaos engineering + Failover tests<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>RESILIENCY_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Tests</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ ASSESSMENT_AGENT - Baseline assessment<br>
+                            ✓ CHAOS_AGENT - Failure injection<br>
+                            ✓ FAILOVER_AGENT - Failover testing<br>
+                            ✓ RECOVERY_AGENT - Recovery validation<br>
+                            ✓ COMPLIANCE_AGENT - Standards check<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💥 CHAOS_AGENT</span>
+                        <span class="agent-status status-active">Injecting Failures</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Chaos Experiments:</strong><br>
+                        ✅ Random pod termination - Recovered in 12s<br>
+                        ✅ Network partition - Failover in 8s<br>
+                        ⚠️ Storage failure - Recovery 45s (target: 30s)<br>
+                        ✅ Database failover - 15s, zero data loss<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 RESILIENCY_MRA</span>
+                        <span class="agent-status status-completed">Assessment Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Resiliency Score: 94/100</strong><br>
+                        ✅ N+2 redundancy verified<br>
+                        ⚠️ Storage failover needs improvement<br>
+                        <strong>Recommendations:</strong> Optimize storage failover<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🛡️ <strong>Resiliency Status:</strong><br>
+                        • Overall Score: 94/100<br>
+                        • Tests Passed: 47/50<br>
+                        • Avg Recovery: 8.3 min<br>
+                        • Next DR Drill: 5 days<br>
+                        • Report Filed: Compliance Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'infra-verification': {
+        title: 'Infrastructure Verification',
+        icon: '✅',
+        description: 'Automated verification of datacenter infrastructure, configurations, and compliance',
+        initialQuery: 'Verify infrastructure configuration and compliance',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">✅</span>
+                    <h3 class="workflow-title">Multi-Agent Infrastructure Verification</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Compliance Audit Request<br>
+                        <strong>Verification Scope:</strong> All infrastructure components<br>
+                        <strong>Standards:</strong> PCI-DSS, SOC2, CIS Benchmarks<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>VERIFICATION_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Verification</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Verification Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ CONFIG_AGENT - Configuration checks<br>
+                            ✓ COMPLIANCE_AGENT - Standards validation<br>
+                            ✓ HARDWARE_AGENT - Hardware health<br>
+                            ✓ NETWORK_AGENT - Network verification<br>
+                            ✓ SECURITY_AGENT - Security posture<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⚙️ CONFIG_AGENT</span>
+                        <span class="agent-status status-completed">Config Verified</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Configuration Status:</strong><br>
+                        ✅ 847/850 servers compliant<br>
+                        ⚠️ 3 configuration drifts detected<br>
+                        • MySQL max_connections changed<br>
+                        • VLAN 200 missing on switch<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔐 COMPLIANCE_AGENT</span>
+                        <span class="agent-status status-warning">Issues Found</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Compliance Results:</strong><br>
+                        ✅ PCI-DSS: Fully Compliant<br>
+                        ✅ SOC 2: Compliant<br>
+                        ⚠️ CIS: 3 medium findings<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VERIFICATION_MRA</span>
+                        <span class="agent-status status-completed">Verification Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Overall Compliance: 96.5%</strong><br>
+                        ✅ Infrastructure verified<br>
+                        ⚠️ 6 items need attention<br>
+                        <strong>Action Plan:</strong> Auto-remediation available<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        ✅ <strong>Verification Summary:</strong><br>
+                        • Compliance Score: 96.5%<br>
+                        • Config Drift: 6 items<br>
+                        • Hardware Alerts: 3<br>
+                        • Next Audit: 45 days<br>
+                        • Report Filed: Audit Committee
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'service-verification': {
+        title: 'Service Verification Testing',
+        icon: '🔍',
+        description: 'Black box and white box testing for VMs, containers, databases, and message queues',
+        initialQuery: 'Run comprehensive service verification tests',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🔍</span>
+                    <h3 class="workflow-title">Multi-Agent Service Testing Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input Source:</strong> Service Health Check Request<br>
+                        <strong>Test Scope:</strong> All datacenter services<br>
+                        <strong>Test Types:</strong> Black box + White box testing<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>TESTING_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 TESTING_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Tests</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ BLACKBOX_AGENT - External testing<br>
+                            ✓ WHITEBOX_AGENT - Internal testing<br>
+                            ✓ VM_TEST_AGENT - VM services<br>
+                            ✓ CONTAINER_AGENT - K8s testing<br>
+                            ✓ DB_TEST_AGENT - Database testing<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⬛ BLACKBOX_AGENT</span>
+                        <span class="agent-status status-completed">External Tests Done</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Black Box Results:</strong><br>
+                        ✅ VM Service: 48/50 passed<br>
+                        ✅ Kubernetes: 38/40 passed<br>
+                        ⚠️ Database: 3 slow queries<br>
+                        ✅ Message Queue: 35/36 passed<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">⬜ WHITEBOX_AGENT</span>
+                        <span class="agent-status status-completed">Internal Tests Done</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>White Box Results:</strong><br>
+                        ✅ Code Coverage: 87%<br>
+                        ✅ Internal APIs: All passing<br>
+                        ⚠️ Memory leaks: 2 detected<br>
+                        ✅ Security: No vulnerabilities<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 TESTING_MRA</span>
+                        <span class="agent-status status-completed">Test Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Test Summary:</strong><br>
+                        • Overall Pass Rate: 95.7%<br>
+                        • Critical Issues: 0<br>
+                        • Performance Issues: 5<br>
+                        <strong>Recommendations:</strong> Optimize slow queries<br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🔍 <strong>Service Health Report:</strong><br>
+                        • Tests Passed: 287/300<br>
+                        • Service SLA: 99.95%<br>
+                        • Code Coverage: 87%<br>
+                        • Next Test Cycle: 7 days<br>
+                        • Report Filed: DevOps Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'service-creation': {
+        title: 'AI Service Creation Agent',
+        icon: '🤖',
+        description: 'Automatically generate self-service portals from API documentation',
+        initialQuery: 'Create a self-service portal for Firewall as a Service',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🤖</span>
+                    <h3 class="workflow-title">Multi-Agent Service Creation Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> API Documentation (OpenAPI Spec)<br>
+                        <strong>Service:</strong> Firewall as a Service<br>
+                        <strong>Requirements:</strong> Self-service portal with UI + Backend<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>CREATION_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CREATION_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Pipeline</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Creation Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ API_PARSER_AGENT - Parse API spec<br>
+                            ✓ UI_DESIGNER_AGENT - Design interface<br>
+                            ✓ FRONTEND_DEV_AGENT - Generate UI<br>
+                            ✓ BACKEND_DEV_AGENT - Generate server<br>
+                            ✓ DEVOPS_AGENT - Create deployment<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📄 API_PARSER_AGENT</span>
+                        <span class="agent-status status-completed">API Analyzed</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>API Analysis:</strong><br>
+                        • Endpoints: 12 discovered<br>
+                        • Auth: API Key (Header)<br>
+                        • Models: 5 schemas extracted<br>
+                        <strong>→ Passing to UI_DESIGNER...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">💻 FRONTEND_DEV_AGENT</span>
+                        <span class="agent-status status-completed">Frontend Generated</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>UI Components Generated:</strong><br>
+                        ✅ Dashboard component<br>
+                        ✅ Firewall creation form<br>
+                        ✅ Rule management table<br>
+                        ✅ Metrics dashboard<br>
+                        <strong>Files: 23 components created</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 CREATION_MRA</span>
+                        <span class="agent-status status-completed">Portal Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Generation Summary:</strong><br>
+                        ✅ Full-stack application generated<br>
+                        ✅ 8,743 lines of code<br>
+                        ✅ Docker + K8s configs ready<br>
+                        ✅ Documentation generated<br>
+                        <strong>← Sending package to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Delivered to User</span>
+                    </div>
+                    <div class="agent-content">
+                        🤖 <strong>Portal Generated!</strong><br>
+                        • Generation Time: 4:28<br>
+                        • Code: 8.7k lines<br>
+                        • Test Coverage: 87%<br>
+                        • Time Saved: 3 weeks<br>
+                        • GitHub Repo: Ready to deploy
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'vm-management': {
+        title: 'VM Lifecycle Management',
+        icon: '💻',
+        description: 'Intelligent VM provisioning, optimization, and lifecycle automation',
+        initialQuery: 'Optimize VM resource allocation across clusters',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">💻</span>
+                    <h3 class="workflow-title">Multi-Agent VM Optimization Pipeline</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> VM Optimization Request<br>
+                        <strong>Scope:</strong> 3,247 VMs across 85 hosts<br>
+                        <strong>Goal:</strong> Optimize resource allocation<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>VM_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VM_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Optimization</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>VM Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ VM_ANALYSIS_AGENT - Analyze usage<br>
+                            ✓ RIGHTSIZING_AGENT - Size optimization<br>
+                            ✓ PLACEMENT_AGENT - Host placement<br>
+                            ✓ MIGRATION_AGENT - Live migration<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📊 VM_ANALYSIS_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>VM Analysis:</strong><br>
+                        • Idle VMs: 234 (>7 days inactive)<br>
+                        • Oversized: 456 (using <30%)<br>
+                        • Undersized: 89 (>90% usage)<br>
+                        • Waste: $42,000/month<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 VM_MRA</span>
+                        <span class="agent-status status-completed">Optimization Plan Ready</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimization Actions:</strong><br>
+                        ✅ Right-size 456 VMs<br>
+                        ✅ Migrate 78 VMs for balance<br>
+                        ✅ Consolidate 45 low-usage VMs<br>
+                        <strong>Savings: $67,000/month</strong><br>
+                        <strong>← Sending plan to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        💻 <strong>VM Optimization Complete:</strong><br>
+                        • VMs Optimized: 578<br>
+                        • Monthly Savings: $67k<br>
+                        • Performance Gain: 23%<br>
+                        • Zero Downtime Migration<br>
+                        • Report Filed: Infrastructure Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'container-orchestration': {
+        title: 'Container Orchestration',
+        icon: '🐳',
+        description: 'Kubernetes cluster management, scaling, and optimization',
+        initialQuery: 'Analyze and optimize Kubernetes cluster performance',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🐳</span>
+                    <h3 class="workflow-title">Multi-Agent K8s Optimization</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> K8s Cluster Optimization<br>
+                        <strong>Cluster Size:</strong> 45 nodes, 2,847 pods<br>
+                        <strong>Namespaces:</strong> 67 active<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>K8S_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 K8S_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>K8s Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ CLUSTER_AGENT - Cluster analysis<br>
+                            ✓ POD_OPTIMIZER - Pod optimization<br>
+                            ✓ HPA_TUNER - Autoscaling tuning<br>
+                            ✓ RESOURCE_AGENT - Resource limits<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">☸️ CLUSTER_AGENT</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Cluster Status:</strong><br>
+                        • CPU Utilization: 68%<br>
+                        • Memory: 74%<br>
+                        • Unused PVCs: 234 (2.3TB)<br>
+                        • Pending Pods: 12<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 K8S_MRA</span>
+                        <span class="agent-status status-completed">Optimization Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimizations Applied:</strong><br>
+                        ✅ HPA tuned for 34 deployments<br>
+                        ✅ Resource limits adjusted<br>
+                        ✅ Pod distribution rebalanced<br>
+                        ✅ Unused PVCs cleaned<br>
+                        <strong>Savings: $18,000/month</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🐳 <strong>K8s Optimization Summary:</strong><br>
+                        • Pods Optimized: 1,234<br>
+                        • Storage Freed: 2.3TB<br>
+                        • Cost Savings: $18k/month<br>
+                        • Performance: +35%<br>
+                        • Report Filed: Platform Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'database-optimization': {
+        title: 'Database Performance Optimization',
+        icon: '🗄️',
+        description: 'AI-driven database tuning, query optimization, and capacity planning',
+        initialQuery: 'Optimize database performance and identify bottlenecks',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🗄️</span>
+                    <h3 class="workflow-title">Multi-Agent Database Optimization</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> Database Performance Optimization<br>
+                        <strong>Databases:</strong> 23 production instances<br>
+                        <strong>Types:</strong> PostgreSQL, MySQL, MongoDB<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>DB_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 DB_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Analysis</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Database Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ QUERY_ANALYZER - Query analysis<br>
+                            ✓ INDEX_OPTIMIZER - Index tuning<br>
+                            ✓ CACHE_TUNER - Cache optimization<br>
+                            ✓ SCHEMA_ADVISOR - Schema review<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔍 QUERY_ANALYZER</span>
+                        <span class="agent-status status-completed">Analysis Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Query Analysis:</strong><br>
+                        • Slow queries: 23 identified<br>
+                        • Missing indexes: 15 critical<br>
+                        • N+1 queries: 8 patterns<br>
+                        • Cache hit rate: 45%<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 DB_MRA</span>
+                        <span class="agent-status status-completed">Optimization Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Optimizations Applied:</strong><br>
+                        ✅ Created 15 missing indexes<br>
+                        ✅ Rewrote 8 inefficient queries<br>
+                        ✅ Adjusted buffer pool size<br>
+                        ✅ Enabled query caching<br>
+                        <strong>Performance: +65% improvement</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🗄️ <strong>Database Optimization Summary:</strong><br>
+                        • Query Latency: -65%<br>
+                        • Throughput: +120%<br>
+                        • CPU Usage: 85% → 52%<br>
+                        • Cache Hit: 45% → 78%<br>
+                        • Report Filed: DBA Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    },
+
+    'network-automation': {
+        title: 'Network Automation & SDN',
+        icon: '🌐',
+        description: 'Software-defined networking, automated configuration, and optimization',
+        initialQuery: 'Automate network configuration and optimize traffic flow',
+        responses: [
+            `<div class="agent-workflow">
+                <div class="workflow-header">
+                    <span class="workflow-icon">🌐</span>
+                    <h3 class="workflow-title">Multi-Agent Network Orchestration</h3>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Request Received</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Input:</strong> Network Automation Request<br>
+                        <strong>Scope:</strong> SDN configuration + optimization<br>
+                        <strong>Devices:</strong> 145 switches, 23 routers<br>
+                        <br>
+                        <strong>🎯 MRA Selection:</strong> Routing to <code>NETWORK_MRA</code><br>
+                        <div style="background: #1a0a1a; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                            <strong>→ Initiating handoff to Master Reasoning Agent...</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 NETWORK_MRA</span>
+                        <span class="agent-status status-active">Orchestrating Automation</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Network Agent Deployment:</strong><br>
+                        <div style="margin-left: 20px; color: #00ff88;">
+                            ✓ SDN_CONTROLLER - SDN management<br>
+                            ✓ CONFIG_AUTOMATION - Auto-config<br>
+                            ✓ TRAFFIC_OPTIMIZER - Flow optimization<br>
+                            ✓ SECURITY_POLICY - Policy enforcement<br>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-step">
+                    <div class="agent-header">
+                        <span class="agent-name">🔧 CONFIG_AUTOMATION</span>
+                        <span class="agent-status status-completed">Configuration Applied</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Automated Changes:</strong><br>
+                        ✅ VLANs provisioned: 12<br>
+                        ✅ BGP peers configured: 8<br>
+                        ✅ QoS policies: 23 services<br>
+                        ✅ Load balancing: 15 pools<br>
+                        <strong>→ Reporting to MRA...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00ff88;">
+                    <div class="agent-header">
+                        <span class="agent-name">🧠 NETWORK_MRA</span>
+                        <span class="agent-status status-completed">Automation Complete</span>
+                    </div>
+                    <div class="agent-content">
+                        <strong>Network Optimization Results:</strong><br>
+                        ✅ Flow rules updated: 1,247<br>
+                        ✅ Traffic engineering applied<br>
+                        ✅ Micro-segmentation enabled<br>
+                        <strong>Performance: Latency -15%</strong><br>
+                        <strong>← Sending report to IO_AGENT...</strong>
+                    </div>
+                </div>
+                
+                <div class="agent-step" style="border: 2px solid #00aaff;">
+                    <div class="agent-header">
+                        <span class="agent-name">📥 IO_AGENT</span>
+                        <span class="agent-status status-completed">Report Delivered</span>
+                    </div>
+                    <div class="agent-content">
+                        🌐 <strong>Network Automation Summary:</strong><br>
+                        • Configs Automated: 168<br>
+                        • Latency Reduced: 15%<br>
+                        • Packet Loss: 0.001%<br>
+                        • Bandwidth Optimized: +23%<br>
+                        • Report Filed: Network Team
+                    </div>
+                </div>
+            </div>`
+        ]
+    }
+};
+        let currentScenario = null;
+        let messageHistory = [];
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to scenario items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const scenario = this.getAttribute('data-scenario');
+                    loadScenario(scenario);
+                });
+            });
+
+            // Enter key handler for input
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function loadScenario(scenarioKey) {
+            // Remove active class from all items
+            document.querySelectorAll('.scenario-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-scenario="${scenarioKey}"]`).classList.add('active');
+
+            // Get scenario data
+            const scenario = scenarios[scenarioKey];
+            currentScenario = scenarioKey;
+
+            // Update UI
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioDescription').textContent = scenario.description;
+
+            // Clear chat and add initial message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messageHistory = [];
+
+            // Add user's initial query
+            addMessage(scenario.initialQuery, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(scenario.responses[0], 'assistant', true);
+            }, 2000);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate AI response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = '';
+                if (message.toLowerCase().includes('status')) {
+                    response = `<div class="alert-box" style="border-color: #00ff88; background-color: #001a0f;">
+                        <span class="alert-icon" style="color: #00ff88;">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title" style="color: #00ff88;">System Status: All Services Operational</div>
+                            <div class="alert-description">All datacenter services are running within normal parameters. No incidents detected in the last 24 hours.</div>
+                        </div>
+                    </div>`;
+                } else if (message.toLowerCase().includes('help')) {
+                    response = `I can help you with:
+                    <br>• Incident management and resolution
+                    <br>• Capacity planning and optimization
+                    <br>• Infrastructure verification
+                    <br>• Service testing and validation
+                    <br>• Creating self-service portals
+                    <br><br>What would you like to explore?`;
+                } else {
+                    response = `I'm analyzing your request: "${message}". Our AI agents are continuously monitoring and optimizing the datacenter infrastructure. Would you like me to run a specific analysis or test?`;
+                }
+                
+                addMessage(response, 'assistant', true);
+            }, 1500);
+        }
+
+        function addMessage(content, sender, isHTML = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'assistant' && isHTML) {
+                // For assistant messages with HTML, use streaming
+                chatMessages.appendChild(messageDiv);
+                streamHTMLContent(messageDiv, content);
+            } else {
+                // For user messages or plain text, add immediately
+                if (isHTML) {
+                    messageDiv.innerHTML = content;
+                } else {
+                    messageDiv.textContent = content;
+                }
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            messageHistory.push({ content, sender });
+        }
+        
+        // Stream HTML content with typing effect
+        function streamHTMLContent(element, html) {
+            const chatMessages = document.getElementById('chatMessages');
+            // Split HTML into chunks for streaming
+            const htmlChunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+            
+            // Helper function for random delays
+            function getRandomDelay(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Function to process the next chunk with variable timing
+            function processNextChunk() {
+                if (chunkIndex < htmlChunks.length) {
+                    currentHTML += htmlChunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+                    
+                    // Auto-scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Decide on the delay for the next chunk
+                    let nextDelay;
+                    
+                    // Every 10 chunks, pause for a bit longer to simulate thinking
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } 
+                    // Every 5 chunks, pause briefly
+                    else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    }
+                    // Regular typing speed
+                    else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+                    
+                    setTimeout(processNextChunk, nextDelay);
+                }
+            }
+            
+            // Start the processing
+            processNextChunk();
+        }
+        
+        // Function to split HTML into chunks while preserving tags
+        function splitHTMLToChunks(html, chunkSize) {
+            const result = [];
+            let currentChunk = '';
+            let inTag = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                
+                // Always add the current character to the chunk
+                currentChunk += char;
+                
+                // If we're inside a tag, don't count it toward chunk size
+                if (char === '<') {
+                    inTag = true;
+                } else if (char === '>') {
+                    inTag = false;
+                }
+                
+                // If we've reached chunk size and we're not inside a tag, add chunk to result
+                if (currentChunk.length >= chunkSize && !inTag) {
+                    result.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+            
+            // Add the remaining chunk if there is any
+            if (currentChunk) {
+                result.push(currentChunk);
+            }
+            
+            return result;
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+    </script>
+</body>
+</html>
