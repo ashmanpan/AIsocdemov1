@@ -165,6 +165,21 @@
             font-size: 14px;
             line-height: 1.4;
         }
+
+        .section-header {
+            padding: 15px 15px 8px 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #00ff88;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
+        }
+
+        .section-header:first-child {
+            margin-top: 0;
+        }
         
         .content {
             flex-grow: 1;
@@ -851,6 +866,7 @@
                 <p class="sidebar-subtitle">14 Scenarios • 5G/4G • Network Operations • Performance Analysis</p>
             </div>
             <ul class="scenario-list">
+                <div class="section-header">🔧 Operations</div>
                 <li class="scenario-item" data-scenario="packet-loss">
                     <span class="scenario-icon">📊</span>
                     <span class="scenario-text">Packet Loss Investigation</span>
@@ -871,6 +887,16 @@
                     <span class="scenario-icon">🏆</span>
                     <span class="scenario-text">Application Performance RCA</span>
                 </li>
+                <li class="scenario-item" data-scenario="security-breach">
+                    <span class="scenario-icon">🚨</span>
+                    <span class="scenario-text">Security Breach Detection</span>
+                </li>
+                <li class="scenario-item" data-scenario="slow-response">
+                    <span class="scenario-icon">🛤️</span>
+                    <span class="scenario-text">Intermittent Slow Response</span>
+                </li>
+
+                <div class="section-header">📊 Planning</div>
                 <li class="scenario-item" data-scenario="capacity-planning">
                     <span class="scenario-icon">📈</span>
                     <span class="scenario-text">Network Capacity Planning</span>
@@ -879,18 +905,6 @@
                     <span class="scenario-icon">🌐</span>
                     <span class="scenario-text">SD-WAN Performance Optimization</span>
                 </li>
-                <li class="scenario-item" data-scenario="security-breach">
-                    <span class="scenario-icon">🚨</span>
-                    <span class="scenario-text">Security Breach Detection</span>
-                </li>
-                <li class="scenario-item" data-scenario="router-upgrade">
-                    <span class="scenario-icon">🔄</span>
-                    <span class="scenario-text">Router Upgrade Resilience</span>
-                </li>
-                <li class="scenario-item" data-scenario="slow-response">
-                    <span class="scenario-icon">🛤️</span>
-                    <span class="scenario-text">Intermittent Slow Response</span>
-                </li>
                 <li class="scenario-item" data-scenario="config-audit">
                     <span class="scenario-icon">🔍</span>
                     <span class="scenario-text">Config Audit & Resiliency Assessment</span>
@@ -898,6 +912,12 @@
                 <li class="scenario-item" data-scenario="recommendations-mitigation">
                     <span class="scenario-icon">💡</span>
                     <span class="scenario-text">AI-Driven Recommendations & Mitigation</span>
+                </li>
+
+                <div class="section-header">🚀 Deployment</div>
+                <li class="scenario-item" data-scenario="router-upgrade">
+                    <span class="scenario-icon">🔄</span>
+                    <span class="scenario-text">Router Upgrade Resilience</span>
                 </li>
                 <li class="scenario-item" data-scenario="scheduled-migration">
                     <span class="scenario-icon">📅</span>
