@@ -795,7 +795,25 @@
             background-color: #ff0044;
             color: #fff;
         }
-        
+
+        .question-block {
+            background-color: #1a1a1a;
+            border-left: 3px solid #00aaff;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .question-block p {
+            margin: 5px 0;
+        }
+
+        .question-block .answer {
+            color: #00ff88;
+            margin-left: 20px;
+            font-style: italic;
+        }
+
         .metric-list li {
             margin-bottom: 5px;
         }
@@ -4951,6 +4969,32 @@ segment-routing traffic-eng
       </div>
       <div class="agent-content">
         <p>Requirements collected through conversational dialogue:</p>
+
+        <div class="question-block">
+          <p><strong>Q1: What type of device are you deploying?</strong></p>
+          <p class="answer">A1: Cisco NCS540 routers with 4x10G and 2x100G ports</p>
+        </div>
+
+        <div class="question-block">
+          <p><strong>Q2: What is the deployment site and role?</strong></p>
+          <p class="answer">A2: Mumbai Data Center - Aggregation Layer, acting as Provider Edge (PE) router</p>
+        </div>
+
+        <div class="question-block">
+          <p><strong>Q3: Which routing protocols need to be configured?</strong></p>
+          <p class="answer">A3: BGP, OSPF, MPLS L3VPN, and BFD for fast failover</p>
+        </div>
+
+        <div class="question-block">
+          <p><strong>Q4: What services will this router provide?</strong></p>
+          <p class="answer">A4: L3VPN services for 10 customers with QoS policies (Voice, Critical-Data, Best-Effort)</p>
+        </div>
+
+        <div class="question-block">
+          <p><strong>Q5: What are the management requirements?</strong></p>
+          <p class="answer">A5: Out-of-band management via dedicated VLAN 99, SNMP v3, and SSH access only</p>
+        </div>
+
         <div class="table-container">
           <table class="data-table">
             <thead>
