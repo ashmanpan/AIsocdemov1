@@ -572,7 +572,7 @@
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title">Quick Links</div>
-                <a href="#upload" class="category-item">⬆️ Upload Guide</a>
+                <a href="presentations-admin.html" class="category-item">🔐 Admin Panel</a>
                 <a href="contact-us.html" class="category-item">📧 Request Slides</a>
             </div>
         </aside>
@@ -608,22 +608,6 @@
                 <div class="no-results-text">No presentations found</div>
                 <p>Try adjusting your search or filters</p>
             </div>
-
-            <!-- Upload Info Section -->
-            <div id="upload" class="upload-info">
-                <div class="upload-icon">☁️</div>
-                <h3 style="color: #fff; margin-bottom: 1rem;">Upload Presentations</h3>
-                <p class="upload-text">
-                    Presentations are hosted on AWS S3 and delivered via CloudFront CDN for optimal performance
-                </p>
-                <div class="upload-command">
-                    # Upload a presentation<br>
-                    aws s3 cp your-presentation.pdf s3://ciscoaidemo-presentations/5g/<br>
-                    <br>
-                    # Access via CloudFront<br>
-                    https://d1vmgkc8kwdpn5.cloudfront.net/5g/your-presentation.pdf
-                </div>
-            </div>
         </div>
     </div>
 
@@ -639,7 +623,8 @@
                 size: "12.5 MB",
                 filename: "5g-core-migration-v2.pdf",
                 badge: "New",
-                icon: "📡"
+                icon: "📡",
+                stats: { likes: 42, downloads: 0, views: 156 }
             },
             {
                 id: 2,
@@ -649,7 +634,8 @@
                 date: "2025-01-05",
                 size: "8.3 MB",
                 filename: "ran-consolidation.pdf",
-                icon: "🔄"
+                icon: "🔄",
+                stats: { likes: 28, downloads: 15, views: 89 }
             },
             {
                 id: 3,
@@ -659,7 +645,8 @@
                 date: "2024-12-28",
                 size: "15.2 MB",
                 filename: "ai-security-ops.pdf",
-                icon: "🛡️"
+                icon: "🛡️",
+                stats: { likes: 67, downloads: 0, views: 234 }
             },
             {
                 id: 4,
@@ -743,17 +730,31 @@
                             <span class="presentation-date">📅 ${pres.date}</span>
                             <span class="presentation-size">📄 ${pres.size}</span>
                         </div>
+                        <div class="presentation-stats" style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.875rem; color: #888;">
+                            <button class="stat-item" onclick="toggleLike(${pres.id})" style="background: none; border: none; color: ${pres.liked ? '#00ff88' : '#888'}; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; transition: all 0.3s;">
+                                <span>${pres.liked ? '❤️' : '🤍'}</span>
+                                <span id="likes-${pres.id}">${pres.stats?.likes || 0}</span>
+                            </button>
+                            <span class="stat-item" style="display: flex; align-items: center; gap: 0.25rem;">
+                                <span>⬇️</span>
+                                <span id="downloads-${pres.id}">${pres.stats?.downloads || 0}</span>
+                            </span>
+                            <span class="stat-item" style="display: flex; align-items: center; gap: 0.25rem;">
+                                <span>👁️</span>
+                                <span>${pres.stats?.views || 0}</span>
+                            </span>
+                        </div>
                         <div class="presentation-actions">
                             <a href="${cloudfrontDomain}/${pres.category}/${pres.filename}"
                                target="_blank"
                                class="action-btn primary"
-                               onclick="trackDownload('${pres.title}')">
+                               onclick="trackView(${pres.id})">
                                 👁️ View
                             </a>
                             <a href="${cloudfrontDomain}/${pres.category}/${pres.filename}"
                                download
                                class="action-btn"
-                               onclick="trackDownload('${pres.title}')">
+                               onclick="trackDownload(${pres.id}, '${pres.title}')">
                                 ⬇️ Download
                             </a>
                         </div>
@@ -762,10 +763,76 @@
             `).join('');
         }
 
+        // Toggle like
+        function toggleLike(id) {
+            const pres = presentations.find(p => p.id === id);
+            if (pres) {
+                // Toggle liked state
+                pres.liked = !pres.liked;
+
+                // Update like count
+                if (pres.liked) {
+                    pres.stats.likes++;
+                } else {
+                    pres.stats.likes--;
+                }
+
+                // Save to localStorage
+                saveLikes();
+
+                // Re-render
+                renderPresentations(presentations);
+
+                console.log(`Like toggled for: ${pres.title}, Total likes: ${pres.stats.likes}`);
+            }
+        }
+
+        // Save likes to localStorage
+        function saveLikes() {
+            const likes = {};
+            presentations.forEach(p => {
+                likes[p.id] = { liked: p.liked, count: p.stats.likes };
+            });
+            localStorage.setItem('presentationLikes', JSON.stringify(likes));
+        }
+
+        // Load likes from localStorage
+        function loadLikes() {
+            const saved = localStorage.getItem('presentationLikes');
+            if (saved) {
+                const likes = JSON.parse(saved);
+                presentations.forEach(p => {
+                    if (likes[p.id]) {
+                        p.liked = likes[p.id].liked;
+                        p.stats.likes = likes[p.id].count;
+                    }
+                });
+            }
+        }
+
+        // Track view
+        function trackView(id) {
+            const pres = presentations.find(p => p.id === id);
+            if (pres) {
+                pres.stats.views++;
+                console.log(`View tracked for: ${pres.title}, Total views: ${pres.stats.views}`);
+                // In production, send to analytics API
+            }
+        }
+
         // Track downloads
-        function trackDownload(title) {
-            console.log('Download tracked:', title);
-            // Add analytics tracking here
+        function trackDownload(id, title) {
+            const pres = presentations.find(p => p.id === id);
+            if (pres) {
+                pres.stats.downloads++;
+                // Update the download counter in the UI
+                const downloadEl = document.getElementById(`downloads-${id}`);
+                if (downloadEl) {
+                    downloadEl.textContent = pres.stats.downloads;
+                }
+                console.log(`Download tracked for: ${title}, Total downloads: ${pres.stats.downloads}`);
+                // In production, send to analytics API
+            }
         }
 
         // Search functionality
@@ -833,6 +900,7 @@
         });
 
         // Initial render
+        loadLikes(); // Load saved likes from localStorage
         renderPresentations(presentations);
     </script>
 </body>
