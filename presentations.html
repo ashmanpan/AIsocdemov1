@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentations Library - Cisco AI Operations Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 40px;
+        }
+
+        .nav-logo span {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #00ff88;
+        }
+
+        .nav-link.active {
+            color: #00ff88;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(26, 26, 26, 0.98);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 200px;
+            margin-top: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            margin-top: 60px;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #181818;
+            border-right: 1px solid #333;
+            padding: 1.5rem 0;
+            position: fixed;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .category-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .category-item.active {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            margin-left: 240px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-description {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+            min-width: 280px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .filter-btn:hover {
+            background: #282828;
+            border-color: #444;
+        }
+
+        .filter-btn.active {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+
+        /* Presentation Grid */
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .presentation-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-4px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .presentation-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #333;
+        }
+
+        .presentation-icon {
+            font-size: 4rem;
+            opacity: 0.6;
+        }
+
+        .presentation-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 255, 136, 0.9);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .presentation-content {
+            padding: 1.25rem;
+        }
+
+        .presentation-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .presentation-description {
+            color: #888;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .presentation-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .presentation-date {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .presentation-size {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .presentation-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #202020;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background: #2a2a2a;
+            border-color: #444;
+            color: #fff;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .action-btn.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results-text {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-header {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s ease;
+                width: 100%;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 0;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .presentation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+        }
+
+        /* Upload Section */
+        .upload-info {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .upload-text {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .upload-command {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: #00ff88;
+            margin-top: 1rem;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="ciscologo.jpg" alt="Cisco Logo">
+                <span>Agentic AI Solution Hub</span>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Demos</a>
+                    <div class="dropdown-content">
+                        <a href="Cisco-AI-NoC-Telco-v5.html" class="dropdown-item">AI NOC Demo</a>
+                        <a href="Cisco-AI-SoC-Telco-v2.5.html" class="dropdown-item">AI SOC Demo</a>
+                        <a href="Cisco-AI-DC-v2.0.html" class="dropdown-item">AI Datacenter Demo</a>
+                        <a href="Cloud-service-creation-as-service/cloud-operations.html" class="dropdown-item">AI Cloud Ops</a>
+                    </div>
+                </div>
+                <a href="industry-usecases.html" class="nav-link">Vertical Industry</a>
+                <a href="agent-marketplace.html" class="nav-link">Marketplace</a>
+                <a href="demo-videos.html" class="nav-link">Demo Videos</a>
+                <a href="presentations.html" class="nav-link active">Presentations</a>
+                <a href="contact-us.html" class="nav-link">Contact Us</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Categories</div>
+                <div class="category-item active" data-category="all">📚 All Presentations</div>
+                <div class="category-item" data-category="5g">📡 5G & Mobile Networks</div>
+                <div class="category-item" data-category="migration">🔄 Network Migration</div>
+                <div class="category-item" data-category="security">🛡️ Security Operations</div>
+                <div class="category-item" data-category="datacenter">🏢 Data Center</div>
+                <div class="category-item" data-category="automation">🤖 AI & Automation</div>
+                <div class="category-item" data-category="cloud">☁️ Cloud & NFV</div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Quick Links</div>
+                <a href="#upload" class="category-item">⬆️ Upload Guide</a>
+                <a href="contact-us.html" class="category-item">📧 Request Slides</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">Presentations Library</h1>
+                <p class="page-description">Technical presentations and solution overviews for service providers</p>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search presentations...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="latest">Latest</button>
+                    <button class="filter-btn" data-filter="popular">Popular</button>
+                </div>
+            </div>
+
+            <!-- Presentation Grid -->
+            <div class="presentation-grid" id="presentationGrid">
+                <!-- Presentations will be loaded here dynamically -->
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-icon">📭</div>
+                <div class="no-results-text">No presentations found</div>
+                <p>Try adjusting your search or filters</p>
+            </div>
+
+            <!-- Upload Info Section -->
+            <div id="upload" class="upload-info">
+                <div class="upload-icon">☁️</div>
+                <h3 style="color: #fff; margin-bottom: 1rem;">Upload Presentations</h3>
+                <p class="upload-text">
+                    Presentations are hosted on AWS S3 and delivered via CloudFront CDN for optimal performance
+                </p>
+                <div class="upload-command">
+                    # Upload a presentation<br>
+                    aws s3 cp your-presentation.pdf s3://ciscoaidemo-presentations/5g/<br>
+                    <br>
+                    # Access via CloudFront<br>
+                    https://d1vmgkc8kwdpn5.cloudfront.net/5g/your-presentation.pdf
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample presentations data - Replace with actual data from your S3 bucket
+        const presentations = [
+            {
+                id: 1,
+                title: "5G Core Network Migration Strategy",
+                description: "Comprehensive guide for migrating from 4G EPC to 5G Standalone Core with zero downtime",
+                category: "5g",
+                date: "2025-01-08",
+                size: "12.5 MB",
+                filename: "5g-core-migration-v2.pdf",
+                badge: "New",
+                icon: "📡"
+            },
+            {
+                id: 2,
+                title: "Multi-Vendor RAN Consolidation",
+                description: "Best practices for consolidating Ericsson, Nokia, and Huawei RAN equipment",
+                category: "migration",
+                date: "2025-01-05",
+                size: "8.3 MB",
+                filename: "ran-consolidation.pdf",
+                icon: "🔄"
+            },
+            {
+                id: 3,
+                title: "AI-Powered Security Operations",
+                description: "Implementing autonomous threat detection and response for service providers",
+                category: "security",
+                date: "2024-12-28",
+                size: "15.2 MB",
+                filename: "ai-security-ops.pdf",
+                icon: "🛡️"
+            },
+            {
+                id: 4,
+                title: "Segment Routing for 5G Transport",
+                description: "Modernizing MPLS networks with SR-MPLS and SRv6 for 5G readiness",
+                category: "5g",
+                date: "2024-12-20",
+                size: "10.8 MB",
+                filename: "segment-routing-5g.pdf",
+                icon: "📡"
+            },
+            {
+                id: 5,
+                title: "Data Center ACI Migration",
+                description: "Traditional DC network to Cisco ACI fabric migration playbook",
+                category: "datacenter",
+                date: "2024-12-15",
+                size: "11.4 MB",
+                filename: "aci-migration-guide.pdf",
+                icon: "🏢"
+            },
+            {
+                id: 6,
+                title: "NFV to CNF Transformation",
+                description: "Cloud-native network functions deployment on Kubernetes",
+                category: "cloud",
+                date: "2024-12-10",
+                size: "9.7 MB",
+                filename: "nfv-to-cnf.pdf",
+                icon: "☁️"
+            },
+            {
+                id: 7,
+                title: "Agentic AI for Network Operations",
+                description: "Implementing autonomous AI agents for NOC automation",
+                category: "automation",
+                date: "2024-12-05",
+                size: "14.1 MB",
+                filename: "agentic-ai-noc.pdf",
+                badge: "Popular",
+                icon: "🤖"
+            },
+            {
+                id: 8,
+                title: "Network Slicing Business Models",
+                description: "Monetization strategies for 5G network slicing services",
+                category: "5g",
+                date: "2024-11-28",
+                size: "7.9 MB",
+                filename: "network-slicing-business.pdf",
+                icon: "📡"
+            }
+        ];
+
+        const cloudfrontDomain = "https://d1vmgkc8kwdpn5.cloudfront.net";
+
+        // Render presentations
+        function renderPresentations(filteredPresentations) {
+            const grid = document.getElementById('presentationGrid');
+            const noResults = document.getElementById('noResults');
+
+            if (filteredPresentations.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            grid.innerHTML = filteredPresentations.map(pres => `
+                <div class="presentation-card" data-category="${pres.category}">
+                    <div class="presentation-thumbnail">
+                        <div class="presentation-icon">${pres.icon}</div>
+                        ${pres.badge ? `<div class="presentation-badge">${pres.badge}</div>` : ''}
+                    </div>
+                    <div class="presentation-content">
+                        <h3 class="presentation-title">${pres.title}</h3>
+                        <p class="presentation-description">${pres.description}</p>
+                        <div class="presentation-meta">
+                            <span class="presentation-date">📅 ${pres.date}</span>
+                            <span class="presentation-size">📄 ${pres.size}</span>
+                        </div>
+                        <div class="presentation-actions">
+                            <a href="${cloudfrontDomain}/${pres.category}/${pres.filename}"
+                               target="_blank"
+                               class="action-btn primary"
+                               onclick="trackDownload('${pres.title}')">
+                                👁️ View
+                            </a>
+                            <a href="${cloudfrontDomain}/${pres.category}/${pres.filename}"
+                               download
+                               class="action-btn"
+                               onclick="trackDownload('${pres.title}')">
+                                ⬇️ Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Track downloads
+        function trackDownload(title) {
+            console.log('Download tracked:', title);
+            // Add analytics tracking here
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = presentations.filter(pres =>
+                pres.title.toLowerCase().includes(searchTerm) ||
+                pres.description.toLowerCase().includes(searchTerm)
+            );
+            renderPresentations(filtered);
+        });
+
+        // Category filter
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const category = item.dataset.category;
+                const filtered = category === 'all'
+                    ? presentations
+                    : presentations.filter(pres => pres.category === category);
+                renderPresentations(filtered);
+            });
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                let filtered = [...presentations];
+
+                if (filter === 'latest') {
+                    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+                } else if (filter === 'popular') {
+                    filtered = presentations.filter(pres => pres.badge === 'Popular');
+                }
+
+                renderPresentations(filtered);
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-header')) {
+                navMenu.classList.remove('active');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.textContent = '☰';
+                }
+            }
+        });
+
+        // Initial render
+        renderPresentations(presentations);
+    </script>
+</body>
+</html>
