@@ -19,3 +19,4 @@ Thumbs.db
 *.temp
 *.log.github-token
 .github-token
+google-drive-credentials.json

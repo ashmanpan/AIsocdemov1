@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentations Admin - Cisco AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .login-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 4rem auto;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .presentation-table {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #252525;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            color: #00ff88;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        tr:hover {
+            background: #202020;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #555;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #00ff88;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.admin {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .badge.public {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .save-button {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .logout-button {
+            background: #e74c3c;
+            color: #fff;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Box -->
+        <div class="login-box" id="loginBox">
+            <h2 style="margin-bottom: 1rem; color: #fff;">Admin Login</h2>
+            <input type="password" id="adminPassword" placeholder="Enter admin password" />
+            <button onclick="login()">Login</button>
+            <p id="loginError" style="color: #e74c3c; margin-top: 1rem; display: none;">Invalid password</p>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <h1>Presentations Admin Panel</h1>
+            <button class="logout-button" onclick="logout()">Logout</button>
+            <div style="clear: both;"></div>
+
+            <div class="presentation-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>View Enabled</th>
+                            <th>Download Enabled</th>
+                            <th>Admin Only</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="presentationsTable">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="save-button" onclick="saveConfig()">💾 Save Changes</button>
+        </div>
+    </div>
+
+    <script>
+        // Load configuration (in production, this would come from a backend API)
+        let config = {
+            "presentations": [
+                {
+                    "id": 1,
+                    "title": "5G Core Network Migration Strategy",
+                    "category": "5g",
+                    "permissions": {
+                        "viewEnabled": true,
+                        "downloadEnabled": false,
+                        "adminOnly": false
+                    }
+                },
+                {
+                    "id": 2,
+                    "title": "Multi-Vendor RAN Consolidation",
+                    "category": "migration",
+                    "permissions": {
+                        "viewEnabled": true,
+                        "downloadEnabled": true,
+                        "adminOnly": false
+                    }
+                },
+                {
+                    "id": 3,
+                    "title": "AI-Powered Security Operations",
+                    "category": "security",
+                    "permissions": {
+                        "viewEnabled": true,
+                        "downloadEnabled": false,
+                        "adminOnly": true
+                    }
+                },
+                {
+                    "id": 4,
+                    "title": "Segment Routing for 5G Transport",
+                    "category": "5g",
+                    "permissions": {
+                        "viewEnabled": false,
+                        "downloadEnabled": false,
+                        "adminOnly": true
+                    }
+                }
+            ],
+            "settings": {
+                "adminPassword": "cisco2025"
+            }
+        };
+
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === config.settings.adminPassword) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminPanel').classList.add('active');
+                loadPresentations();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginBox').style.display = 'block';
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function loadPresentations() {
+            const tbody = document.getElementById('presentationsTable');
+            tbody.innerHTML = config.presentations.map(p => `
+                <tr>
+                    <td>${p.title}</td>
+                    <td style="text-transform: uppercase;">${p.category}</td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${p.permissions.viewEnabled ? 'checked' : ''}
+                                   onchange="togglePermission(${p.id}, 'viewEnabled', this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${p.permissions.downloadEnabled ? 'checked' : ''}
+                                   onchange="togglePermission(${p.id}, 'downloadEnabled', this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${p.permissions.adminOnly ? 'checked' : ''}
+                                   onchange="togglePermission(${p.id}, 'adminOnly', this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <span class="badge ${p.permissions.adminOnly ? 'admin' : 'public'}">
+                            ${p.permissions.adminOnly ? '🔒 Admin' : '🌐 Public'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function togglePermission(id, permission, value) {
+            const presentation = config.presentations.find(p => p.id === id);
+            if (presentation) {
+                presentation.permissions[permission] = value;
+                loadPresentations(); // Refresh to update badges
+            }
+        }
+
+        function saveConfig() {
+            // In production, this would POST to a backend API
+            console.log('Saving configuration:', config);
+
+            // Save to localStorage for demo purposes
+            localStorage.setItem('presentationsConfig', JSON.stringify(config));
+
+            alert('✅ Configuration saved successfully!\n\nIn production, this would update the backend database.');
+        }
+
+        // Load saved config from localStorage (demo only)
+        const saved = localStorage.getItem('presentationsConfig');
+        if (saved) {
+            config = JSON.parse(saved);
+        }
+    </script>
+</body>
+</html>

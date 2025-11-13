@@ -1,0 +1,87 @@
+{
+  "presentations": [
+    {
+      "id": 1,
+      "title": "5G Core Network Migration Strategy",
+      "description": "Comprehensive guide for migrating from 4G EPC to 5G Standalone Core with zero downtime",
+      "category": "5g",
+      "date": "2025-01-08",
+      "size": "12.5 MB",
+      "icon": "📡",
+      "badge": "New",
+      "permissions": {
+        "viewEnabled": true,
+        "downloadEnabled": false,
+        "adminOnly": false
+      },
+      "urls": {
+        "googleSlidesEmbed": "https://docs.google.com/presentation/d/EXAMPLE_ID/embed?start=true&loop=false",
+        "googleSlidesView": "https://docs.google.com/presentation/d/EXAMPLE_ID/edit",
+        "s3Download": "https://d1vmgkc8kwdpn5.cloudfront.net/5g/5g-core-migration-v2.pptx"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Multi-Vendor RAN Consolidation",
+      "description": "Best practices for consolidating Ericsson, Nokia, and Huawei RAN equipment",
+      "category": "migration",
+      "date": "2025-01-05",
+      "size": "8.3 MB",
+      "icon": "🔄",
+      "permissions": {
+        "viewEnabled": true,
+        "downloadEnabled": true,
+        "adminOnly": false
+      },
+      "urls": {
+        "googleSlidesEmbed": "https://docs.google.com/presentation/d/EXAMPLE_ID2/embed?start=true&loop=false",
+        "googleSlidesView": "https://docs.google.com/presentation/d/EXAMPLE_ID2/edit",
+        "s3Download": "https://d1vmgkc8kwdpn5.cloudfront.net/migration/ran-consolidation.pptx"
+      }
+    },
+    {
+      "id": 3,
+      "title": "AI-Powered Security Operations",
+      "description": "Implementing autonomous threat detection and response for service providers",
+      "category": "security",
+      "date": "2024-12-28",
+      "size": "15.2 MB",
+      "icon": "🛡️",
+      "permissions": {
+        "viewEnabled": true,
+        "downloadEnabled": false,
+        "adminOnly": true
+      },
+      "urls": {
+        "googleSlidesEmbed": "https://docs.google.com/presentation/d/EXAMPLE_ID3/embed?start=true&loop=false",
+        "googleSlidesView": "https://docs.google.com/presentation/d/EXAMPLE_ID3/edit",
+        "s3Download": "https://d1vmgkc8kwdpn5.cloudfront.net/security/ai-security-ops.pptx"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Segment Routing for 5G Transport",
+      "description": "Modernizing MPLS networks with SR-MPLS and SRv6 for 5G readiness",
+      "category": "5g",
+      "date": "2024-12-20",
+      "size": "10.8 MB",
+      "icon": "📡",
+      "permissions": {
+        "viewEnabled": false,
+        "downloadEnabled": false,
+        "adminOnly": true
+      },
+      "urls": {
+        "googleSlidesEmbed": "https://docs.google.com/presentation/d/EXAMPLE_ID4/embed?start=true&loop=false",
+        "googleSlidesView": "https://docs.google.com/presentation/d/EXAMPLE_ID4/edit",
+        "s3Download": "https://d1vmgkc8kwdpn5.cloudfront.net/5g/segment-routing-5g.pptx"
+      }
+    }
+  ],
+  "settings": {
+    "adminPassword": "cisco2025",
+    "defaultViewEnabled": true,
+    "defaultDownloadEnabled": false,
+    "requireAuthForDownload": true
+  }
+}
