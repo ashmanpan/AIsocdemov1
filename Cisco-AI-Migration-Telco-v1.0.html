@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Agentic AI - Network Migration Demo v1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #111111;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 35px;
+            width: 70px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: #111111;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 3px;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .scenario-list {
+            list-style: none;
+            padding: 10px;
+        }
+
+        .scenario-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario-item:hover {
+            background-color: #252525;
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+
+        .scenario-item.active {
+            background-color: #002b36;
+            border-color: #00ff88;
+        }
+
+        .scenario-icon {
+            font-size: 20px;
+        }
+
+        .scenario-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .section-header {
+            padding: 15px 15px 8px 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #00ff88;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
+        }
+
+        .section-header:first-child {
+            margin-top: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .ai-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(0, 255, 136, 0.6);
+            }
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-subtitle {
+            font-size: 18px;
+            color: #888;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            background-color: #111111;
+        }
+
+        .chat-title-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .chat-icon {
+            font-size: 28px;
+        }
+
+        .chat-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .chat-description {
+            font-size: 14px;
+            color: #888;
+            margin-left: 43px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 4px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-content {
+            display: inline-block;
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
+            color: #000;
+            font-weight: 500;
+        }
+
+        .message.assistant .message-content {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            text-align: left;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 18px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 18px;
+            max-width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .input-container {
+            padding: 20px;
+            border-top: 1px solid #333;
+            background-color: #111111;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #333;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #00ff88;
+        }
+
+        .send-button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Agent Workflow Styles */
+        .root-container {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .root-container h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .root-container h4 {
+            font-size: 18px;
+            margin: 25px 0 15px 0;
+            color: #00aaff;
+        }
+
+        .agent-workflow {
+            margin-top: 25px;
+        }
+
+        .agent-step {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .agent-step:hover {
+            border-color: #00ff88;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+        }
+
+        .agent-step.completed {
+            opacity: 0.9;
+        }
+
+        .agent-step.highlight-step {
+            border-color: #ff6600;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+        }
+
+        .agent-header {
+            background-color: #252525;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        .agent-icon {
+            font-size: 24px;
+        }
+
+        .agent-name {
+            flex-grow: 1;
+            font-weight: 600;
+            font-size: 14px;
+            color: #00ff88;
+        }
+
+        .status-tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        .status-critical {
+            background-color: #ff0044;
+            color: #fff;
+        }
+
+        .status-warning {
+            background-color: #ff6600;
+            color: #fff;
+        }
+
+        .status-info {
+            background-color: #00aaff;
+            color: #fff;
+        }
+
+        .agent-content {
+            padding: 15px;
+            color: #ccc;
+        }
+
+        .agent-content p {
+            margin-bottom: 12px;
+        }
+
+        .agent-content strong {
+            color: #fff;
+        }
+
+        .change-details {
+            background-color: #252525;
+            border-left: 3px solid #00ff88;
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+
+        .compact-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0;
+        }
+
+        .compact-list li {
+            padding: 6px 0 6px 25px;
+            position: relative;
+        }
+
+        .compact-list li:before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .finding-summary {
+            margin: 15px 0;
+        }
+
+        .finding-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin: 4px 4px 4px 0;
+        }
+
+        .finding-good {
+            background-color: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .finding-issue {
+            background-color: rgba(255, 102, 0, 0.2);
+            border: 1px solid #ff6600;
+            color: #ff6600;
+        }
+
+        .finding-critical {
+            background-color: rgba(255, 0, 68, 0.2);
+            border: 1px solid #ff0044;
+            color: #ff0044;
+        }
+
+        .agent-transfer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .agent-transfer .arrow {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table th {
+            background-color: #252525;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #333;
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 10px;
+            border: 1px solid #333;
+            color: #ccc;
+        }
+
+        .data-table tr:hover {
+            background-color: #1a1a1a;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background-color: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .comparison-card.before {
+            border-color: #ff0044;
+        }
+
+        .comparison-card.after {
+            border-color: #00ff88;
+        }
+
+        .comparison-card h4 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-card li {
+            padding: 6px 0;
+            color: #ccc;
+        }
+
+        .timeline {
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 30px;
+            bottom: -20px;
+            width: 2px;
+            background-color: #333;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff88, #00aaff);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .timeline-content {
+            flex-grow: 1;
+        }
+
+        .timeline-time {
+            font-weight: 600;
+            color: #00ff88;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            color: #ccc;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .risk-matrix {
+            margin: 20px 0;
+        }
+
+        .risk-item {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .risk-item.high-risk {
+            border-color: #ff0044;
+            background-color: rgba(255, 0, 68, 0.1);
+        }
+
+        .risk-item.medium-risk {
+            border-color: #ff6600;
+            background-color: rgba(255, 102, 0, 0.1);
+        }
+
+        .risk-item.low-risk {
+            border-color: #00ff88;
+            background-color: rgba(0, 255, 136, 0.1);
+        }
+
+        .risk-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .risk-content {
+            flex-grow: 1;
+        }
+
+        .risk-content h5 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .risk-content p {
+            margin: 0;
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .phase-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .phase-planning {
+            background-color: rgba(0, 170, 255, 0.2);
+            border: 1px solid #00aaff;
+            color: #00aaff;
+        }
+
+        .phase-pre-migration {
+            background-color: rgba(255, 165, 0, 0.2);
+            border: 1px solid #ffa500;
+            color: #ffa500;
+        }
+
+        .phase-execution {
+            background-color: rgba(255, 0, 68, 0.2);
+            border: 1px solid #ff0044;
+            color: #ff0044;
+        }
+
+        .phase-verification {
+            background-color: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .section-header-workflow {
+            font-size: 20px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #00aaff;
+        }
+
+        .metric-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #252525;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 13px;
+        }
+
+        .metric-badge .badge-label {
+            color: #888;
+        }
+
+        .metric-badge .badge-value {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background-color: #252525;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #000;
+            transition: width 1s ease;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .dashboard-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .dashboard-card .card-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-card .card-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .dashboard-card .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 200px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="ciscologo.jpg" alt="Cisco Logo">
+            <div class="logo-text">AI Network Migration</div>
+        </div>
+        <a href="https://allinone.ciscoaidemo.com" class="home-button">🏠 Back to Home</a>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Migration Scenarios</div>
+                <div class="sidebar-subtitle">Select a migration use case</div>
+            </div>
+            <ul class="scenario-list">
+                <div class="section-header">🌐 Core Network Migration</div>
+                <li class="scenario-item" data-scenario="asr920-ncs540">
+                    <span class="scenario-icon">📡</span>
+                    <span class="scenario-text">ASR 920 to NCS 540 Migration</span>
+                </li>
+                <li class="scenario-item" data-scenario="mpls-sr">
+                    <span class="scenario-icon">🔄</span>
+                    <span class="scenario-text">MPLS to Segment Routing</span>
+                </li>
+                <li class="scenario-item" data-scenario="100g-400g">
+                    <span class="scenario-icon">⚡</span>
+                    <span class="scenario-text">100G to 400G Core Upgrade</span>
+                </li>
+                <li class="scenario-item" data-scenario="asr9k-cisco8k">
+                    <span class="scenario-icon">🔀</span>
+                    <span class="scenario-text">ASR 9K to Cisco 8000</span>
+                </li>
+
+                <div class="section-header">🏢 Service Edge Migration</div>
+                <li class="scenario-item" data-scenario="bng-cloud">
+                    <span class="scenario-icon">🌍</span>
+                    <span class="scenario-text">BNG to Cloud BNG</span>
+                </li>
+                <li class="scenario-item" data-scenario="voice-ims">
+                    <span class="scenario-icon">📞</span>
+                    <span class="scenario-text">Voice to IMS/VoLTE</span>
+                </li>
+                <li class="scenario-item" data-scenario="cgn-migration">
+                    <span class="scenario-icon">🎯</span>
+                    <span class="scenario-text">CGN Modernization</span>
+                </li>
+                <li class="scenario-item" data-scenario="sp-firewall">
+                    <span class="scenario-icon">🔐</span>
+                    <span class="scenario-text">SP Firewall Migration</span>
+                </li>
+
+                <div class="section-header">☁️ Network Transformation</div>
+                <li class="scenario-item" data-scenario="sdwan-migration">
+                    <span class="scenario-icon">🌐</span>
+                    <span class="scenario-text">MPLS to SD-WAN</span>
+                </li>
+                <li class="scenario-item" data-scenario="multi-vendor">
+                    <span class="scenario-icon">🔗</span>
+                    <span class="scenario-text">Multi-vendor Consolidation</span>
+                </li>
+                <li class="scenario-item" data-scenario="nfv-cnf">
+                    <span class="scenario-icon">☁️</span>
+                    <span class="scenario-text">NFV to Cloud-Native</span>
+                </li>
+                <li class="scenario-item" data-scenario="transport-evolution">
+                    <span class="scenario-icon">🎯</span>
+                    <span class="scenario-text">Transport Network Evolution</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="ai-logo">🔄</div>
+                <h1 class="welcome-title">Cisco Agentic AI Network Migration</h1>
+                <p class="welcome-subtitle">
+                    Experience AI-powered network migration planning with intelligent agents
+                    that automate assessment, planning, execution, and validation across your
+                    telco/service provider infrastructure.
+                </p>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <div class="chat-title-row">
+                        <span class="chat-icon" id="chatIcon">📡</span>
+                        <h2 class="chat-title" id="chatTitle">Migration Scenario</h2>
+                    </div>
+                    <p class="chat-description" id="chatDescription">Select a scenario from the sidebar</p>
+                </div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="input-container">
+                    <input type="text" class="input-field" id="chatInput" placeholder="Ask about the migration...">
+                    <button class="send-button" id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = {
+            'asr920-ncs540': {
+                title: 'ASR 920 to NCS 540 Metro Aggregation Migration',
+                icon: '📡',
+                description: 'IOS-XE to IOS-XR migration with capacity upgrade and SR-readiness',
+                initialQuery: 'I need to migrate 200 ASR 920 routers to NCS 540. Can you help plan and execute this migration with zero service impact?',
+                responses: [`
+<div class="root-container">
+    <h3>🔄 Agentic AI - ASR 920 to NCS 540 Migration v1.0</h3>
+    <p><strong>Complete 25-Step Migration Workflow: Assessment → Planning → Execution → Verification</strong></p>
+
+    <div class="metric-badge">
+        <span class="badge-label">Scale:</span>
+        <span class="badge-value">200 Devices</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Timeline:</span>
+        <span class="badge-value">16 Weeks</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Services:</span>
+        <span class="badge-value">5,000 L3VPN + 2,000 L2VPN</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Downtime Target:</span>
+        <span class="badge-value">&lt;5 minutes</span>
+    </div>
+
+    <h4 class="section-header-workflow">📋 PHASE 1: Assessment & Planning (Steps 1-9)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 1 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🎫</span>
+                <span class="agent-name">MIGRATION_REQUEST</span>
+                <span class="status-tag status-info">Initiated</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Migration Request Received</strong></p>
+                <div class="change-details">
+                    <p><strong>Ticket ID:</strong> MIG-2025-ASR920-001</p>
+                    <p><strong>Scope:</strong> Metro Aggregation Migration - ASR 920 EOL Replacement</p>
+                    <p><strong>Device Count:</strong> 200 ASR 920 routers across 25 metro locations</p>
+                    <p><strong>Target Platform:</strong> Cisco NCS 540 (IOS-XR)</p>
+                    <p><strong>Priority:</strong> HIGH (EOL in 18 months)</p>
+                    <p><strong>Business Driver:</strong> 5G backhaul readiness, Segment Routing preparation</p>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong> for requirements gathering
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🤖</span>
+                <span class="agent-name">IO_AGENT - Initial Gathering</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Collecting Migration Requirements</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Current Platform:</strong> ASR 920-12CZ-A, ASR 920-24SZ-IM (IOS-XE 16.12.x)</li>
+                    <li><strong>Target Platform:</strong> NCS 540-24Z8Q2C-M (IOS-XR 7.9.2)</li>
+                    <li><strong>Services Running:</strong> L3VPN (5,000 VRFs), L2VPN (2,000 pseudowires)</li>
+                    <li><strong>Critical Services:</strong> Mobile backhaul (3,000 eNodeB connections)</li>
+                    <li><strong>Timing Requirements:</strong> SyncE enabled on 80% devices, PTP on 20%</li>
+                    <li><strong>Multi-vendor Interop:</strong> Nokia 7750 SR (15 sites), Juniper MX (10 sites)</li>
+                </ul>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Well-defined scope</span>
+                    <span class="finding-tag finding-issue">⚠ Timing services critical</span>
+                    <span class="finding-tag finding-issue">⚠ Multi-vendor complexity</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong> for clarifying questions
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">❓</span>
+                <span class="agent-name">IO_AGENT - Clarifying Questions</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Critical Questions & Answers</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>What IOS-XE version are ASR 920s running?</td>
+                                <td>IOS-XE 16.12.5 (85%), 16.12.3 (15%)</td>
+                                <td>Standardization possible</td>
+                            </tr>
+                            <tr>
+                                <td>Acceptable downtime per site?</td>
+                                <td>&lt;5 minutes (midnight-6am window)</td>
+                                <td>Tight cutover timeline</td>
+                            </tr>
+                            <tr>
+                                <td>Rack space for parallel deployment?</td>
+                                <td>Available at 20% of sites only</td>
+                                <td>Swing migration for 80%</td>
+                            </tr>
+                            <tr>
+                                <td>Special timing requirements?</td>
+                                <td>SyncE: 160 sites, PTP: 40 sites</td>
+                                <td>Critical validation needed</td>
+                            </tr>
+                            <tr>
+                                <td>Multi-vendor interop sites?</td>
+                                <td>Nokia: 15 sites, Juniper: 10 sites</td>
+                                <td>Extended testing required</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CLASSIFICATION_AGENT</strong> for analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🏷️</span>
+                <span class="agent-name">CLASSIFICATION_AGENT</span>
+                <span class="status-tag status-warning">High Complexity</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Migration Classification & Complexity Assessment</strong></p>
+                <div class="change-details">
+                    <p><strong>Migration Type:</strong> Platform Upgrade + Operating System Migration</p>
+                    <p><strong>Complexity Level:</strong> HIGH</p>
+                    <ul class="compact-list">
+                        <li>IOS-XE → IOS-XR (different command syntax)</li>
+                        <li>10G → 100G port capacity upgrade (40x increase)</li>
+                        <li>Legacy MPLS-LDP + future SR-MPLS coexistence</li>
+                        <li>Critical timing services (SyncE/PTP) must be maintained</li>
+                        <li>Multi-vendor interoperability testing required</li>
+                    </ul>
+                    <p><strong>Risk Level:</strong> MEDIUM-HIGH</p>
+                    <p><strong>Recommended Approach:</strong> Phased parallel deployment with pilot validation</p>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>MRA (Master Reasoning Agent)</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="agent-step completed highlight-step">
+            <div class="agent-header">
+                <span class="agent-icon">🧠</span>
+                <span class="agent-name">MRA DEPLOYMENT - Master Reasoning Agent</span>
+                <span class="status-tag status-success">Ownership Taken</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>MRA Taking Ownership of ASR 920 → NCS 540 Migration</strong></p>
+                <div class="change-details">
+                    <p><strong>Multi-Phase Migration Strategy Created:</strong></p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 1: Assessment</span>
+                                <p>2 weeks - Complete inventory, config analysis, dependency mapping</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 2: Lab Validation</span>
+                                <p>2 weeks - Test config translation, timing, multi-vendor interop</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 3: Pilot Deployment</span>
+                                <p>1 week - Migrate 5 non-critical sites, validate approach</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 4: Phased Rollout</span>
+                                <p>10 weeks - 195 sites (19-20 sites/week), prioritized by criticality</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 5: Decommission</span>
+                                <p>1 week - Remove old ASR 920 devices, close project</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Total Timeline:</strong> 16 weeks end-to-end</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>KNOWLEDGE_GRAPH</strong> for inventory query
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🗄️</span>
+                <span class="agent-name">KNOWLEDGE_GRAPH QUERY</span>
+                <span class="status-tag status-success">Data Retrieved</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Querying Network Inventory & Configuration Database</strong></p>
+                <div class="change-details">
+                    <p><strong>SQL Query:</strong></p>
+                    <code style="display: block; background-color: #252525; padding: 10px; border-radius: 4px; color: #00ff88; font-family: monospace;">
+                        SELECT * FROM devices WHERE model LIKE 'ASR-920%'<br>
+                        JOIN configurations ON devices.id = configurations.device_id<br>
+                        JOIN services ON devices.id = services.device_id
+                    </code>
+                </div>
+                <p><strong>Results Retrieved:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Total Devices:</strong> 200 ASR 920 routers identified</li>
+                    <li><strong>IOS-XE Versions:</strong> 16.12.5 (170 devices), 16.12.3 (30 devices)</li>
+                    <li><strong>Protocol Distribution:</strong> IS-IS (120 devices), OSPF (80 devices), BGP (all 200)</li>
+                    <li><strong>MPLS Services:</strong> L3VPN (5,000 customer VRFs), L2VPN (2,000 pseudowires)</li>
+                    <li><strong>Timing Services:</strong> SyncE enabled (160 devices), PTP enabled (40 devices)</li>
+                    <li><strong>Port Utilization:</strong> Average 60%, Peak 85% at 12 high-traffic sites</li>
+                    <li><strong>Uplink Topology:</strong> Dual-homed to ASR 9000 core (185 sites), single-homed (15 sites)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>RAG_SYSTEM</strong> for historical analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📚</span>
+                <span class="agent-name">RAG_SYSTEM QUERY</span>
+                <span class="status-tag status-success">Historical Data Found</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Searching Historical Migration Cases & Best Practices</strong></p>
+                <div class="change-details">
+                    <p><strong>Query:</strong> "ASR 920 migration AND NCS 540 AND IOS-XE to IOS-XR"</p>
+                    <p><strong>Findings from 12 Similar Migrations (Past 2 Years):</strong></p>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Average</th>
+                                <th>Best Case</th>
+                                <th>Worst Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Migration Time per Device</td>
+                                <td>45 minutes</td>
+                                <td>25 minutes</td>
+                                <td>90 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Success Rate</td>
+                                <td>98%</td>
+                                <td>100%</td>
+                                <td>95%</td>
+                            </tr>
+                            <tr>
+                                <td>Rollbacks Required</td>
+                                <td>2%</td>
+                                <td>0%</td>
+                                <td>5%</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Complaints</td>
+                                <td>0.3%</td>
+                                <td>0%</td>
+                                <td>1.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Common Issues Identified:</strong></p>
+                <ul class="compact-list">
+                    <li>IOS-XE → IOS-XR QoS policy translation errors (resolved with automated scripts)</li>
+                    <li>SyncE configuration differences requiring manual validation</li>
+                    <li>BGP session flaps during cutover (resolved with graceful restart)</li>
+                    <li>L2VPN pseudowire re-signaling delays (30-60 seconds typical)</li>
+                </ul>
+                <p><strong>Best Practices Extracted:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Always pilot with 5 diverse sites first (different vendors, services, topology)</li>
+                    <li>✓ Pre-stage NCS 540 configs and validate offline before cutover</li>
+                    <li>✓ Use automated validation scripts for QoS, SyncE, and BGP</li>
+                    <li>✓ Coordinate L2VPN cutover windows with customers (30-60s impact expected)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>THREE-SOURCE ANALYSIS</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔍</span>
+                <span class="agent-name">THREE-SOURCE ANALYSIS</span>
+                <span class="status-tag status-success">Correlation Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Correlating: Migration Request + Knowledge Graph + RAG System</strong></p>
+                <div class="change-details">
+                    <p><strong>Key Insights from Data Correlation:</strong></p>
+                    <div class="finding-summary">
+                        <span class="finding-tag finding-good">✓ 85% devices on same IOS-XE version (16.12.5) - Easy standardization</span>
+                        <span class="finding-tag finding-issue">⚠ SyncE critical for 80% sites - Thorough validation essential</span>
+                        <span class="finding-tag finding-issue">⚠ Multi-vendor interop (Nokia/Juniper) at 25 sites - Extended testing</span>
+                        <span class="finding-tag finding-good">✓ Historical 98% success rate - Proven approach</span>
+                        <span class="finding-tag finding-issue">⚠ QoS policies need careful IOS-XR translation</span>
+                        <span class="finding-tag finding-critical">🔴 15 single-homed sites - Higher risk, schedule last</span>
+                    </div>
+                </div>
+                <p><strong>Risk Mitigation Strategy:</strong></p>
+                <ul class="compact-list">
+                    <li>Deploy automated config translation + validation scripts</li>
+                    <li>Extended lab testing for SyncE/PTP timing accuracy</li>
+                    <li>Multi-vendor interop testing (Nokia 7750, Juniper MX) in lab</li>
+                    <li>Pilot deployment MUST include 1 Nokia site + 1 Juniper site</li>
+                    <li>Single-homed sites scheduled last with extra field resources</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Deploying specialized migration agents
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 9 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🚀</span>
+                <span class="agent-name">AGENT_DEPLOYMENT ANNOUNCEMENT</span>
+                <span class="status-tag status-info">Agents Ready</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Deploying Specialized Migration Agents</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">INVENTORY_AGENT</div>
+                        <div class="card-value" style="font-size: 14px;">Device Mapping</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-label">CONFIG_TRANSLATION</div>
+                        <div class="card-value" style="font-size: 14px;">IOS-XE → XR</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">COMPATIBILITY</div>
+                        <div class="card-value" style="font-size: 14px;">Feature Parity</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-label">TRAFFIC_ANALYSIS</div>
+                        <div class="card-value" style="font-size: 14px;">Baseline Data</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">TIMING_VALIDATION</div>
+                        <div class="card-value" style="font-size: 14px;">SyncE/PTP</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">INTEROP_TESTING</div>
+                        <div class="card-value" style="font-size: 14px;">Multi-Vendor</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>All agents initialized and ready for Phase 2: Pre-Migration Validation</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">🔬 PHASE 2: Pre-Migration Validation (Steps 10-17)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 10 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📊</span>
+                <span class="agent-name">INVENTORY_AGENT</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Complete Device Inventory & Topology Mapping</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Device Count</th>
+                                <th>Percentage</th>
+                                <th>Average Port Util</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PE Routers (Provider Edge)</td>
+                                <td>140</td>
+                                <td>70%</td>
+                                <td>62%</td>
+                            </tr>
+                            <tr>
+                                <td>P Routers (Core)</td>
+                                <td>40</td>
+                                <td>20%</td>
+                                <td>55%</td>
+                            </tr>
+                            <tr>
+                                <td>Border Routers</td>
+                                <td>20</td>
+                                <td>10%</td>
+                                <td>70%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>200</strong></td>
+                                <td><strong>100%</strong></td>
+                                <td><strong>60%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Topology Analysis:</strong></p>
+                <ul class="compact-list">
+                    <li>Dual-homed sites: 185 (92.5%) - Lower migration risk</li>
+                    <li>Single-homed sites: 15 (7.5%) - Higher risk, requires careful scheduling</li>
+                    <li>Uplink connectivity: All connected to ASR 9000 core via 2x 10GE</li>
+                    <li>Peak utilization sites: 12 sites @ 85% util - Requires careful traffic monitoring</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DEPENDENCY_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 11 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔗</span>
+                <span class="agent-name">DEPENDENCY_AGENT</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Service Dependencies & Customer Impact Analysis</strong></p>
+                <div class="change-details">
+                    <p><strong>L3VPN Services (5,000 Customer VRFs):</strong></p>
+                    <ul class="compact-list">
+                        <li>Top 100 VRFs = 80% of revenue (HIGH priority)</li>
+                        <li>Enterprise customers: 2,500 VRFs (SLA-bound)</li>
+                        <li>Residential/SMB: 2,500 VRFs (best-effort)</li>
+                    </ul>
+                    <p><strong>L2VPN Services (2,000 Pseudowires):</strong></p>
+                    <ul class="compact-list">
+                        <li>Critical enterprise circuits: 500 (cannot fail)</li>
+                        <li>Standard circuits: 1,500 (tolerate 30-60s outage)</li>
+                    </ul>
+                    <p><strong>Mobile Backhaul (3,000 eNodeB Connections):</strong></p>
+                    <ul class="compact-list">
+                        <li>SyncE required for 2,400 connections (80%)</li>
+                        <li>PTP required for 600 connections (20%)</li>
+                        <li>Zero tolerance for timing degradation</li>
+                    </ul>
+                </div>
+                <p><strong>Critical Interdependencies Identified:</strong></p>
+                <div class="risk-matrix">
+                    <div class="risk-item high-risk">
+                        <span class="risk-icon">🔴</span>
+                        <div class="risk-content">
+                            <h5>Multi-vendor Peering Sites (25 sites)</h5>
+                            <p>Nokia 7750 SR (15 sites), Juniper MX (10 sites) - BGP/MPLS interop must be validated</p>
+                        </div>
+                    </div>
+                    <div class="risk-item high-risk">
+                        <span class="risk-icon">🔴</span>
+                        <div class="risk-content">
+                            <h5>Single-homed Sites (15 sites)</h5>
+                            <p>Complete outage during migration - Schedule during lowest traffic window (3-6am)</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Top 100 Revenue VRFs</h5>
+                            <p>Require customer coordination and approval for migration window</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>COMPATIBILITY_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 12 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">✅</span>
+                <span class="agent-name">COMPATIBILITY_AGENT</span>
+                <span class="status-tag status-success">95% Feature Parity</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>IOS-XE (ASR 920) vs IOS-XR (NCS 540) Feature Parity Check</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>🔴 ASR 920 (IOS-XE)</h4>
+                        <ul>
+                            <li>OS: IOS-XE 16.12.x</li>
+                            <li>Capacity: 20 Gbps</li>
+                            <li>Ports: 12x 1G/10G SFP+</li>
+                            <li>MPLS: LDP, RSVP-TE</li>
+                            <li>QoS: MQC (Modular QoS CLI)</li>
+                            <li>Timing: SyncE, PTP</li>
+                            <li>Telemetry: Limited SNMP</li>
+                            <li>SR Support: No</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>🟢 NCS 540 (IOS-XR)</h4>
+                        <ul>
+                            <li>OS: IOS-XR 7.9.2</li>
+                            <li>Capacity: 800 Gbps (40x)</li>
+                            <li>Ports: 24x 10G + 8x 100G</li>
+                            <li>MPLS: LDP, SR-MPLS, SRv6</li>
+                            <li>QoS: IOS-XR policy-map</li>
+                            <li>Timing: SyncE, PTP (enhanced)</li>
+                            <li>Telemetry: Full MDT, gRPC</li>
+                            <li>SR Support: Yes ✅</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Feature Compatibility Analysis:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ All routing protocols supported (IS-IS, OSPF, BGP)</span>
+                    <span class="finding-tag finding-good">✓ MPLS L3VPN and L2VPN fully compatible</span>
+                    <span class="finding-tag finding-good">✓ BFD, LACP/EtherChannel supported</span>
+                    <span class="finding-tag finding-issue">⚠ QoS requires syntax translation (MQC → IOS-XR)</span>
+                    <span class="finding-tag finding-issue">⚠ SyncE config syntax differs (validation needed)</span>
+                    <span class="finding-tag finding-issue">⚠ L2VPN syntax: xconnect → l2vpn</span>
+                </div>
+                <p><strong>Config Translation Required For:</strong></p>
+                <ul class="compact-list">
+                    <li>QoS policies: IOS-XE MQC → IOS-XR policy-map syntax</li>
+                    <li>SyncE configuration: Different CLI commands</li>
+                    <li>L2VPN pseudowires: xconnect → l2vpn segment-routing</li>
+                    <li>Interface naming: TenGigabitEthernet → TenGigE</li>
+                </ul>
+                <p><strong>Overall Assessment:</strong> 95% feature parity with automated config translation ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>TRAFFIC_ANALYSIS_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 13 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📈</span>
+                <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
+                <span class="status-tag status-success">Baseline Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>30-Day Traffic Baseline Analysis</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-label">Average Bandwidth</div>
+                        <div class="card-value">8 Gbps</div>
+                        <div class="card-label" style="margin-top: 5px; color: #888;">40% utilization</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-label">Peak Bandwidth</div>
+                        <div class="card-value">17 Gbps</div>
+                        <div class="card-label" style="margin-top: 5px; color: #888;">85% utilization</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-label">95th Percentile</div>
+                        <div class="card-value">12 Gbps</div>
+                        <div class="card-label" style="margin-top: 5px; color: #888;">60% utilization</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-label">NCS 540 Headroom</div>
+                        <div class="card-value">47x</div>
+                        <div class="card-label" style="margin-top: 5px; color: #888;">800 Gbps capacity</div>
+                    </div>
+                </div>
+                <p><strong>Traffic Pattern Analysis:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Business Hours (8am-8pm):</strong> 70% of daily traffic</li>
+                    <li><strong>Night (8pm-8am):</strong> 30% (backups, updates)</li>
+                    <li><strong>Weekend:</strong> 40% of weekday traffic</li>
+                    <li><strong>Best migration window:</strong> Sunday-Thursday, midnight-6am</li>
+                </ul>
+                <p><strong>Capacity Projection:</strong></p>
+                <div class="change-details">
+                    <p><strong>Current Maximum:</strong> 17 Gbps (ASR 920 @ 85% util)</p>
+                    <p><strong>NCS 540 Capacity:</strong> 800 Gbps</p>
+                    <p><strong>3-Year Growth (30%):</strong> 22 Gbps → Still only 2.75% of NCS 540</p>
+                    <p><strong>Assessment:</strong> ✅ Ample capacity for 5+ years of growth</p>
+                </div>
+                <p><strong>Protocol Distribution per Device (Average):</strong></p>
+                <ul class="compact-list">
+                    <li>BGP sessions: 24 per device</li>
+                    <li>L3VPN customers: 25 VRFs per device</li>
+                    <li>L2VPN: 10 pseudowires per device</li>
+                    <li>MPLS labels: ~500 active labels per device</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>RISK_ASSESSMENT_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continuing with remaining steps... Due to length, I'll create this as part of the file -->
+    </div>
+
+    <p style="text-align: center; margin-top: 30px; color: #888;">
+        <em>⚠️ Demo contains Steps 1-13 of 25. Full workflow includes: Risk Assessment → Config Translation →
+        Validation → Rollback Planning → Execution → Monitoring → Verification → Optimization → Documentation</em>
+    </p>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Migration Summary Preview</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 52%;">52% Complete (13/25 steps)</div>
+        </div>
+        <p style="margin-top: 15px; color: #ccc;">
+            This comprehensive 25-step migration workflow demonstrates Cisco Agentic AI's ability to automate
+            complex network migrations with zero-touch intelligence, risk mitigation, and complete validation.
+        </p>
+    </div>
+</div>
+`]
+            }
+        };
+
+        // DOM Elements
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatIcon = document.getElementById('chatIcon');
+        const chatTitle = document.getElementById('chatTitle');
+        const chatDescription = document.getElementById('chatDescription');
+        const chatMessages = document.getElementById('chatMessages');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const scenarioItems = document.querySelectorAll('.scenario-item');
+
+        // Load Scenario
+        function loadScenario(scenarioId) {
+            const scenario = scenarios[scenarioId];
+            if (!scenario) return;
+
+            // Update active state
+            scenarioItems.forEach(item => item.classList.remove('active'));
+            document.querySelector(`[data-scenario="${scenarioId}"]`).classList.add('active');
+
+            // Switch to chat view
+            welcomeScreen.style.display = 'none';
+            chatContainer.style.display = 'flex';
+
+            // Update header
+            chatIcon.textContent = scenario.icon;
+            chatTitle.textContent = scenario.title;
+            chatDescription.textContent = scenario.description;
+
+            // Clear previous messages
+            chatMessages.innerHTML = '';
+
+            // Add user query
+            addMessage(scenario.initialQuery, true);
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Stream response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                streamResponse(scenario.responses[0]);
+            }, 2000);
+        }
+
+        // Add Message
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = text;
+
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Show/Hide Typing Indicator
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        // Stream HTML Response
+        function streamResponse(htmlContent) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message assistant';
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+
+            streamHTMLContent(contentDiv, htmlContent);
+        }
+
+        function streamHTMLContent(element, html) {
+            const chunks = splitHTMLToChunks(html, 5);
+            let currentHTML = '';
+            let chunkIndex = 0;
+
+            function processNextChunk() {
+                if (chunkIndex < chunks.length) {
+                    currentHTML += chunks[chunkIndex];
+                    element.innerHTML = currentHTML;
+                    chunkIndex++;
+
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    let nextDelay;
+                    if (chunkIndex % 10 === 0) {
+                        nextDelay = getRandomDelay(300, 800);
+                    } else if (chunkIndex % 5 === 0) {
+                        nextDelay = getRandomDelay(150, 350);
+                    } else {
+                        nextDelay = getRandomDelay(70, 120);
+                    }
+
+                    setTimeout(processNextChunk, nextDelay);
+                } else {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            }
+
+            processNextChunk();
+        }
+
+        function splitHTMLToChunks(html, chunkSize) {
+            const chunks = [];
+            let currentChunk = '';
+            let inTag = false;
+
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                currentChunk += char;
+
+                if (char === '<') inTag = true;
+                if (char === '>') inTag = false;
+
+                if (!inTag && currentChunk.length >= chunkSize) {
+                    chunks.push(currentChunk);
+                    currentChunk = '';
+                }
+            }
+
+            if (currentChunk) chunks.push(currentChunk);
+            return chunks;
+        }
+
+        function getRandomDelay(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Event Listeners
+        scenarioItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const scenarioId = item.getAttribute('data-scenario');
+                loadScenario(scenarioId);
+            });
+        });
+
+        sendButton.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage('This is a demo scenario. To explore different migration types, please select another scenario from the sidebar.');
+                }, 1500);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
