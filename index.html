@@ -615,6 +615,29 @@
 </head>
 <body class="has-nav">
     <script>
+        // Domain-based routing
+        window.addEventListener('DOMContentLoaded', function() {
+            const hostname = window.location.hostname;
+
+            // Redirect based on domain
+            if (hostname === 'aisoc.ciscoaidemo.com') {
+                window.location.href = '/Cisco-AI-SoC-Telco-v2.5.html';
+            } else if (hostname === 'ainoc.ciscoaidemo.com') {
+                window.location.href = '/Cisco-AI-NoC-Telco-v5.html';
+            } else if (hostname === 'aidcnoc.ciscoaidemo.com') {
+                window.location.href = '/Cisco-AI-DC-v2.0.html';
+            } else if (hostname === 'marketplace.ciscoaidemo.com') {
+                window.location.href = '/agent-marketplace.html';
+            } else if (hostname === 'pc-ai.ciscoaidemo.com') {
+                window.location.href = '/parental-control.html';
+            } else if (hostname === 'ciscotube.ciscoaidemo.com') {
+                window.location.href = '/demo-videos.html';
+            } else if (hostname === 'ai-firewall-mgmt.ciscoaidemo.com') {
+                // External link - no redirect needed, page should load independently
+            }
+            // allinone.ciscoaidemo.com stays on index.html
+        });
+
         // Set last modified date
         document.addEventListener('DOMContentLoaded', function() {
             const lastModified = new Date(document.lastModified);
