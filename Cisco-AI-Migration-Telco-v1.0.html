@@ -1615,22 +1615,754 @@
             </div>
         </div>
 
-        <!-- Continuing with remaining steps... Due to length, I'll create this as part of the file -->
+        <!-- STEP 14 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚠️</span>
+                <span class="agent-name">RISK_ASSESSMENT_AGENT</span>
+                <span class="status-tag status-warning">Medium-High Risk</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Comprehensive Risk Assessment & Mitigation Strategy</strong></p>
+                <div class="risk-matrix">
+                    <div class="risk-item high-risk">
+                        <span class="risk-icon">🔴</span>
+                        <div class="risk-content">
+                            <h5>IOS-XE → IOS-XR OS Migration</h5>
+                            <p><strong>Risk:</strong> Different command syntax, config structure, and operational behavior</p>
+                            <p><strong>Mitigation:</strong> Automated config translation + lab validation + pilot deployment</p>
+                        </div>
+                    </div>
+                    <div class="risk-item high-risk">
+                        <span class="risk-icon">🔴</span>
+                        <div class="risk-content">
+                            <h5>Timing Service Disruption (SyncE/PTP)</h5>
+                            <p><strong>Risk:</strong> Mobile network (3,000 eNodeB) requires precise timing - any degradation causes call drops</p>
+                            <p><strong>Mitigation:</strong> Pre-migration timing validation, continuous monitoring during cutover</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Multi-vendor Interoperability</h5>
+                            <p><strong>Risk:</strong> 25 sites with Nokia/Juniper peering - protocol nuances may cause issues</p>
+                            <p><strong>Mitigation:</strong> Lab testing with actual vendor devices, pilot includes 1 Nokia + 1 Juniper site</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>QoS Policy Translation</h5>
+                            <p><strong>Risk:</strong> IOS-XE MQC to IOS-XR policy-map syntax differences may affect traffic prioritization</p>
+                            <p><strong>Mitigation:</strong> Automated translation scripts with pre/post traffic analysis</p>
+                        </div>
+                    </div>
+                    <div class="risk-item low-risk">
+                        <span class="risk-icon">🟢</span>
+                        <div class="risk-content">
+                            <h5>Hardware Availability</h5>
+                            <p><strong>Risk:</strong> NCS 540 supply chain delays</p>
+                            <p><strong>Mitigation:</strong> 220 NCS 540 units already ordered and staged (200 + 10% spares)</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Overall Risk Score:</strong> 7.5/10 (Medium-High) - Requires careful execution</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CONFIG_TRANSLATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 15 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔄</span>
+                <span class="agent-name">CONFIG_TRANSLATION_AGENT</span>
+                <span class="status-tag status-success">Translation Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Automated IOS-XE → IOS-XR Configuration Translation</strong></p>
+                <div class="change-details">
+                    <p><strong>Translation Engine:</strong> AI-powered config converter with vendor best practices</p>
+                    <p><strong>Processing:</strong></p>
+                    <ul class="compact-list">
+                        <li>Parsed 200 ASR 920 configurations (IOS-XE)</li>
+                        <li>Generated 200 NCS 540 configurations (IOS-XR)</li>
+                        <li>Automated translation of 5,000 L3VPN VRFs</li>
+                        <li>Automated translation of 2,000 L2VPN pseudowires</li>
+                        <li>QoS policy conversion: MQC → IOS-XR policy-map</li>
+                    </ul>
+                </div>
+                <p><strong>Translation Examples:</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>IOS-XE (ASR 920)</h4>
+                        <code style="display: block; background-color: #0a0a0a; padding: 10px; border-radius: 4px; color: #ccc; font-family: monospace; font-size: 12px;">
+interface TenGigabitEthernet0/0/0<br>
+ description Metro-Core-Uplink-1<br>
+ ip address 10.1.1.1 255.255.255.252<br>
+ mpls ip<br>
+ service-policy output CORE-QOS
+                        </code>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>IOS-XR (NCS 540)</h4>
+                        <code style="display: block; background-color: #0a0a0a; padding: 10px; border-radius: 4px; color: #ccc; font-family: monospace; font-size: 12px;">
+interface TenGigE0/0/0/0<br>
+ description Metro-Core-Uplink-1<br>
+ ipv4 address 10.1.1.1 255.255.255.252<br>
+ mpls ldp<br>
+ service-policy output CORE-QOS
+                        </code>
+                    </div>
+                </div>
+                <p><strong>Validation Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 200/200 configs translated successfully</span>
+                    <span class="finding-tag finding-good">✓ All L3VPN VRFs converted</span>
+                    <span class="finding-tag finding-good">✓ All L2VPN pseudowires converted</span>
+                    <span class="finding-tag finding-issue">⚠ 12 manual review items (complex QoS)</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>VALIDATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 16 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">✔️</span>
+                <span class="agent-name">VALIDATION_AGENT</span>
+                <span class="status-tag status-success">Pre-Migration Checks Pass</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Pre-Migration Validation Framework</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-label">Config Syntax Check</div>
+                        <div class="card-value">200/200</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🧪</div>
+                        <div class="card-label">Lab Validation</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Timing Tests</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">Interop Tests</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                </div>
+                <p><strong>Lab Validation Results (2 weeks):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Config Deployment:</strong> All 200 IOS-XR configs deployed to test NCS 540 - PASS</li>
+                    <li><strong>BGP Convergence:</strong> Average 8 seconds (acceptable) - PASS</li>
+                    <li><strong>MPLS LDP:</strong> All label bindings established - PASS</li>
+                    <li><strong>L3VPN:</strong> 100 sample VRFs tested - full reachability - PASS</li>
+                    <li><strong>L2VPN:</strong> 50 sample pseudowires tested - 30-45s reconvergence - PASS</li>
+                    <li><strong>SyncE Accuracy:</strong> ±4.6 ppm (spec: ±4.6 ppm) - PASS</li>
+                    <li><strong>PTP Accuracy:</strong> ±50ns (spec: ±100ns) - PASS</li>
+                    <li><strong>QoS Marking:</strong> Traffic prioritization verified - PASS</li>
+                    <li><strong>Nokia 7750 SR Interop:</strong> BGP/MPLS peering stable - PASS</li>
+                    <li><strong>Juniper MX Interop:</strong> BGP/MPLS peering stable - PASS</li>
+                </ul>
+                <p><strong>Critical Finding:</strong></p>
+                <div class="change-details">
+                    <p><strong>L2VPN Reconvergence Time:</strong> 30-45 seconds (higher than desired 5 seconds)</p>
+                    <p><strong>Root Cause:</strong> Targeted LDP session re-establishment after cutover</p>
+                    <p><strong>Action:</strong> Customer notification required for enterprise L2VPN circuits</p>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>ROLLBACK_PLANNING_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 17 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔙</span>
+                <span class="agent-name">ROLLBACK_PLANNING_AGENT</span>
+                <span class="status-tag status-info">Rollback Ready</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Automated Rollback Strategy</strong></p>
+                <div class="change-details">
+                    <p><strong>Rollback Triggers (Automatic):</strong></p>
+                    <ul class="compact-list">
+                        <li>BGP sessions down &gt;2 minutes post-cutover</li>
+                        <li>Traffic loss &gt;10% on any customer VRF</li>
+                        <li>SyncE/PTP timing degradation beyond spec</li>
+                        <li>Critical alarms during 15-minute stabilization window</li>
+                    </ul>
+                    <p><strong>Rollback Procedure (Per Site):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Step 1:</strong> Shut down NCS 540 uplink interfaces (5 seconds)</li>
+                        <li><strong>Step 2:</strong> Re-enable ASR 920 uplink interfaces (10 seconds)</li>
+                        <li><strong>Step 3:</strong> Verify BGP/MPLS reconvergence (60 seconds)</li>
+                        <li><strong>Step 4:</strong> Validate customer services (30 seconds)</li>
+                    </ul>
+                    <p><strong>Total Rollback Time:</strong> &lt;2 minutes per site</p>
+                </div>
+                <p><strong>Rollback Testing:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Lab rollback tested 10 times - 100% success</span>
+                    <span class="finding-tag finding-good">✓ Automated scripts validated</span>
+                    <span class="finding-tag finding-good">✓ Field teams trained on manual rollback</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Assessment & Planning Complete - Ready for <strong>PHASE 3: EXECUTION</strong>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <p style="text-align: center; margin-top: 30px; color: #888;">
-        <em>⚠️ Demo contains Steps 1-13 of 25. Full workflow includes: Risk Assessment → Config Translation →
-        Validation → Rollback Planning → Execution → Monitoring → Verification → Optimization → Documentation</em>
-    </p>
+    <h4 class="section-header-workflow">🚀 PHASE 3: Migration Execution (Steps 18-22)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 18 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📅</span>
+                <span class="agent-name">SCHEDULING_AGENT</span>
+                <span class="status-tag status-success">Schedule Approved</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Phased Migration Schedule - 10 Weeks Production Rollout</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 1: Pilot (5 sites)</span>
+                            <p>Low-criticality dual-homed sites + 1 Nokia + 1 Juniper interop site</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 2-3: Low-Tier Sites (40 sites)</span>
+                            <p>Residential/SMB-heavy sites, dual-homed, 20 sites/week</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 4-7: Mid-Tier Sites (80 sites)</span>
+                            <p>Enterprise + mobile backhaul, dual-homed, 20 sites/week</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 8-9: High-Tier Sites (60 sites)</span>
+                            <p>Top revenue VRFs, critical services, 20 sites/week with extended monitoring</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 10: Single-Homed Sites (15 sites)</span>
+                            <p>Highest risk sites, extra field resources, 3-6am Sunday windows only</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Migration Windows:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Dual-homed sites:</strong> Sunday-Thursday, midnight-6am (5 minutes downtime per site)</li>
+                    <li><strong>Single-homed sites:</strong> Sunday only, 3-6am (15 minutes downtime per site)</li>
+                    <li><strong>Customer notifications:</strong> Sent 7 days + 24 hours before</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DEPLOYMENT_ORCHESTRATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 19 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚙️</span>
+                <span class="agent-name">DEPLOYMENT_ORCHESTRATION_AGENT</span>
+                <span class="status-tag status-success">Pilot Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Week 1 Pilot Deployment - 5 Sites</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Site</th>
+                                <th>Type</th>
+                                <th>Start Time</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Metro-Site-042</td>
+                                <td>Low-traffic PE</td>
+                                <td>01:00 AM</td>
+                                <td>38 min</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-089</td>
+                                <td>Nokia Interop</td>
+                                <td>01:45 AM</td>
+                                <td>42 min</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-127</td>
+                                <td>Juniper Interop</td>
+                                <td>02:30 AM</td>
+                                <td>45 min</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-156</td>
+                                <td>High SyncE site</td>
+                                <td>03:20 AM</td>
+                                <td>40 min</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-193</td>
+                                <td>PTP timing site</td>
+                                <td>04:05 AM</td>
+                                <td>43 min</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Pilot Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 5/5 sites migrated successfully</span>
+                    <span class="finding-tag finding-good">✓ Average migration time: 41.6 minutes</span>
+                    <span class="finding-tag finding-good">✓ Zero rollbacks required</span>
+                    <span class="finding-tag finding-good">✓ Zero customer complaints</span>
+                    <span class="finding-tag finding-good">✓ SyncE/PTP timing within spec</span>
+                    <span class="finding-tag finding-good">✓ Multi-vendor interop confirmed</span>
+                </div>
+                <p><strong>Lessons Learned:</strong></p>
+                <ul class="compact-list">
+                    <li>L2VPN reconvergence averaged 38 seconds (within expected 30-45s range)</li>
+                    <li>BGP graceful restart worked perfectly - no route flapping</li>
+                    <li>Automated rollback scripts not needed - all migrations successful</li>
+                    <li>Field teams well-prepared - no procedural errors</li>
+                </ul>
+                <p><strong>Decision:</strong> ✅ Proceed with full-scale rollout (Weeks 2-10)</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Deploying <strong>PARALLEL_DEPLOYMENT at scale (195 sites)</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 20 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔀</span>
+                <span class="agent-name">PARALLEL_DEPLOYMENT_AGENT</span>
+                <span class="status-tag status-success">195 Sites Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Weeks 2-10: Parallel Deployment Across 195 Sites</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Total Sites</div>
+                        <div class="card-value">195</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Avg Migration Time</div>
+                        <div class="card-value">43 min</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔙</div>
+                        <div class="card-label">Rollbacks</div>
+                        <div class="card-value">3</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">98.5%</div>
+                    </div>
+                </div>
+                <p><strong>Weekly Progress:</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100% Complete (195/195 sites)</div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Rollback Incidents (3 sites):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Site</th>
+                                <th>Issue</th>
+                                <th>Resolution</th>
+                                <th>Re-Migration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Metro-Site-078</td>
+                                <td>Fiber optic fault during cutover</td>
+                                <td>Rolled back, fiber repaired</td>
+                                <td>✓ Success (next week)</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-134</td>
+                                <td>Undocumented static route in old config</td>
+                                <td>Rolled back, config corrected</td>
+                                <td>✓ Success (next week)</td>
+                            </tr>
+                            <tr>
+                                <td>Metro-Site-187</td>
+                                <td>Customer-side equipment incompatibility</td>
+                                <td>Rolled back, customer notified</td>
+                                <td>✓ Success (after customer upgrade)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Performance Metrics:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Zero service-impacting incidents</strong> (all rollbacks completed within 2 minutes)</li>
+                    <li><strong>Customer satisfaction:</strong> 99.2% (15 complaints out of 2,000 customers notified)</li>
+                    <li><strong>SyncE/PTP accuracy:</strong> 100% within spec across all sites</li>
+                    <li><strong>Multi-vendor interop:</strong> No issues with Nokia/Juniper sites</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CUTOVER_COORDINATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 21 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🎯</span>
+                <span class="agent-name">CUTOVER_COORDINATION_AGENT</span>
+                <span class="status-tag status-success">Cutover Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Final Cutover & Service Transfer</strong></p>
+                <div class="change-details">
+                    <p><strong>Cutover Process (Per Site):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>T-60min:</strong> Field team on-site, pre-migration checks complete</li>
+                        <li><strong>T-30min:</strong> NCS 540 powered on, configs loaded and validated</li>
+                        <li><strong>T-10min:</strong> Final traffic baseline captured on ASR 920</li>
+                        <li><strong>T-0min (CUTOVER):</strong> Shut down ASR 920 uplinks → Enable NCS 540 uplinks</li>
+                        <li><strong>T+2min:</strong> BGP sessions established, MPLS labels exchanged</li>
+                        <li><strong>T+5min:</strong> L3VPN/L2VPN services validated, traffic flowing</li>
+                        <li><strong>T+15min:</strong> Automated validation scripts confirm service health</li>
+                        <li><strong>T+30min:</strong> Extended monitoring period, field team released</li>
+                    </ul>
+                </div>
+                <p><strong>Service Transfer Validation:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">BGP Sessions</div>
+                        <div class="card-value">4,800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-label">L3VPN VRFs</div>
+                        <div class="card-value">5,000</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🌉</div>
+                        <div class="card-label">L2VPN Circuits</div>
+                        <div class="card-value">2,000</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📡</div>
+                        <div class="card-label">eNodeB Links</div>
+                        <div class="card-value">3,000</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>All services successfully transferred to NCS 540 platform ✅</strong></p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>MONITORING_AGENT</strong> for 7-day observation
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 22 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📡</span>
+                <span class="agent-name">MONITORING_AGENT</span>
+                <span class="status-tag status-success">7-Day Stable</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Continuous Monitoring (7 Days)</strong></p>
+                <div class="change-details">
+                    <p><strong>Real-Time Telemetry Monitoring:</strong></p>
+                    <ul class="compact-list">
+                        <li>BGP session stability: 100% uptime across all 4,800 sessions</li>
+                        <li>MPLS label distribution: No label allocation errors</li>
+                        <li>Interface utilization: Average 42% (reduced from 60% on ASR 920)</li>
+                        <li>CPU utilization: Average 18% (NCS 540 has significant headroom)</li>
+                        <li>Memory utilization: Average 32%</li>
+                        <li>SyncE/PTP accuracy: 100% within spec, no timing alarms</li>
+                    </ul>
+                </div>
+                <p><strong>Service Health Metrics (7-Day Average):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>ASR 920 (Baseline)</th>
+                                <th>NCS 540 (Post-Migration)</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Average Latency</td>
+                                <td>12.4 ms</td>
+                                <td>11.8 ms</td>
+                                <td style="color: #00ff88;">-5% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Packet Loss</td>
+                                <td>0.002%</td>
+                                <td>0.001%</td>
+                                <td style="color: #00ff88;">-50% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Jitter</td>
+                                <td>1.8 ms</td>
+                                <td>1.2 ms</td>
+                                <td style="color: #00ff88;">-33% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>BGP Convergence</td>
+                                <td>15 sec</td>
+                                <td>9 sec</td>
+                                <td style="color: #00ff88;">-40% ✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Incident Summary (7 Days):</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Zero critical incidents</span>
+                    <span class="finding-tag finding-good">✓ Zero customer complaints</span>
+                    <span class="finding-tag finding-good">✓ Zero timing alarms</span>
+                    <span class="finding-tag finding-good">✓ Zero unplanned outages</span>
+                </div>
+                <p><strong>Performance Improvement:</strong> NCS 540 showing better latency, jitter, and convergence vs ASR 920 ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Migration Execution Complete - Proceeding to <strong>PHASE 4: VERIFICATION</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">✅ PHASE 4: Verification & Closure (Steps 23-25)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 23 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📊</span>
+                <span class="agent-name">COMPARISON_AGENT</span>
+                <span class="status-tag status-success">Verification Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Pre vs Post Migration Comparison Analysis</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>🔴 BEFORE (ASR 920)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> 200x ASR 920 (IOS-XE)</li>
+                            <li><strong>Capacity:</strong> 20 Gbps per device</li>
+                            <li><strong>Utilization:</strong> 60% average, 85% peak</li>
+                            <li><strong>Latency:</strong> 12.4 ms average</li>
+                            <li><strong>Packet Loss:</strong> 0.002%</li>
+                            <li><strong>Jitter:</strong> 1.8 ms</li>
+                            <li><strong>CPU:</strong> 45% average</li>
+                            <li><strong>SR Support:</strong> No</li>
+                            <li><strong>Telemetry:</strong> SNMP only</li>
+                            <li><strong>EOL Status:</strong> 18 months</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>🟢 AFTER (NCS 540)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> 200x NCS 540 (IOS-XR)</li>
+                            <li><strong>Capacity:</strong> 800 Gbps per device</li>
+                            <li><strong>Utilization:</strong> 42% average, 55% peak</li>
+                            <li><strong>Latency:</strong> 11.8 ms average (-5%)</li>
+                            <li><strong>Packet Loss:</strong> 0.001% (-50%)</li>
+                            <li><strong>Jitter:</strong> 1.2 ms (-33%)</li>
+                            <li><strong>CPU:</strong> 18% average</li>
+                            <li><strong>SR Support:</strong> Yes (SR-MPLS, SRv6)</li>
+                            <li><strong>Telemetry:</strong> MDT, gRPC, YANG</li>
+                            <li><strong>EOL Status:</strong> 7+ years</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Business Outcomes:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 40x capacity increase (20 Gbps → 800 Gbps)</span>
+                    <span class="finding-tag finding-good">✓ 5+ years growth runway before next upgrade</span>
+                    <span class="finding-tag finding-good">✓ Segment Routing ready for future network evolution</span>
+                    <span class="finding-tag finding-good">✓ Modern telemetry for AI/ML-driven operations</span>
+                    <span class="finding-tag finding-good">✓ 98.5% migration success rate (195/198 first-attempt success)</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>OPTIMIZATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 24 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚡</span>
+                <span class="agent-name">OPTIMIZATION_AGENT</span>
+                <span class="status-tag status-success">Optimizations Applied</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Optimization Opportunities</strong></p>
+                <div class="change-details">
+                    <p><strong>Immediate Optimizations (Implemented):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>QoS Tuning:</strong> Fine-tuned IOS-XR QoS policies based on 7-day traffic analysis</li>
+                        <li><strong>BGP Optimization:</strong> Enabled BGP prefix independent convergence (PIC) for faster failover</li>
+                        <li><strong>MPLS FRR:</strong> Enabled Fast ReRoute for &lt;50ms protection switching</li>
+                        <li><strong>Telemetry Streams:</strong> Configured Model-Driven Telemetry for AI-based anomaly detection</li>
+                    </ul>
+                    <p><strong>Future Enhancements (Roadmap):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Q2 2025:</strong> Pilot Segment Routing (SR-MPLS) at 10 sites for traffic engineering</li>
+                        <li><strong>Q3 2025:</strong> Implement SRv6 for simplified network programming</li>
+                        <li><strong>Q4 2025:</strong> Deploy AI-driven traffic optimization using NCS 540 telemetry</li>
+                        <li><strong>2026:</strong> Evaluate 400G port upgrades for high-capacity sites</li>
+                    </ul>
+                </div>
+                <p><strong>Cost Savings Analysis:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-label">Power Consumption</div>
+                        <div class="card-value">-25%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔧</div>
+                        <div class="card-label">Maintenance Costs</div>
+                        <div class="card-value">-40%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📉</div>
+                        <div class="card-label">Incident Rate</div>
+                        <div class="card-value">-60%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">MTTR</div>
+                        <div class="card-value">-50%</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>3-Year TCO Reduction:</strong> $2.4M savings vs maintaining ASR 920 fleet</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DOCUMENTATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 25 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📝</span>
+                <span class="agent-name">DOCUMENTATION_AGENT</span>
+                <span class="status-tag status-success">Project Closed</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Complete Migration Documentation Package</strong></p>
+                <div class="change-details">
+                    <p><strong>Documentation Deliverables:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Executive Summary:</strong> 8-page business outcome report for leadership</li>
+                        <li><strong>Technical Runbook:</strong> 120-page detailed migration playbook</li>
+                        <li><strong>Configuration Archive:</strong> All 200 ASR 920 + NCS 540 configs backed up</li>
+                        <li><strong>Lessons Learned:</strong> 25-page document with best practices and pitfalls</li>
+                        <li><strong>Network Diagrams:</strong> Updated topology maps, IP addressing, MPLS architecture</li>
+                        <li><strong>Test Results:</strong> Lab validation reports, pilot results, production metrics</li>
+                        <li><strong>Rollback Procedures:</strong> Documented emergency rollback process</li>
+                        <li><strong>Training Materials:</strong> Operations team training on IOS-XR and NCS 540</li>
+                    </ul>
+                </div>
+                <p><strong>Knowledge Transfer Completed:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ NOC team trained on IOS-XR operations (40 engineers)</span>
+                    <span class="finding-tag finding-good">✓ Field teams certified on NCS 540 hardware (25 technicians)</span>
+                    <span class="finding-tag finding-good">✓ Configuration templates uploaded to automation system</span>
+                    <span class="finding-tag finding-good">✓ AI/ML models trained on NCS 540 telemetry data</span>
+                </div>
+                <div class="dashboard-grid" style="margin-top: 20px;">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-label">Project Duration</div>
+                        <div class="card-value">16 Weeks</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-label">Sites Migrated</div>
+                        <div class="card-value">200/200</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">100%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-label">On-Time Delivery</div>
+                        <div class="card-value">YES</div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; padding: 20px; background-color: #252525; border-radius: 8px; border-left: 4px solid #00ff88;">
+                    <h5 style="color: #00ff88; margin: 0 0 10px 0;">🎉 PROJECT SUCCESS SUMMARY</h5>
+                    <p style="margin: 0; color: #ccc;">
+                        <strong>200 ASR 920 → NCS 540 migration completed successfully in 16 weeks.</strong>
+                        Zero critical incidents, 98.5% first-attempt success rate, improved network performance,
+                        and 5+ year capacity runway achieved. Cisco Agentic AI orchestrated end-to-end automation
+                        from assessment to validation, demonstrating zero-touch network migration at scale.
+                    </p>
+                </div>
+                <p style="margin-top: 20px; text-align: center; color: #00ff88; font-size: 18px; font-weight: 600;">
+                    ✅ MIGRATION PROJECT CLOSED - MIG-2025-ASR920-001
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
-        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Migration Summary Preview</h4>
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Complete 25-Step Migration Workflow</h4>
         <div class="progress-bar">
-            <div class="progress-fill" style="width: 52%;">52% Complete (13/25 steps)</div>
+            <div class="progress-fill" style="width: 100%;">100% Complete (25/25 steps)</div>
         </div>
         <p style="margin-top: 15px; color: #ccc;">
             This comprehensive 25-step migration workflow demonstrates Cisco Agentic AI's ability to automate
             complex network migrations with zero-touch intelligence, risk mitigation, and complete validation.
+            All phases completed: Assessment → Planning → Execution → Verification.
         </p>
     </div>
 </div>
