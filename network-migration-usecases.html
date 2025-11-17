@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco AI Operations Center - Network Migration Use Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation::before {
+            width: min(600px, 80vw);
+            height: min(600px, 80vw);
+            top: -30%;
+            left: -30%;
+        }
+
+        .bg-animation::after {
+            width: min(800px, 90vw);
+            height: min(800px, 90vw);
+            bottom: -40%;
+            right: -40%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, #00aaff 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+            75% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .header-section {
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .logo {
+            height: 60px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: #888;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .migration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto 2.5rem;
+        }
+
+        .migration-card {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.4s both;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .migration-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .migration-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .migration-card:hover::before {
+            transform: scale(1);
+        }
+
+        .migration-icon {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .migration-title {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        .migration-description {
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            min-height: 60px;
+            flex-grow: 1;
+        }
+
+        .migration-features {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.625rem;
+            font-size: clamp(0.75rem, 1.25vw, 0.875rem);
+            color: #ccc;
+        }
+
+        .feature-icon {
+            color: #00d4ff;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-wip {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+        }
+
+        .status-coming {
+            background: rgba(100, 100, 100, 0.2);
+            color: #999;
+            border: 1px solid #666;
+        }
+
+        .migration-button {
+            display: inline-block;
+            padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.25rem, 2.5vw, 1.875rem);
+            background: linear-gradient(45deg, #00d4ff, #00aaff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            margin-top: auto;
+        }
+
+        .migration-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .migration-button.disabled {
+            background: rgba(100, 100, 100, 0.3);
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .migration-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .legacy-card .migration-icon {
+            color: #ff6b6b;
+        }
+
+        .legacy-card:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        .legacy-card::before {
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+        }
+
+        .vendor-card .migration-icon {
+            color: #4ecdc4;
+        }
+
+        .vendor-card:hover {
+            border-color: #4ecdc4;
+            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.3);
+        }
+
+        .vendor-card::before {
+            background: radial-gradient(circle, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+        }
+
+        .cloud-card .migration-icon {
+            color: #95e1d3;
+        }
+
+        .cloud-card:hover {
+            border-color: #95e1d3;
+            box-shadow: 0 20px 40px rgba(149, 225, 211, 0.3);
+        }
+
+        .cloud-card::before {
+            background: radial-gradient(circle, rgba(149, 225, 211, 0.1) 0%, transparent 70%);
+        }
+
+        .sdwan-card .migration-icon {
+            color: #feca57;
+        }
+
+        .sdwan-card:hover {
+            border-color: #feca57;
+            box-shadow: 0 20px 40px rgba(254, 202, 87, 0.3);
+        }
+
+        .sdwan-card::before {
+            background: radial-gradient(circle, rgba(254, 202, 87, 0.1) 0%, transparent 70%);
+        }
+
+        .datacenter-card .migration-icon {
+            color: #ff9ff3;
+        }
+
+        .datacenter-card:hover {
+            border-color: #ff9ff3;
+            box-shadow: 0 20px 40px rgba(255, 159, 243, 0.3);
+        }
+
+        .datacenter-card::before {
+            background: radial-gradient(circle, rgba(255, 159, 243, 0.1) 0%, transparent 70%);
+        }
+
+        .sda-card .migration-icon {
+            color: #54a0ff;
+        }
+
+        .sda-card:hover {
+            border-color: #54a0ff;
+            box-shadow: 0 20px 40px rgba(84, 160, 255, 0.3);
+        }
+
+        .sda-card::before {
+            background: radial-gradient(circle, rgba(84, 160, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            color: #666;
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .migration-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .header-section {
+                margin-bottom: 2rem;
+            }
+
+            .migration-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .migration-card {
+                min-height: auto;
+            }
+
+            .back-button {
+                position: static;
+                margin-bottom: 1.5rem;
+                display: inline-block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem 0.75rem;
+            }
+
+            .logo {
+                height: 40px;
+            }
+
+            .migration-card {
+                padding: 1.25rem 1rem;
+            }
+
+            .migration-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .migration-card:hover {
+                transform: none;
+            }
+
+            .migration-button:hover {
+                transform: none;
+            }
+
+            .migration-card {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="container">
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <a href="index.html" class="back-button">← Back to Main</a>
+            <a href="contact-us.html" class="back-button" style="background: linear-gradient(45deg, #00ff88, #00aaff);">📧 Contact Us</a>
+        </div>
+
+        <div class="header-section">
+            <img src="ciscologo.jpg" alt="Cisco Logo" class="logo">
+            <h1>Network Migration Use Cases</h1>
+            <p class="subtitle">AI-Driven Migration Strategies for Seamless Network Transitions</p>
+        </div>
+
+        <div class="migration-grid">
+            <!-- Legacy to Modern Migration -->
+            <div class="migration-card legacy-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">🔄</span>
+                <h2 class="migration-title">Legacy to Modern Network</h2>
+                <p class="migration-description">
+                    Automated migration from legacy network infrastructure to modern Cisco architectures
+                    with zero-downtime cutover and automated validation.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated config translation & conversion</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Pre & post-migration validation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Zero-downtime cutover planning</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated rollback capability</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Risk assessment & mitigation</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+
+            <!-- Multi-Vendor Migration -->
+            <div class="migration-card vendor-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">🔀</span>
+                <h2 class="migration-title">Multi-Vendor to Cisco</h2>
+                <p class="migration-description">
+                    Streamline migration from Juniper, Arista, HPE, or other vendors to Cisco platforms
+                    with intelligent config mapping and automated testing.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Cross-vendor config translation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Feature parity analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated compatibility testing</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Performance benchmarking</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Parallel network validation</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+
+            <!-- On-Prem to Cloud -->
+            <div class="migration-card cloud-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">☁️</span>
+                <h2 class="migration-title">On-Premises to Cloud</h2>
+                <p class="migration-description">
+                    Migrate network workloads from on-premises to cloud or hybrid architectures
+                    with automated orchestration and security validation.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Hybrid cloud network design</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated VPN & connectivity setup</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Security policy migration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Bandwidth & latency optimization</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Cost analysis & forecasting</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+
+            <!-- Traditional WAN to SD-WAN -->
+            <div class="migration-card sdwan-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">🌐</span>
+                <h2 class="migration-title">Traditional WAN to SD-WAN</h2>
+                <p class="migration-description">
+                    Transform legacy MPLS/WAN infrastructure to Cisco SD-WAN with automated
+                    site migration, policy conversion, and performance validation.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>MPLS to SD-WAN transition planning</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated policy translation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Site-by-site phased migration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Application performance testing</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Cost savings analysis</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+
+            <!-- Traditional DC to ACI -->
+            <div class="migration-card datacenter-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">🏢</span>
+                <h2 class="migration-title">Datacenter to Cisco ACI</h2>
+                <p class="migration-description">
+                    Migrate traditional datacenter networks to Cisco ACI fabric with automated
+                    tenant creation, EPG mapping, and contract conversion.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>VLAN to EPG automated mapping</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Policy-based segmentation design</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Contract & filter generation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Workload migration orchestration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Performance & flow validation</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+
+            <!-- Campus to SD-Access -->
+            <div class="migration-card sda-card">
+                <span class="status-badge status-wip">🚧 Work in Progress</span>
+                <span class="migration-icon">🎯</span>
+                <h2 class="migration-title">Campus to SD-Access</h2>
+                <p class="migration-description">
+                    Transform traditional campus networks to Cisco SD-Access with automated
+                    fabric deployment, policy migration, and user segmentation.
+                </p>
+                <div class="migration-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Automated fabric underlay design</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>VLAN to VN/SGT conversion</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Policy-based segmentation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Wireless & wired integration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Identity-based access control</span>
+                    </div>
+                </div>
+                <a href="#" class="migration-button disabled">Coming Soon</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by Cisco Agentic AI • Intelligent Migration Automation</p>
+            <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">
+                All migration use cases are currently under development. Contact us for early access and pilot programs.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
