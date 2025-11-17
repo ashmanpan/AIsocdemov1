@@ -3027,7 +3027,7 @@ router bgp 65000<br>
             </div>
         </div>
 
-        <!-- Steps 14-17 will continue the workflow... -->
+        <!-- STEP 14 -->
         <div class="agent-step completed">
             <div class="agent-header">
                 <span class="agent-icon">🧪</span>
@@ -3068,30 +3068,682 @@ router bgp 65000<br>
                 </ul>
                 <p><strong>Hitless Migration Validated:</strong> Dual-homed sites experience zero downtime! ✅</p>
                 <div class="agent-transfer">
-                    <span class="arrow">→</span> Proceeding to production pilot deployment
+                    <span class="arrow">→</span> Transferring to <strong>RISK_ASSESSMENT_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 15 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚠️</span>
+                <span class="agent-name">RISK_ASSESSMENT_AGENT</span>
+                <span class="status-tag status-info">Low-Medium Risk</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>L3VPN Service Migration Risk Assessment</strong></p>
+                <div class="risk-matrix">
+                    <div class="risk-item low-risk">
+                        <span class="risk-icon">🟢</span>
+                        <div class="risk-content">
+                            <h5>Dual-Homed VRF Migration (480 VRFs, 60%)</h5>
+                            <p><strong>Risk:</strong> Very Low - BGP Best External enables hitless migration</p>
+                            <p><strong>Mitigation:</strong> Lab validated 0s downtime, automated validation scripts</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Single-Homed BGP VRFs (180 VRFs)</h5>
+                            <p><strong>Risk:</strong> Low - Expected 28s downtime during BGP reconvergence</p>
+                            <p><strong>Mitigation:</strong> Maintenance windows (2-6am), customer notifications</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Single-Homed OSPF VRFs (140 VRFs)</h5>
+                            <p><strong>Risk:</strong> Medium - Expected 52s downtime during OSPF reconvergence</p>
+                            <p><strong>Mitigation:</strong> Scheduled during low-traffic hours, customer approvals</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Hub-Spoke VRF Sequencing (200 VRFs)</h5>
+                            <p><strong>Risk:</strong> Medium - Incorrect sequence causes routing blackhole</p>
+                            <p><strong>Mitigation:</strong> Automated dependency mapping, spoke-before-hub enforcement</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Overall Risk Score:</strong> 4.5/10 (Low-Medium) - Well-controlled migration</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CUSTOMER_NOTIFICATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 16 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📧</span>
+                <span class="agent-name">CUSTOMER_NOTIFICATION_AGENT</span>
+                <span class="status-tag status-success">Notifications Sent</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Customer Communication & Approvals</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer Tier</th>
+                                <th>VRF Count</th>
+                                <th>Notification Type</th>
+                                <th>Approval Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tier-1 (Critical)</td>
+                                <td>100</td>
+                                <td>7-day + 24-hour notice</td>
+                                <td style="color: #00ff88;">✓ All approved</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-2 (Enterprise)</td>
+                                <td>300</td>
+                                <td>3-day notice</td>
+                                <td style="color: #00ff88;">✓ All approved</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-3 (SMB)</td>
+                                <td>400</td>
+                                <td>24-hour notice</td>
+                                <td style="color: #00ff88;">✓ Auto-approved</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Communication Details:</strong></p>
+                <div class="change-details">
+                    <p><strong>Tier-1 Customers (100 VRFs):</strong></p>
+                    <ul class="compact-list">
+                        <li>Personalized email to account managers + technical contacts</li>
+                        <li>Migration window: 2-6am Sunday-Thursday</li>
+                        <li>Expected impact: Zero downtime (dual-homed with BGP Best External)</li>
+                        <li>Emergency rollback: Available within 2 minutes if needed</li>
+                    </ul>
+                    <p><strong>Tier-2 Customers (300 VRFs):</strong></p>
+                    <ul class="compact-list">
+                        <li>Standard email notification</li>
+                        <li>Dual-homed (200): Zero downtime expected</li>
+                        <li>Single-homed (100): 30-60s outage during maintenance window</li>
+                    </ul>
+                    <p><strong>Tier-3 Customers (400 VRFs):</strong></p>
+                    <ul class="compact-list">
+                        <li>Automated notification via customer portal</li>
+                        <li>Best-effort SLA, migrations scheduled flexibly</li>
+                    </ul>
+                </div>
+                <p><strong>Total Notifications Sent:</strong> 350 customers, 100% acknowledgment rate ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>ROLLBACK_PLANNING_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 17 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔙</span>
+                <span class="agent-name">ROLLBACK_PLANNING_AGENT</span>
+                <span class="status-tag status-info">Rollback Ready</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Automated Rollback Strategy for L3VPN Migration</strong></p>
+                <div class="change-details">
+                    <p><strong>Rollback Triggers (Automatic):</strong></p>
+                    <ul class="compact-list">
+                        <li>Route count mismatch &gt;5% between old and new PE</li>
+                        <li>Customer reachability failure (ping/traceroute tests)</li>
+                        <li>PE-CE protocol down &gt;2 minutes post-cutover</li>
+                        <li>Traffic loss detected on customer VRF</li>
+                    </ul>
+                    <p><strong>Rollback Procedure (Per VRF):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Step 1:</strong> Shut down new PE interface under VRF (5 seconds)</li>
+                        <li><strong>Step 2:</strong> Re-enable old PE interface under VRF (5 seconds)</li>
+                        <li><strong>Step 3:</strong> Verify route count restoration (10 seconds)</li>
+                        <li><strong>Step 4:</strong> Validate customer reachability (15 seconds)</li>
+                    </ul>
+                    <p><strong>Total Rollback Time:</strong> &lt;35 seconds per VRF</p>
+                </div>
+                <p><strong>Rollback Testing Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Lab rollback tested 20 times - 100% success</span>
+                    <span class="finding-tag finding-good">✓ Automated scripts validated for all PE-CE protocols</span>
+                    <span class="finding-tag finding-good">✓ Route count validation scripts tested</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Pre-Migration Validation Complete - Ready for <strong>PHASE 3: EXECUTION</strong>
                 </div>
             </div>
         </div>
     </div>
 
-    <p style="text-align: center; margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
-        <strong style="color: #00ff88;">✅ L3VPN Service Migration - Steps 1-14 Complete</strong><br>
-        <span style="color: #888; margin-top: 10px; display: block;">
-            Full 25-step workflow demonstrates: VRF inventory → Dependency analysis → BGP Best External validation →
-            Hitless migration for dual-homed sites → Optimized cutover for single-homed sites → Complete service transfer
-        </span>
-    </p>
+    <h4 class="section-header-workflow">🚀 PHASE 3: Migration Execution (Steps 18-22)</h4>
 
-    <div style="margin-top: 20px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
-        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 L3VPN Migration Progress</h4>
+    <div class="agent-workflow">
+        <!-- STEP 18 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📅</span>
+                <span class="agent-name">SCHEDULING_AGENT</span>
+                <span class="status-tag status-success">Schedule Approved</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Phased L3VPN Migration Schedule - 4 Weeks Production Rollout</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 1: Pilot (20 VRFs)</span>
+                            <p>10 dual-homed Tier-3, 5 single-homed BGP, 5 single-homed OSPF</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 2: Tier-3 Rollout (380 VRFs)</span>
+                            <p>Low-risk customers, mix of dual and single-homed, 200 VRFs/week</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 3: Tier-2 Rollout (300 VRFs)</span>
+                            <p>Enterprise customers, spoke VRFs first, then non-hub VRFs</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 4: Tier-1 + Hubs (100 VRFs)</span>
+                            <p>Critical customers (all dual-homed hitless), then 40 hub VRFs last</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Migration Windows:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Tier-1 VRFs:</strong> Sunday-Thursday, 2-6am only (zero downtime expected)</li>
+                    <li><strong>Tier-2 VRFs:</strong> Any day, 2-6am preferred</li>
+                    <li><strong>Tier-3 VRFs:</strong> Flexible, 24/7 migration allowed</li>
+                    <li><strong>Hub VRFs:</strong> Sunday 3-6am ONLY (after all spokes migrated)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>PILOT_MIGRATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 19 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🧪</span>
+                <span class="agent-name">PILOT_MIGRATION_AGENT</span>
+                <span class="status-tag status-success">Pilot Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Week 1 Pilot Migration - 20 VRFs</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>VRF Type</th>
+                                <th>Count</th>
+                                <th>Avg Migration Time</th>
+                                <th>Downtime</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dual-homed Tier-3</td>
+                                <td>10</td>
+                                <td>12 min</td>
+                                <td>0 seconds</td>
+                                <td style="color: #00ff88;">✓ 10/10 SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Single BGP Tier-3</td>
+                                <td>5</td>
+                                <td>14 min</td>
+                                <td>26 seconds</td>
+                                <td style="color: #00ff88;">✓ 5/5 SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Single OSPF Tier-3</td>
+                                <td>5</td>
+                                <td>16 min</td>
+                                <td>48 seconds</td>
+                                <td style="color: #00ff88;">✓ 5/5 SUCCESS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Pilot Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 20/20 VRFs migrated successfully (100% success rate)</span>
+                    <span class="finding-tag finding-good">✓ Zero rollbacks required</span>
+                    <span class="finding-tag finding-good">✓ Dual-homed: 0s downtime validated in production</span>
+                    <span class="finding-tag finding-good">✓ Single BGP: 26s avg (better than 28s lab result)</span>
+                    <span class="finding-tag finding-good">✓ Single OSPF: 48s avg (better than 52s lab result)</span>
+                    <span class="finding-tag finding-good">✓ Zero customer complaints</span>
+                </div>
+                <p><strong>Key Learnings:</strong></p>
+                <ul class="compact-list">
+                    <li>BGP Best External performed flawlessly - zero packet loss on dual-homed VRFs</li>
+                    <li>Route count validation scripts caught 1 config typo before cutover (prevented issue)</li>
+                    <li>Single-homed reconvergence faster than lab (production optimized timers)</li>
+                    <li>Hub-spoke dependency tracking working as designed</li>
+                </ul>
+                <p><strong>Decision:</strong> ✅ Proceed with full-scale rollout (780 VRFs, Weeks 2-4)</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Deploying <strong>PHASED_ROLLOUT_AGENT at scale (780 VRFs)</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 20 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔀</span>
+                <span class="agent-name">PHASED_ROLLOUT_AGENT</span>
+                <span class="status-tag status-success">780 VRFs Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Weeks 2-4: Phased Rollout Across 780 VRFs</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Total VRFs</div>
+                        <div class="card-value">780</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Avg Migration Time</div>
+                        <div class="card-value">14 min</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔙</div>
+                        <div class="card-label">Rollbacks</div>
+                        <div class="card-value">2</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">99.7%</div>
+                    </div>
+                </div>
+                <p><strong>Weekly Progress:</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100% Complete (780/780 VRFs)</div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Rollback Incidents (2 VRFs):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>VRF Name</th>
+                                <th>Issue</th>
+                                <th>Resolution</th>
+                                <th>Re-Migration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CUSTOMER-XYZ-HUB</td>
+                                <td>Spoke VRF not migrated first</td>
+                                <td>Rolled back, migrated spoke first</td>
+                                <td>✓ Success (next day)</td>
+                            </tr>
+                            <tr>
+                                <td>CUSTOMER-ABC-CORP</td>
+                                <td>Route-target typo in new config</td>
+                                <td>Rolled back, fixed RT, re-migrated</td>
+                                <td>✓ Success (same night)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Performance Metrics by Tier:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Tier-1 (100 VRFs):</strong> 100% hitless, zero customer complaints ✅</li>
+                    <li><strong>Tier-2 (300 VRFs):</strong> 200 hitless dual-homed, 100 single (avg 30s downtime) ✅</li>
+                    <li><strong>Tier-3 (380 VRFs):</strong> Mixed dual/single, 2 rollbacks (99.5% success) ✅</li>
+                    <li><strong>Hub VRFs (40):</strong> All migrated last after spokes, zero issues ✅</li>
+                </ul>
+                <p><strong>Overall Customer Satisfaction:</strong> 99.8% (1 complaint out of 350 customers - resolved within 24h)</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>SERVICE_VALIDATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 21 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">✔️</span>
+                <span class="agent-name">SERVICE_VALIDATION_AGENT</span>
+                <span class="status-tag status-success">All Services Validated</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Service Validation</strong></p>
+                <div class="change-details">
+                    <p><strong>Automated Validation Checks (Per VRF):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Route Count:</strong> Old PE vs New PE (must match 100%)</li>
+                        <li><strong>PE-CE Protocol:</strong> BGP/OSPF neighbor up, routes learned</li>
+                        <li><strong>Customer Reachability:</strong> Ping test to customer CE router</li>
+                        <li><strong>VPNv4 Advertisement:</strong> Routes visible in MP-BGP core</li>
+                        <li><strong>QoS Policy:</strong> Traffic classification validated</li>
+                    </ul>
+                </div>
+                <p><strong>Validation Results (800 VRFs):</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">Route Count Match</div>
+                        <div class="card-value">800/800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-label">PE-CE Protocols</div>
+                        <div class="card-value">800/800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📡</div>
+                        <div class="card-label">Customer Reachability</div>
+                        <div class="card-value">800/800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">QoS Policies</div>
+                        <div class="card-value">800/800</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>All 800 L3VPN services successfully validated on new PE routers ✅</strong></p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>MONITORING_AGENT</strong> for 7-day observation
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 22 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📡</span>
+                <span class="agent-name">MONITORING_AGENT</span>
+                <span class="status-tag status-success">7-Day Stable</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Continuous Monitoring (7 Days)</strong></p>
+                <div class="change-details">
+                    <p><strong>Real-Time Service Monitoring:</strong></p>
+                    <ul class="compact-list">
+                        <li>PE-CE protocol stability: 100% uptime across all 800 VRFs</li>
+                        <li>VPNv4 route stability: Zero route flaps detected</li>
+                        <li>Customer traffic flow: Continuous end-to-end connectivity</li>
+                        <li>QoS performance: Traffic classification working as expected</li>
+                        <li>New PE resource utilization: CPU 42% avg, Memory 38% avg (healthy)</li>
+                    </ul>
+                </div>
+                <p><strong>Service Health Comparison (7-Day Average):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Old PE (Baseline)</th>
+                                <th>New PE (Post-Migration)</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PE CPU Utilization</td>
+                                <td>72%</td>
+                                <td>42%</td>
+                                <td style="color: #00ff88;">-42% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Route Convergence</td>
+                                <td>18 sec</td>
+                                <td>11 sec</td>
+                                <td style="color: #00ff88;">-39% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>PE-CE Flaps</td>
+                                <td>3/week</td>
+                                <td>0/week</td>
+                                <td style="color: #00ff88;">-100% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Complaints</td>
+                                <td>5/week</td>
+                                <td>1/week</td>
+                                <td style="color: #00ff88;">-80% ✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Incident Summary (7 Days):</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Zero service-impacting incidents</span>
+                    <span class="finding-tag finding-good">✓ Zero VRF route flaps</span>
+                    <span class="finding-tag finding-good">✓ 99.8% customer satisfaction</span>
+                    <span class="finding-tag finding-good">✓ New PEs performing better than old PEs</span>
+                </div>
+                <p><strong>Performance Improvement:</strong> New PE routers showing significantly better stability and lower resource utilization ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Migration Execution Complete - Proceeding to <strong>PHASE 4: VERIFICATION</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">✅ PHASE 4: Verification & Closure (Steps 23-25)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 23 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📊</span>
+                <span class="agent-name">COMPARISON_AGENT</span>
+                <span class="status-tag status-success">Verification Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Pre vs Post Migration Service Analysis</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>🔴 BEFORE (Old PE Routers)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> ASR 9000 Gen2</li>
+                            <li><strong>VRF Count:</strong> 800 VRFs</li>
+                            <li><strong>PE Count:</strong> 20 devices</li>
+                            <li><strong>CPU Utilization:</strong> 72% average</li>
+                            <li><strong>Route Convergence:</strong> 18 seconds</li>
+                            <li><strong>PE-CE Flaps:</strong> 3 per week</li>
+                            <li><strong>Customer Complaints:</strong> 5 per week</li>
+                            <li><strong>Capacity Headroom:</strong> 15% remaining</li>
+                            <li><strong>Hardware Age:</strong> 8 years old</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>🟢 AFTER (New PE Routers)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> ASR 9000 Gen5</li>
+                            <li><strong>VRF Count:</strong> 800 VRFs</li>
+                            <li><strong>PE Count:</strong> 20 devices</li>
+                            <li><strong>CPU Utilization:</strong> 42% average (-42%)</li>
+                            <li><strong>Route Convergence:</strong> 11 seconds (-39%)</li>
+                            <li><strong>PE-CE Flaps:</strong> 0 per week (-100%)</li>
+                            <li><strong>Customer Complaints:</strong> 1 per week (-80%)</li>
+                            <li><strong>Capacity Headroom:</strong> 60% remaining</li>
+                            <li><strong>Hardware Age:</strong> Brand new</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Business Outcomes:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 99.7% migration success rate (798/800 first-attempt)</span>
+                    <span class="finding-tag finding-good">✓ 60% hitless migrations (480 dual-homed VRFs)</span>
+                    <span class="finding-tag finding-good">✓ 42% CPU reduction (72% → 42%)</span>
+                    <span class="finding-tag finding-good">✓ 60% capacity headroom for future growth</span>
+                    <span class="finding-tag finding-good">✓ 80% reduction in customer complaints</span>
+                    <span class="finding-tag finding-good">✓ Zero service-impacting incidents post-migration</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DECOMMISSION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 24 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🗑️</span>
+                <span class="agent-name">DECOMMISSION_AGENT</span>
+                <span class="status-tag status-success">Old Configs Removed</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Old PE Router VRF Cleanup & Decommissioning</strong></p>
+                <div class="change-details">
+                    <p><strong>Decommissioning Process:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Week 5:</strong> 14-day soak period completed, all services stable</li>
+                        <li><strong>Step 1:</strong> Backup all 800 VRF configs from old PEs (archival)</li>
+                        <li><strong>Step 2:</strong> Remove VRF configs from old PE routers (no rollback needed)</li>
+                        <li><strong>Step 3:</strong> Shut down PE-CE interfaces on old PEs</li>
+                        <li><strong>Step 4:</strong> Remove BGP VRF instances from old PEs</li>
+                        <li><strong>Step 5:</strong> Validate zero customer impact during cleanup</li>
+                    </ul>
+                </div>
+                <p><strong>Decommission Results:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📦</div>
+                        <div class="card-label">Configs Archived</div>
+                        <div class="card-value">800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🗑️</div>
+                        <div class="card-label">VRFs Removed</div>
+                        <div class="card-value">800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔌</div>
+                        <div class="card-label">Interfaces Shutdown</div>
+                        <div class="card-value">800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Zero Impact</div>
+                        <div class="card-value">YES</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Old PE Router Status:</strong></p>
+                <ul class="compact-list">
+                    <li>All 800 VRF configs removed from 20 old PE routers</li>
+                    <li>Old PE routers now available for hardware refresh or decommissioning</li>
+                    <li>CPU utilization on old PEs dropped to 5% (only core routing remains)</li>
+                    <li>Zero customer complaints during decommissioning process</li>
+                </ul>
+                <p><strong>Cost Savings:</strong> Old PE routers can now be repurposed, saving $1.2M in hardware costs</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DOCUMENTATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 25 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📝</span>
+                <span class="agent-name">DOCUMENTATION_AGENT</span>
+                <span class="status-tag status-success">Project Closed</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Complete L3VPN Migration Documentation Package</strong></p>
+                <div class="change-details">
+                    <p><strong>Documentation Deliverables:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Executive Summary:</strong> 6-page business outcome report for leadership</li>
+                        <li><strong>Technical Runbook:</strong> 85-page L3VPN migration playbook (reusable)</li>
+                        <li><strong>VRF Configuration Archive:</strong> All 800 old + new VRF configs backed up</li>
+                        <li><strong>Lessons Learned:</strong> 18-page document with best practices</li>
+                        <li><strong>Customer Communication Templates:</strong> Tier-1/2/3 notification templates</li>
+                        <li><strong>Validation Scripts:</strong> Automated route count, reachability, QoS checks</li>
+                        <li><strong>Hub-Spoke Dependency Map:</strong> Visual topology for 200 hub-spoke VRFs</li>
+                        <li><strong>Rollback Procedures:</strong> Tested emergency rollback playbook</li>
+                    </ul>
+                </div>
+                <p><strong>Knowledge Transfer Completed:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ NOC team trained on hitless migration process (25 engineers)</span>
+                    <span class="finding-tag finding-good">✓ Customer success team briefed on migration outcomes</span>
+                    <span class="finding-tag finding-good">✓ Automation scripts uploaded to orchestration platform</span>
+                    <span class="finding-tag finding-good">✓ BGP Best External best practices documented</span>
+                </div>
+                <div class="dashboard-grid" style="margin-top: 20px;">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-label">Project Duration</div>
+                        <div class="card-value">8 Weeks</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-label">VRFs Migrated</div>
+                        <div class="card-value">800/800</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">99.7%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-label">Hitless Migrations</div>
+                        <div class="card-value">60%</div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; padding: 20px; background-color: #252525; border-radius: 8px; border-left: 4px solid #00ff88;">
+                    <h5 style="color: #00ff88; margin: 0 0 10px 0;">🎉 PROJECT SUCCESS SUMMARY</h5>
+                    <p style="margin: 0; color: #ccc;">
+                        <strong>800 L3VPN services successfully migrated in 8 weeks with 99.7% success rate.</strong>
+                        60% of VRFs experienced zero downtime (hitless migration using BGP Best External).
+                        40% CPU reduction, 80% fewer customer complaints, and 60% capacity headroom achieved.
+                        Cisco Agentic AI orchestrated end-to-end automation from VRF inventory to decommissioning,
+                        demonstrating intelligent service migration with dependency analysis and hitless cutover.
+                    </p>
+                </div>
+                <p style="margin-top: 20px; text-align: center; color: #00ff88; font-size: 18px; font-weight: 600;">
+                    ✅ L3VPN MIGRATION PROJECT CLOSED - SVC-MIG-2025-L3VPN-001
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Complete 25-Step L3VPN Migration Workflow</h4>
         <div class="progress-bar">
-            <div class="progress-fill" style="width: 56%;">56% Complete (14/25 steps)</div>
+            <div class="progress-fill" style="width: 100%;">100% Complete (25/25 steps)</div>
         </div>
         <p style="margin-top: 15px; color: #ccc;">
-            This L3VPN service migration workflow demonstrates Cisco Agentic AI's ability to orchestrate
-            complex service migrations with zero downtime for dual-homed customers and optimized cutover
-            for single-homed customers. Remaining steps include pilot deployment, phased rollout, monitoring,
-            and verification phases.
+            This comprehensive 25-step L3VPN service migration workflow demonstrates Cisco Agentic AI's ability to
+            orchestrate complex service migrations with hitless cutover for dual-homed sites, intelligent dependency
+            analysis for hub-spoke topologies, and complete validation across all phases: Assessment → Planning →
+            Execution → Verification.
         </p>
     </div>
 </div>
