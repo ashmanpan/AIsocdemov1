@@ -5115,6 +5115,1655 @@ interface TenGigE0/0/0/10<br>
     </div>
 </div>
 `]
+            },
+            'link-service-migration': {
+                title: 'Link+Service Migration Router X→Y',
+                icon: '🔄',
+                description: 'Intelligent link migration with automatic service discovery and multi-platform support (XE↔XR, Nokia/Huawei→Cisco)',
+                initialQuery: 'I need to migrate a 100G link between Router-A (ASR 1006-X running IOS-XE) and Router-B (ASR 9006 running IOS-XR) to a new path. The link has 32 L3VPN services, 18 L2VPN pseudowires, and 12 BGP sessions. Can you discover all services and migrate them seamlessly?',
+                responses: [`
+<div class="root-container">
+    <h3>🔄 Agentic AI - Link+Service Migration v1.0</h3>
+    <p style="color: #ccc; margin-bottom: 25px;">
+        <strong>Intelligent Link Migration with Service Discovery</strong><br>
+        Platform-adaptive workflow supporting IOS-XE→IOS-XR, XE→XE, and multi-vendor (Nokia/Huawei) migrations.
+        AI agents automatically discover all services on the link and migrate atomically.
+    </p>
+
+    <div class="metrics-dashboard">
+        <div class="metric-badge">
+            <span class="badge-label">Migration Type:</span>
+            <span class="badge-value">IOS-XE → IOS-XR</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Link Capacity:</span>
+            <span class="badge-value">100 Gbps</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">L3VPN Services:</span>
+            <span class="badge-value">32 VRFs</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">L2VPN Services:</span>
+            <span class="badge-value">18 Pseudowires</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">BGP Sessions:</span>
+            <span class="badge-value">12 Peers</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Timeline:</span>
+            <span class="badge-value">3 Weeks</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Downtime Target:</span>
+            <span class="badge-value">&lt;45 seconds</span>
+        </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🎯</span>
+            <span class="agent-name">MIGRATION_ORCHESTRATOR</span>
+            <span class="status-tag status-success">Initialized</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Link+Service Migration Request Received</strong></p>
+            <div class="change-details">
+                <p><strong>Migration Scope:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Source Link:</strong> Router-A (ASR 1006-X, IOS-XE 17.9.3) Gi0/0/1 ↔ Router-B (ASR 9006, IOS-XR 7.5.2) Te0/0/0/1</li>
+                    <li><strong>Target Link:</strong> New 100G path via Router-A Hu0/0/5 ↔ Router-B Hu0/0/0/5</li>
+                    <li><strong>Migration Type Detected:</strong> <span style="color: #00aaff; font-weight: 600;">IOS-XE → IOS-XR (Multi-OS)</span></li>
+                    <li><strong>Service Discovery Required:</strong> YES (all services must be auto-discovered)</li>
+                    <li><strong>Config Translation Required:</strong> YES (XE syntax → XR syntax)</li>
+                </ul>
+                <p><strong>Orchestration Plan:</strong></p>
+                <ul class="compact-list">
+                    <li>Phase 1: Service Discovery & Topology Analysis (Steps 1-8)</li>
+                    <li>Phase 2: Config Generation & Pre-Provisioning (Steps 9-15)</li>
+                    <li>Phase 3: Migration Execution & Cutover (Steps 16-22)</li>
+                    <li>Phase 4: Verification & Decommissioning (Steps 23-25)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>LINK_DISCOVERY_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔍</span>
+            <span class="agent-name">LINK_DISCOVERY_AGENT</span>
+            <span class="status-tag status-info">Link Identified</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Physical Link Discovery & Validation</strong></p>
+            <div class="change-details">
+                <p><strong>Router-A (ASR 1006-X - IOS-XE) Analysis:</strong></p>
+                <div class="code-block">
+                    <pre>Router-A# show interface Gi0/0/1
+GigabitEthernet0/0/1 is up, line protocol is up
+  Hardware is SPA-1X100GE-CFP, address is a0b1.c2d3.e4f5
+  Description: PRIMARY_LINK_TO_ROUTER-B_ASR9K
+  MTU 9216 bytes, BW 100000000 Kbit/sec
+  Encapsulation ARPA, loopback not set
+  5 minute input rate 42850000000 bits/sec (42.8% utilization)
+  5 minute output rate 38920000000 bits/sec (38.9% utilization)</pre>
+                </div>
+                <p><strong>Router-B (ASR 9006 - IOS-XR) Analysis:</strong></p>
+                <div class="code-block">
+                    <pre>RP/0/RSP0/CPU0:Router-B# show interface Te0/0/0/1
+TenGigE0/0/0/1 is up, line protocol is up
+  Description: PRIMARY_LINK_FROM_ROUTER-A_ASR1K
+  MTU 9216 bytes, BW 100000000 Kbit
+  5 minute input rate 38920000000 bits/sec, 42850000 packets/sec
+  5 minute output rate 42850000000 bits/sec, 48920000 packets/sec</pre>
+                </div>
+                <p><strong>Link Validation:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>LLDP Neighbor:</strong> ✓ Verified (Router-A Gi0/0/1 ↔ Router-B Te0/0/0/1)</li>
+                    <li><strong>CDP Neighbor:</strong> ✓ Verified (Cisco ASR 1006-X ↔ Cisco ASR 9006)</li>
+                    <li><strong>Link Utilization:</strong> 42.8% inbound / 38.9% outbound (healthy)</li>
+                    <li><strong>MTU Match:</strong> ✓ 9216 bytes (jumbo frames enabled)</li>
+                    <li><strong>Link State:</strong> ✓ Both sides UP/UP</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>SERVICE_DISCOVERY_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔎</span>
+            <span class="agent-name">SERVICE_DISCOVERY_AGENT</span>
+            <span class="status-tag status-warning">62 Services Found</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Intelligent Service Discovery Using Knowledge</strong></p>
+            <div class="change-details">
+                <p><strong>🔍 L3VPN Service Discovery (VRF Analysis):</strong></p>
+                <div class="code-block">
+                    <pre>Router-A# show vrf brief | include Gi0/0/1
+VRF-CUST-ENTERPRISE-01    32 interfaces (Gi0/0/1.101)
+VRF-CUST-FINANCE-07       18 interfaces (Gi0/0/1.107)
+VRF-CUST-RETAIL-12        24 interfaces (Gi0/0/1.112)
+... [32 VRFs total using subinterfaces on Gi0/0/1]</pre>
+                </div>
+                <p><strong>Discovered L3VPN Services: 32 VRFs</strong></p>
+                <ul class="compact-list">
+                    <li>18 VRFs with BGP routing (route-target import/export configured)</li>
+                    <li>10 VRFs with OSPF routing (area 0.0.0.10 - 0.0.0.19)</li>
+                    <li>4 VRFs with static routes (default route to next-hop)</li>
+                </ul>
+                <p><strong>🔍 L2VPN Pseudowire Discovery:</strong></p>
+                <div class="code-block">
+                    <pre>Router-A# show xconnect all | include Gi0/0/1
+Xconnect VC-5001 (E-Line P2P) - Interface Gi0/0/1 AC - UP
+Xconnect VC-5002 (E-Line P2P) - Interface Gi0/0/1 AC - UP
+Xconnect VC-5003 (VPLS spoke) - Interface Gi0/0/1 AC - UP
+... [18 pseudowires total]</pre>
+                </div>
+                <p><strong>Discovered L2VPN Services: 18 Pseudowires</strong></p>
+                <ul class="compact-list">
+                    <li>12 E-Line P2P circuits (VC-ID 5001-5012)</li>
+                    <li>6 VPLS spoke sites (VC-ID 5013-5018)</li>
+                </ul>
+                <p><strong>🔍 BGP Session Discovery:</strong></p>
+                <div class="code-block">
+                    <pre>Router-A# show bgp all summary | include Gi0/0/1
+10.50.1.1    4  65001  38425  38520  0  0  2d14h  Active (eBGP - Internet Transit)
+10.50.1.5    4  65000  12850  12920  0  0  5d08h  Established (iBGP - RR)
+... [12 BGP peers total using this interface as source]</pre>
+                </div>
+                <p><strong>Discovered BGP Sessions: 12 Peers</strong></p>
+                <ul class="compact-list">
+                    <li>4 eBGP sessions (Internet transit providers AS 65001-65004)</li>
+                    <li>8 iBGP sessions (route reflectors and VPNv4 peers)</li>
+                </ul>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Service Type</th>
+                            <th>Count</th>
+                            <th>Details</th>
+                            <th>Migration Complexity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>L3VPN (VRF)</td>
+                            <td>32</td>
+                            <td>18 BGP, 10 OSPF, 4 Static</td>
+                            <td style="color: #ffaa00;">MEDIUM</td>
+                        </tr>
+                        <tr>
+                            <td>L2VPN (Pseudowire)</td>
+                            <td>18</td>
+                            <td>12 E-Line, 6 VPLS</td>
+                            <td style="color: #ffaa00;">MEDIUM</td>
+                        </tr>
+                        <tr>
+                            <td>BGP Sessions</td>
+                            <td>12</td>
+                            <td>4 eBGP, 8 iBGP</td>
+                            <td style="color: #ff5555;">HIGH</td>
+                        </tr>
+                        <tr>
+                            <td>QoS Policies</td>
+                            <td>2</td>
+                            <td>Input + Output</td>
+                            <td style="color: #00ff88;">LOW</td>
+                        </tr>
+                        <tr>
+                            <td>ACLs</td>
+                            <td>1</td>
+                            <td>248 entries</td>
+                            <td style="color: #00ff88;">LOW</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PLATFORM_DETECTION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🖥️</span>
+            <span class="agent-name">PLATFORM_DETECTION_AGENT</span>
+            <span class="status-tag status-info">XE→XR Detected</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Platform Detection & Syntax Translation Planning</strong></p>
+            <div class="change-details">
+                <p><strong>Source Platform Detection:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Router-A:</strong> Cisco ASR 1006-X</li>
+                    <li><strong>OS Version:</strong> IOS-XE 17.9.3</li>
+                    <li><strong>Config Syntax:</strong> IOS-XE (traditional IOS-style)</li>
+                    <li><strong>Interface Naming:</strong> GigabitEthernet0/0/1, subinterfaces (Gi0/0/1.101)</li>
+                </ul>
+                <p><strong>Target Platform Detection:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Router-B:</strong> Cisco ASR 9006</li>
+                    <li><strong>OS Version:</strong> IOS-XR 7.5.2</li>
+                    <li><strong>Config Syntax:</strong> IOS-XR (hierarchical structured)</li>
+                    <li><strong>Interface Naming:</strong> HundredGigE0/0/0/5, subinterfaces (Hu0/0/0/5.101)</li>
+                </ul>
+                <p><strong>Migration Type: IOS-XE → IOS-XR (Multi-OS)</strong></p>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">⚙️ Config Translation Required</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        IOS-XE and IOS-XR use different configuration syntax. AI will automatically translate:
+                    </p>
+                    <ul class="compact-list" style="margin-top: 10px;">
+                        <li><strong>Interface names:</strong> GigabitEthernet → HundredGigE</li>
+                        <li><strong>VRF syntax:</strong> <code>ip vrf</code> → <code>vrf</code></li>
+                        <li><strong>BGP syntax:</strong> <code>router bgp 65000</code> → <code>router bgp 65000</code> (similar but XR uses hierarchical)</li>
+                        <li><strong>L2VPN syntax:</strong> <code>xconnect</code> → <code>l2vpn xconnect</code></li>
+                        <li><strong>QoS syntax:</strong> MQC (class-map/policy-map) similar but XR more granular</li>
+                    </ul>
+                </div>
+                <p><strong>Alternative Platform Scenarios Supported:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Source Platform</th>
+                                <th>Target Platform</th>
+                                <th>Translation Complexity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #1a2a3a;">
+                                <td><strong>Current</strong></td>
+                                <td>IOS-XE (ASR 1K)</td>
+                                <td>IOS-XR (ASR 9K)</td>
+                                <td style="color: #ffaa00;">MEDIUM</td>
+                            </tr>
+                            <tr>
+                                <td>XE→XE</td>
+                                <td>IOS-XE (ASR 1K Gen1)</td>
+                                <td>IOS-XE (ASR 1K Gen2)</td>
+                                <td style="color: #00ff88;">LOW (Same OS)</td>
+                            </tr>
+                            <tr>
+                                <td>XR→XR</td>
+                                <td>IOS-XR (ASR 9K Gen1)</td>
+                                <td>IOS-XR (ASR 9K Gen2)</td>
+                                <td style="color: #00ff88;">LOW (Same OS)</td>
+                            </tr>
+                            <tr>
+                                <td>Nokia→XR</td>
+                                <td>Nokia 7750 SR (SR-OS)</td>
+                                <td>IOS-XR (Cisco 8000)</td>
+                                <td style="color: #ff5555;">HIGH (Vendor change)</td>
+                            </tr>
+                            <tr>
+                                <td>Huawei→XR</td>
+                                <td>Huawei NE40E (VRP)</td>
+                                <td>IOS-XR (Cisco 8000)</td>
+                                <td style="color: #ff5555;">HIGH (Vendor change)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>DEPENDENCY_ANALYSIS_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🕸️</span>
+            <span class="agent-name">DEPENDENCY_ANALYSIS_AGENT</span>
+            <span class="status-tag status-warning">Dependencies Mapped</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Service Dependency Graph & Migration Sequencing</strong></p>
+            <div class="change-details">
+                <p><strong>Service Dependency Tree:</strong></p>
+                <div class="code-block">
+                    <pre>Physical Link: Gi0/0/1 (Router-A) ↔ Te0/0/0/1 (Router-B)
+├── L3VPN Services (32 VRFs)
+│   ├── VRF-CUST-ENTERPRISE-01
+│   │   ├── Subinterface: Gi0/0/1.101 (VLAN 101)
+│   │   ├── BGP Peer: 10.50.1.10 (AS 65001 - Customer eBGP)
+│   │   ├── Route-Target: import/export 65000:101
+│   │   └── QoS: POLICY-ENTERPRISE-IN/OUT
+│   ├── VRF-CUST-FINANCE-07
+│   │   ├── Subinterface: Gi0/0/1.107 (VLAN 107)
+│   │   ├── OSPF: Area 0.0.0.7 (redistributed into BGP)
+│   │   └── Static Route: 0.0.0.0/0 → 192.168.107.1
+│   └── ... [30 more VRFs]
+├── L2VPN Pseudowires (18 circuits)
+│   ├── VC-ID 5001 (E-Line P2P)
+│   │   ├── Attachment Circuit: Gi0/0/1 service instance 5001
+│   │   ├── Remote PE: 10.255.0.5
+│   │   └── LDP Targeted Session: 10.255.0.1 → 10.255.0.5
+│   ├── VC-ID 5013 (VPLS spoke)
+│   │   ├── VPLS Instance: VPLS-CUST-BANK-A
+│   │   ├── Bridge Domain: 100
+│   │   └── Hub PE: 10.255.0.10
+│   └── ... [16 more pseudowires]
+└── BGP Global Sessions (12 peers)
+    ├── eBGP: 10.50.1.1 AS 65001 (Internet Transit - sourced from Gi0/0/1)
+    ├── iBGP: 10.50.1.5 AS 65000 (Route Reflector)
+    └── ... [10 more peers]</pre>
+                </div>
+                <p><strong>Critical Dependencies Identified:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>VRF → Subinterface → Physical Link:</strong> All 32 VRFs depend on subinterfaces (Gi0/0/1.101-132)</li>
+                    <li><strong>BGP → VRF → Physical Link:</strong> 18 VRF BGP peers will flap during cutover</li>
+                    <li><strong>L2VPN → Physical Link:</strong> 18 pseudowires will re-establish after cutover (30-45s)</li>
+                    <li><strong>OSPF → VRF → Physical Link:</strong> 10 OSPF adjacencies will flap (20-30s reconvergence)</li>
+                </ul>
+                <p><strong>Migration Sequencing Strategy:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Pre-Provision:</strong> Configure all services on new link with <code>shutdown</code> state</li>
+                    <li><strong>Cutover:</strong> Atomic migration - <code>no shutdown</code> new link → wait 30s → <code>shutdown</code> old link</li>
+                    <li><strong>Validation:</strong> Verify all 62 services UP before declaring success</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>HISTORICAL_DATA_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📊</span>
+            <span class="agent-name">HISTORICAL_DATA_AGENT</span>
+            <span class="status-tag status-info">Data Retrieved</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Historical Performance & Incident Analysis</strong></p>
+            <div class="change-details">
+                <p><strong>Link Performance (Last 90 Days):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Average Utilization:</strong> 42.8% inbound / 38.9% outbound</li>
+                    <li><strong>Peak Utilization:</strong> 78.5% (during business hours 9am-5pm)</li>
+                    <li><strong>Packet Loss:</strong> 0.002% (well within SLA)</li>
+                    <li><strong>Latency:</strong> 2.1ms average (stable)</li>
+                    <li><strong>Link Flaps:</strong> 0 (highly stable link)</li>
+                </ul>
+                <p><strong>Service Incident History:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>L3VPN Flaps:</strong> 2 incidents (both due to customer CPE reboots, not link issues)</li>
+                    <li><strong>L2VPN Flaps:</strong> 1 incident (LDP session timeout during maintenance)</li>
+                    <li><strong>BGP Flaps:</strong> 0 (all BGP sessions stable for 90+ days)</li>
+                </ul>
+                <p><strong>Migration Risk Assessment:</strong></p>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✓ LOW RISK MIGRATION</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Link is highly stable with zero flaps in 90 days. Services are well-behaved.
+                        Expected downtime: 30-45 seconds (BGP/OSPF reconvergence + L2VPN re-establishment).
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CHANGE_WINDOW_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📅</span>
+            <span class="agent-name">CHANGE_WINDOW_AGENT</span>
+            <span class="status-tag status-info">Window Scheduled</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Maintenance Window Scheduling</strong></p>
+            <div class="change-details">
+                <p><strong>Customer Impact Analysis:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>High-Priority Customers (Tier 1):</strong> 8 customers (VRFs with 99.99% SLA)</li>
+                    <li><strong>Medium-Priority Customers (Tier 2):</strong> 18 customers (VRFs with 99.9% SLA)</li>
+                    <li><strong>Standard Customers (Tier 3):</strong> 6 customers (VRFs with 99.5% SLA)</li>
+                </ul>
+                <p><strong>Recommended Maintenance Window:</strong></p>
+                <div style="padding: 15px; background-color: #2a2a1a; border-left: 4px solid #ffaa00; margin: 15px 0;">
+                    <p style="margin: 0; color: #ffaa00; font-weight: 600;">📅 Sunday, 2:00 AM - 5:00 AM (3-hour window)</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        <strong>Rationale:</strong> Lowest traffic period (12% avg utilization). 8 Tier-1 customers notified 14 days in advance.
+                        Expected migration duration: 45 minutes (with 2h15m buffer for rollback if needed).
+                    </p>
+                </div>
+                <p><strong>Customer Notification Plan:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>T-14 days:</strong> Email notification to all 32 customers (Tier 1/2/3)</li>
+                    <li><strong>T-7 days:</strong> Reminder email + phone call to 8 Tier-1 customers</li>
+                    <li><strong>T-1 day:</strong> Final reminder email to all customers</li>
+                    <li><strong>T-0 (cutover):</strong> Real-time status updates via customer portal</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>RISK_ASSESSMENT_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">⚠️</span>
+            <span class="agent-name">RISK_ASSESSMENT_AGENT</span>
+            <span class="status-tag status-warning">Risks Identified</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Comprehensive Risk Analysis & Mitigation</strong></p>
+            <div class="change-details">
+                <p><strong>High-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>BGP Session Reconvergence:</strong> 12 BGP peers will flap (10-15s downtime per peer)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Use BGP graceful restart (prevents route withdrawal)</li>
+                    <li><strong>L2VPN Pseudowire Re-establishment:</strong> 18 circuits will go down (30-45s reconnection)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Pre-provision all pseudowires, use MPLS Fast Reroute</li>
+                </ul>
+                <p><strong>Medium-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>OSPF Adjacency Reconvergence:</strong> 10 VRF OSPF neighbors (20-30s)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Tune OSPF timers (hello 1s, dead 3s) for faster reconvergence</li>
+                    <li><strong>IOS-XE → IOS-XR Config Translation:</strong> Syntax errors possible</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Lab validation of all translated configs before production</li>
+                </ul>
+                <p><strong>Low-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>QoS Policy Migration:</strong> MQC configs similar on XE/XR</li>
+                    <li><strong>ACL Migration:</strong> Standard ACLs (same syntax on XE/XR)</li>
+                </ul>
+                <p><strong>Rollback Plan:</strong></p>
+                <div style="padding: 15px; background-color: #2a1a1a; border-left: 4px solid #ff5555; margin: 15px 0;">
+                    <p style="margin: 0; color: #ff5555; font-weight: 600;">🔙 ROLLBACK STRATEGY</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        <strong>Trigger:</strong> If >5% of services fail to come up after cutover OR if any Tier-1 customer service is down >2 minutes.
+                    </p>
+                    <ul class="compact-list" style="margin-top: 10px;">
+                        <li><strong>Step 1:</strong> <code>shutdown</code> new link (Hu0/0/5)</li>
+                        <li><strong>Step 2:</strong> <code>no shutdown</code> old link (Gi0/0/1)</li>
+                        <li><strong>Step 3:</strong> Verify all 62 services return to UP state</li>
+                        <li><strong>Estimated Rollback Time:</strong> 2 minutes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CONFIG_TRANSLATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">⚙️</span>
+            <span class="agent-name">CONFIG_TRANSLATION_AGENT</span>
+            <span class="status-tag status-success">Configs Generated</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>IOS-XE → IOS-XR Configuration Translation</strong></p>
+            <div class="change-details">
+                <p><strong>Translation Rules Applied:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Config Element</th>
+                                <th>IOS-XE Syntax (Source)</th>
+                                <th>IOS-XR Syntax (Target)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Interface Name</td>
+                                <td><code>GigabitEthernet0/0/1</code></td>
+                                <td><code>HundredGigE0/0/0/5</code></td>
+                            </tr>
+                            <tr>
+                                <td>Subinterface</td>
+                                <td><code>Gi0/0/1.101</code></td>
+                                <td><code>Hu0/0/0/5.101</code></td>
+                            </tr>
+                            <tr>
+                                <td>VRF Definition</td>
+                                <td><code>ip vrf VRF-CUST-ENT-01</code></td>
+                                <td><code>vrf VRF-CUST-ENT-01</code></td>
+                            </tr>
+                            <tr>
+                                <td>VRF Address Family</td>
+                                <td><code>address-family ipv4</code></td>
+                                <td><code>address-family ipv4 unicast</code></td>
+                            </tr>
+                            <tr>
+                                <td>BGP Config</td>
+                                <td><code>router bgp 65000</code></td>
+                                <td><code>router bgp 65000</code> (hierarchical)</td>
+                            </tr>
+                            <tr>
+                                <td>L2VPN Xconnect</td>
+                                <td><code>xconnect 10.255.0.5 5001</code></td>
+                                <td><code>l2vpn xconnect VC-5001</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Example: VRF Configuration Translation</strong></p>
+                <div class="code-block">
+                    <pre><strong>IOS-XE (Source - Router-A):</strong>
+ip vrf VRF-CUST-ENTERPRISE-01
+ rd 65000:101
+ route-target export 65000:101
+ route-target import 65000:101
+
+interface GigabitEthernet0/0/1.101
+ encapsulation dot1Q 101
+ ip vrf forwarding VRF-CUST-ENTERPRISE-01
+ ip address 192.168.101.1 255.255.255.252
+ service-policy input POLICY-ENTERPRISE-IN
+ service-policy output POLICY-ENTERPRISE-OUT
+
+<strong>IOS-XR (Target - Router-B):</strong>
+vrf VRF-CUST-ENTERPRISE-01
+ address-family ipv4 unicast
+  import route-target 65000:101
+  export route-target 65000:101
+ !
+!
+
+interface HundredGigE0/0/0/5.101
+ vrf VRF-CUST-ENTERPRISE-01
+ ipv4 address 192.168.101.2 255.255.255.252
+ encapsulation dot1q 101
+ service-policy input POLICY-ENTERPRISE-IN
+ service-policy output POLICY-ENTERPRISE-OUT
+!</pre>
+                </div>
+                <p><strong>Translation Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ 32 VRF configs translated (XE → XR syntax)</li>
+                    <li>✓ 18 L2VPN pseudowire configs translated</li>
+                    <li>✓ 12 BGP peer configs translated (hierarchical XR format)</li>
+                    <li>✓ 2 QoS policy-maps translated (MQC compatible)</li>
+                    <li>✓ 1 ACL translated (syntax identical)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>LAB_VALIDATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧪</span>
+            <span class="agent-name">LAB_VALIDATION_AGENT</span>
+            <span class="status-tag status-success">Lab Tests PASS</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Lab Validation of Translated Configurations</strong></p>
+            <div class="change-details">
+                <p><strong>Lab Setup:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Lab Router-A:</strong> ASR 1006-X (IOS-XE 17.9.3) - matches production</li>
+                    <li><strong>Lab Router-B:</strong> ASR 9006 (IOS-XR 7.5.2) - matches production</li>
+                    <li><strong>Test Scope:</strong> 5 sample VRFs, 3 L2VPN circuits, 2 BGP peers</li>
+                </ul>
+                <p><strong>Lab Test Results (1 week):</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Config Syntax</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">VRF Routing</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">BGP Peering</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">L2VPN Xconnect</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">QoS Policies</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Cutover Time</div>
+                        <div class="card-value">38s</div>
+                    </div>
+                </div>
+                <p><strong>Key Validation Findings:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ All IOS-XR configs accepted (no syntax errors)</li>
+                    <li>✓ BGP graceful restart working (10s reconvergence, zero route withdrawal)</li>
+                    <li>✓ L2VPN pseudowires re-established in 30-38s (within SLA)</li>
+                    <li>✓ QoS policies applied correctly (traffic prioritization verified)</li>
+                    <li>✓ Cutover simulation: 38-second average downtime (meets &lt;45s target)</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ LAB VALIDATION SUCCESSFUL</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        All translated configs validated in lab. Ready for production deployment.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PRE_PROVISIONING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📝</span>
+            <span class="agent-name">PRE_PROVISIONING_AGENT</span>
+            <span class="status-tag status-success">Pre-Provisioned</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Pre-Provisioning New Link with All Services (Shutdown State)</strong></p>
+            <div class="change-details">
+                <p><strong>Pre-Provisioning Strategy:</strong></p>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">🎯 Zero-Touch Cutover Strategy</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Configure all 62 services on new link in <strong>shutdown state</strong> 7 days before cutover.
+                        During cutover, only action needed: <code>no shutdown</code> new link → <code>shutdown</code> old link.
+                        This reduces cutover window from 45 minutes to 2-3 minutes.
+                    </p>
+                </div>
+                <p><strong>Router-A (IOS-XE) - Pre-Provisioned Config:</strong></p>
+                <div class="code-block">
+                    <pre>! New physical interface (SHUTDOWN state)
+interface HundredGigE0/0/5
+ description NEW_LINK_TO_ROUTER-B_MIGRATION
+ mtu 9216
+ no ip address
+ shutdown
+ negotiation auto
+!
+! 32 VRF subinterfaces (SHUTDOWN state)
+interface HundredGigE0/0/5.101
+ description VRF-CUST-ENTERPRISE-01
+ encapsulation dot1Q 101
+ ip vrf forwarding VRF-CUST-ENTERPRISE-01
+ ip address 192.168.101.1 255.255.255.252
+ service-policy input POLICY-ENTERPRISE-IN
+ service-policy output POLICY-ENTERPRISE-OUT
+ shutdown
+!
+interface HundredGigE0/0/5.107
+ description VRF-CUST-FINANCE-07
+ encapsulation dot1Q 107
+ ip vrf forwarding VRF-CUST-FINANCE-07
+ ip address 192.168.107.1 255.255.255.252
+ shutdown
+!
+... [30 more subinterfaces]
+
+! L2VPN pseudowires (pointing to new interface, SHUTDOWN)
+pseudowire-class PW-5001
+ encapsulation mpls
+ preferred-path interface HundredGigE0/0/5 fallback disable
+!
+interface pseudowire5001
+ source template type pseudowire PW-5001
+ neighbor 10.255.0.5 5001
+ shutdown
+!</pre>
+                </div>
+                <p><strong>Router-B (IOS-XR) - Pre-Provisioned Config:</strong></p>
+                <div class="code-block">
+                    <pre>! New physical interface (SHUTDOWN state)
+interface HundredGigE0/0/0/5
+ description NEW_LINK_FROM_ROUTER-A_MIGRATION
+ mtu 9216
+ shutdown
+!
+! 32 VRF subinterfaces (SHUTDOWN state)
+interface HundredGigE0/0/0/5.101
+ description VRF-CUST-ENTERPRISE-01
+ vrf VRF-CUST-ENTERPRISE-01
+ ipv4 address 192.168.101.2 255.255.255.252
+ encapsulation dot1q 101
+ service-policy input POLICY-ENTERPRISE-IN
+ service-policy output POLICY-ENTERPRISE-OUT
+ shutdown
+!
+! L2VPN xconnect (SHUTDOWN state)
+l2vpn
+ xconnect group XC-GROUP-1
+  p2p VC-5001
+   interface HundredGigE0/0/0/5.5001
+   neighbor ipv4 10.255.0.1 pw-id 5001
+   shutdown
+  !
+ !
+!</pre>
+                </div>
+                <p><strong>Pre-Provisioning Verification:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ All 62 services configured on new link (Hu0/0/5)</li>
+                    <li>✓ All services in <strong>shutdown state</strong> (no traffic flowing yet)</li>
+                    <li>✓ No config syntax errors detected</li>
+                    <li>✓ Configs committed 7 days before cutover (risk mitigation)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CUTOVER_ORCHESTRATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🚀</span>
+            <span class="agent-name">CUTOVER_ORCHESTRATION_AGENT</span>
+            <span class="status-tag status-warning">Cutover Planned</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Atomic Cutover Orchestration Plan</strong></p>
+            <div class="change-details">
+                <p><strong>Cutover Timeline (T-0 = 2:00 AM Sunday):</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T-30min:</strong> Pre-cutover health check (verify all old services UP)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T-15min:</strong> Put change control team on standby
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T-0:</strong> BEGIN CUTOVER - Enable new link
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+10s:</strong> <code>no shutdown</code> on Router-A Hu0/0/5 + all subinterfaces
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+20s:</strong> <code>no shutdown</code> on Router-B Hu0/0/0/5 + all subinterfaces
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+30s:</strong> Verify new link UP, BGP peers establishing
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+45s:</strong> Verify 90% of services UP (BGP converged, L2VPN establishing)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+60s:</strong> Verify 100% of services UP (all pseudowires established)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+90s:</strong> <code>shutdown</code> old link (Gi0/0/1) on both routers
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>T+120s:</strong> Final validation - all 62 services stable on new link
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Automated Validation Checks:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Physical link UP/UP on both sides</li>
+                    <li>✓ All 32 VRF subinterfaces UP/UP</li>
+                    <li>✓ All 12 BGP peers in Established state</li>
+                    <li>✓ All 18 L2VPN pseudowires in UP state</li>
+                    <li>✓ No packet loss detected (ICMP pings to all customer IPs)</li>
+                </ul>
+                <p><strong>Go/No-Go Criteria:</strong></p>
+                <div style="padding: 15px; background-color: #2a1a1a; border-left: 4px solid #ff5555; margin: 15px 0;">
+                    <p style="margin: 0; color: #ff5555; font-weight: 600;">⚠️ ROLLBACK IF:</p>
+                    <ul class="compact-list" style="margin-top: 10px;">
+                        <li>Any Tier-1 customer service down &gt;2 minutes</li>
+                        <li>&gt;5% of total services fail to come up</li>
+                        <li>Any BGP peer fails to establish within 30 seconds</li>
+                        <li>&gt;3 L2VPN pseudowires fail to establish within 60 seconds</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CUTOVER_EXECUTION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">⚡</span>
+            <span class="agent-name">CUTOVER_EXECUTION_AGENT</span>
+            <span class="status-tag status-success">Cutover Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Live Cutover Execution - Real-Time Status</strong></p>
+            <div class="change-details">
+                <p><strong>Cutover Started: Sunday 2:00:00 AM</strong></p>
+                <div class="code-block">
+                    <pre><strong>[T+0s]</strong> BEGIN CUTOVER EXECUTION
+<strong>[T+8s]</strong> Router-A: Executing "no shutdown" on HundredGigE0/0/5
+<strong>[T+9s]</strong> Router-A: Executing "no shutdown" on 32 subinterfaces (Hu0/0/5.101-132)
+<strong>[T+10s]</strong> Router-A: ✓ Interface Hu0/0/5 is UP
+<strong>[T+18s]</strong> Router-B: Executing "no shutdown" on HundredGigE0/0/0/5
+<strong>[T+19s]</strong> Router-B: Executing "no shutdown" on 32 subinterfaces (Hu0/0/0/5.101-132)
+<strong>[T+20s]</strong> Router-B: ✓ Interface Hu0/0/0/5 is UP
+<strong>[T+22s]</strong> ✓ Link UP on both sides (Router-A Hu0/0/5 ↔ Router-B Hu0/0/0/5)
+<strong>[T+25s]</strong> ✓ LLDP neighbor detected (Router-A ↔ Router-B)
+<strong>[T+28s]</strong> BGP: 8/12 peers Established
+<strong>[T+32s]</strong> BGP: 12/12 peers Established ✓
+<strong>[T+35s]</strong> L2VPN: 14/18 pseudowires UP
+<strong>[T+42s]</strong> L2VPN: 18/18 pseudowires UP ✓
+<strong>[T+45s]</strong> VRF Routes: 32/32 VRFs have active routes ✓
+<strong>[T+48s]</strong> VALIDATION: All 62 services UP on new link ✓
+<strong>[T+52s]</strong> Ping test: 100% reachability to all customer IPs ✓
+<strong>[T+60s]</strong> Router-A: Executing "shutdown" on GigabitEthernet0/0/1 (old link)
+<strong>[T+62s]</strong> Router-B: Executing "shutdown" on TenGigE0/0/0/1 (old link)
+<strong>[T+65s]</strong> ✓ Old link disabled on both sides
+<strong>[T+90s]</strong> Final validation: All services stable for 30 seconds
+<strong>[T+95s]</strong> CUTOVER SUCCESS - Migration complete in 95 seconds</pre>
+                </div>
+                <div style="margin-top: 25px; padding: 20px; background-color: #1a2a1a; border-radius: 8px; border-left: 4px solid #00ff88;">
+                    <h5 style="color: #00ff88; margin: 0 0 10px 0;">✅ CUTOVER SUCCESSFUL</h5>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Type</th>
+                                    <th>Count</th>
+                                    <th>Success Rate</th>
+                                    <th>Avg Downtime</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>L3VPN (VRF)</td>
+                                    <td>32</td>
+                                    <td style="color: #00ff88;">100% (32/32)</td>
+                                    <td>28 seconds</td>
+                                </tr>
+                                <tr>
+                                    <td>L2VPN (Pseudowire)</td>
+                                    <td>18</td>
+                                    <td style="color: #00ff88;">100% (18/18)</td>
+                                    <td>38 seconds</td>
+                                </tr>
+                                <tr>
+                                    <td>BGP Sessions</td>
+                                    <td>12</td>
+                                    <td style="color: #00ff88;">100% (12/12)</td>
+                                    <td>32 seconds</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>POST_CUTOVER_VALIDATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔍</span>
+            <span class="agent-name">POST_CUTOVER_VALIDATION_AGENT</span>
+            <span class="status-tag status-success">Validated</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Post-Cutover Service Validation (T+30min)</strong></p>
+            <div class="change-details">
+                <p><strong>Deep Service Health Checks:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>L3VPN Validation:</strong></li>
+                    <li>&nbsp;&nbsp;- All 32 VRFs have active routes (BGP/OSPF/Static)</li>
+                    <li>&nbsp;&nbsp;- BGP route counts match pre-migration baseline</li>
+                    <li>&nbsp;&nbsp;- OSPF adjacencies stable (10/10 neighbors)</li>
+                    <li>&nbsp;&nbsp;- Ping test to all 180 customer endpoints: 100% success</li>
+                    <li><strong>L2VPN Validation:</strong></li>
+                    <li>&nbsp;&nbsp;- All 18 pseudowires in UP state</li>
+                    <li>&nbsp;&nbsp;- MAC learning working (VPLS bridge domains populated)</li>
+                    <li>&nbsp;&nbsp;- LDP targeted sessions stable</li>
+                    <li>&nbsp;&nbsp;- Customer L2 traffic flowing (verified via packet captures)</li>
+                    <li><strong>BGP Validation:</strong></li>
+                    <li>&nbsp;&nbsp;- All 12 BGP peers Established</li>
+                    <li>&nbsp;&nbsp;- Route counts: 4 eBGP peers (185K routes), 8 iBGP peers (250K routes)</li>
+                    <li>&nbsp;&nbsp;- No BGP flapping detected (stable for 30+ minutes)</li>
+                    <li><strong>QoS Validation:</strong></li>
+                    <li>&nbsp;&nbsp;- Traffic shaping active (verified via policy-map counters)</li>
+                    <li>&nbsp;&nbsp;- Priority queue for VoIP traffic working (EF DSCP marked packets prioritized)</li>
+                </ul>
+                <p><strong>Performance Comparison (Pre vs Post Migration):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Old Link (Gi0/0/1)</th>
+                                <th>New Link (Hu0/0/5)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Link Utilization</td>
+                                <td>42.8% / 38.9%</td>
+                                <td>42.5% / 38.7%</td>
+                                <td style="color: #00ff88;">✓ Match</td>
+                            </tr>
+                            <tr>
+                                <td>Packet Loss</td>
+                                <td>0.002%</td>
+                                <td>0.001%</td>
+                                <td style="color: #00ff88;">✓ Improved</td>
+                            </tr>
+                            <tr>
+                                <td>Latency</td>
+                                <td>2.1ms</td>
+                                <td>2.0ms</td>
+                                <td style="color: #00ff88;">✓ Match</td>
+                            </tr>
+                            <tr>
+                                <td>BGP Routes</td>
+                                <td>435,000</td>
+                                <td>435,000</td>
+                                <td style="color: #00ff88;">✓ Match</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CUSTOMER_NOTIFICATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 15 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📧</span>
+            <span class="agent-name">CUSTOMER_NOTIFICATION_AGENT</span>
+            <span class="status-tag status-info">Notified</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Customer Success Notification</strong></p>
+            <div class="change-details">
+                <p><strong>Notification Sent to 32 Customers (3:15 AM):</strong></p>
+                <div style="padding: 15px; background-color: #1a2a1a; border-radius: 8px; border: 1px solid #333; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">Subject: [COMPLETED] Scheduled Maintenance - Link Migration</p>
+                    <p style="margin: 10px 0 0 0; color: #ccc;">
+                        Dear Valued Customer,
+                    </p>
+                    <p style="margin: 10px 0 0 0; color: #ccc;">
+                        The scheduled link migration maintenance has been <strong>successfully completed</strong> at 3:05 AM (65 minutes ahead of schedule).
+                    </p>
+                    <p style="margin: 10px 0 0 0; color: #ccc;">
+                        <strong>Migration Summary:</strong><br>
+                        - Services Migrated: Your L3VPN/L2VPN services<br>
+                        - Actual Downtime: 28-38 seconds (within SLA)<br>
+                        - Current Status: ✓ All services operational<br>
+                        - Performance: Normal (no degradation detected)
+                    </p>
+                    <p style="margin: 10px 0 0 0; color: #ccc;">
+                        If you experience any issues, please contact our NOC at noc@example.com or 1-800-XXX-XXXX.
+                    </p>
+                    <p style="margin: 10px 0 0 0; color: #ccc;">
+                        Thank you for your patience.
+                    </p>
+                </div>
+                <p><strong>Customer Response Summary (T+2 hours):</strong></p>
+                <ul class="compact-list">
+                    <li>✓ 8 Tier-1 customers: No issues reported</li>
+                    <li>✓ 18 Tier-2 customers: No issues reported</li>
+                    <li>✓ 6 Tier-3 customers: No issues reported</li>
+                    <li>✓ 0 customer complaints received</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>MONITORING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 16 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📡</span>
+            <span class="agent-name">MONITORING_AGENT</span>
+            <span class="status-tag status-info">7-Day Watch</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Post-Migration Monitoring (7-Day Observation Period)</strong></p>
+            <div class="change-details">
+                <p><strong>Continuous Monitoring Metrics:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Link Health:</strong> 100% uptime (no link flaps detected)</li>
+                    <li><strong>BGP Stability:</strong> 12/12 peers stable (no flaps in 7 days)</li>
+                    <li><strong>L2VPN Stability:</strong> 18/18 pseudowires stable (no re-establishments)</li>
+                    <li><strong>VRF Routing:</strong> All 32 VRFs stable (no route flaps)</li>
+                    <li><strong>Packet Loss:</strong> 0.001% (better than pre-migration)</li>
+                    <li><strong>Latency:</strong> 2.0ms average (consistent)</li>
+                </ul>
+                <p><strong>Day-by-Day Status:</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Day 1 (Sunday):</strong> All services stable, 0 customer complaints
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Day 2 (Monday):</strong> Business hours traffic peak handled smoothly (78% utilization)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Day 3-7:</strong> No anomalies detected, all services performing as expected
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ 7-DAY MONITORING COMPLETE</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        All services stable for 7 days post-migration. No degradation or instability detected.
+                        Migration declared successful. Ready to decommission old link.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>TRAFFIC_ANALYSIS_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 17 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📊</span>
+            <span class="agent-name">TRAFFIC_ANALYSIS_AGENT</span>
+            <span class="status-tag status-info">Analysis Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Post-Migration Traffic Pattern Analysis</strong></p>
+            <div class="change-details">
+                <p><strong>Traffic Flow Verification:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>VRF Traffic Distribution:</strong></li>
+                    <li>&nbsp;&nbsp;- VRF-CUST-ENTERPRISE-01: 12.5 Gbps (largest customer)</li>
+                    <li>&nbsp;&nbsp;- VRF-CUST-FINANCE-07: 8.2 Gbps</li>
+                    <li>&nbsp;&nbsp;- VRF-CUST-RETAIL-12: 6.8 Gbps</li>
+                    <li>&nbsp;&nbsp;- Remaining 29 VRFs: 15.3 Gbps total</li>
+                    <li><strong>L2VPN Traffic:</strong> 2.1 Gbps across 18 pseudowires</li>
+                    <li><strong>Total Traffic:</strong> 42.8 Gbps (matches pre-migration baseline)</li>
+                </ul>
+                <p><strong>QoS Analysis:</strong></p>
+                <div class="code-block">
+                    <pre>Router-B# show policy-map interface Hu0/0/0/5 output
+
+Service-policy output: POLICY-ENTERPRISE-OUT
+  Class EF (VoIP traffic)
+    Priority: 500 Mbps (burst 12.5 MB)
+    Transmitted: 485 Mbps (97% of allocated)
+    Dropped: 0 packets ✓
+
+  Class AF41 (Video traffic)
+    Bandwidth: 1000 Mbps
+    Transmitted: 920 Mbps (92% of allocated)
+    Dropped: 0 packets ✓
+
+  Class BE (Best-effort)
+    Bandwidth: remaining
+    Transmitted: 41.4 Gbps
+    Dropped: 12 packets (0.0001%) ✓</pre>
+                </div>
+                <p><strong>Performance Improvement:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Packet loss reduced: 0.002% → 0.001% (50% improvement)</li>
+                    <li>✓ Latency improved: 2.1ms → 2.0ms (5% improvement)</li>
+                    <li>✓ QoS drop rate: 0 packets for priority traffic (VoIP/Video)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CONFIG_CLEANUP_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 18 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧹</span>
+            <span class="agent-name">CONFIG_CLEANUP_AGENT</span>
+            <span class="status-tag status-success">Cleaned</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Old Link Configuration Cleanup</strong></p>
+            <div class="change-details">
+                <p><strong>Decommissioning Old Link (T+7 days):</strong></p>
+                <div class="code-block">
+                    <pre><strong>Router-A (IOS-XE):</strong>
+! Remove old interface and all subinterfaces
+no interface GigabitEthernet0/0/1.101
+no interface GigabitEthernet0/0/1.107
+... [remove all 32 subinterfaces]
+no interface GigabitEthernet0/0/1
+
+! Remove old L2VPN configs
+no pseudowire-class PW-5001-OLD
+no interface pseudowire5001-OLD
+... [remove all old pseudowire configs]
+
+<strong>Router-B (IOS-XR):</strong>
+! Remove old interface and all subinterfaces
+no interface TenGigE0/0/0/1.101
+no interface TenGigE0/0/0/1.107
+... [remove all 32 subinterfaces]
+no interface TenGigE0/0/0/1
+
+! Remove old L2VPN configs
+l2vpn
+ xconnect group XC-GROUP-OLD
+  no p2p VC-5001-OLD
+ !
+!</pre>
+                </div>
+                <p><strong>Cleanup Verification:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ All old interface configs removed from running-config</li>
+                    <li>✓ All old L2VPN xconnect configs removed</li>
+                    <li>✓ Running-config saved to startup-config (persistent)</li>
+                    <li>✓ Config backup taken before cleanup (rollback available if needed)</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ CONFIG CLEANUP COMPLETE</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Old link configurations removed. Routers now only have active configs for new link.
+                        Physical cables can be disconnected and fiber strands released.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PHYSICAL_DECOM_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 19 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔌</span>
+            <span class="agent-name">PHYSICAL_DECOM_AGENT</span>
+            <span class="status-tag status-info">Decommissioned</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Physical Link Decommissioning</strong></p>
+            <div class="change-details">
+                <p><strong>Physical Decommissioning Tasks:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Fiber cables disconnected from Router-A Gi0/0/1</li>
+                    <li>✓ Fiber cables disconnected from Router-B Te0/0/0/1</li>
+                    <li>✓ Fiber strands labeled "DECOM - DO NOT USE"</li>
+                    <li>✓ Fiber released back to fiber plant team (available for reuse)</li>
+                    <li>✓ Optics (SFP+) removed and returned to spares inventory</li>
+                </ul>
+                <p><strong>Asset Tracking Update:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Old Link Status:</strong> DECOMMISSIONED (recorded in CMDB)</li>
+                    <li><strong>New Link Status:</strong> IN-SERVICE (recorded in CMDB)</li>
+                    <li><strong>Fiber Strand IDs:</strong> Updated in fiber management system</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>DOCUMENTATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 20 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📚</span>
+            <span class="agent-name">DOCUMENTATION_AGENT</span>
+            <span class="status-tag status-success">Documented</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Migration Documentation & Knowledge Base</strong></p>
+            <div class="change-details">
+                <p><strong>Documentation Generated:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Migration runbook (25-page PDF with screenshots)</li>
+                    <li>✓ Network diagram updated (old link removed, new link added)</li>
+                    <li>✓ Config backup repository updated (GitHub)</li>
+                    <li>✓ Service inventory updated (32 VRFs, 18 L2VPNs on new link)</li>
+                    <li>✓ Lessons learned document (3 pages)</li>
+                </ul>
+                <p><strong>Key Lessons Learned:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Success Factor #1:</strong> Pre-provisioning reduced cutover time by 92% (45min → 3min)</li>
+                    <li><strong>Success Factor #2:</strong> IOS-XE → IOS-XR config translation validated in lab (zero production errors)</li>
+                    <li><strong>Success Factor #3:</strong> BGP graceful restart prevented route withdrawal (zero customer impact)</li>
+                    <li><strong>Improvement Opportunity:</strong> L2VPN re-establishment took 38s (could be reduced to 10s with MPLS-TP fast protection)</li>
+                </ul>
+                <p><strong>Runbook Sections:</strong></p>
+                <ul class="compact-list">
+                    <li>1. Service Discovery (intelligent scanning using show commands)</li>
+                    <li>2. Platform Detection & Config Translation (XE→XR syntax mapping)</li>
+                    <li>3. Pre-Provisioning (shutdown state strategy)</li>
+                    <li>4. Cutover Execution (atomic migration in 95 seconds)</li>
+                    <li>5. Validation (62-service health check)</li>
+                    <li>6. Rollback Procedure (2-minute recovery)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>KNOWLEDGE_CAPTURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 21 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧠</span>
+            <span class="agent-name">KNOWLEDGE_CAPTURE_AGENT</span>
+            <span class="status-tag status-info">Knowledge Stored</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>AI Knowledge Base Update</strong></p>
+            <div class="change-details">
+                <p><strong>Knowledge Captured for Future Migrations:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Platform Translation Rules:</strong></li>
+                    <li>&nbsp;&nbsp;- IOS-XE → IOS-XR: Interface names (Gi → Hu/Te), VRF syntax, L2VPN syntax</li>
+                    <li>&nbsp;&nbsp;- Nokia SR-OS → IOS-XR: BGP syntax, MPLS-LDP, VPLS configs (stored for future use)</li>
+                    <li>&nbsp;&nbsp;- Huawei VRP → IOS-XR: Interface naming, QoS MQC, route-policy syntax (stored for future use)</li>
+                    <li><strong>Service Discovery Patterns:</strong></li>
+                    <li>&nbsp;&nbsp;- L3VPN: <code>show vrf brief | include &lt;interface&gt;</code></li>
+                    <li>&nbsp;&nbsp;- L2VPN: <code>show xconnect all | include &lt;interface&gt;</code></li>
+                    <li>&nbsp;&nbsp;- BGP: <code>show bgp all summary | include &lt;interface&gt;</code></li>
+                    <li><strong>Timing Benchmarks:</strong></li>
+                    <li>&nbsp;&nbsp;- BGP reconvergence: 32 seconds (with graceful restart)</li>
+                    <li>&nbsp;&nbsp;- L2VPN re-establishment: 38 seconds (LDP targeted session)</li>
+                    <li>&nbsp;&nbsp;- OSPF reconvergence: 25 seconds</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">🤖 AI Learning Summary</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        AI agents learned IOS-XE → IOS-XR migration patterns. Future XE→XR migrations will be
+                        fully automated using this knowledge. Estimated time savings for next migration: 80%
+                        (3 weeks → 3 days with full automation).
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ALTERNATIVE_SCENARIO_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 22 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔀</span>
+            <span class="agent-name">ALTERNATIVE_SCENARIO_AGENT</span>
+            <span class="status-tag status-info">Scenarios Ready</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Alternative Migration Scenarios (Multi-Platform Support)</strong></p>
+            <div class="change-details">
+                <p><strong>This workflow supports 5 migration scenarios:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Source → Target</th>
+                                <th>Config Translation</th>
+                                <th>Complexity</th>
+                                <th>Example Query</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #1a2a3a;">
+                                <td><strong>1. XE→XR</strong><br>(Current)</td>
+                                <td>ASR 1K (IOS-XE)<br>→ ASR 9K (IOS-XR)</td>
+                                <td style="color: #ffaa00;">MEDIUM</td>
+                                <td style="color: #ffaa00;">MEDIUM</td>
+                                <td style="font-size: 11px;">"Migrate link from ASR 1006-X (IOS-XE) to ASR 9006 (IOS-XR)"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. XE→XE</strong></td>
+                                <td>ASR 1K Gen1<br>→ ASR 1K Gen2</td>
+                                <td style="color: #00ff88;">NONE (Same OS)</td>
+                                <td style="color: #00ff88;">LOW</td>
+                                <td style="font-size: 11px;">"Migrate link from ASR 1006 to ASR 1009-X (both IOS-XE)"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. XR→XR</strong></td>
+                                <td>ASR 9K<br>→ Cisco 8000</td>
+                                <td style="color: #00ff88;">NONE (Same OS)</td>
+                                <td style="color: #00ff88;">LOW</td>
+                                <td style="font-size: 11px;">"Migrate link from ASR 9006 to Cisco 8201 (both IOS-XR)"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Nokia→XR</strong></td>
+                                <td>Nokia 7750 SR<br>→ Cisco ASR 9K</td>
+                                <td style="color: #ff5555;">HIGH (Vendor change)</td>
+                                <td style="color: #ff5555;">HIGH</td>
+                                <td style="font-size: 11px;">"Migrate link from Nokia 7750 SR to Cisco ASR 9006"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Huawei→XR</strong></td>
+                                <td>Huawei NE40E<br>→ Cisco 8000</td>
+                                <td style="color: #ff5555;">HIGH (Vendor change)</td>
+                                <td style="color: #ff5555;">HIGH</td>
+                                <td style="font-size: 11px;">"Migrate link from Huawei NE40E to Cisco 8201"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Scenario-Specific Adjustments:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>XE→XE / XR→XR:</strong> No config translation needed (same syntax). Cutover time: 30 seconds.</li>
+                    <li><strong>XE→XR:</strong> Config translation required (automated). Cutover time: 38 seconds (current scenario).</li>
+                    <li><strong>Nokia→XR:</strong> Extensive translation (BGP, MPLS-LDP, VPLS syntax differs). Cutover time: 60 seconds.</li>
+                    <li><strong>Huawei→XR:</strong> Extensive translation (VRP → IOS-XR). Cutover time: 60 seconds.</li>
+                </ul>
+                <p><strong>Translation Examples (Nokia → Cisco):</strong></p>
+                <div class="code-block">
+                    <pre><strong>Nokia SR-OS (Source):</strong>
+configure service vprn 100 customer 1 create
+    interface "To-Customer-A" create
+        sap 1/1/1:100 create
+        exit
+        address 192.168.100.1/30
+    exit
+exit
+
+<strong>Cisco IOS-XR (Target - Translated):</strong>
+vrf VRF-CUSTOMER-100
+ address-family ipv4 unicast
+  import route-target 65000:100
+  export route-target 65000:100
+ !
+!
+interface HundredGigE0/0/0/5.100
+ vrf VRF-CUSTOMER-100
+ ipv4 address 192.168.100.1 255.255.255.252
+ encapsulation dot1q 100
+!</pre>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>FINAL_REPORT_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 23 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📊</span>
+            <span class="agent-name">FINAL_REPORT_AGENT</span>
+            <span class="status-tag status-success">Report Ready</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Executive Migration Summary Report</strong></p>
+            <div class="change-details">
+                <p><strong>Migration Overview:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Migration Type:</strong> Link+Service Migration (IOS-XE → IOS-XR)</li>
+                    <li><strong>Scope:</strong> 1 x 100G link with 62 services (32 L3VPN, 18 L2VPN, 12 BGP)</li>
+                    <li><strong>Timeline:</strong> 3 weeks (planning: 2 weeks, execution: 95 seconds, monitoring: 7 days)</li>
+                    <li><strong>Downtime:</strong> 28-38 seconds (within &lt;45s SLA)</li>
+                    <li><strong>Success Rate:</strong> 100% (62/62 services migrated successfully)</li>
+                </ul>
+                <p><strong>Key Achievements:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Target</th>
+                                <th>Actual</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Service Success Rate</td>
+                                <td>&gt;95%</td>
+                                <td>100% (62/62)</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                            <tr>
+                                <td>Downtime</td>
+                                <td>&lt;45 seconds</td>
+                                <td>28-38 seconds</td>
+                                <td style="color: #00ff88;">✓ MET</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Complaints</td>
+                                <td>&lt;5%</td>
+                                <td>0% (0/32)</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                            <tr>
+                                <td>Post-Migration Stability</td>
+                                <td>7 days</td>
+                                <td>7 days (0 flaps)</td>
+                                <td style="color: #00ff88;">✓ MET</td>
+                            </tr>
+                            <tr>
+                                <td>Config Translation Errors</td>
+                                <td>&lt;3</td>
+                                <td>0</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Efficiency Improvements:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Cutover time reduced by 92% (45min → 3min via pre-provisioning)</li>
+                    <li>✓ Service discovery automated (100% accurate using AI intelligence)</li>
+                    <li>✓ Config translation automated (0 manual errors)</li>
+                    <li>✓ Packet loss improved by 50% (0.002% → 0.001%)</li>
+                </ul>
+                <p><strong>Cost Savings:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Manual effort saved:</strong> 120 hours (discovery, translation, validation)</li>
+                    <li><strong>Downtime cost avoided:</strong> $18,500 (15min downtime prevented vs manual cutover)</li>
+                    <li><strong>Error remediation cost avoided:</strong> $12,000 (0 config errors vs typical 2-3 errors)</li>
+                    <li><strong>Total savings:</strong> $42,000 for single link migration</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CHANGE_CLOSURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 24 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📋</span>
+            <span class="agent-name">CHANGE_CLOSURE_AGENT</span>
+            <span class="status-tag status-success">Change Closed</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Change Control Closure</strong></p>
+            <div class="change-details">
+                <p><strong>Change Ticket: CHG-2025-LINK-MIG-001</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Status:</strong> CLOSED - SUCCESSFUL</li>
+                    <li><strong>Change Type:</strong> Standard - Link Migration</li>
+                    <li><strong>Risk Level:</strong> Medium</li>
+                    <li><strong>Approval:</strong> CAB Approved (Change Advisory Board)</li>
+                    <li><strong>Execution Date:</strong> Sunday 2:00 AM</li>
+                    <li><strong>Completion Date:</strong> Sunday 2:03 AM (3 minutes)</li>
+                    <li><strong>Monitoring Period:</strong> 7 days (completed)</li>
+                </ul>
+                <p><strong>Closure Checklist:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ All services migrated successfully (62/62)</li>
+                    <li>✓ Customer notifications sent (success email to 32 customers)</li>
+                    <li>✓ 7-day monitoring completed (no issues)</li>
+                    <li>✓ Old configs removed (cleanup complete)</li>
+                    <li>✓ Physical decommissioning complete (fiber released)</li>
+                    <li>✓ Documentation updated (runbook, network diagrams, CMDB)</li>
+                    <li>✓ Lessons learned captured (stored in knowledge base)</li>
+                </ul>
+                <p><strong>Approvals:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Network Engineering Manager: APPROVED</li>
+                    <li>✓ Change Manager: APPROVED</li>
+                    <li>✓ Service Delivery Manager: APPROVED</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PROJECT_CLOSURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 25 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🎉</span>
+            <span class="agent-name">PROJECT_CLOSURE_AGENT</span>
+            <span class="status-tag status-success">Project Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Link+Service Migration Project - Final Closure</strong></p>
+            <div class="change-details">
+                <p><strong>Project Summary:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Project ID:</strong> LINK-MIG-2025-001</li>
+                    <li><strong>Migration Type:</strong> IOS-XE → IOS-XR (Multi-OS Link+Service Migration)</li>
+                    <li><strong>Services Migrated:</strong> 62 total (32 L3VPN VRFs, 18 L2VPN pseudowires, 12 BGP sessions)</li>
+                    <li><strong>Customers Impacted:</strong> 32 enterprise customers (8 Tier-1, 18 Tier-2, 6 Tier-3)</li>
+                    <li><strong>Timeline:</strong> 3 weeks (planning: 2 weeks, execution: 3 minutes, monitoring: 7 days)</li>
+                    <li><strong>Success Rate:</strong> 100% (all services migrated with 0 failures)</li>
+                    <li><strong>Downtime:</strong> 28-38 seconds (15% better than 45-second SLA target)</li>
+                </ul>
+                <p><strong>Innovation Highlights:</strong></p>
+                <ul class="compact-list">
+                    <li>🤖 <strong>Intelligent Service Discovery:</strong> AI agents auto-discovered all 62 services using knowledge-based scanning</li>
+                    <li>⚙️ <strong>Automated Config Translation:</strong> IOS-XE → IOS-XR syntax translation (0 errors)</li>
+                    <li>📝 <strong>Pre-Provisioning Strategy:</strong> 92% cutover time reduction (45min → 3min)</li>
+                    <li>🔀 <strong>Multi-Platform Support:</strong> XE→XR, XE→XE, XR→XR, Nokia→XR, Huawei→XR</li>
+                    <li>🔄 <strong>Atomic Migration:</strong> All services migrated simultaneously (no partial failures)</li>
+                </ul>
+                <p><strong>Business Impact:</strong></p>
+                <ul class="compact-list">
+                    <li>💰 <strong>Cost Savings:</strong> $42,000 (labor, downtime, error remediation)</li>
+                    <li>📈 <strong>Performance Improvement:</strong> 50% packet loss reduction, 5% latency reduction</li>
+                    <li>😊 <strong>Customer Satisfaction:</strong> 0 complaints, 32/32 customers satisfied</li>
+                    <li>⏱️ <strong>Efficiency Gain:</strong> 80% time savings for future migrations (automation knowledge captured)</li>
+                </ul>
+            </div>
+            <div style="margin-top: 25px; padding: 20px; background-color: #252525; border-radius: 8px; border-left: 4px solid #00ff88;">
+                <h5 style="color: #00ff88; margin: 0 0 10px 0;">🎉 PROJECT SUCCESS SUMMARY</h5>
+                <p style="margin: 0; color: #ccc;">
+                    <strong>Link+Service migration completed with 100% success rate in 3 minutes.</strong>
+                    62 services (32 L3VPN, 18 L2VPN, 12 BGP) migrated from IOS-XE to IOS-XR with intelligent
+                    service discovery, automated config translation, and pre-provisioning strategy reducing
+                    cutover time by 92%. Zero customer complaints, 50% packet loss improvement, and $42,000
+                    cost savings achieved. Multi-platform support (XE↔XR, Nokia/Huawei→Cisco) enables reuse
+                    for future migrations with 80% time savings.
+                </p>
+            </div>
+            <p style="margin-top: 20px; text-align: center; color: #00ff88; font-size: 18px; font-weight: 600;">
+                ✅ LINK+SERVICE MIGRATION PROJECT CLOSED - LINK-MIG-2025-001
+            </p>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Complete 25-Step Link+Service Migration Workflow</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%;">100% Complete (25/25 steps)</div>
+        </div>
+        <p style="margin-top: 15px; color: #ccc;">
+            This comprehensive 25-step link+service migration workflow demonstrates Cisco Agentic AI's ability to
+            intelligently discover all services on a link, translate configurations across platforms (IOS-XE↔IOS-XR,
+            Nokia/Huawei→Cisco), and execute atomic migrations with pre-provisioning for minimal downtime. The workflow
+            adapts based on source/target platforms specified in the user query, supporting 5 migration scenarios with
+            automated syntax translation and zero-touch cutover.
+        </p>
+        <div style="margin-top: 20px; padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff;">
+            <p style="margin: 0; color: #00aaff; font-weight: 600;">🔀 Multi-Platform Support</p>
+            <p style="margin: 5px 0 0 0; color: #ccc; font-size: 13px;">
+                This workflow adapts to 5 scenarios: <strong>XE→XR</strong> (current demo), <strong>XE→XE</strong>
+                (same-OS migration), <strong>XR→XR</strong> (capacity upgrade), <strong>Nokia→XR</strong> (vendor
+                migration), <strong>Huawei→XR</strong> (vendor migration). Simply specify source/target platforms
+                in your query (e.g., "Migrate link from Nokia 7750 SR to Cisco ASR 9006") and the AI adapts
+                automatically with platform-specific config translation.
+            </p>
+        </div>
+    </div>
+</div>
+`]
             }
         };
 
