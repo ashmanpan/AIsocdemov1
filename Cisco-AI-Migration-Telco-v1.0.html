@@ -3748,6 +3748,1373 @@ router bgp 65000<br>
     </div>
 </div>
 `]
+            },
+            'l2vpn-migration': {
+                title: 'L2VPN Service Migration - Pseudowire Transfer',
+                icon: '🌉',
+                description: 'Seamless L2VPN pseudowire migration between PE routers with VPLS and E-Line support',
+                initialQuery: 'I need to migrate 600 enterprise L2VPN pseudowires (E-Line and VPLS) from old PE routers to new PE routers without disrupting customer Layer 2 connectivity. Can you orchestrate this migration?',
+                responses: [`
+<div class="root-container">
+    <h3>🌉 Agentic AI - L2VPN Service Migration v1.0</h3>
+    <p><strong>Complete 25-Step Migration Workflow: Assessment → Planning → Execution → Verification</strong></p>
+
+    <div class="metric-badge">
+        <span class="badge-label">L2VPN Services:</span>
+        <span class="badge-value">600 Pseudowires</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Enterprise Customers:</span>
+        <span class="badge-value">280 Customers</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Timeline:</span>
+        <span class="badge-value">6 Weeks</span>
+    </div>
+    <div class="metric-badge">
+        <span class="badge-label">Downtime Target:</span>
+        <span class="badge-value">&lt;30 seconds</span>
+    </div>
+
+    <h4 class="section-header-workflow">📋 PHASE 1: Assessment & Planning (Steps 1-9)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 1 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🎫</span>
+                <span class="agent-name">MIGRATION_REQUEST</span>
+                <span class="status-tag status-info">Initiated</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>L2VPN Service Migration Request Received</strong></p>
+                <div class="change-details">
+                    <p><strong>Ticket ID:</strong> SVC-MIG-2025-L2VPN-002</p>
+                    <p><strong>Scope:</strong> Enterprise L2VPN Pseudowire Migration</p>
+                    <p><strong>Circuit Count:</strong> 600 L2VPN pseudowires across 30 PE routers</p>
+                    <p><strong>Source Platform:</strong> ASR 9000 Gen2 PE routers (15 devices)</p>
+                    <p><strong>Target Platform:</strong> ASR 9000 Gen5 PE routers (15 devices - deployed)</p>
+                    <p><strong>Priority:</strong> HIGH (Old PE capacity at 80%, customer growth demand)</p>
+                    <p><strong>Business Driver:</strong> Capacity expansion, service quality improvement, port speed upgrades</p>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong> for requirements gathering
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🤖</span>
+                <span class="agent-name">IO_AGENT - Initial Gathering</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Collecting L2VPN Service Requirements</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Total Pseudowires:</strong> 600 L2VPN circuits across 280 enterprise customers</li>
+                    <li><strong>Service Types:</strong> E-Line/P2P (400 circuits), VPLS (200 circuits)</li>
+                    <li><strong>Encapsulation:</strong> Ethernet (550 circuits), VLAN (50 circuits)</li>
+                    <li><strong>Customer Types:</strong> Tier-1 (80 circuits), Tier-2 (220 circuits), Tier-3 (300 circuits)</li>
+                    <li><strong>Bandwidth:</strong> 1G (400), 10G (180), 100G (20 circuits)</li>
+                    <li><strong>Dual-homing:</strong> 45% dual-homed (MC-LAG), 55% single-homed</li>
+                    <li><strong>SLA Requirements:</strong> 99.99% for Tier-1, 99.9% for Tier-2, 99.5% for Tier-3</li>
+                </ul>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Well-documented circuit inventory</span>
+                    <span class="finding-tag finding-issue">⚠ 80 Tier-1 circuits require minimal downtime (&lt;30s)</span>
+                    <span class="finding-tag finding-issue">⚠ 200 VPLS circuits need careful multipoint migration</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>IO_AGENT</strong> for clarifying questions
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">❓</span>
+                <span class="agent-name">IO_AGENT - Clarifying Questions</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Critical Questions & Answers</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Are new PE routers in production?</td>
+                                <td>Yes, 15 new PEs deployed, LDP/MPLS operational</td>
+                                <td>Can migrate immediately</td>
+                            </tr>
+                            <tr>
+                                <td>MC-LAG dual-homing available?</td>
+                                <td>45% circuits dual-homed (270 circuits)</td>
+                                <td>Dual = faster cutover, single = longer outage</td>
+                            </tr>
+                            <tr>
+                                <td>Customer notification required?</td>
+                                <td>Tier-1 only (80 circuits), 7-day notice</td>
+                                <td>Communication plan needed</td>
+                            </tr>
+                            <tr>
+                                <td>Can circuits be pre-provisioned?</td>
+                                <td>Yes, pseudowires can be configured but not activated</td>
+                                <td>Enables faster cutover</td>
+                            </tr>
+                            <tr>
+                                <td>Migration window restrictions?</td>
+                                <td>Tier-1: 2-6am only, others: flexible</td>
+                                <td>Schedule constraints</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CLASSIFICATION_AGENT</strong> for analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🏷️</span>
+                <span class="agent-name">CLASSIFICATION_AGENT</span>
+                <span class="status-tag status-info">Medium Complexity</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Migration Classification & Complexity Assessment</strong></p>
+                <div class="change-details">
+                    <p><strong>Migration Type:</strong> Service-Level L2VPN Migration (same platform)</p>
+                    <p><strong>Complexity Level:</strong> MEDIUM</p>
+                    <ul class="compact-list">
+                        <li>Same IOS-XR version - no OS compatibility issues</li>
+                        <li>45% dual-homed (MC-LAG) enables faster cutover (15-30s)</li>
+                        <li>55% single-homed requires pseudowire reconvergence (30-45s)</li>
+                        <li>VPLS circuits more complex than E-Line (multipoint vs point-to-point)</li>
+                        <li>Pre-provisioning reduces cutover time significantly</li>
+                    </ul>
+                    <p><strong>Risk Level:</strong> MEDIUM</p>
+                    <p><strong>Recommended Approach:</strong> Pre-provision all pseudowires, staged cutover with MC-LAG for dual-homed</p>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>MRA (Master Reasoning Agent)</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="agent-step completed highlight-step">
+            <div class="agent-header">
+                <span class="agent-icon">🧠</span>
+                <span class="agent-name">MRA DEPLOYMENT - Master Reasoning Agent</span>
+                <span class="status-tag status-success">Ownership Taken</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>MRA Taking Ownership of L2VPN Service Migration</strong></p>
+                <div class="change-details">
+                    <p><strong>Multi-Phase Migration Strategy Created:</strong></p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 1: Assessment</span>
+                                <p>1 week - Circuit inventory, VPLS topology analysis, customer categorization</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 2: Lab Validation</span>
+                                <p>1 week - Test pseudowire cutover, MC-LAG failover, VPLS migration</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 3: Pilot Migration</span>
+                                <p>1 week - Migrate 15 non-critical circuits, validate approach</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Phase 4: Phased Rollout</span>
+                                <p>3 weeks - 585 circuits (200/week), prioritized by tier and dual-homing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Total Timeline:</strong> 6 weeks end-to-end</p>
+                <p><strong>Migration Method:</strong> Pre-provision + MC-LAG for dual-homed (fast), optimized cutover for single-homed</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>KNOWLEDGE_GRAPH</strong> for circuit inventory
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🗄️</span>
+                <span class="agent-name">KNOWLEDGE_GRAPH QUERY</span>
+                <span class="status-tag status-success">Data Retrieved</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Querying L2VPN Circuit Inventory Database</strong></p>
+                <div class="change-details">
+                    <p><strong>SQL Query:</strong></p>
+                    <code style="display: block; background-color: #252525; padding: 10px; border-radius: 4px; color: #00ff88; font-family: monospace;">
+                        SELECT * FROM l2vpn_circuits WHERE pe_router IN (old_pe_list)<br>
+                        JOIN customers ON l2vpn_circuits.customer_id = customers.id<br>
+                        JOIN pseudowires ON l2vpn_circuits.circuit_id = pseudowires.circuit<br>
+                        JOIN vpls_instances ON l2vpn_circuits.vpls_id = vpls_instances.id
+                    </code>
+                </div>
+                <p><strong>Results Retrieved:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Total Circuits:</strong> 600 L2VPN pseudowires across 15 old PE routers</li>
+                    <li><strong>Circuit Distribution:</strong> 35-45 circuits per PE (average 40 circuits/PE)</li>
+                    <li><strong>Service Types:</strong> E-Line P2P (400), VPLS Multipoint (200)</li>
+                    <li><strong>Tier-1 Circuits:</strong> 80 (99.99% SLA, 70 dual-homed, 10 single)</li>
+                    <li><strong>Tier-2 Circuits:</strong> 220 (99.9% SLA, 120 dual, 100 single)</li>
+                    <li><strong>Tier-3 Circuits:</strong> 300 (99.5% SLA, 80 dual, 220 single)</li>
+                    <li><strong>Dual-homing:</strong> 270 circuits MC-LAG (45%), 330 single-homed (55%)</li>
+                    <li><strong>VPLS Instances:</strong> 50 VPLS domains with 2-8 sites each (200 total circuits)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>RAG_SYSTEM</strong> for historical analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📚</span>
+                <span class="agent-name">RAG_SYSTEM QUERY</span>
+                <span class="status-tag status-success">Historical Data Found</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Searching Historical L2VPN Migration Cases</strong></p>
+                <div class="change-details">
+                    <p><strong>Query:</strong> "L2VPN pseudowire migration AND MC-LAG AND VPLS"</p>
+                    <p><strong>Findings from 6 Similar Migrations (Past 12 Months):</strong></p>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Average</th>
+                                <th>Best Case</th>
+                                <th>Worst Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Migration Time per Circuit</td>
+                                <td>18 minutes</td>
+                                <td>10 minutes</td>
+                                <td>35 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Dual-homed Downtime (MC-LAG)</td>
+                                <td>22 seconds</td>
+                                <td>15 seconds</td>
+                                <td>35 seconds</td>
+                            </tr>
+                            <tr>
+                                <td>Single-homed Downtime</td>
+                                <td>38 seconds</td>
+                                <td>28 seconds</td>
+                                <td>55 seconds</td>
+                            </tr>
+                            <tr>
+                                <td>VPLS Migration Downtime</td>
+                                <td>42 seconds</td>
+                                <td>32 seconds</td>
+                                <td>65 seconds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Common Issues Identified:</strong></p>
+                <ul class="compact-list">
+                    <li>Pseudowire VC-ID mismatch between old and new PE (causes circuit down)</li>
+                    <li>VPLS split-horizon check not configured properly (causes loops)</li>
+                    <li>MC-LAG not synced before cutover (delays failover)</li>
+                    <li>MTU mismatch on new PE interfaces (causes fragmentation)</li>
+                </ul>
+                <p><strong>Best Practices Extracted:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Pre-provision pseudowires on new PE with shutdown state</li>
+                    <li>✓ Verify VC-ID, encapsulation, MTU match between old and new</li>
+                    <li>✓ VPLS: Migrate spoke sites first, then hub sites</li>
+                    <li>✓ MC-LAG: Ensure both sides synced before cutover</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>THREE-SOURCE ANALYSIS</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔍</span>
+                <span class="agent-name">THREE-SOURCE ANALYSIS</span>
+                <span class="status-tag status-success">Correlation Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Correlating: Migration Request + Knowledge Graph + RAG System</strong></p>
+                <div class="change-details">
+                    <p><strong>Key Insights from Data Correlation:</strong></p>
+                    <div class="finding-summary">
+                        <span class="finding-tag finding-good">✓ 45% circuits dual-homed (MC-LAG) - Enables faster cutover (22s avg)</span>
+                        <span class="finding-tag finding-good">✓ Same IOS-XR version - No compatibility issues</span>
+                        <span class="finding-tag finding-issue">⚠ 80 Tier-1 circuits require &lt;30s downtime - Achievable with MC-LAG</span>
+                        <span class="finding-tag finding-issue">⚠ 200 VPLS circuits need spoke-before-hub migration</span>
+                        <span class="finding-tag finding-issue">⚠ Single-homed circuits: 38s avg downtime (longer than L3VPN)</span>
+                        <span class="finding-tag finding-good">✓ Historical 22s dual-homed downtime - Meets Tier-1 SLA</span>
+                    </div>
+                </div>
+                <p><strong>Risk Mitigation Strategy:</strong></p>
+                <ul class="compact-list">
+                    <li>Pre-provision all 600 pseudowires on new PEs with shutdown state</li>
+                    <li>Verify VC-ID, MTU, encapsulation match before cutover</li>
+                    <li>MC-LAG dual-homed: Ensure LAG sync, then cutover (target: &lt;25s)</li>
+                    <li>VPLS: Migrate spoke sites first to prevent routing loops</li>
+                    <li>Single-homed: Schedule during maintenance windows (30-45s expected)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Deploying specialized migration agents
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 9 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🚀</span>
+                <span class="agent-name">AGENT_DEPLOYMENT ANNOUNCEMENT</span>
+                <span class="status-tag status-info">Agents Ready</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Deploying Specialized L2VPN Migration Agents</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">CIRCUIT_INVENTORY</div>
+                        <div class="card-value" style="font-size: 14px;">PW Mapping</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">VPLS_TOPOLOGY</div>
+                        <div class="card-value" style="font-size: 14px;">Multipoint</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-label">CONFIG_GENERATOR</div>
+                        <div class="card-value" style="font-size: 14px;">PW Configs</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">VCID_VALIDATION</div>
+                        <div class="card-value" style="font-size: 14px;">VC-ID Check</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-label">MCLAG_SYNC</div>
+                        <div class="card-value" style="font-size: 14px;">LAG Status</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-label">CUTOVER_ORCHESTRATION</div>
+                        <div class="card-value" style="font-size: 14px;">Automated</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>All agents initialized and ready for Phase 2: Pre-Migration Validation</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">🔬 PHASE 2: Pre-Migration Validation (Steps 10-17)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 10 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📊</span>
+                <span class="agent-name">CIRCUIT_INVENTORY_AGENT</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Complete L2VPN Circuit Inventory & Categorization</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Circuit Count</th>
+                                <th>Dual-Homed (MC-LAG)</th>
+                                <th>Single-Homed</th>
+                                <th>SLA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tier-1 (Critical)</td>
+                                <td>80</td>
+                                <td>70 (87.5%)</td>
+                                <td>10 (12.5%)</td>
+                                <td>99.99%</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-2 (Enterprise)</td>
+                                <td>220</td>
+                                <td>120 (54.5%)</td>
+                                <td>100 (45.5%)</td>
+                                <td>99.9%</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-3 (SMB)</td>
+                                <td>300</td>
+                                <td>80 (26.7%)</td>
+                                <td>220 (73.3%)</td>
+                                <td>99.5%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>600</strong></td>
+                                <td><strong>270 (45%)</strong></td>
+                                <td><strong>330 (55%)</strong></td>
+                                <td><strong>-</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Service Type Distribution:</strong></p>
+                <ul class="compact-list">
+                    <li>E-Line P2P: 400 circuits (67%) - Simple point-to-point migration</li>
+                    <li>VPLS Multipoint: 200 circuits (33%) - Complex multipoint topology</li>
+                </ul>
+                <p><strong>VPLS Topology (50 instances, 200 circuits):</strong></p>
+                <ul class="compact-list">
+                    <li>Hub-Spoke VPLS: 30 instances (120 circuits) - Central hub with multiple spokes</li>
+                    <li>Full-Mesh VPLS: 20 instances (80 circuits) - All sites interconnected</li>
+                    <li><strong>Migration Rule:</strong> Spoke/Edge sites MUST migrate before Hub sites</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>VPLS_TOPOLOGY_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 11 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔗</span>
+                <span class="agent-name">VPLS_TOPOLOGY_AGENT</span>
+                <span class="status-tag status-success">Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>VPLS Topology Analysis & Dependencies</strong></p>
+                <div class="change-details">
+                    <p><strong>VPLS Instance Breakdown:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Hub-Spoke VPLS (30 instances):</strong></li>
+                        <li>&nbsp;&nbsp;- 30 Hub sites (Enterprise data centers)</li>
+                        <li>&nbsp;&nbsp;- 90 Spoke sites (Branch offices)</li>
+                        <li>&nbsp;&nbsp;- Topology: Spokes learn routes from hub only</li>
+                        <li><strong>Full-Mesh VPLS (20 instances):</strong></li>
+                        <li>&nbsp;&nbsp;- 80 sites total (all sites interconnected)</li>
+                        <li>&nbsp;&nbsp;- Topology: Each site peers with all other sites</li>
+                    </ul>
+                    <p><strong>Critical VPLS Migration Rules:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Hub-Spoke:</strong> Migrate ALL spoke sites BEFORE hub (prevents MAC learning loops)</li>
+                        <li><strong>Full-Mesh:</strong> Can migrate in any order (no strict dependency)</li>
+                        <li><strong>Split-Horizon:</strong> Must configure on new PE to prevent loops</li>
+                    </ul>
+                </div>
+                <p><strong>Customer Impact Analysis:</strong></p>
+                <div class="risk-matrix">
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Hub-Spoke VPLS Sequencing (120 circuits)</h5>
+                            <p>Migrating hub before spokes causes MAC address blackhole - Spokes MUST migrate first</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>MC-LAG Dual-Homed Circuits (270 circuits)</h5>
+                            <p>LAG sync required before cutover - Both sides must be ready</p>
+                        </div>
+                    </div>
+                    <div class="risk-item low-risk">
+                        <span class="risk-icon">🟢</span>
+                        <div class="risk-content">
+                            <h5>E-Line P2P Circuits (400 circuits)</h5>
+                            <p>Simple point-to-point - No complex dependencies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CONFIG_GENERATOR_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 12 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔄</span>
+                <span class="agent-name">CONFIG_GENERATOR_AGENT</span>
+                <span class="status-tag status-success">600 PW Configs Generated</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Automated Pseudowire Configuration Generation</strong></p>
+                <div class="change-details">
+                    <p><strong>Config Generation Process:</strong></p>
+                    <ul class="compact-list">
+                        <li>Extracted all 600 pseudowire configs from old PE routers</li>
+                        <li>Validated VC-ID uniqueness and consistency</li>
+                        <li>Preserved MPLS label bindings and encapsulation types</li>
+                        <li>Generated L2VPN xconnect and VPLS bridge-domain configs</li>
+                        <li>Configured split-horizon for VPLS to prevent loops</li>
+                    </ul>
+                </div>
+                <p><strong>Configuration Example - E-Line P2P Migration:</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>Old PE (ASR9K-OLD-PE01)</h4>
+                        <code style="display: block; background-color: #0a0a0a; padding: 10px; border-radius: 4px; color: #ccc; font-family: monospace; font-size: 11px;">
+l2vpn<br>
+ xconnect group CUSTOMER-A<br>
+  p2p SITE-1-TO-2<br>
+   interface GigabitEthernet0/0/0/5<br>
+   neighbor 10.255.1.2 pw-id 1001<br>
+    pw-class MPLS-PW<br>
+!<br>
+interface GigabitEthernet0/0/0/5<br>
+ description Customer-A-Site-1<br>
+ l2transport
+                        </code>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>New PE (ASR9K-NEW-PE01)</h4>
+                        <code style="display: block; background-color: #0a0a0a; padding: 10px; border-radius: 4px; color: #ccc; font-family: monospace; font-size: 11px;">
+l2vpn<br>
+ xconnect group CUSTOMER-A<br>
+  p2p SITE-1-TO-2<br>
+   interface TenGigE0/0/0/10<br>
+   neighbor 10.255.2.2 pw-id 1001<br>
+    pw-class MPLS-PW<br>
+!<br>
+interface TenGigE0/0/0/10<br>
+ description Customer-A-Site-1<br>
+ l2transport
+                        </code>
+                    </div>
+                </div>
+                <p><strong>Generation Summary:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 600 pseudowire configs generated successfully</span>
+                    <span class="finding-tag finding-good">✓ All VC-IDs validated for uniqueness</span>
+                    <span class="finding-tag finding-good">✓ VPLS split-horizon configured</span>
+                    <span class="finding-tag finding-good">✓ MTU validated (matching old PE)</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>LAB_VALIDATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 13 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🧪</span>
+                <span class="agent-name">LAB_VALIDATION_AGENT</span>
+                <span class="status-tag status-success">Validation Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Lab Testing - L2VPN Pseudowire Migration</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-label">Dual-Homed MC-LAG</div>
+                        <div class="card-value">20 sec</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Single E-Line</div>
+                        <div class="card-value">35 sec</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">VPLS Hub-Spoke</div>
+                        <div class="card-value">40 sec</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">VPLS Full-Mesh</div>
+                        <div class="card-value">38 sec</div>
+                    </div>
+                </div>
+                <p><strong>Lab Test Results (1 Week):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>MC-LAG Dual-homed:</strong> 20-second cutover (LAG failover) - PASS ✅</li>
+                    <li><strong>Single-homed E-Line:</strong> 35-second reconvergence (LDP session re-establishment) - PASS ✅</li>
+                    <li><strong>VPLS Hub-Spoke:</strong> 40-second reconvergence (spoke-first validated) - PASS ✅</li>
+                    <li><strong>VPLS Full-Mesh:</strong> 38-second reconvergence (no dependency issues) - PASS ✅</li>
+                    <li><strong>MAC learning:</strong> No loops detected, split-horizon working - PASS ✅</li>
+                </ul>
+                <p><strong>Key Validation:</strong> MC-LAG dual-homed circuits meet Tier-1 SLA (&lt;30s) ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>RISK_ASSESSMENT_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 14 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚠️</span>
+                <span class="agent-name">RISK_ASSESSMENT_AGENT</span>
+                <span class="status-tag status-info">Medium Risk</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>L2VPN Service Migration Risk Assessment</strong></p>
+                <div class="risk-matrix">
+                    <div class="risk-item low-risk">
+                        <span class="risk-icon">🟢</span>
+                        <div class="risk-content">
+                            <h5>MC-LAG Dual-Homed Circuits (270 circuits, 45%)</h5>
+                            <p><strong>Risk:</strong> Low - 20-second cutover meets all SLAs</p>
+                            <p><strong>Mitigation:</strong> Lab validated, MC-LAG sync checks automated</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>Single-Homed E-Line Circuits (220 circuits)</h5>
+                            <p><strong>Risk:</strong> Medium - 35-second downtime during LDP reconvergence</p>
+                            <p><strong>Mitigation:</strong> Maintenance windows, customer notifications</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>VPLS Hub-Spoke Sequencing (120 circuits)</h5>
+                            <p><strong>Risk:</strong> Medium - Incorrect sequence causes MAC learning loops</p>
+                            <p><strong>Mitigation:</strong> Automated dependency mapping, spoke-before-hub enforcement</p>
+                        </div>
+                    </div>
+                    <div class="risk-item medium-risk">
+                        <span class="risk-icon">🟠</span>
+                        <div class="risk-content">
+                            <h5>VC-ID and MTU Mismatches</h5>
+                            <p><strong>Risk:</strong> Medium - Config errors cause circuit failure</p>
+                            <p><strong>Mitigation:</strong> Automated VC-ID and MTU validation before cutover</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Overall Risk Score:</strong> 5.5/10 (Medium) - Controlled migration with dependencies</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>CUSTOMER_NOTIFICATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 15 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📧</span>
+                <span class="agent-name">CUSTOMER_NOTIFICATION_AGENT</span>
+                <span class="status-tag status-success">Notifications Sent</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Customer Communication & Approvals</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer Tier</th>
+                                <th>Circuit Count</th>
+                                <th>Notification Type</th>
+                                <th>Approval Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tier-1 (Critical)</td>
+                                <td>80</td>
+                                <td>7-day + 24-hour notice</td>
+                                <td style="color: #00ff88;">✓ All approved</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-2 (Enterprise)</td>
+                                <td>220</td>
+                                <td>3-day notice</td>
+                                <td style="color: #00ff88;">✓ All approved</td>
+                            </tr>
+                            <tr>
+                                <td>Tier-3 (SMB)</td>
+                                <td>300</td>
+                                <td>24-hour notice</td>
+                                <td style="color: #00ff88;">✓ Auto-approved</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Communication Details:</strong></p>
+                <div class="change-details">
+                    <p><strong>Tier-1 Customers (80 circuits):</strong></p>
+                    <ul class="compact-list">
+                        <li>Personalized email to account managers</li>
+                        <li>Expected downtime: 20-30s for dual-homed (MC-LAG), 35-40s for single</li>
+                        <li>Migration window: 2-6am Sunday-Thursday</li>
+                    </ul>
+                    <p><strong>Tier-2 Customers (220 circuits):</strong></p>
+                    <ul class="compact-list">
+                        <li>Standard email notification</li>
+                        <li>Dual-homed: ~25s downtime, Single: ~40s downtime</li>
+                    </ul>
+                    <p><strong>Tier-3 Customers (300 circuits):</strong></p>
+                    <ul class="compact-list">
+                        <li>Automated notification via customer portal</li>
+                        <li>Flexible migration windows</li>
+                    </ul>
+                </div>
+                <p><strong>Total Notifications Sent:</strong> 280 customers, 100% acknowledgment ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>PRE_PROVISIONING_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 16 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">⚙️</span>
+                <span class="agent-name">PRE_PROVISIONING_AGENT</span>
+                <span class="status-tag status-success">600 Circuits Pre-Provisioned</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Pre-Provisioning All Pseudowires on New PEs</strong></p>
+                <div class="change-details">
+                    <p><strong>Pre-Provisioning Strategy:</strong></p>
+                    <ul class="compact-list">
+                        <li>Configure all 600 pseudowires on new PE routers</li>
+                        <li>Set interfaces to shutdown state (no traffic yet)</li>
+                        <li>Verify LDP sessions and MPLS labels are ready</li>
+                        <li>Validate VC-ID, MTU, encapsulation match with old PE</li>
+                        <li>Pre-configure MC-LAG for dual-homed circuits</li>
+                    </ul>
+                </div>
+                <p><strong>Pre-Provisioning Results:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Pseudowires Configured</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔒</div>
+                        <div class="card-label">Interfaces Shutdown</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">LDP Sessions Ready</div>
+                        <div class="card-value">15/15 PEs</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✔️</div>
+                        <div class="card-label">VC-ID Validated</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Benefits of Pre-Provisioning:</strong></p>
+                <ul class="compact-list">
+                    <li>Cutover time reduced from 18min to 2-3min (85% faster)</li>
+                    <li>Pseudowire establishment done ahead of time</li>
+                    <li>Validation errors caught early, not during cutover</li>
+                    <li>Rollback faster - just re-enable old interface</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>ROLLBACK_PLANNING_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 17 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔙</span>
+                <span class="agent-name">ROLLBACK_PLANNING_AGENT</span>
+                <span class="status-tag status-info">Rollback Ready</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Automated Rollback Strategy for L2VPN Migration</strong></p>
+                <div class="change-details">
+                    <p><strong>Rollback Triggers (Automatic):</strong></p>
+                    <ul class="compact-list">
+                        <li>Pseudowire down &gt;60 seconds post-cutover</li>
+                        <li>MAC learning failure (no MACs learned)</li>
+                        <li>Customer reachability failure (L2 ping test)</li>
+                        <li>VPLS loop detected (duplicate MACs)</li>
+                    </ul>
+                    <p><strong>Rollback Procedure (Per Circuit):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Step 1:</strong> Shut down new PE interface (5 seconds)</li>
+                        <li><strong>Step 2:</strong> No-shut old PE interface (5 seconds)</li>
+                        <li><strong>Step 3:</strong> Verify pseudowire up (10 seconds)</li>
+                        <li><strong>Step 4:</strong> Validate MAC learning (10 seconds)</li>
+                    </ul>
+                    <p><strong>Total Rollback Time:</strong> &lt;30 seconds per circuit</p>
+                </div>
+                <p><strong>Rollback Testing Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Lab rollback tested 15 times - 100% success</span>
+                    <span class="finding-tag finding-good">✓ Automated scripts validated for all circuit types</span>
+                    <span class="finding-tag finding-good">✓ MAC table validation working</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Pre-Migration Validation Complete - Ready for <strong>PHASE 3: EXECUTION</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">🚀 PHASE 3: Migration Execution (Steps 18-22)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 18 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📅</span>
+                <span class="agent-name">SCHEDULING_AGENT</span>
+                <span class="status-tag status-success">Schedule Approved</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Phased L2VPN Migration Schedule - 3 Weeks Production Rollout</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 1: Pilot (15 circuits)</span>
+                            <p>8 dual-homed E-Line, 4 single E-Line, 3 VPLS spoke sites</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 2: Tier-3 + VPLS Spokes (285 circuits)</span>
+                            <p>Low-risk customers + all VPLS spoke sites (before hubs)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">Week 3: Tier-2 + Tier-1 + VPLS Hubs (300 circuits)</span>
+                            <p>Enterprise and critical customers + VPLS hub sites (after spokes)</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Migration Windows:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Tier-1:</strong> Sunday-Thursday, 2-6am only</li>
+                    <li><strong>Tier-2:</strong> Any day, 2-6am preferred</li>
+                    <li><strong>Tier-3:</strong> Flexible, 24/7 allowed</li>
+                    <li><strong>VPLS Hubs:</strong> Sunday 3-6am ONLY (after all spokes migrated)</li>
+                </ul>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>PILOT_MIGRATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 19 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🧪</span>
+                <span class="agent-name">PILOT_MIGRATION_AGENT</span>
+                <span class="status-tag status-success">Pilot Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Week 1 Pilot Migration - 15 Circuits</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Circuit Type</th>
+                                <th>Count</th>
+                                <th>Avg Migration Time</th>
+                                <th>Downtime</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dual MC-LAG E-Line</td>
+                                <td>8</td>
+                                <td>3 min</td>
+                                <td>18 seconds</td>
+                                <td style="color: #00ff88;">✓ 8/8 SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>Single E-Line</td>
+                                <td>4</td>
+                                <td>3 min</td>
+                                <td>32 seconds</td>
+                                <td style="color: #00ff88;">✓ 4/4 SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>VPLS Spoke Sites</td>
+                                <td>3</td>
+                                <td>4 min</td>
+                                <td>35 seconds</td>
+                                <td style="color: #00ff88;">✓ 3/3 SUCCESS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Pilot Results:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 15/15 circuits migrated successfully (100% success rate)</span>
+                    <span class="finding-tag finding-good">✓ Zero rollbacks required</span>
+                    <span class="finding-tag finding-good">✓ MC-LAG dual-homed: 18s avg (better than 20s lab)</span>
+                    <span class="finding-tag finding-good">✓ Single-homed: 32s avg (better than 35s lab)</span>
+                    <span class="finding-tag finding-good">✓ Pre-provisioning reduced migration time to 3-4min</span>
+                    <span class="finding-tag finding-good">✓ Zero customer complaints</span>
+                </div>
+                <p><strong>Key Learnings:</strong></p>
+                <ul class="compact-list">
+                    <li>Pre-provisioning dramatically reduced cutover time (18min → 3min, 83% faster)</li>
+                    <li>MC-LAG failover faster in production (18s vs 20s lab)</li>
+                    <li>Automated VC-ID validation prevented 1 config error before cutover</li>
+                    <li>VPLS spoke-first migration working as designed</li>
+                </ul>
+                <p><strong>Decision:</strong> ✅ Proceed with full-scale rollout (585 circuits, Weeks 2-3)</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Deploying <strong>PHASED_ROLLOUT_AGENT at scale (585 circuits)</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 20 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🔀</span>
+                <span class="agent-name">PHASED_ROLLOUT_AGENT</span>
+                <span class="status-tag status-success">585 Circuits Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Weeks 2-3: Phased Rollout Across 585 Circuits</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Total Circuits</div>
+                        <div class="card-value">585</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Avg Migration Time</div>
+                        <div class="card-value">3.5 min</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔙</div>
+                        <div class="card-label">Rollbacks</div>
+                        <div class="card-value">3</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">99.5%</div>
+                    </div>
+                </div>
+                <p><strong>Weekly Progress:</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100% Complete (585/585 circuits)</div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Rollback Incidents (3 circuits):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Circuit ID</th>
+                                <th>Issue</th>
+                                <th>Resolution</th>
+                                <th>Re-Migration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CUST-XYZ-E-LINE-05</td>
+                                <td>VC-ID typo in new config (1002 vs 1001)</td>
+                                <td>Rolled back, fixed VC-ID</td>
+                                <td>✓ Success (same night)</td>
+                            </tr>
+                            <tr>
+                                <td>VPLS-HUB-12</td>
+                                <td>Migrated before spoke sites</td>
+                                <td>Rolled back, migrated spokes first</td>
+                                <td>✓ Success (next day)</td>
+                            </tr>
+                            <tr>
+                                <td>CUST-ABC-VPLS-07</td>
+                                <td>MTU mismatch (1500 vs 9000)</td>
+                                <td>Rolled back, corrected MTU</td>
+                                <td>✓ Success (same night)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Performance Metrics by Tier:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Tier-1 (80 circuits):</strong> Avg 20s downtime, zero complaints ✅</li>
+                    <li><strong>Tier-2 (220 circuits):</strong> Avg 28s downtime, 1 complaint (resolved) ✅</li>
+                    <li><strong>Tier-3 (285 circuits):</strong> Avg 35s downtime, 3 rollbacks (99% success) ✅</li>
+                </ul>
+                <p><strong>Overall Customer Satisfaction:</strong> 99.6% (1 complaint out of 280 customers)</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>SERVICE_VALIDATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 21 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">✔️</span>
+                <span class="agent-name">SERVICE_VALIDATION_AGENT</span>
+                <span class="status-tag status-success">All Circuits Validated</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Circuit Validation</strong></p>
+                <div class="change-details">
+                    <p><strong>Automated Validation Checks (Per Circuit):</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Pseudowire Status:</strong> LDP session up, VC status up</li>
+                        <li><strong>MAC Learning:</strong> Customer MACs learned correctly</li>
+                        <li><strong>L2 Reachability:</strong> L2 ping test to customer CE</li>
+                        <li><strong>VPLS Status:</strong> All sites in VPLS instance reachable</li>
+                        <li><strong>MC-LAG Sync:</strong> Both LAG members active and synced</li>
+                    </ul>
+                </div>
+                <p><strong>Validation Results (600 Circuits):</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-label">Pseudowires Up</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-label">MAC Learning</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📡</div>
+                        <div class="card-label">L2 Reachability</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">VPLS Instances</div>
+                        <div class="card-value">50/50</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>All 600 L2VPN circuits successfully validated on new PE routers ✅</strong></p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>MONITORING_AGENT</strong> for 7-day observation
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 22 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📡</span>
+                <span class="agent-name">MONITORING_AGENT</span>
+                <span class="status-tag status-success">7-Day Stable</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Post-Migration Continuous Monitoring (7 Days)</strong></p>
+                <div class="change-details">
+                    <p><strong>Real-Time Circuit Monitoring:</strong></p>
+                    <ul class="compact-list">
+                        <li>Pseudowire stability: 100% uptime across all 600 circuits</li>
+                        <li>LDP session stability: Zero LDP flaps detected</li>
+                        <li>MAC learning stability: No MAC table flapping</li>
+                        <li>VPLS instances: All 50 instances stable, no loops detected</li>
+                        <li>New PE resource utilization: CPU 35% avg, Memory 32% avg (healthy)</li>
+                    </ul>
+                </div>
+                <p><strong>Service Health Comparison (7-Day Average):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Old PE (Baseline)</th>
+                                <th>New PE (Post-Migration)</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PE CPU Utilization</td>
+                                <td>68%</td>
+                                <td>35%</td>
+                                <td style="color: #00ff88;">-49% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Pseudowire Flaps</td>
+                                <td>4/week</td>
+                                <td>0/week</td>
+                                <td style="color: #00ff88;">-100% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>MAC Table Instability</td>
+                                <td>12 events/week</td>
+                                <td>1 event/week</td>
+                                <td style="color: #00ff88;">-92% ✓</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Complaints</td>
+                                <td>6/week</td>
+                                <td>1/week</td>
+                                <td style="color: #00ff88;">-83% ✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Incident Summary (7 Days):</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ Zero service-impacting incidents</span>
+                    <span class="finding-tag finding-good">✓ Zero pseudowire flaps</span>
+                    <span class="finding-tag finding-good">✓ 99.6% customer satisfaction</span>
+                    <span class="finding-tag finding-good">✓ New PEs significantly more stable</span>
+                </div>
+                <p><strong>Performance Improvement:</strong> New PE routers showing 49% lower CPU and zero circuit instability ✅</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Migration Execution Complete - Proceeding to <strong>PHASE 4: VERIFICATION</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-header-workflow">✅ PHASE 4: Verification & Closure (Steps 23-25)</h4>
+
+    <div class="agent-workflow">
+        <!-- STEP 23 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📊</span>
+                <span class="agent-name">COMPARISON_AGENT</span>
+                <span class="status-tag status-success">Verification Complete</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Pre vs Post Migration Circuit Analysis</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card before">
+                        <h4>🔴 BEFORE (Old PE Routers)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> ASR 9000 Gen2</li>
+                            <li><strong>Circuit Count:</strong> 600 L2VPN pseudowires</li>
+                            <li><strong>PE Count:</strong> 15 devices</li>
+                            <li><strong>CPU Utilization:</strong> 68% average</li>
+                            <li><strong>PW Flaps:</strong> 4 per week</li>
+                            <li><strong>MAC Instability:</strong> 12 events/week</li>
+                            <li><strong>Customer Complaints:</strong> 6 per week</li>
+                            <li><strong>Port Speeds:</strong> 1G/10G only</li>
+                            <li><strong>Hardware Age:</strong> 7 years old</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card after">
+                        <h4>🟢 AFTER (New PE Routers)</h4>
+                        <ul>
+                            <li><strong>Platform:</strong> ASR 9000 Gen5</li>
+                            <li><strong>Circuit Count:</strong> 600 L2VPN pseudowires</li>
+                            <li><strong>PE Count:</strong> 15 devices</li>
+                            <li><strong>CPU Utilization:</strong> 35% average (-49%)</li>
+                            <li><strong>PW Flaps:</strong> 0 per week (-100%)</li>
+                            <li><strong>MAC Instability:</strong> 1 event/week (-92%)</li>
+                            <li><strong>Customer Complaints:</strong> 1 per week (-83%)</li>
+                            <li><strong>Port Speeds:</strong> 10G/100G available</li>
+                            <li><strong>Hardware Age:</strong> Brand new</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Business Outcomes:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ 99.5% migration success rate (597/600 first-attempt)</span>
+                    <span class="finding-tag finding-good">✓ 45% MC-LAG dual-homed circuits with 18-22s downtime</span>
+                    <span class="finding-tag finding-good">✓ 49% CPU reduction (68% → 35%)</span>
+                    <span class="finding-tag finding-good">✓ 100% pseudowire flap elimination</span>
+                    <span class="finding-tag finding-good">✓ 83% reduction in customer complaints</span>
+                    <span class="finding-tag finding-good">✓ Port speed upgrade capability (100G available)</span>
+                </div>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DECOMMISSION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 24 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">🗑️</span>
+                <span class="agent-name">DECOMMISSION_AGENT</span>
+                <span class="status-tag status-success">Old Configs Removed</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Old PE Router Circuit Cleanup & Decommissioning</strong></p>
+                <div class="change-details">
+                    <p><strong>Decommissioning Process:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Week 4:</strong> 14-day soak period completed, all circuits stable</li>
+                        <li><strong>Step 1:</strong> Backup all 600 pseudowire configs (archival)</li>
+                        <li><strong>Step 2:</strong> Remove L2VPN xconnect and VPLS configs from old PEs</li>
+                        <li><strong>Step 3:</strong> Shut down customer-facing interfaces on old PEs</li>
+                        <li><strong>Step 4:</strong> Remove LDP neighbor statements for pseudowires</li>
+                        <li><strong>Step 5:</strong> Validate zero customer impact during cleanup</li>
+                    </ul>
+                </div>
+                <p><strong>Decommission Results:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📦</div>
+                        <div class="card-label">Configs Archived</div>
+                        <div class="card-value">600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🗑️</div>
+                        <div class="card-label">Circuits Removed</div>
+                        <div class="card-value">600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🔌</div>
+                        <div class="card-label">Interfaces Shutdown</div>
+                        <div class="card-value">600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Zero Impact</div>
+                        <div class="card-value">YES</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Old PE Router Status:</strong></p>
+                <ul class="compact-list">
+                    <li>All 600 pseudowire configs removed from 15 old PE routers</li>
+                    <li>Old PE routers available for hardware refresh or decommissioning</li>
+                    <li>CPU utilization on old PEs dropped to 8% (only core routing)</li>
+                    <li>Zero customer complaints during decommissioning</li>
+                </ul>
+                <p><strong>Cost Savings:</strong> Old PE routers can be repurposed, saving $900K in hardware costs</p>
+                <div class="agent-transfer">
+                    <span class="arrow">→</span> Transferring to <strong>DOCUMENTATION_AGENT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 25 -->
+        <div class="agent-step completed">
+            <div class="agent-header">
+                <span class="agent-icon">📝</span>
+                <span class="agent-name">DOCUMENTATION_AGENT</span>
+                <span class="status-tag status-success">Project Closed</span>
+            </div>
+            <div class="agent-content">
+                <p><strong>Complete L2VPN Migration Documentation Package</strong></p>
+                <div class="change-details">
+                    <p><strong>Documentation Deliverables:</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Executive Summary:</strong> 5-page business outcome report</li>
+                        <li><strong>Technical Runbook:</strong> 72-page L2VPN migration playbook (reusable)</li>
+                        <li><strong>Pseudowire Configuration Archive:</strong> All 600 old + new PW configs</li>
+                        <li><strong>Lessons Learned:</strong> 15-page document with best practices</li>
+                        <li><strong>VPLS Topology Maps:</strong> Visual diagrams for 50 VPLS instances</li>
+                        <li><strong>Validation Scripts:</strong> Automated PW status, MAC learning, L2 ping checks</li>
+                        <li><strong>MC-LAG Configuration Guide:</strong> Dual-homing setup procedures</li>
+                        <li><strong>Rollback Procedures:</strong> Tested emergency rollback playbook</li>
+                    </ul>
+                </div>
+                <p><strong>Knowledge Transfer Completed:</strong></p>
+                <div class="finding-summary">
+                    <span class="finding-tag finding-good">✓ NOC team trained on L2VPN migration (20 engineers)</span>
+                    <span class="finding-tag finding-good">✓ Customer success team briefed on outcomes</span>
+                    <span class="finding-tag finding-good">✓ Automation scripts uploaded to orchestration platform</span>
+                    <span class="finding-tag finding-good">✓ MC-LAG and VPLS best practices documented</span>
+                </div>
+                <div class="dashboard-grid" style="margin-top: 20px;">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-label">Project Duration</div>
+                        <div class="card-value">6 Weeks</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-label">Circuits Migrated</div>
+                        <div class="card-value">600/600</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Success Rate</div>
+                        <div class="card-value">99.5%</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-label">Avg Downtime</div>
+                        <div class="card-value">25 sec</div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; padding: 20px; background-color: #252525; border-radius: 8px; border-left: 4px solid #00ff88;">
+                    <h5 style="color: #00ff88; margin: 0 0 10px 0;">🎉 PROJECT SUCCESS SUMMARY</h5>
+                    <p style="margin: 0; color: #ccc;">
+                        <strong>600 L2VPN pseudowires successfully migrated in 6 weeks with 99.5% success rate.</strong>
+                        45% MC-LAG dual-homed circuits experienced only 18-22 second downtime. Pre-provisioning
+                        reduced cutover time by 83% (18min → 3min). 49% CPU reduction, zero pseudowire flaps,
+                        and 83% fewer customer complaints achieved. Cisco Agentic AI orchestrated end-to-end
+                        automation with VPLS topology analysis, MC-LAG synchronization, and hitless cutover.
+                    </p>
+                </div>
+                <p style="margin-top: 20px; text-align: center; color: #00ff88; font-size: 18px; font-weight: 600;">
+                    ✅ L2VPN MIGRATION PROJECT CLOSED - SVC-MIG-2025-L2VPN-002
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Complete 25-Step L2VPN Migration Workflow</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%;">100% Complete (25/25 steps)</div>
+        </div>
+        <p style="margin-top: 15px; color: #ccc;">
+            This comprehensive 25-step L2VPN service migration workflow demonstrates Cisco Agentic AI's ability to
+            orchestrate complex Layer 2 pseudowire migrations with MC-LAG dual-homing, VPLS topology analysis,
+            pre-provisioning for fast cutover, and complete validation across all phases: Assessment → Planning →
+            Execution → Verification.
+        </p>
+    </div>
+</div>
+`]
             }
         };
 
