@@ -6764,6 +6764,1662 @@ interface HundredGigE0/0/0/5.100
     </div>
 </div>
 `]
+            },
+            'asr9k-to-8k': {
+                title: 'ASR 9K → Cisco 8000 Platform Upgrade',
+                icon: '🚀',
+                description: 'Next-gen silicon upgrade with IOS-XR compatibility - hitless migration to Silicon One architecture',
+                initialQuery: 'I need to migrate 150 ASR 9006 routers (IOS-XR) to Cisco 8201 routers. These are PE routers with 2,500 L3VPN VRFs and 800 L2VPN circuits serving 1,200 enterprise customers. Can you orchestrate a hitless migration leveraging the fact that both run IOS-XR?',
+                responses: [`
+<div class="root-container">
+    <h3>🚀 Agentic AI - ASR 9K → Cisco 8000 Migration v1.0</h3>
+    <p style="color: #ccc; margin-bottom: 25px;">
+        <strong>Next-Generation Silicon Upgrade with IOS-XR Compatibility</strong><br>
+        Hitless migration from DNX ASIC to Silicon One Q100/Q200 architecture. Same OS, zero config translation,
+        enhanced performance with 400G/800G support and native Segment Routing.
+    </p>
+
+    <div class="metrics-dashboard">
+        <div class="metric-badge">
+            <span class="badge-label">Routers to Migrate:</span>
+            <span class="badge-value">150 ASR 9006</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Target Platform:</span>
+            <span class="badge-value">Cisco 8201-32FH</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">L3VPN Services:</span>
+            <span class="badge-value">2,500 VRFs</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">L2VPN Services:</span>
+            <span class="badge-value">800 Circuits</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Enterprise Customers:</span>
+            <span class="badge-value">1,200 Customers</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Timeline:</span>
+            <span class="badge-value">12 Weeks</span>
+        </div>
+        <div class="metric-badge">
+            <span class="badge-label">Downtime per Router:</span>
+            <span class="badge-value">&lt;2 minutes</span>
+        </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🎯</span>
+            <span class="agent-name">MIGRATION_ORCHESTRATOR</span>
+            <span class="status-tag status-success">Initialized</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K → Cisco 8000 Platform Migration Request</strong></p>
+            <div class="change-details">
+                <p><strong>Migration Scope:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Source Platform:</strong> Cisco ASR 9006 (IOS-XR 7.3.2, DNX ASIC)</li>
+                    <li><strong>Target Platform:</strong> Cisco 8201-32FH (IOS-XR 7.9.2, Silicon One Q200)</li>
+                    <li><strong>Router Count:</strong> 150 PE routers across 12 regions</li>
+                    <li><strong>Role:</strong> Provider Edge (PE) - MPLS/SR core with L3VPN/L2VPN services</li>
+                    <li><strong>Services:</strong> 2,500 L3VPN VRFs + 800 L2VPN circuits</li>
+                    <li><strong>Customers:</strong> 1,200 enterprise customers (Tier 1/2/3)</li>
+                </ul>
+                <p><strong>Migration Advantages (Same OS - IOS-XR):</strong></p>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">🎉 Zero Config Translation Required</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Both ASR 9K and Cisco 8000 run <strong>IOS-XR</strong>. Configs can be copied directly with minimal changes
+                        (only interface name adjustments: TenGigE → FourHundredGigE). This dramatically reduces migration risk
+                        and enables hitless cutover via NSR (Non-Stop Routing) and graceful restart.
+                    </p>
+                </div>
+                <p><strong>Orchestration Plan:</strong></p>
+                <ul class="compact-list">
+                    <li>Phase 1: Assessment & Platform Analysis (Steps 1-9)</li>
+                    <li>Phase 2: Pre-Migration Validation & Lab Testing (Steps 10-16)</li>
+                    <li>Phase 3: Phased Rollout & Migration Execution (Steps 17-22)</li>
+                    <li>Phase 4: Verification & Old Platform Decommissioning (Steps 23-25)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PLATFORM_ANALYSIS_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔬</span>
+            <span class="agent-name">PLATFORM_ANALYSIS_AGENT</span>
+            <span class="status-tag status-info">Analysis Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K vs Cisco 8000 Platform Comparison</strong></p>
+            <div class="change-details">
+                <p><strong>Platform Architecture Comparison:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>ASR 9006 (Source)</th>
+                                <th>Cisco 8201-32FH (Target)</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ASIC Technology</td>
+                                <td>DNX (Broadcom)</td>
+                                <td>Silicon One Q200</td>
+                                <td style="color: #00ff88;">Next-Gen Silicon</td>
+                            </tr>
+                            <tr>
+                                <td>Operating System</td>
+                                <td>IOS-XR 7.3.2</td>
+                                <td>IOS-XR 7.9.2</td>
+                                <td style="color: #00ff88;">Same OS Family</td>
+                            </tr>
+                            <tr>
+                                <td>Port Capacity</td>
+                                <td>10x 10G, 4x 100G</td>
+                                <td>32x 400G (FH ports)</td>
+                                <td style="color: #00ff88;">+800% Capacity</td>
+                            </tr>
+                            <tr>
+                                <td>Throughput</td>
+                                <td>2.4 Tbps</td>
+                                <td>10.8 Tbps</td>
+                                <td style="color: #00ff88;">+350% Faster</td>
+                            </tr>
+                            <tr>
+                                <td>Power Consumption</td>
+                                <td>1,200W</td>
+                                <td>850W</td>
+                                <td style="color: #00ff88;">-29% Power</td>
+                            </tr>
+                            <tr>
+                                <td>Segment Routing</td>
+                                <td>SR-MPLS (software)</td>
+                                <td>SR-MPLS + SRv6 (native)</td>
+                                <td style="color: #00ff88;">Native SRv6</td>
+                            </tr>
+                            <tr>
+                                <td>Latency</td>
+                                <td>~5 μs</td>
+                                <td>~2 μs</td>
+                                <td style="color: #00ff88;">-60% Latency</td>
+                            </tr>
+                            <tr>
+                                <td>Scale (VRF)</td>
+                                <td>4,000 VRFs</td>
+                                <td>8,000 VRFs</td>
+                                <td style="color: #00ff88;">+100% Scale</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Config Compatibility Analysis:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>IOS-XR Command Set:</strong> 100% compatible (same OS family)</li>
+                    <li>✓ <strong>VRF Configuration:</strong> Identical syntax</li>
+                    <li>✓ <strong>BGP Configuration:</strong> Identical syntax</li>
+                    <li>✓ <strong>MPLS/SR Configuration:</strong> Identical syntax (SR-MPLS)</li>
+                    <li>✓ <strong>L2VPN Configuration:</strong> Identical syntax</li>
+                    <li>⚠️ <strong>Interface Names:</strong> Require adjustment (TenGigE → FourHundredGigE)</li>
+                    <li>✓ <strong>QoS Policies:</strong> Identical MQC syntax</li>
+                </ul>
+                <p><strong>Migration Complexity Assessment:</strong></p>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✓ LOW COMPLEXITY MIGRATION</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Same IOS-XR operating system eliminates config translation complexity. Only interface name changes needed.
+                        Cisco 8000 is drop-in replacement for ASR 9K with superior performance and lower power consumption.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>INVENTORY_DISCOVERY_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📊</span>
+            <span class="agent-name">INVENTORY_DISCOVERY_AGENT</span>
+            <span class="status-tag status-warning">150 Routers Found</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K Fleet Inventory & Service Discovery</strong></p>
+            <div class="change-details">
+                <p><strong>Router Inventory (150 ASR 9006):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Region</th>
+                                <th>Router Count</th>
+                                <th>VRF Count</th>
+                                <th>L2VPN Circuits</th>
+                                <th>Customers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>US-East (Virginia)</td>
+                                <td>25</td>
+                                <td>520</td>
+                                <td>160</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td>US-West (California)</td>
+                                <td>22</td>
+                                <td>480</td>
+                                <td>140</td>
+                                <td>180</td>
+                            </tr>
+                            <tr>
+                                <td>EU-Central (Frankfurt)</td>
+                                <td>18</td>
+                                <td>380</td>
+                                <td>110</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td>APAC-Southeast (Singapore)</td>
+                                <td>15</td>
+                                <td>320</td>
+                                <td>90</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <td>LATAM-South (Sao Paulo)</td>
+                                <td>12</td>
+                                <td>240</td>
+                                <td>70</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Other Regions (7 regions)</td>
+                                <td>58</td>
+                                <td>560</td>
+                                <td>230</td>
+                                <td>450</td>
+                            </tr>
+                            <tr style="font-weight: 600; background-color: #1a2a3a;">
+                                <td>TOTAL</td>
+                                <td>150</td>
+                                <td>2,500</td>
+                                <td>800</td>
+                                <td>1,200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Service Discovery (Per Router Average):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>L3VPN VRFs:</strong> 16.7 VRFs/router (2,500 total across 150 routers)</li>
+                    <li><strong>L2VPN Circuits:</strong> 5.3 circuits/router (800 total)</li>
+                    <li><strong>BGP Peers:</strong> 28 peers/router (12 eBGP, 16 iBGP avg)</li>
+                    <li><strong>MPLS LSPs:</strong> 450 LSPs/router (RSVP-TE + SR-MPLS)</li>
+                    <li><strong>Customers:</strong> 8 customers/router (1,200 total)</li>
+                </ul>
+                <p><strong>Example Router Configuration Snapshot (PE-RTR-001):</strong></p>
+                <div class="code-block">
+                    <pre>RP/0/RSP0/CPU0:PE-RTR-001# show version brief
+Cisco IOS XR Software, Version 7.3.2
+cisco ASR9K Series (Intel 686 F6M440 2133MHz)
+
+RP/0/RSP0/CPU0:PE-RTR-001# show running-config | include "^vrf " | count
+VRF Count: 18 VRFs
+
+RP/0/RSP0/CPU0:PE-RTR-001# show l2vpn xconnect summary
+Total L2VPN xconnects: 6 (5 UP, 1 DOWN)
+
+RP/0/RSP0/CPU0:PE-RTR-001# show bgp summary
+Total BGP peers: 32 (28 Established, 4 Idle)</pre>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>DEPENDENCY_MAPPING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🕸️</span>
+            <span class="agent-name">DEPENDENCY_MAPPING_AGENT</span>
+            <span class="status-tag status-warning">Dependencies Mapped</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Router Dependency Analysis & Migration Sequencing</strong></p>
+            <div class="change-details">
+                <p><strong>Network Topology Roles:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Provider Edge (PE) Routers:</strong> 150 ASR 9006 routers</li>
+                    <li>&nbsp;&nbsp;- Customer-facing: L3VPN/L2VPN service termination</li>
+                    <li>&nbsp;&nbsp;- MPLS Core-facing: P2P LSPs, SR-MPLS paths</li>
+                    <li>&nbsp;&nbsp;- BGP: iBGP (route reflector clients) + eBGP (customer peers)</li>
+                    <li><strong>Dependencies:</strong></li>
+                    <li>&nbsp;&nbsp;- Each PE has redundant paths to 2-4 P routers (core)</li>
+                    <li>&nbsp;&nbsp;- Customer CPE dual-homed to 2 PE routers (MC-LAG/LACP)</li>
+                    <li>&nbsp;&nbsp;- BGP route reflectors (not being migrated, stable)</li>
+                </ul>
+                <p><strong>Migration Sequencing Strategy:</strong></p>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">📋 Phased Regional Rollout</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Migrate routers <strong>region by region</strong> to contain blast radius. Within each region, migrate
+                        routers in <strong>pairs</strong> (dual-homed PE pairs) to leverage customer redundancy. If one PE fails,
+                        customer traffic fails over to paired PE automatically (MC-LAG/LACP).
+                    </p>
+                </div>
+                <p><strong>Migration Phases (12 Regions):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Phase 1 (Weeks 1-2):</strong> Pilot region - LATAM-South (12 routers, lowest traffic)</li>
+                    <li><strong>Phase 2 (Weeks 3-4):</strong> APAC-Southeast (15 routers)</li>
+                    <li><strong>Phase 3 (Weeks 5-6):</strong> EU-Central (18 routers)</li>
+                    <li><strong>Phase 4 (Weeks 7-8):</strong> US-West (22 routers)</li>
+                    <li><strong>Phase 5 (Weeks 9-10):</strong> US-East (25 routers, highest traffic)</li>
+                    <li><strong>Phase 6 (Weeks 11-12):</strong> Other 7 regions (58 routers in parallel)</li>
+                </ul>
+                <p><strong>Critical Constraint - Dual-Homing:</strong></p>
+                <ul class="compact-list">
+                    <li>85% of customers are dual-homed to 2 PE routers (MC-LAG pairs)</li>
+                    <li>Migration rule: <strong>Never migrate both PEs in a pair simultaneously</strong></li>
+                    <li>Sequence: Migrate PE-A → validate 24 hours → migrate PE-B</li>
+                    <li>This ensures customer always has 1 active PE during migration</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>HISTORICAL_DATA_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📈</span>
+            <span class="agent-name">HISTORICAL_DATA_AGENT</span>
+            <span class="status-tag status-info">Data Retrieved</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K Fleet Performance & Incident History</strong></p>
+            <div class="change-details">
+                <p><strong>Fleet Performance (Last 90 Days):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Average CPU Utilization:</strong> 42% (peak: 68% during traffic spikes)</li>
+                    <li><strong>Average Memory Utilization:</strong> 55% (32GB RAM per router)</li>
+                    <li><strong>Average Interface Utilization:</strong> 48% (100G uplinks to core)</li>
+                    <li><strong>BGP Flaps:</strong> 12 total (across 150 routers, 90 days) - very stable</li>
+                    <li><strong>MPLS LSP Flaps:</strong> 8 total (across 67,500 LSPs, 90 days)</li>
+                    <li><strong>Router Reboots:</strong> 3 total (1 planned maintenance, 2 power failures)</li>
+                </ul>
+                <p><strong>Customer-Impacting Incidents (Last 12 Months):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Incident Type</th>
+                                <th>Count</th>
+                                <th>Avg Downtime</th>
+                                <th>Root Cause</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BGP Peer Down</td>
+                                <td>18</td>
+                                <td>12 minutes</td>
+                                <td>Customer CPE issues (not PE)</td>
+                            </tr>
+                            <tr>
+                                <td>L2VPN Circuit Down</td>
+                                <td>8</td>
+                                <td>25 minutes</td>
+                                <td>LDP session timeout</td>
+                            </tr>
+                            <tr>
+                                <td>Router Failure</td>
+                                <td>3</td>
+                                <td>0 minutes</td>
+                                <td>MC-LAG failover (hitless)</td>
+                            </tr>
+                            <tr>
+                                <td>Interface Errors</td>
+                                <td>5</td>
+                                <td>8 minutes</td>
+                                <td>Fiber issues (replaced)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Migration Drivers:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>End of Life:</strong> ASR 9006 approaching EoL (last sale: 2023, EoS: 2028)</li>
+                    <li><strong>Capacity Growth:</strong> 100G uplinks saturating (need 400G)</li>
+                    <li><strong>Power Consumption:</strong> 150 routers × 1,200W = 180 kW (reduce to 127 kW with 8201)</li>
+                    <li><strong>SRv6 Readiness:</strong> Future-proof for SRv6 migration (Silicon One native support)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CAPACITY_PLANNING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📐</span>
+            <span class="agent-name">CAPACITY_PLANNING_AGENT</span>
+            <span class="status-tag status-success">Sizing Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Cisco 8000 Platform Sizing & Port Mapping</strong></p>
+            <div class="change-details">
+                <p><strong>Platform Selection: Cisco 8201-32FH</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Requirement</th>
+                                <th>ASR 9006 (Current)</th>
+                                <th>Cisco 8201-32FH (Target)</th>
+                                <th>Headroom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Customer Ports</td>
+                                <td>10x 10G</td>
+                                <td>32x 400G (breakout to 128x 100G)</td>
+                                <td style="color: #00ff88;">+1,180% capacity</td>
+                            </tr>
+                            <tr>
+                                <td>Core Uplinks</td>
+                                <td>4x 100G</td>
+                                <td>4x 400G</td>
+                                <td style="color: #00ff88;">+300% bandwidth</td>
+                            </tr>
+                            <tr>
+                                <td>VRF Scale</td>
+                                <td>2,500 VRFs (62% capacity)</td>
+                                <td>8,000 VRFs max</td>
+                                <td style="color: #00ff88;">+220% headroom</td>
+                            </tr>
+                            <tr>
+                                <td>L2VPN Scale</td>
+                                <td>800 circuits (20% capacity)</td>
+                                <td>16,000 circuits max</td>
+                                <td style="color: #00ff88;">+1,900% headroom</td>
+                            </tr>
+                            <tr>
+                                <td>BGP Routes</td>
+                                <td>1.2M routes (IPv4+VPNv4)</td>
+                                <td>5M routes max</td>
+                                <td style="color: #00ff88;">+317% headroom</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Port Mapping Strategy:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Customer-Facing Ports:</strong></li>
+                    <li>&nbsp;&nbsp;- ASR 9006: 10x 10GE ports (TenGigE0/0/0/0-9)</li>
+                    <li>&nbsp;&nbsp;- Cisco 8201: 10x 400GE ports broken out to 4x 100GE (FH0-9 → 0/0-0/3 each)</li>
+                    <li>&nbsp;&nbsp;- Config change: <code>TenGigE0/0/0/0</code> → <code>FourHundredGigE0/0/0/0</code></li>
+                    <li><strong>Core-Facing Ports:</strong></li>
+                    <li>&nbsp;&nbsp;- ASR 9006: 4x 100GE uplinks (HundredGigE0/0/1/0-3)</li>
+                    <li>&nbsp;&nbsp;- Cisco 8201: 4x 400GE uplinks (FourHundredGigE0/28-31)</li>
+                    <li>&nbsp;&nbsp;- 4x bandwidth increase (400G vs 100G)</li>
+                </ul>
+                <p><strong>Order Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Cisco 8201-32FH:</strong> 150 units ordered</li>
+                    <li>✓ <strong>400G QSFP-DD Optics:</strong> 600 units (4 per router for core uplinks)</li>
+                    <li>✓ <strong>100G QSFP28 Optics:</strong> 1,500 units (10 per router for customers)</li>
+                    <li>✓ <strong>IOS-XR License:</strong> Essentials + Advantage (SR-MPLS + SRv6)</li>
+                    <li>✓ <strong>Delivery Timeline:</strong> Week 1-2 (all hardware on-site before pilot starts)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CONFIG_MIGRATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">⚙️</span>
+            <span class="agent-name">CONFIG_MIGRATION_AGENT</span>
+            <span class="status-tag status-success">Configs Generated</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>IOS-XR Config Migration (Minimal Changes)</strong></p>
+            <div class="change-details">
+                <p><strong>Config Migration Approach:</strong></p>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">📋 Copy & Modify Strategy</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Since both platforms run <strong>IOS-XR</strong>, configs can be copied directly with <strong>only interface
+                        name changes</strong>. AI agent performs automated search-and-replace for interface names, then validates
+                        syntax on Cisco 8201 in lab.
+                    </p>
+                </div>
+                <p><strong>Interface Name Translation Rules:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ASR 9006 (Source)</th>
+                                <th>Cisco 8201 (Target)</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TenGigE0/0/0/X</td>
+                                <td>FourHundredGigE0/X</td>
+                                <td>TenGigE0/0/0/5 → FourHundredGigE0/5</td>
+                            </tr>
+                            <tr>
+                                <td>HundredGigE0/0/1/X</td>
+                                <td>FourHundredGigE0/28+X</td>
+                                <td>HundredGigE0/0/1/0 → FourHundredGigE0/28</td>
+                            </tr>
+                            <tr>
+                                <td>Bundle-Ether X</td>
+                                <td>Bundle-Ether X</td>
+                                <td>No change (same syntax)</td>
+                            </tr>
+                            <tr>
+                                <td>Loopback X</td>
+                                <td>Loopback X</td>
+                                <td>No change (same syntax)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Example Config Migration (Before → After):</strong></p>
+                <div class="code-block">
+                    <pre><strong>ASR 9006 (Source Config):</strong>
+interface TenGigE0/0/0/5
+ description CUSTOMER-ABC-PRIMARY
+ bundle id 100 mode active
+!
+interface HundredGigE0/0/1/0
+ description UPLINK-TO-CORE-P1
+ ipv4 address 10.1.1.1 255.255.255.252
+ load-interval 30
+!
+vrf CUSTOMER-ABC
+ address-family ipv4 unicast
+  import route-target 65000:100
+  export route-target 65000:100
+ !
+!
+
+<strong>Cisco 8201 (Target Config - After Translation):</strong>
+interface FourHundredGigE0/5
+ description CUSTOMER-ABC-PRIMARY
+ bundle id 100 mode active
+!
+interface FourHundredGigE0/28
+ description UPLINK-TO-CORE-P1
+ ipv4 address 10.1.1.1 255.255.255.252
+ load-interval 30
+!
+vrf CUSTOMER-ABC
+ address-family ipv4 unicast
+  import route-target 65000:100
+  export route-target 65000:100
+ !
+!</pre>
+                </div>
+                <p><strong>Config Elements (No Changes Required):</strong></p>
+                <ul class="compact-list">
+                    <li>✓ VRF definitions (identical syntax)</li>
+                    <li>✓ BGP configuration (identical syntax)</li>
+                    <li>✓ MPLS/SR-MPLS configuration (identical syntax)</li>
+                    <li>✓ L2VPN xconnect configuration (identical syntax)</li>
+                    <li>✓ QoS policy-maps (identical MQC syntax)</li>
+                    <li>✓ Route-policies/ACLs (identical syntax)</li>
+                </ul>
+                <p><strong>Automated Translation Results:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ 150 router configs translated (interface names updated)</li>
+                    <li>✓ 37,500 lines of config migrated (avg 250 lines/router)</li>
+                    <li>✓ 0 syntax errors detected (same IOS-XR version compatibility)</li>
+                    <li>✓ All configs stored in version control (Git repository)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>RISK_ASSESSMENT_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">⚠️</span>
+            <span class="agent-name">RISK_ASSESSMENT_AGENT</span>
+            <span class="status-tag status-warning">Risks Identified</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Migration Risk Analysis & Mitigation</strong></p>
+            <div class="change-details">
+                <p><strong>High-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Customer Downtime During Cutover:</strong> Each router serves 8 customers avg</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Leverage dual-homing (85% customers) - failover to paired PE</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Schedule migrations during low-traffic windows (2-6 AM)</li>
+                    <li><strong>BGP Reconvergence Time:</strong> 28 BGP peers/router (could take 30-60s)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Use BGP graceful restart (prevents route withdrawal)</li>
+                    <li><strong>MPLS LSP Re-establishment:</strong> 450 LSPs/router (RSVP-TE takes 2-3 minutes)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Pre-establish SR-MPLS paths (instant failover vs RSVP-TE)</li>
+                </ul>
+                <p><strong>Medium-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Hardware Compatibility:</strong> New Cisco 8201 hardware (untested in production)</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> 4-week lab burn-in test (all 150 units tested)</li>
+                    <li><strong>Interface Mapping Errors:</strong> Wrong interface names → service outage</li>
+                    <li>&nbsp;&nbsp;- <strong>Mitigation:</strong> Triple-validation (AI + human + lab test)</li>
+                </ul>
+                <p><strong>Low-Risk Items:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>IOS-XR Version Compatibility:</strong> 7.3.2 → 7.9.2 (same major version)</li>
+                    <li><strong>Config Syntax:</strong> Identical (same OS family)</li>
+                </ul>
+                <p><strong>Rollback Plan:</strong></p>
+                <div style="padding: 15px; background-color: #2a1a1a; border-left: 4px solid #ff5555; margin: 15px 0;">
+                    <p style="margin: 0; color: #ff5555; font-weight: 600;">🔙 ROLLBACK STRATEGY</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        <strong>Trigger:</strong> If >10% of services fail to come up after cutover OR critical Tier-1 customer down >5 minutes.
+                    </p>
+                    <ul class="compact-list" style="margin-top: 10px;">
+                        <li><strong>Step 1:</strong> Power off Cisco 8201, disconnect all cables</li>
+                        <li><strong>Step 2:</strong> Power on ASR 9006, reconnect all cables</li>
+                        <li><strong>Step 3:</strong> Verify all services UP (BGP, VRFs, L2VPN)</li>
+                        <li><strong>Estimated Rollback Time:</strong> 5 minutes (physical cable swap)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CHANGE_SCHEDULING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📅</span>
+            <span class="agent-name">CHANGE_SCHEDULING_AGENT</span>
+            <span class="status-tag status-info">Schedule Created</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>12-Week Phased Migration Schedule</strong></p>
+            <div class="change-details">
+                <p><strong>Regional Phasing Strategy:</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 1-2: LATAM-South (12 routers)</strong> - Pilot region, lowest traffic
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 3-4: APAC-Southeast (15 routers)</strong> - Expand to APAC region
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 5-6: EU-Central (18 routers)</strong> - Europe deployment
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 7-8: US-West (22 routers)</strong> - California data centers
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 9-10: US-East (25 routers)</strong> - Highest traffic region (Virginia)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Weeks 11-12: Other 7 regions (58 routers)</strong> - Parallel migrations
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Weekly Migration Cadence:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Sunday-Thursday Nights (2-6 AM local time):</strong> Router migrations</li>
+                    <li><strong>Friday-Saturday:</strong> No migrations (high-traffic days, stabilization period)</li>
+                    <li><strong>Migrations per night:</strong> 2-3 routers (pairs where possible)</li>
+                    <li><strong>Soak period:</strong> 24 hours between paired PEs (never both down simultaneously)</li>
+                </ul>
+                <p><strong>Customer Notification Timeline:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>T-14 days:</strong> Email notification to all affected customers</li>
+                    <li><strong>T-7 days:</strong> Reminder + phone calls to Tier-1 customers</li>
+                    <li><strong>T-1 day:</strong> Final confirmation email</li>
+                    <li><strong>T-0 (cutover):</strong> Real-time status portal updates</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>LAB_VALIDATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 10 - Lab Validation -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧪</span>
+            <span class="agent-name">LAB_VALIDATION_AGENT</span>
+            <span class="status-tag status-success">Lab Tests PASS</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Cisco 8201 Lab Validation & Burn-In Testing</strong></p>
+            <div class="change-details">
+                <p><strong>Lab Setup (4 Weeks):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Hardware:</strong> 5x Cisco 8201-32FH units (representing production config)</li>
+                    <li><strong>Config:</strong> Full production config deployed (sample of 5 routers)</li>
+                    <li><strong>Traffic:</strong> 80% production traffic simulation (ixia load generators)</li>
+                    <li><strong>Burn-In Duration:</strong> 4 weeks continuous operation</li>
+                </ul>
+                <p><strong>Lab Test Results:</strong></p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Config Syntax</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">BGP Convergence</div>
+                        <div class="card-value">8s avg</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">VRF Routing</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">L2VPN Stability</div>
+                        <div class="card-value">PASS</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Hardware Stability</div>
+                        <div class="card-value">0 crashes</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-label">Performance</div>
+                        <div class="card-value">+340% faster</div>
+                    </div>
+                </div>
+                <p><strong>Performance Benchmarks (ASR 9K vs Cisco 8000):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Throughput:</strong> 2.4 Tbps → 10.8 Tbps (+350%)</li>
+                    <li><strong>Latency:</strong> 5 μs → 2 μs (-60%)</li>
+                    <li><strong>CPU:</strong> 42% avg → 18% avg (-57% lower utilization)</li>
+                    <li><strong>Power:</strong> 1,200W → 850W (-29% power consumption)</li>
+                    <li><strong>BGP Convergence:</strong> 12s → 8s (-33% faster)</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ LAB VALIDATION SUCCESSFUL</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        All 5 Cisco 8201 units tested for 4 weeks with zero crashes. Performance exceeds ASR 9K by 340%.
+                        Ready for production pilot deployment.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PILOT_EXECUTION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧑‍✈️</span>
+            <span class="agent-name">PILOT_EXECUTION_AGENT</span>
+            <span class="status-tag status-success">Pilot Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Pilot Migration - LATAM-South Region (12 Routers)</strong></p>
+            <div class="change-details">
+                <p><strong>Pilot Execution (Weeks 1-2):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Region:</strong> LATAM-South (Sao Paulo, Brazil)</li>
+                    <li><strong>Routers:</strong> 12 ASR 9006 → 12 Cisco 8201-32FH</li>
+                    <li><strong>Customers Affected:</strong> 100 enterprise customers</li>
+                    <li><strong>Migration Schedule:</strong> 2 routers/night × 6 nights (Sunday-Thursday)</li>
+                </ul>
+                <p><strong>Pilot Results Summary:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Router ID</th>
+                                <th>Migration Date</th>
+                                <th>Downtime</th>
+                                <th>Services</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PE-SAO-01</td>
+                                <td>Week 1, Sun</td>
+                                <td>92 seconds</td>
+                                <td>18 VRFs, 5 L2VPN</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>PE-SAO-02</td>
+                                <td>Week 1, Sun</td>
+                                <td>95 seconds</td>
+                                <td>16 VRFs, 6 L2VPN</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>PE-SAO-03</td>
+                                <td>Week 1, Mon</td>
+                                <td>88 seconds</td>
+                                <td>20 VRFs, 7 L2VPN</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>PE-SAO-04</td>
+                                <td>Week 1, Mon</td>
+                                <td>102 seconds</td>
+                                <td>19 VRFs, 6 L2VPN</td>
+                                <td style="color: #00ff88;">✓ SUCCESS</td>
+                            </tr>
+                            <tr>
+                                <td>PE-SAO-05-12</td>
+                                <td>Week 1-2</td>
+                                <td>85-108 seconds</td>
+                                <td>15-22 VRFs, 4-8 L2VPN</td>
+                                <td style="color: #00ff88;">✓ 8/8 SUCCESS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Pilot Lessons Learned:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Average Downtime:</strong> 94 seconds (within <120s SLA)</li>
+                    <li>✓ <strong>Config Translation:</strong> Zero errors (IOS-XR compatibility validated)</li>
+                    <li>✓ <strong>BGP Convergence:</strong> 8-10 seconds (33% faster than ASR 9K)</li>
+                    <li>✓ <strong>Customer Feedback:</strong> 2 complaints out of 100 customers (2% complaint rate)</li>
+                    <li>⚠️ <strong>Issue Found:</strong> 1 router (PE-SAO-07) required optics replacement (faulty 400G transceiver)</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ PILOT SUCCESSFUL - PROCEED TO PHASE 2</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        12/12 routers migrated successfully. Average downtime 94s (22% better than 120s target).
+                        Zero config errors. Ready to scale to larger regions.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ROLLOUT_PHASE2_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🌏</span>
+            <span class="agent-name">ROLLOUT_PHASE2_AGENT</span>
+            <span class="status-tag status-success">Phase 2 Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Phase 2 - APAC-Southeast Region (15 Routers)</strong></p>
+            <div class="change-details">
+                <p><strong>Phase 2 Execution (Weeks 3-4):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Region:</strong> APAC-Southeast (Singapore)</li>
+                    <li><strong>Routers:</strong> 15 ASR 9006 → 15 Cisco 8201-32FH</li>
+                    <li><strong>VRFs Migrated:</strong> 320 VRFs</li>
+                    <li><strong>L2VPN Circuits:</strong> 90 circuits</li>
+                    <li><strong>Customers Affected:</strong> 120 enterprise customers</li>
+                </ul>
+                <p><strong>Migration Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Success Rate:</strong> 100% (15/15 routers)</li>
+                    <li>✓ <strong>Average Downtime:</strong> 96 seconds</li>
+                    <li>✓ <strong>Customer Complaints:</strong> 1.7% (2/120 customers)</li>
+                    <li>✓ <strong>Zero Rollbacks:</strong> No failures requiring rollback to ASR 9K</li>
+                </ul>
+                <p><strong>Performance Validation (Post-Migration):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>CPU Utilization:</strong> 42% → 16% (62% reduction)</li>
+                    <li><strong>Throughput:</strong> 2.4 Tbps → 10.8 Tbps per router</li>
+                    <li><strong>BGP Route Processing:</strong> 12s → 7s (42% faster)</li>
+                    <li><strong>Power Consumption:</strong> 18 kW → 12.75 kW (29% reduction for 15 routers)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ROLLOUT_PHASE3_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🇪🇺</span>
+            <span class="agent-name">ROLLOUT_PHASE3_AGENT</span>
+            <span class="status-tag status-success">Phase 3 Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Phase 3 - EU-Central Region (18 Routers)</strong></p>
+            <div class="change-details">
+                <p><strong>Phase 3 Execution (Weeks 5-6):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Region:</strong> EU-Central (Frankfurt, Germany)</li>
+                    <li><strong>Routers:</strong> 18 ASR 9006 → 18 Cisco 8201-32FH</li>
+                    <li><strong>VRFs Migrated:</strong> 380 VRFs</li>
+                    <li><strong>L2VPN Circuits:</strong> 110 circuits</li>
+                    <li><strong>Customers Affected:</strong> 150 enterprise customers</li>
+                </ul>
+                <p><strong>Migration Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Success Rate:</strong> 100% (18/18 routers)</li>
+                    <li>✓ <strong>Average Downtime:</strong> 98 seconds</li>
+                    <li>✓ <strong>Customer Complaints:</strong> 1.3% (2/150 customers)</li>
+                    <li>✓ <strong>GDPR Compliance:</strong> All data sovereignty requirements met</li>
+                </ul>
+                <p><strong>Cumulative Progress (45/150 Routers):</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%;">30% Complete (45/150 routers)</div>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ROLLOUT_PHASE4_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🌉</span>
+            <span class="agent-name">ROLLOUT_PHASE4_AGENT</span>
+            <span class="status-tag status-success">Phase 4 Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Phase 4 - US-West Region (22 Routers)</strong></p>
+            <div class="change-details">
+                <p><strong>Phase 4 Execution (Weeks 7-8):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Region:</strong> US-West (California - San Jose, Los Angeles)</li>
+                    <li><strong>Routers:</strong> 22 ASR 9006 → 22 Cisco 8201-32FH</li>
+                    <li><strong>VRFs Migrated:</strong> 480 VRFs</li>
+                    <li><strong>L2VPN Circuits:</strong> 140 circuits</li>
+                    <li><strong>Customers Affected:</strong> 180 enterprise customers (includes Fortune 500 companies)</li>
+                </ul>
+                <p><strong>Migration Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Success Rate:</strong> 100% (22/22 routers)</li>
+                    <li>✓ <strong>Average Downtime:</strong> 95 seconds</li>
+                    <li>✓ <strong>Customer Complaints:</strong> 1.1% (2/180 customers)</li>
+                    <li>✓ <strong>High-Profile Customers:</strong> 8 Fortune 500 companies - zero issues</li>
+                </ul>
+                <p><strong>Cumulative Progress (67/150 Routers):</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%;">45% Complete (67/150 routers)</div>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ROLLOUT_PHASE5_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 15 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🗽</span>
+            <span class="agent-name">ROLLOUT_PHASE5_AGENT</span>
+            <span class="status-tag status-success">Phase 5 Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Phase 5 - US-East Region (25 Routers - Highest Traffic)</strong></p>
+            <div class="change-details">
+                <p><strong>Phase 5 Execution (Weeks 9-10):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Region:</strong> US-East (Virginia - Ashburn, DC Metro)</li>
+                    <li><strong>Routers:</strong> 25 ASR 9006 → 25 Cisco 8201-32FH</li>
+                    <li><strong>VRFs Migrated:</strong> 520 VRFs</li>
+                    <li><strong>L2VPN Circuits:</strong> 160 circuits</li>
+                    <li><strong>Customers Affected:</strong> 200 enterprise customers (largest region)</li>
+                    <li><strong>Traffic Volume:</strong> 1.2 Tbps peak (40% of total network traffic)</li>
+                </ul>
+                <p><strong>Migration Summary:</strong></p>
+                <ul class="compact-list">
+                    <li>⚠️ <strong>Success Rate:</strong> 96% (24/25 routers first-attempt)</li>
+                    <li>&nbsp;&nbsp;- <strong>Failure:</strong> PE-VA-15 required rollback (BGP session stuck in Idle state)</li>
+                    <li>&nbsp;&nbsp;- <strong>Root Cause:</strong> IOS-XR software bug (CSCwb12345) - workaround applied</li>
+                    <li>&nbsp;&nbsp;- <strong>Retry:</strong> PE-VA-15 migrated successfully next night (after IOS-XR patch)</li>
+                    <li>✓ <strong>Final Success Rate:</strong> 100% (25/25 routers after retry)</li>
+                    <li>✓ <strong>Average Downtime:</strong> 102 seconds (slightly higher due to traffic volume)</li>
+                    <li>✓ <strong>Customer Complaints:</strong> 1.0% (2/200 customers)</li>
+                </ul>
+                <p><strong>Cumulative Progress (92/150 Routers):</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 61%;">61% Complete (92/150 routers)</div>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>ROLLOUT_PHASE6_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 16 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🌍</span>
+            <span class="agent-name">ROLLOUT_PHASE6_AGENT</span>
+            <span class="status-tag status-success">Phase 6 Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Phase 6 - Other 7 Regions in Parallel (58 Routers)</strong></p>
+            <div class="change-details">
+                <p><strong>Phase 6 Execution (Weeks 11-12):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Regions:</strong> Canada, Mexico, UK, India, Japan, Australia, Middle East (7 regions)</li>
+                    <li><strong>Routers:</strong> 58 ASR 9006 → 58 Cisco 8201-32FH (parallel migrations)</li>
+                    <li><strong>VRFs Migrated:</strong> 560 VRFs</li>
+                    <li><strong>L2VPN Circuits:</strong> 230 circuits</li>
+                    <li><strong>Customers Affected:</strong> 450 enterprise customers</li>
+                    <li><strong>Migration Strategy:</strong> 10-12 routers/night across multiple regions</li>
+                </ul>
+                <p><strong>Regional Breakdown:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Region</th>
+                                <th>Routers</th>
+                                <th>Success Rate</th>
+                                <th>Avg Downtime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Canada (Toronto)</td>
+                                <td>8</td>
+                                <td style="color: #00ff88;">100% (8/8)</td>
+                                <td>94s</td>
+                            </tr>
+                            <tr>
+                                <td>Mexico (Mexico City)</td>
+                                <td>6</td>
+                                <td style="color: #00ff88;">100% (6/6)</td>
+                                <td>98s</td>
+                            </tr>
+                            <tr>
+                                <td>UK (London)</td>
+                                <td>10</td>
+                                <td style="color: #00ff88;">100% (10/10)</td>
+                                <td>96s</td>
+                            </tr>
+                            <tr>
+                                <td>India (Mumbai)</td>
+                                <td>9</td>
+                                <td style="color: #00ff88;">100% (9/9)</td>
+                                <td>102s</td>
+                            </tr>
+                            <tr>
+                                <td>Japan (Tokyo)</td>
+                                <td>10</td>
+                                <td style="color: #00ff88;">100% (10/10)</td>
+                                <td>92s</td>
+                            </tr>
+                            <tr>
+                                <td>Australia (Sydney)</td>
+                                <td>8</td>
+                                <td style="color: #00ff88;">100% (8/8)</td>
+                                <td>100s</td>
+                            </tr>
+                            <tr>
+                                <td>Middle East (Dubai)</td>
+                                <td>7</td>
+                                <td style="color: #00ff88;">100% (7/7)</td>
+                                <td>97s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Final Migration Summary:</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;">100% Complete (150/150 routers)</div>
+                </div>
+                <ul class="compact-list">
+                    <li>✓ <strong>Total Routers:</strong> 150/150 migrated</li>
+                    <li>✓ <strong>First-Attempt Success:</strong> 149/150 (99.3%)</li>
+                    <li>✓ <strong>Final Success Rate:</strong> 150/150 (100% after 1 retry)</li>
+                    <li>✓ <strong>Average Downtime:</strong> 98 seconds across all routers</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>POST_MIGRATION_VALIDATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 17 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🔍</span>
+            <span class="agent-name">POST_MIGRATION_VALIDATION_AGENT</span>
+            <span class="status-tag status-success">All Services Validated</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Fleet-Wide Post-Migration Validation</strong></p>
+            <div class="change-details">
+                <p><strong>Service Health Check (All 150 Routers):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>L3VPN VRFs:</strong> 2,500/2,500 UP (100%)</li>
+                    <li><strong>L2VPN Circuits:</strong> 800/800 UP (100%)</li>
+                    <li><strong>BGP Sessions:</strong> 4,200/4,200 Established (100%)</li>
+                    <li><strong>MPLS LSPs:</strong> 67,500/67,500 UP (100%)</li>
+                    <li><strong>Customer Reachability:</strong> 1,200/1,200 customers reachable (100%)</li>
+                </ul>
+                <p><strong>Performance Comparison (ASR 9K vs Cisco 8000 Fleet):</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>ASR 9K (Before)</th>
+                                <th>Cisco 8000 (After)</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Avg CPU</td>
+                                <td>42%</td>
+                                <td>18%</td>
+                                <td style="color: #00ff88;">-57%</td>
+                            </tr>
+                            <tr>
+                                <td>Avg Memory</td>
+                                <td>55%</td>
+                                <td>38%</td>
+                                <td style="color: #00ff88;">-31%</td>
+                            </tr>
+                            <tr>
+                                <td>BGP Convergence</td>
+                                <td>12 seconds</td>
+                                <td>8 seconds</td>
+                                <td style="color: #00ff88;">-33%</td>
+                            </tr>
+                            <tr>
+                                <td>Power (Fleet)</td>
+                                <td>180 kW</td>
+                                <td>127 kW</td>
+                                <td style="color: #00ff88;">-29%</td>
+                            </tr>
+                            <tr>
+                                <td>Throughput/Router</td>
+                                <td>2.4 Tbps</td>
+                                <td>10.8 Tbps</td>
+                                <td style="color: #00ff88;">+350%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>MONITORING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 18 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📡</span>
+            <span class="agent-name">MONITORING_AGENT</span>
+            <span class="status-tag status-info">30-Day Monitoring</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Post-Migration Stability Monitoring (30 Days)</strong></p>
+            <div class="change-details">
+                <p><strong>Fleet Stability Metrics (30 Days):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Hardware Failures:</strong> 0 (zero Cisco 8201 hardware failures)</li>
+                    <li><strong>Software Crashes:</strong> 1 (IOS-XR software bug - patched in week 3)</li>
+                    <li><strong>BGP Flaps:</strong> 3 total (all due to customer CPE issues, not router)</li>
+                    <li><strong>L2VPN Flaps:</strong> 2 total (LDP session timeouts during maintenance)</li>
+                    <li><strong>Customer Complaints:</strong> 14 total (1.2% of 1,200 customers)</li>
+                </ul>
+                <p><strong>Weekly Stability Trend:</strong></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Week 1-2:</strong> 8 complaints (customers adjusting to new platform)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Week 3:</strong> 4 complaints (1 software bug fixed)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Week 4:</strong> 2 complaints (stabilizing)
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Week 5+:</strong> 0 complaints (fully stable)
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 15px; background-color: #1a2a1a; border-left: 4px solid #00ff88; margin: 15px 0;">
+                    <p style="margin: 0; color: #00ff88; font-weight: 600;">✅ 30-DAY MONITORING COMPLETE</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        Fleet is stable. Zero hardware failures. 1 software bug fixed. Customer complaints trending to zero.
+                        Ready to decommission old ASR 9K platform.
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>DECOMMISSIONING_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 19 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🗑️</span>
+            <span class="agent-name">DECOMMISSIONING_AGENT</span>
+            <span class="status-tag status-success">Decom Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K Platform Decommissioning</strong></p>
+            <div class="change-details">
+                <p><strong>Decommissioning Tasks:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Power Down:</strong> All 150 ASR 9006 routers powered off</li>
+                    <li>✓ <strong>Cables Removed:</strong> Fiber and power cables disconnected</li>
+                    <li>✓ <strong>Rack Space Freed:</strong> 450 RU freed (3RU/router × 150) = 11 full racks</li>
+                    <li>✓ <strong>Asset Disposition:</strong></li>
+                    <li>&nbsp;&nbsp;- 100 routers sold as refurbished ($5,000/unit = $500,000 revenue)</li>
+                    <li>&nbsp;&nbsp;- 50 routers retained as spares for other ASR 9K deployments</li>
+                    <li>✓ <strong>Optics Reused:</strong> 600x 100G optics moved to spare inventory</li>
+                    <li>✓ <strong>CMDB Updated:</strong> All 150 ASR 9K marked as "DECOMMISSIONED"</li>
+                </ul>
+                <p><strong>Environmental Impact:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Power Savings:</strong> 53 kW reduction (180 kW → 127 kW)</li>
+                    <li><strong>Cooling Savings:</strong> 63 kW reduction (1.2x multiplier for CRAC)</li>
+                    <li><strong>CO2 Reduction:</strong> 510 tons/year (at 0.5 kg CO2/kWh)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>DOCUMENTATION_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 20 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📚</span>
+            <span class="agent-name">DOCUMENTATION_AGENT</span>
+            <span class="status-tag status-success">Docs Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Migration Documentation & Runbook</strong></p>
+            <div class="change-details">
+                <p><strong>Documentation Deliverables:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ <strong>Migration Runbook:</strong> 85-page PDF with detailed procedures</li>
+                    <li>✓ <strong>Config Repository:</strong> Git repo with all 150 router configs (before/after)</li>
+                    <li>✓ <strong>Network Diagrams:</strong> Updated topology diagrams (ASR 9K → Cisco 8000)</li>
+                    <li>✓ <strong>Lessons Learned:</strong> 12-page document with best practices</li>
+                    <li>✓ <strong>Performance Reports:</strong> Weekly performance dashboards (12 weeks)</li>
+                    <li>✓ <strong>Customer Communications:</strong> All notification emails archived</li>
+                </ul>
+                <p><strong>Key Lessons Learned:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Success Factor #1:</strong> IOS-XR compatibility eliminated 90% of migration risk</li>
+                    <li><strong>Success Factor #2:</strong> Phased regional rollout contained blast radius</li>
+                    <li><strong>Success Factor #3:</strong> Dual-homing leveraged for hitless failover (85% customers)</li>
+                    <li><strong>Issue #1:</strong> 1 IOS-XR software bug (CSCwb12345) - workaround documented</li>
+                    <li><strong>Improvement:</strong> Future migrations should include 6-week lab validation (vs 4 weeks)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>KNOWLEDGE_CAPTURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 21 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🧠</span>
+            <span class="agent-name">KNOWLEDGE_CAPTURE_AGENT</span>
+            <span class="status-tag status-info">Knowledge Stored</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>AI Knowledge Base Update for Future Migrations</strong></p>
+            <div class="change-details">
+                <p><strong>Knowledge Captured:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>IOS-XR Migration Patterns:</strong></li>
+                    <li>&nbsp;&nbsp;- Interface name translation: TenGigE → FourHundredGigE (regex rules stored)</li>
+                    <li>&nbsp;&nbsp;- Config compatibility matrix: IOS-XR 7.3 ↔ 7.9 (100% compatible)</li>
+                    <li>&nbsp;&nbsp;- Zero config translation required (same OS family)</li>
+                    <li><strong>Performance Benchmarks:</strong></li>
+                    <li>&nbsp;&nbsp;- ASR 9K → Cisco 8000: +350% throughput, -60% latency, -57% CPU</li>
+                    <li>&nbsp;&nbsp;- Migration downtime: 98s average (well within 120s SLA)</li>
+                    <li><strong>Risk Mitigation Strategies:</strong></li>
+                    <li>&nbsp;&nbsp;- Phased regional rollout (pilot → scale incrementally)</li>
+                    <li>&nbsp;&nbsp;- Dual-homing leveraged (85% customers hitless)</li>
+                    <li>&nbsp;&nbsp;- 4-week lab validation (catch 100% of config errors)</li>
+                </ul>
+                <div style="padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff; margin: 15px 0;">
+                    <p style="margin: 0; color: #00aaff; font-weight: 600;">🤖 AI Learning Summary</p>
+                    <p style="margin: 5px 0 0 0; color: #ccc;">
+                        AI agents learned ASR 9K → Cisco 8000 migration patterns. Future IOS-XR platform upgrades
+                        will be 95% automated. Estimated time savings: 70% (12 weeks → 3.6 weeks for next migration).
+                    </p>
+                </div>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>COST_ANALYSIS_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 22 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">💰</span>
+            <span class="agent-name">COST_ANALYSIS_AGENT</span>
+            <span class="status-tag status-success">ROI Calculated</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Migration Cost Analysis & ROI</strong></p>
+            <div class="change-details">
+                <p><strong>Migration Costs:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Hardware:</strong> 150 Cisco 8201 @ $85,000/unit = $12,750,000</li>
+                    <li><strong>Optics:</strong> 2,100 optics (400G/100G) @ $5,000 avg = $10,500,000</li>
+                    <li><strong>IOS-XR Licenses:</strong> 150 routers @ $15,000/unit = $2,250,000</li>
+                    <li><strong>Labor:</strong> 12 weeks × 5 engineers × $150/hr × 40hr/wk = $360,000</li>
+                    <li><strong>Total Migration Cost:</strong> $25,860,000</li>
+                </ul>
+                <p><strong>Annual Savings (Year 1):</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Power Savings:</strong> 53 kW × $0.12/kWh × 8,760 hr/yr = $55,700/year</li>
+                    <li><strong>Cooling Savings:</strong> 63 kW × $0.12/kWh × 8,760 hr/yr = $66,300/year</li>
+                    <li><strong>Rack Space:</strong> 11 racks @ $5,000/rack/month × 12 = $660,000/year</li>
+                    <li><strong>Maintenance (ASR 9K EoS):</strong> 150 routers @ $8,000/yr = $1,200,000/year</li>
+                    <li><strong>Downtime Avoided:</strong> 98s vs 10min manual = $420,000 (one-time)</li>
+                    <li><strong>Config Translation Avoided:</strong> Zero translation = $280,000 (one-time)</li>
+                    <li><strong>Asset Recovery:</strong> 100 ASR 9K sold = $500,000 (one-time)</li>
+                    <li><strong>Total Year 1 Savings:</strong> $3,182,000</li>
+                </ul>
+                <p><strong>ROI Calculation:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Investment</td>
+                                <td>$25,860,000</td>
+                            </tr>
+                            <tr>
+                                <td>Year 1 Savings</td>
+                                <td>$3,182,000</td>
+                            </tr>
+                            <tr>
+                                <td>Payback Period</td>
+                                <td style="color: #00ff88;">8.1 years</td>
+                            </tr>
+                            <tr>
+                                <td>5-Year TCO Savings</td>
+                                <td style="color: #00ff88;">$13,728,000</td>
+                            </tr>
+                            <tr>
+                                <td>10-Year TCO Savings</td>
+                                <td style="color: #00ff88;">$31,820,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Intangible Benefits:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Platform future-proofed for SRv6 (5-10 year roadmap)</li>
+                    <li>✓ 400G/800G capacity for traffic growth (10-year runway)</li>
+                    <li>✓ Lower operational complexity (57% lower CPU utilization)</li>
+                    <li>✓ Improved customer satisfaction (1.2% complaint rate vs 3.5% baseline)</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>EXECUTIVE_REPORT_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 23 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📊</span>
+            <span class="agent-name">EXECUTIVE_REPORT_AGENT</span>
+            <span class="status-tag status-success">Report Ready</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Executive Summary Report</strong></p>
+            <div class="change-details">
+                <p><strong>Migration Highlights:</strong></p>
+                <ul class="compact-list">
+                    <li>✅ <strong>150 routers migrated</strong> from ASR 9006 to Cisco 8201 in 11.5 weeks</li>
+                    <li>✅ <strong>99.3% first-attempt success rate</strong> (149/150 routers)</li>
+                    <li>✅ <strong>98-second average downtime</strong> (18% better than 120s SLA)</li>
+                    <li>✅ <strong>2,500 L3VPN + 800 L2VPN services</strong> migrated with zero data loss</li>
+                    <li>✅ <strong>1,200 enterprise customers</strong> affected (1.2% complaint rate)</li>
+                    <li>✅ <strong>$755K cost savings</strong> (Year 1 opex + one-time efficiencies)</li>
+                </ul>
+                <p><strong>Strategic Achievements:</strong></p>
+                <ul class="compact-list">
+                    <li>🚀 <strong>350% performance increase</strong> (10.8 Tbps vs 2.4 Tbps per router)</li>
+                    <li>⚡ <strong>60% latency reduction</strong> (2 μs vs 5 μs)</li>
+                    <li>💡 <strong>29% power savings</strong> (127 kW vs 180 kW fleet-wide)</li>
+                    <li>🌐 <strong>SRv6 ready</strong> for next-gen network transformation</li>
+                    <li>📈 <strong>10-year capacity runway</strong> with 400G/800G ports</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>CHANGE_CLOSURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 24 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">📋</span>
+            <span class="agent-name">CHANGE_CLOSURE_AGENT</span>
+            <span class="status-tag status-success">Change Closed</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>Change Control Closure</strong></p>
+            <div class="change-details">
+                <p><strong>Change Ticket: CHG-2025-PLATFORM-9K-8K</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Status:</strong> CLOSED - SUCCESSFUL</li>
+                    <li><strong>Change Type:</strong> Major - Platform Migration</li>
+                    <li><strong>Risk Level:</strong> High (150 production routers)</li>
+                    <li><strong>Approval:</strong> CAB + Executive Approved</li>
+                    <li><strong>Start Date:</strong> Week 1 (Pilot)</li>
+                    <li><strong>Completion Date:</strong> Week 11.5 (ahead of 12-week schedule)</li>
+                    <li><strong>Monitoring Period:</strong> 30 days (completed - all stable)</li>
+                </ul>
+                <p><strong>Closure Checklist:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ All 150 routers migrated successfully</li>
+                    <li>✓ All 2,500 VRFs + 800 L2VPN circuits validated</li>
+                    <li>✓ Customer notifications sent (1,200 customers)</li>
+                    <li>✓ 30-day monitoring completed (zero issues)</li>
+                    <li>✓ Old ASR 9K platform decommissioned</li>
+                    <li>✓ Documentation completed (runbook, diagrams, lessons learned)</li>
+                    <li>✓ Knowledge captured in AI system</li>
+                </ul>
+                <p><strong>Approvals:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Network Engineering Manager: APPROVED</li>
+                    <li>✓ Change Manager: APPROVED</li>
+                    <li>✓ VP of Infrastructure: APPROVED</li>
+                </ul>
+            </div>
+            <div class="agent-transfer">
+                <span class="arrow">→</span> Transferring to <strong>PROJECT_CLOSURE_AGENT</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 25 -->
+    <div class="agent-step completed">
+        <div class="agent-header">
+            <span class="agent-icon">🎉</span>
+            <span class="agent-name">PROJECT_CLOSURE_AGENT</span>
+            <span class="status-tag status-success">Project Complete</span>
+        </div>
+        <div class="agent-content">
+            <p><strong>ASR 9K → Cisco 8000 Migration - Final Closure</strong></p>
+            <div class="change-details">
+                <p><strong>Project Summary:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Project ID:</strong> PLATFORM-MIG-2025-9K-8K</li>
+                    <li><strong>Migration Type:</strong> ASR 9006 → Cisco 8201-32FH (IOS-XR to IOS-XR)</li>
+                    <li><strong>Routers Migrated:</strong> 150 PE routers across 12 regions</li>
+                    <li><strong>Services Migrated:</strong> 2,500 L3VPN VRFs + 800 L2VPN circuits</li>
+                    <li><strong>Customers:</strong> 1,200 enterprise customers (8 customers/router avg)</li>
+                    <li><strong>Timeline:</strong> 12 weeks (phased regional rollout)</li>
+                    <li><strong>Success Rate:</strong> 99.3% (149/150 routers first-attempt success)</li>
+                    <li><strong>Avg Downtime per Router:</strong> 98 seconds (within &lt;2 minute SLA)</li>
+                </ul>
+                <p><strong>Key Achievements:</strong></p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Target</th>
+                                <th>Actual</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Success Rate</td>
+                                <td>&gt;95%</td>
+                                <td>99.3% (149/150)</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                            <tr>
+                                <td>Downtime per Router</td>
+                                <td>&lt;2 minutes</td>
+                                <td>98 seconds</td>
+                                <td style="color: #00ff88;">✓ MET</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Complaints</td>
+                                <td>&lt;5%</td>
+                                <td>1.2% (14/1200)</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                            <tr>
+                                <td>Timeline</td>
+                                <td>12 weeks</td>
+                                <td>11.5 weeks</td>
+                                <td style="color: #00ff88;">✓ AHEAD</td>
+                            </tr>
+                            <tr>
+                                <td>Config Translation Errors</td>
+                                <td>&lt;10</td>
+                                <td>2</td>
+                                <td style="color: #00ff88;">✓ EXCEEDED</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Performance Improvements:</strong></p>
+                <ul class="compact-list">
+                    <li>✓ Throughput: +350% (2.4 Tbps → 10.8 Tbps per router)</li>
+                    <li>✓ Latency: -60% (5 μs → 2 μs)</li>
+                    <li>✓ CPU Utilization: -57% (42% → 18%)</li>
+                    <li>✓ Power Consumption: -29% per router (180 kW → 127 kW fleet-wide)</li>
+                    <li>✓ BGP Convergence: -33% faster (12s → 8s)</li>
+                </ul>
+                <p><strong>Cost Savings & ROI:</strong></p>
+                <ul class="compact-list">
+                    <li><strong>Power Savings:</strong> 53 kW fleet-wide × $0.12/kWh × 8,760 hr/yr = $55,700/year</li>
+                    <li><strong>Rack Space:</strong> 150 routers × 3RU vs 2RU = 150RU saved = 4 racks freed</li>
+                    <li><strong>Manual Labor Avoided:</strong> Zero config translation (same IOS-XR) = $280,000 saved</li>
+                    <li><strong>Downtime Cost Avoided:</strong> 98s avg vs 10min manual = $420,000 saved</li>
+                    <li><strong>Total Savings:</strong> $755,700 (migration + year 1 opex)</li>
+                </ul>
+                <p><strong>Innovation Highlights:</strong></p>
+                <ul class="compact-list">
+                    <li>🚀 <strong>Silicon One Architecture:</strong> Next-gen ASIC with 10.8 Tbps throughput</li>
+                    <li>⚙️ <strong>IOS-XR Compatibility:</strong> Zero config translation (interface names only)</li>
+                    <li>📝 <strong>Phased Regional Rollout:</strong> 12 weeks, 6 phases, 12 regions</li>
+                    <li>🔄 <strong>Dual-Homing Leveraged:</strong> 85% customers hitless (MC-LAG failover)</li>
+                    <li>🌐 <strong>SRv6 Ready:</strong> Platform future-proofed for Segment Routing v6</li>
+                </ul>
+            </div>
+            <div style="margin-top: 25px; padding: 20px; background-color: #252525; border-radius: 8px; border-left: 4px solid #00ff88;">
+                <h5 style="color: #00ff88; margin: 0 0 10px 0;">🎉 PROJECT SUCCESS SUMMARY</h5>
+                <p style="margin: 0; color: #ccc;">
+                    <strong>150 ASR 9006 routers migrated to Cisco 8201 with 99.3% success rate in 11.5 weeks.</strong>
+                    2,500 L3VPN VRFs and 800 L2VPN circuits serving 1,200 customers migrated with 98-second average downtime.
+                    IOS-XR compatibility eliminated config translation complexity. Silicon One architecture delivers 350%
+                    throughput increase, 60% latency reduction, and 29% power savings. $755K total savings achieved.
+                    Platform future-proofed for SRv6 and 400G/800G scaling.
+                </p>
+            </div>
+            <p style="margin-top: 20px; text-align: center; color: #00ff88; font-size: 18px; font-weight: 600;">
+                ✅ ASR 9K → CISCO 8000 MIGRATION PROJECT CLOSED - PLATFORM-MIG-2025-9K-8K
+            </p>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333;">
+        <h4 style="color: #00ff88; margin-bottom: 15px;">🎯 Complete 25-Step ASR 9K → Cisco 8000 Migration Workflow</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%;">100% Complete (25/25 steps)</div>
+        </div>
+        <p style="margin-top: 15px; color: #ccc;">
+            This comprehensive 25-step platform migration workflow demonstrates Cisco Agentic AI's ability to orchestrate
+            large-scale hardware upgrades from ASR 9K to Cisco 8000 with minimal downtime. The migration leverages IOS-XR
+            compatibility (same OS on both platforms) to eliminate config translation complexity, while upgrading to Silicon
+            One Q200 architecture for 350% performance increase and native SRv6 support. Phased regional rollout across 12
+            weeks ensures risk containment and leverages customer dual-homing for hitless failover.
+        </p>
+        <div style="margin-top: 20px; padding: 15px; background-color: #1a2a3a; border-left: 4px solid #00aaff;">
+            <p style="margin: 0; color: #00aaff; font-weight: 600;">🚀 Silicon One Advantages</p>
+            <p style="margin: 5px 0 0 0; color: #ccc; font-size: 13px;">
+                Cisco 8000 series powered by Silicon One Q100/Q200 delivers <strong>10.8 Tbps</strong> throughput
+                (vs 2.4 Tbps ASR 9K), <strong>2 μs latency</strong> (vs 5 μs), <strong>400G/800G</strong> port support,
+                and <strong>native SRv6</strong> acceleration. Same IOS-XR OS enables zero-downtime migrations with
+                config copy (interface name changes only). 29% power reduction and 57% lower CPU utilization.
+            </p>
+        </div>
+    </div>
+</div>
+`]
             }
         };
 
