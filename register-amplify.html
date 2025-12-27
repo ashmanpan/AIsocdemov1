@@ -1152,7 +1152,13 @@
             if (result.success) {
                 showSuccess('Email verified successfully! Redirecting to login...');
                 setTimeout(() => {
+                    // Preserve redirect URL if user came from a demo
+                const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+                if (redirectUrl) {
+                    window.location.href = 'admin-login-amplify.html?registered=true&redirect=' + encodeURIComponent(redirectUrl);
+                } else {
                     window.location.href = 'admin-login-amplify.html?registered=true';
+                }
                 }, 2000);
             } else {
                 showError(result.error || 'Verification failed. Please try again.');

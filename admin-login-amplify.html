@@ -584,9 +584,21 @@
             document.getElementById('successCheck').classList.add('show');
             document.getElementById('loginForm').style.opacity = '0';
 
+            // Check for redirect URL (from demo click)
+            const urlParams = new URLSearchParams(window.location.search);
+            let redirectUrl = urlParams.get('redirect') || sessionStorage.getItem('redirectAfterLogin');
+
+            // Clear stored redirect
+            sessionStorage.removeItem('redirectAfterLogin');
+
+            // Default to index if no redirect specified
+            if (!redirectUrl) {
+                redirectUrl = 'index.html';
+            }
+
             // Redirect after animation
             setTimeout(() => {
-                window.location.href = 'admin-videos.html';
+                window.location.href = redirectUrl;
             }, 1500);
         }
 

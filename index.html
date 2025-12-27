@@ -670,21 +670,26 @@
                 <div class="nav-dropdown">
                     <a href="#" class="nav-link">Demos</a>
                     <div class="dropdown-content">
-                        <a href="Cisco-AI-NoC-Telco-v5.html" class="dropdown-item">AI NOC Demo</a>
-                        <a href="Cisco-AI-SoC-Telco-v2.5.html" class="dropdown-item">AI SOC Demo</a>
-                        <a href="Cisco-AI-DC-v2.0.html" class="dropdown-item">AI Datacenter Demo</a>
-                        <a href="Cloud-service-creation-as-service/cloud-operations.html" class="dropdown-item">AI Cloud Ops</a>
+                        <a href="#" onclick="goToDemo('Cisco-AI-NoC-Telco-v5.html'); return false;" class="dropdown-item">AI NOC Demo</a>
+                        <a href="#" onclick="goToDemo('Cisco-AI-SoC-Telco-v2.5.html'); return false;" class="dropdown-item">AI SOC Demo</a>
+                        <a href="#" onclick="goToDemo('Cisco-AI-DC-v2.0.html'); return false;" class="dropdown-item">AI Datacenter Demo</a>
+                        <a href="#" onclick="goToDemo('Cloud-service-creation-as-service/cloud-operations.html'); return false;" class="dropdown-item">AI Cloud Ops</a>
                     </div>
                 </div>
-                <a href="industry-usecases.html" class="nav-link">Vertical Industry</a>
-                <a href="agent-marketplace.html" class="nav-link">Marketplace</a>
-                <a href="demo-videos.html" class="nav-link">Demo Videos</a>
-                <a href="presentations.html" class="nav-link">Presentations</a>
-                <a href="parental-control.html" class="nav-link">Parental Control</a>
+                <a href="#" onclick="goToDemo('industry-usecases.html'); return false;" class="nav-link">Vertical Industry</a>
+                <a href="#" onclick="goToDemo('agent-marketplace.html'); return false;" class="nav-link">Marketplace</a>
+                <a href="#" onclick="goToDemo('demo-videos.html'); return false;" class="nav-link">Demo Videos</a>
+                <a href="#" onclick="goToDemo('presentations.html'); return false;" class="nav-link">Presentations</a>
+                <a href="#" onclick="goToDemo('parental-control.html'); return false;" class="nav-link">Parental Control</a>
                 <a href="contact-us.html" class="nav-link">Contact Us</a>
                 <a href="team.html" class="nav-link">Team</a>
             </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <a href="admin-login-amplify.html" style="padding: 0.5rem 1rem; background: transparent; border: 1px solid #00ff88; border-radius: 20px; color: #00ff88; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
+                   onmouseover="this.style.background='rgba(0,255,136,0.1)'; this.style.transform='scale(1.05)'"
+                   onmouseout="this.style.background='transparent'; this.style.transform='scale(1)'">
+                    Login
+                </a>
                 <a href="register-amplify.html" style="padding: 0.5rem 1rem; background: linear-gradient(45deg, #9b59b6, #00aaff); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(155,89,182,0.3)'"
                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
@@ -706,7 +711,7 @@
         
         <div class="demo-selection">
             <!-- First Row: NOC, SOC, Datacenter -->
-            <div class="demo-card noc-card" onclick="window.location.href='Cisco-AI-NoC-Telco-v5.html'">
+            <div class="demo-card noc-card" onclick="goToDemo('Cisco-AI-NoC-Telco-v5.html')"
                 <span class="demo-icon">🌐</span>
                 <h2 class="demo-title">AI NOC Demo</h2>
                 <p class="demo-description">
@@ -731,10 +736,10 @@
                         <span>Predictive maintenance</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-NoC-Telco-v5.html" class="demo-button">Launch NOC Demo</a>
+                <a href="#" onclick="goToDemo('Cisco-AI-NoC-Telco-v5.html'); return false;" class="demo-button">Launch NOC Demo</a>
             </div>
 
-            <div class="demo-card" onclick="window.location.href='Cisco-AI-SoC-Telco-v2.5.html'">
+            <div class="demo-card" onclick="goToDemo('Cisco-AI-SoC-Telco-v2.5.html')"
                 <span class="demo-icon">🛡️</span>
                 <h2 class="demo-title">AI SOC Demo</h2>
                 <p class="demo-description">
@@ -759,10 +764,10 @@
                         <span>Integrated security tools</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-SoC-Telco-v2.5.html" class="demo-button">Launch SOC Demo</a>
+                <a href="#" onclick="goToDemo('Cisco-AI-SoC-Telco-v2.5.html'); return false;" class="demo-button">Launch SOC Demo</a>
             </div>
 
-            <div class="demo-card dc-card" onclick="window.location.href='Cisco-AI-DC-v2.0.html'">
+            <div class="demo-card dc-card" onclick="goToDemo('Cisco-AI-DC-v2.0.html')"
                 <span class="demo-icon">🏢</span>
                 <h2 class="demo-title">AI Datacenter Demo</h2>
                 <p class="demo-description">
@@ -787,10 +792,10 @@
                         <span>Real code examples & workflows</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-DC-v2.0.html" class="demo-button">Launch DC Demo</a>
+                <a href="#" onclick="goToDemo('Cisco-AI-DC-v2.0.html'); return false;" class="demo-button">Launch DC Demo</a>
             </div>
 
-            <div class="demo-card cloudops-card" onclick="window.location.href='Cloud-service-creation-as-service/cloud-operations.html'">
+            <div class="demo-card cloudops-card" onclick="goToDemo('Cloud-service-creation-as-service/cloud-operations.html')"
                 <span class="demo-icon">☁️</span>
                 <h2 class="demo-title">Agentic AI Cloud Ops</h2>
                 <p class="demo-description">
@@ -815,10 +820,10 @@
                         <span>Complete lifecycle automation</span>
                     </div>
                 </div>
-                <a href="Cloud-service-creation-as-service/cloud-operations.html" class="demo-button">Launch Cloud Ops</a>
+                <a href="#" onclick="goToDemo('Cloud-service-creation-as-service/cloud-operations.html'); return false;" class="demo-button">Launch Cloud Ops</a>
             </div>
 
-            <div class="demo-card security-mgmt-card" onclick="window.location.href='https://ai-firewall-mgmt.ciscoaidemo.com/'">
+            <div class="demo-card security-mgmt-card" onclick="goToDemo('https://ai-firewall-mgmt.ciscoaidemo.com/')"
                 <span class="demo-icon">🔐</span>
                 <h2 class="demo-title">Cisco Security AI powered Management Center</h2>
                 <p class="demo-description">
@@ -843,11 +848,11 @@
                         <span>Compliance automation</span>
                     </div>
                 </div>
-                <a href="https://ai-firewall-mgmt.ciscoaidemo.com/" class="demo-button">Launch Security Mgmt</a>
+                <a href="#" onclick="goToDemo('https://ai-firewall-mgmt.ciscoaidemo.com/'); return false;" class="demo-button">Launch Security Mgmt</a>
             </div>
 
             <!-- Second Row: Vertical Industry and Agent Marketplace -->
-            <div class="demo-card industry-card" onclick="window.location.href='industry-usecases.html'">
+            <div class="demo-card industry-card" onclick="goToDemo('industry-usecases.html')"
                 <span class="demo-icon">🏭</span>
                 <h2 class="demo-title">Vertical Industry Use Cases</h2>
                 <p class="demo-description">
@@ -872,10 +877,10 @@
                         <span>ROI-focused deployments</span>
                     </div>
                 </div>
-                <a href="industry-usecases.html" class="demo-button">Explore Industries</a>
+                <a href="#" onclick="goToDemo('industry-usecases.html'); return false;" class="demo-button">Explore Industries</a>
             </div>
 
-            <div class="demo-card marketplace-card" onclick="window.location.href='agent-marketplace.html'">
+            <div class="demo-card marketplace-card" onclick="goToDemo('agent-marketplace.html')"
                 <span class="demo-icon">🏪</span>
                 <h2 class="demo-title">Agent Marketplace</h2>
                 <p class="demo-description">
@@ -900,10 +905,10 @@
                         <span>Try Before You Buy</span>
                     </div>
                 </div>
-                <a href="agent-marketplace.html" class="demo-button">Browse Marketplace</a>
+                <a href="#" onclick="goToDemo('agent-marketplace.html'); return false;" class="demo-button">Browse Marketplace</a>
             </div>
 
-            <div class="demo-card migration-card" onclick="window.location.href='Cisco-AI-Migration-Telco-v1.0.html'">
+            <div class="demo-card migration-card" onclick="goToDemo('Cisco-AI-Migration-Telco-v1.0.html')"
                 <span class="demo-icon">🔄</span>
                 <h2 class="demo-title">Network Migration Use Cases</h2>
                 <p class="demo-description">
@@ -928,7 +933,7 @@
                         <span>IOS-XE to IOS-XR migration</span>
                     </div>
                 </div>
-                <a href="Cisco-AI-Migration-Telco-v1.0.html" class="demo-button">Launch Migration Demo</a>
+                <a href="#" onclick="goToDemo('Cisco-AI-Migration-Telco-v1.0.html'); return false;" class="demo-button">Launch Migration Demo</a>
             </div>
         </div>
         
@@ -944,6 +949,14 @@
     </div>
 
     <script>
+        // Demo access - redirect to login with intended destination
+        function goToDemo(demoUrl) {
+            // Store the intended demo URL
+            sessionStorage.setItem('redirectAfterLogin', demoUrl);
+            // Redirect to login page
+            window.location.href = 'admin-login-amplify.html?redirect=' + encodeURIComponent(demoUrl);
+        }
+
         // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navMenu = document.getElementById('navMenu');
