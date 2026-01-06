@@ -690,16 +690,23 @@
                 <a href="team.html" class="nav-link">Team</a>
             </nav>
             <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <a href="admin-login-amplify.html" style="padding: 0.5rem 1rem; background: transparent; border: 1px solid #00ff88; border-radius: 20px; color: #00ff88; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
+                <!-- Login/SignUp buttons (shown when not authenticated) -->
+                <a href="admin-login-amplify.html" id="loginBtn" style="padding: 0.5rem 1rem; background: transparent; border: 1px solid #00ff88; border-radius: 20px; color: #00ff88; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
                    onmouseover="this.style.background='rgba(0,255,136,0.1)'; this.style.transform='scale(1.05)'"
                    onmouseout="this.style.background='transparent'; this.style.transform='scale(1)'">
                     Login
                 </a>
-                <a href="register-amplify.html" style="padding: 0.5rem 1rem; background: linear-gradient(45deg, #9b59b6, #00aaff); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
+                <a href="register-amplify.html" id="signupBtn" style="padding: 0.5rem 1rem; background: linear-gradient(45deg, #9b59b6, #00aaff); border-radius: 20px; color: #fff; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;"
                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(155,89,182,0.3)'"
                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                     Sign Up
                 </a>
+                <!-- Logout button (shown when authenticated) -->
+                <button onclick="handleLogout()" id="logoutBtn" style="display: none; padding: 0.5rem 1rem; background: transparent; border: 1px solid #ff6666; border-radius: 20px; color: #ff6666; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
+                   onmouseover="this.style.background='rgba(255,102,102,0.1)'; this.style.transform='scale(1.05)'"
+                   onmouseout="this.style.background='transparent'; this.style.transform='scale(1)'">
+                    Logout
+                </button>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     ☰
                 </button>
@@ -957,6 +964,49 @@
     <script src="amplify-config.js"></script>
 
     <script>
+        // Check auth status on page load and update UI
+        document.addEventListener('DOMContentLoaded', async function() {
+            await updateAuthUI();
+        });
+
+        // Update UI based on authentication status
+        async function updateAuthUI() {
+            try {
+                const isLoggedIn = await window.AmplifyAuthService.isAuthenticated();
+                const loginBtn = document.getElementById('loginBtn');
+                const signupBtn = document.getElementById('signupBtn');
+                const logoutBtn = document.getElementById('logoutBtn');
+
+                if (isLoggedIn) {
+                    // User is authenticated - show logout, hide login/signup
+                    if (loginBtn) loginBtn.style.display = 'none';
+                    if (signupBtn) signupBtn.style.display = 'none';
+                    if (logoutBtn) logoutBtn.style.display = 'block';
+                } else {
+                    // User is not authenticated - show login/signup, hide logout
+                    if (loginBtn) loginBtn.style.display = 'block';
+                    if (signupBtn) signupBtn.style.display = 'block';
+                    if (logoutBtn) logoutBtn.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error checking auth status:', error);
+            }
+        }
+
+        // Handle logout
+        async function handleLogout() {
+            try {
+                await window.AmplifyAuthService.signOut();
+                // Update UI immediately
+                await updateAuthUI();
+                // Optionally refresh the page
+                window.location.reload();
+            } catch (error) {
+                console.error('Error signing out:', error);
+                alert('Error signing out. Please try again.');
+            }
+        }
+
         // Demo access - check auth first, then redirect appropriately
         async function goToDemo(demoUrl) {
             // Check if user is already authenticated
