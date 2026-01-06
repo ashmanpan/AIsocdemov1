@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cisco AI Operations Center - Choose Your Demo</title>
+
+    <!-- AWS Amplify Libraries (for auth check) -->
+    <script src="https://cdn.amplify.aws/packages/core/5.0.5/aws-amplify-core.min.js"></script>
+    <script src="https://cdn.amplify.aws/packages/auth/5.0.5/aws-amplify-auth.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -948,13 +953,28 @@
         </div>
     </div>
 
+    <!-- Load Amplify configuration -->
+    <script src="amplify-config.js"></script>
+
     <script>
-        // Demo access - redirect to login with intended destination
-        function goToDemo(demoUrl) {
-            // Store the intended demo URL
-            sessionStorage.setItem('redirectAfterLogin', demoUrl);
-            // Redirect to login page
-            window.location.href = 'admin-login-amplify.html?redirect=' + encodeURIComponent(demoUrl);
+        // Demo access - check auth first, then redirect appropriately
+        async function goToDemo(demoUrl) {
+            // Check if user is already authenticated
+            try {
+                const isLoggedIn = await window.AmplifyAuthService.isAuthenticated();
+                if (isLoggedIn) {
+                    // User is authenticated, go directly to demo
+                    window.location.href = demoUrl;
+                } else {
+                    // Not authenticated, redirect to login
+                    sessionStorage.setItem('redirectAfterLogin', demoUrl);
+                    window.location.href = 'admin-login-amplify.html?redirect=' + encodeURIComponent(demoUrl);
+                }
+            } catch (error) {
+                // On error, redirect to login
+                sessionStorage.setItem('redirectAfterLogin', demoUrl);
+                window.location.href = 'admin-login-amplify.html?redirect=' + encodeURIComponent(demoUrl);
+            }
         }
 
         // Mobile menu toggle
