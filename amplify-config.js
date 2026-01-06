@@ -64,7 +64,6 @@ const AmplifyAuthService = {
                     name: `${attributes.firstName} ${attributes.lastName}`,
                     'custom:company': attributes.company || '',
                     'custom:jobTitle': attributes.jobTitle || '',
-                    'custom:industry': attributes.industry || '',
                 }
             });
             return { success: true, user };

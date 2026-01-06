@@ -733,23 +733,6 @@
                 <input type="text" class="form-input" id="jobTitle" placeholder="e.g., Network Engineer">
             </div>
 
-            <div class="form-group full-width">
-                <label class="form-label">Industry <span class="required">*</span></label>
-                <select class="form-select" id="industry" required>
-                    <option value="">Select Industry</option>
-                    <option value="telecom">Telecommunications</option>
-                    <option value="finance">Finance & Banking</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="retail">Retail</option>
-                    <option value="manufacturing">Manufacturing</option>
-                    <option value="energy">Energy & Utilities</option>
-                    <option value="government">Government</option>
-                    <option value="education">Education</option>
-                    <option value="technology">Technology</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-
             <div class="form-group">
                 <label class="form-label">Password <span class="required">*</span></label>
                 <div class="password-input-wrapper">
@@ -1106,7 +1089,6 @@
                 lastName: document.getElementById('lastName').value,
                 company: document.getElementById('company').value,
                 jobTitle: document.getElementById('jobTitle').value || '',
-                industry: document.getElementById('industry').value,
                 phone: document.getElementById('phone').value || ''
             };
 
