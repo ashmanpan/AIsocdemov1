@@ -44,18 +44,19 @@ const amplifyConfig = {
     }
 };
 
-// Initialize Amplify when the script loads
-if (typeof window !== 'undefined' && window.Amplify) {
-    window.Amplify.configure(amplifyConfig);
+// Initialize Amplify when the script loads (using AWS CDN globals)
+if (typeof window !== 'undefined' && window.aws_amplify_core) {
+    // Configure Amplify core
+    window.aws_amplify_core.Amplify.configure(amplifyConfig);
     console.log('Amplify configured successfully');
 }
 
-// Authentication helper functions
+// Authentication helper functions (using AWS CDN auth global)
 const AmplifyAuthService = {
     // Sign up a new user
     async signUp(email, password, attributes) {
         try {
-            const { user } = await window.Amplify.Auth.signUp({
+            const { user } = await window.aws_amplify_auth.Auth.signUp({
                 username: email,
                 password,
                 attributes: {
@@ -76,7 +77,7 @@ const AmplifyAuthService = {
     // Confirm sign up with verification code
     async confirmSignUp(email, code) {
         try {
-            await window.Amplify.Auth.confirmSignUp(email, code);
+            await window.aws_amplify_auth.Auth.confirmSignUp(email, code);
             return { success: true };
         } catch (error) {
             console.error('Error confirming sign up:', error);
@@ -87,7 +88,7 @@ const AmplifyAuthService = {
     // Sign in user
     async signIn(username, password) {
         try {
-            const user = await window.Amplify.Auth.signIn(username, password);
+            const user = await window.aws_amplify_auth.Auth.signIn(username, password);
             return { success: true, user };
         } catch (error) {
             console.error('Error signing in:', error);
@@ -98,7 +99,7 @@ const AmplifyAuthService = {
     // Sign out user
     async signOut() {
         try {
-            await window.Amplify.Auth.signOut();
+            await window.aws_amplify_auth.Auth.signOut();
             return { success: true };
         } catch (error) {
             console.error('Error signing out:', error);
@@ -109,8 +110,8 @@ const AmplifyAuthService = {
     // Get current authenticated user
     async getCurrentUser() {
         try {
-            const user = await window.Amplify.Auth.currentAuthenticatedUser();
-            const attributes = await window.Amplify.Auth.userAttributes(user);
+            const user = await window.aws_amplify_auth.Auth.currentAuthenticatedUser();
+            const attributes = await window.aws_amplify_auth.Auth.userAttributes(user);
             const attributesMap = {};
             attributes.forEach(attr => {
                 attributesMap[attr.Name] = attr.Value;
@@ -125,7 +126,7 @@ const AmplifyAuthService = {
     // Check if user is authenticated
     async isAuthenticated() {
         try {
-            await window.Amplify.Auth.currentAuthenticatedUser();
+            await window.aws_amplify_auth.Auth.currentAuthenticatedUser();
             return true;
         } catch {
             return false;
@@ -135,7 +136,7 @@ const AmplifyAuthService = {
     // Resend confirmation code
     async resendConfirmationCode(username) {
         try {
-            await window.Amplify.Auth.resendSignUp(username);
+            await window.aws_amplify_auth.Auth.resendSignUp(username);
             return { success: true };
         } catch (error) {
             console.error('Error resending code:', error);
@@ -146,7 +147,7 @@ const AmplifyAuthService = {
     // Forgot password - send reset code
     async forgotPassword(username) {
         try {
-            await window.Amplify.Auth.forgotPassword(username);
+            await window.aws_amplify_auth.Auth.forgotPassword(username);
             return { success: true };
         } catch (error) {
             console.error('Error sending reset code:', error);
@@ -157,7 +158,7 @@ const AmplifyAuthService = {
     // Reset password with code
     async forgotPasswordSubmit(username, code, newPassword) {
         try {
-            await window.Amplify.Auth.forgotPasswordSubmit(username, code, newPassword);
+            await window.aws_amplify_auth.Auth.forgotPasswordSubmit(username, code, newPassword);
             return { success: true };
         } catch (error) {
             console.error('Error resetting password:', error);
@@ -168,7 +169,7 @@ const AmplifyAuthService = {
     // Federated sign in (OAuth)
     async federatedSignIn(provider) {
         try {
-            await window.Amplify.Auth.federatedSignIn({ provider });
+            await window.aws_amplify_auth.Auth.federatedSignIn({ provider });
             return { success: true };
         } catch (error) {
             console.error('Error with federated sign in:', error);

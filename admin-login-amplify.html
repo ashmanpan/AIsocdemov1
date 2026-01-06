@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Cisco AI Demo Hub</title>
 
-    <!-- AWS Amplify Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/aws-amplify@5.3.11/dist/aws-amplify.min.js"></script>
+    <!-- AWS Amplify Libraries (official AWS CDN - core must load before auth) -->
+    <script src="https://cdn.amplify.aws/packages/core/5.0.5/aws-amplify-core.min.js"></script>
+    <script src="https://cdn.amplify.aws/packages/auth/5.0.5/aws-amplify-auth.min.js"></script>
 
     <style>
         * {
@@ -516,8 +517,8 @@
         // Check if already logged in
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Amplify if not already done
-            if (!window.Amplify || !window.Amplify.Auth) {
-                console.error('Amplify not configured. Please set up amplify-config.js with your Cognito details.');
+            if (!window.aws_amplify_core || !window.aws_amplify_auth) {
+                console.error('Amplify not loaded. Check CDN scripts.');
                 showError('Authentication service not configured. Please contact administrator.');
                 return;
             }
